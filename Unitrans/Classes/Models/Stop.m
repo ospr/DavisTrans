@@ -10,6 +10,7 @@
 
 #import "StopTime.h"
 #import "Route.h"
+#import "Trip.h"
 
 @implementation Stop 
 

@@ -22,7 +22,7 @@
 @property (nonatomic, retain) NSString * stopDescription;
 @property (nonatomic, retain) NSSet* stopTimes;
 
-- (NSArray *)allStopTimesWithRoute:(Route *)route;
+- (NSArray *)allStopTimesWithRoute:(Route *)route onDate:(NSDate *)date;
 
 @end
 

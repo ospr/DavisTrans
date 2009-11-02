@@ -23,6 +23,12 @@
 @property (nonatomic, retain) Trip * trip;
 @property (nonatomic, retain) Stop * stop;
 
+- (void)setArrivalTimeFromTimeString:(NSString *)timeString;
+- (void)setDepartureTimeFromTimeString:(NSString *)timeString;
+
+- (NSString *)arrivalTimeString;
+- (NSString *)departureTimeString;
+
 @end
 
 
