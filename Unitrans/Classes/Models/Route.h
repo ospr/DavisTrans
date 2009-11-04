@@ -24,7 +24,7 @@
 @property (nonatomic, retain) NSSet* trips;
 @property (nonatomic, retain) Agency * agency;
 
-- (NSArray *)allStops;
+- (NSSet *)allStops;
 
 @end
 

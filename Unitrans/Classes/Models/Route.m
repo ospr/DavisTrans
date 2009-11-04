@@ -24,7 +24,7 @@
 @dynamic agency;
 
 // TODO: this does not work since not all trips have the same stops
-- (NSArray *)allStops
+- (NSSet *)allStops
 {    
     // Retrieve any trip from the route
     Trip *trip = [[self trips] anyObject];
@@ -38,7 +38,7 @@
         [stops addObject:[stopTime stop]];
     
     // Return all corresponding stops
-    return [NSArray arrayWithArray:stops];
+    return [NSSet setWithArray:stops];
 }
 
 @end
