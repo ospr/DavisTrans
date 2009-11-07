@@ -24,13 +24,16 @@
 + (NSString *)timeStringFromSeconds:(NSUInteger)seconds
 {
     static NSDateFormatter *dateFormatter = nil;
-    
+    static NSDate *referenceDate = nil;
+
     if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"hh:mm a"];
     }
+    if (!referenceDate)
+        referenceDate = [[dateFormatter dateFromString:@"12:00 am"] retain];
         
-    NSDate *dummyDate = [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
+    NSDate *dummyDate = [[[NSDate alloc] initWithTimeInterval:seconds sinceDate:referenceDate] autorelease];
     
     return [dateFormatter stringFromDate:dummyDate];
 }

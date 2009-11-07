@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class Route;
 
 @interface RouteViewController : UITableViewController {
+    Route *route;
 	NSArray *stops;
 }
 
+@property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) NSArray *stops;
 
 @end

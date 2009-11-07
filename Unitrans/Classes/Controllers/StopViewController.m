@@ -8,10 +8,15 @@
 
 #import "StopViewController.h"
 #import "StopTimeViewController.h"
+#import "Stop.h"
+#import "StopTime.h"
+#import "Route.h"
 
 
 @implementation StopViewController
 
+@synthesize route;
+@synthesize stop;
 @synthesize stopTimes;
 @synthesize selectedDate;
 @synthesize datePicker;
@@ -27,14 +32,30 @@
 }
 */
 
+- (void)dealloc 
+{
+    [route release];
+    [stop release];
+	[stopTimes release];
+    [selectedDate release];
+    
+    [super dealloc];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     [self setTitle:@"Stop Times"];
-	
-	selectedDate = [[NSDate alloc] init];
-	
-	stopTimes = [[NSArray alloc] initWithObjects:@"8:00", @"9:00", @"10:00", nil];
+	[self setSelectedDate:[NSDate date]];
+    [self updateStopTimes];
+}
+
+- (void)updateStopTimes
+{
+    // Get StopTimes based on route and date and sort
+    NSSortDescriptor *stopTimeSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"arrivalTime" ascending:YES] autorelease];
+    NSArray *sortedStopTimes = [[stop allStopTimesWithRoute:route onDate:selectedDate] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopTimeSortDescriptor]];
+    [self setStopTimes:sortedStopTimes];
 }
 
 /*
@@ -100,24 +121,22 @@
 {
 	if(section == 0)
 		return [NSString stringWithString:@"Schedule for date:"];
-	else {
+	else
 		return [NSString string];
-	}
-
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"StopTimeCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-    
+        
     // Set up the cell...
-	if([indexPath indexAtPosition:0] == 0)
+	if([indexPath section] == 0)
 	{
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 		[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
@@ -132,7 +151,8 @@
 	}
 	else 
 	{
-		[[cell textLabel] setText:[stopTimes objectAtIndex:[indexPath indexAtPosition:1]]];
+        StopTime *stopTime = [stopTimes objectAtIndex:[indexPath row]];
+		[[cell textLabel] setText:[stopTime arrivalTimeString]];
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	}
 
@@ -173,7 +193,7 @@
 		[datePickerSheet addSubview:datePickerToolbar];
 		[datePickerSheet addSubview:datePicker];
 		[datePickerSheet showInView:self.view];
-		[datePickerSheet setBounds:CGRectMake(0,0,320, 464)];
+		[datePickerSheet setBounds:CGRectMake(0,0,320, 464)]; // TODO: hardcode bounds?? use screen to get current bounds?
 		
 		[cancelBtn release];
 		[doneBtn release];
@@ -188,13 +208,12 @@
 		[self.navigationController pushViewController:stopTimeViewController animated:YES];
 		[stopTimeViewController release];
 	}
-
 }
 
 - (IBAction) datePickerDoneClicked:(id)sender
 {
-	[selectedDate release];
-	selectedDate = [datePicker date];
+    [self setSelectedDate:[datePicker date]];
+    [self updateStopTimes];
 	[[self tableView] reloadData];
 	[datePickerSheet dismissWithClickedButtonIndex:1 animated:YES];
 }
@@ -202,9 +221,8 @@
 - (IBAction) datePickerCancelClicked:(id)sender
 {
 	[datePickerSheet dismissWithClickedButtonIndex:0 animated:YES];
-	[[self tableView] reloadData];
-	[datePicker release];
-	[datePickerToolbar release];
+	[datePicker release]; // TODO: why are we releasing here?
+	[datePickerToolbar release]; // TODO: why are we releasing here? (and why not in datePickerDoneClicked??)
 }
 
 /*
@@ -245,13 +263,6 @@
     return YES;
 }
 */
-
-
-- (void)dealloc {
-	[stopTimes release];
-    [super dealloc];
-}
-
 
 @end
 

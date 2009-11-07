@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class Agency;
 
 @interface AgencyViewController : UITableViewController {
+    Agency *agency;
 	NSArray *routes;
 }
 
+@property (nonatomic, retain) Agency *agency;
 @property (nonatomic, retain) NSArray *routes;
 
 @end

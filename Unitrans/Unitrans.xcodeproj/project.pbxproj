@@ -68,8 +68,8 @@
 		C993E17510A2066D00B0F44D /* StopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopViewController.m; sourceTree = "<group>"; };
 		C993E17A10A206A300B0F44D /* UnitransAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitransAppDelegate.h; sourceTree = "<group>"; };
 		C993E17B10A206A300B0F44D /* UnitransAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitransAppDelegate.m; sourceTree = "<group>"; };
-		C993E18A10A206D600B0F44D /* AgencyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AgencyViewController.xib; path = "/Users/rockyrocks6/Projects/Xcode 3.2/iPhone/Unitrans/NIBs/AgencyViewController.xib"; sourceTree = "<absolute>"; };
-		C993E18B10A206E800B0F44D /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = ../Classes/Other/MainWindow.xib; sourceTree = "<group>"; };
+		C993E18A10A206D600B0F44D /* AgencyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AgencyViewController.xib; sourceTree = "<group>"; };
+		C993E18B10A206E800B0F44D /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		C9AB0A5D10A3627400B75C4B /* StopTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopTimeViewController.h; sourceTree = "<group>"; };
 		C9AB0A5E10A3627400B75C4B /* StopTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTimeViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */

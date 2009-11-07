@@ -8,10 +8,13 @@
 
 #import "AgencyViewController.h"
 #import "RouteViewController.h"
-
+#import "Agency.h"
+#import "Route.h"
+#import "DatabaseManager.h"
 
 @implementation AgencyViewController
 
+@synthesize agency;
 @synthesize routes;
 
 /*
@@ -23,10 +26,24 @@
 }
 */
 
+- (void)dealloc {
+    [agency release];
+    [routes release];
+    
+    [super dealloc];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    routes = [[NSMutableArray alloc] initWithObjects:@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", nil];
+ 
+    // Retrieve and set agency
+    Agency *unitransAgency = [[DatabaseManager sharedDatabaseManager] retrieveUnitransAgency:nil];
+    [self setAgency:unitransAgency];
+    
+    // Get agency routes and sort by alphabetical order
+    NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"shortName" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
+    NSArray *sortedRoutes = [[[unitransAgency routes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    [self setRoutes:sortedRoutes];
 }
 
 /*
@@ -91,22 +108,29 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     
+    Route *route = [routes objectAtIndex:[indexPath row]];
+    
     // Set up the cell...
-	[[cell textLabel] setText:[routes objectAtIndex:[indexPath row]]];
+    NSString *mainLabel = [NSString stringWithFormat:@"%@ Line",  [route shortName]];
+    NSString *detailLabel = [route longName];
+	[[cell textLabel] setText:mainLabel];
+    [[cell detailTextLabel] setText:detailLabel];
 	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    
     return cell;
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
-	// [self.navigationController pushViewController:anotherViewController];
-	// [anotherViewController release];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
+{    
+    Route *selectedRoute = [routes objectAtIndex:[indexPath row]];
 	
 	RouteViewController *routeViewController = [[RouteViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [routeViewController setRoute:selectedRoute];
+    
 	[self.navigationController pushViewController:routeViewController animated:YES];
 	[routeViewController release];
 }
@@ -150,12 +174,6 @@
     return YES;
 }
 */
-
-
-- (void)dealloc {
-    [super dealloc];
-}
-
 
 @end
 

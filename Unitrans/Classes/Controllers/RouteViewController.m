@@ -8,10 +8,12 @@
 
 #import "RouteViewController.h"
 #import "StopViewController.h"
-
+#import "Route.h"
+#import "Stop.h"
 
 @implementation RouteViewController
 
+@synthesize route;
 @synthesize stops;
 
 /*
@@ -23,10 +25,21 @@
 }
 */
 
+- (void)dealloc {
+    [route release];
+    [stops release];
+    
+    [super dealloc];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    stops = [[NSArray alloc] initWithObjects:@"Research Park", @"Downtown", @"Silo", @"MU", nil]; 
+    // Get route stops and sort by alphabetical order
+    NSSortDescriptor *stopsSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease];
+    NSArray *sortedStops = [[[route allStops] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopsSortDescriptor]];
+    [self setStops:sortedStops];
+    
 	[self setTitle:@"Stops"];
 }
 
@@ -106,7 +119,8 @@
 	}
 	else 
 	{
-		[[cell textLabel] setText:[stops objectAtIndex:[indexPath row]]];
+        Stop *stop = [stops objectAtIndex:[indexPath row]];
+		[[cell textLabel] setText:[stop name]];
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	}
 
@@ -125,7 +139,10 @@
 	}
 	else 
 	{
+        Stop *selectedStop = [stops objectAtIndex:[indexPath row]];
 		StopViewController *stopViewController = [[StopViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        [stopViewController setStop:selectedStop];
+        [stopViewController setRoute:route];
 		[self.navigationController pushViewController:stopViewController animated:YES];
 		[stopViewController release];
 	}
@@ -170,12 +187,6 @@
     return YES;
 }
 */
-
-
-- (void)dealloc {
-    [super dealloc];
-}
-
 
 @end
 
