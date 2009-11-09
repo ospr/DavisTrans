@@ -290,9 +290,9 @@ static DatabaseManager *sharedDatabaseManager = nil;
         else if ([header isEqualToString:@"route_type"])
             [route setType:[self processShortNumberString:value]];
         else if ([header isEqualToString:@"route_color"])
-            [route setColor:[self processUnsignedIntegerNumberString:value]];
+            [route setColor:[self processHexNumberString:value]];
         else if ([header isEqualToString:@"route_text_color"])
-            [route setTextColor:[self processUnsignedIntegerNumberString:value]];
+            [route setTextColor:[self processHexNumberString:value]];
     }
     else if (processStep == kProcessShapeStep)
     {
@@ -367,6 +367,16 @@ static DatabaseManager *sharedDatabaseManager = nil;
     }
     
     return YES;
+}
+
+- (NSNumber *)processHexNumberString:(NSString *)value
+{    
+    unsigned intValue = 0;
+
+    NSScanner *scanner = [NSScanner scannerWithString:value];
+    [scanner scanHexInt:&intValue];
+    
+    return [NSNumber numberWithUnsignedInt:intValue];
 }
 
 - (NSNumber *)processDoubleNumberString:(NSString *)value

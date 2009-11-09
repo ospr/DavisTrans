@@ -53,6 +53,7 @@ typedef enum _ProcessStep {
 - (BOOL)processFile:(NSString *)path error:(NSError **)error;
 - (BOOL)processValues:(NSArray *)values withHeaders:(NSArray *)headers error:(NSError **)error;
 
+- (NSNumber *)processHexNumberString:(NSString *)value;
 - (NSNumber *)processDoubleNumberString:(NSString *)value;
 - (NSNumber *)processUnsignedIntegerNumberString:(NSString *)value;
 - (NSNumber *)processShortNumberString:(NSString *)value;
