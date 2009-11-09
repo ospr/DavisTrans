@@ -23,6 +23,8 @@
 		7CC4D07010978EBF00F2BB67 /* Agency.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4D06710978EBF00F2BB67 /* Agency.m */; };
 		7CC4D07110978EBF00F2BB67 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4D06910978EBF00F2BB67 /* Trip.m */; };
 		7CEEFF69109F5798005EB194 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CEEFF68109F5798005EB194 /* DatabaseManager.m */; };
+		C923168C10A7842C00A1BB6C /* RealTimeBusInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C923168B10A7842C00A1BB6C /* RealTimeBusInfoManager.m */; };
+		C923170910A790C100A1BB6C /* RealTimeBusInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C923170810A790C100A1BB6C /* RealTimeBusInfo.m */; };
 		C993E17610A2066D00B0F44D /* AgencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E16F10A2066D00B0F44D /* AgencyViewController.m */; };
 		C993E17810A2066D00B0F44D /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E17310A2066D00B0F44D /* RouteViewController.m */; };
 		C993E17910A2066D00B0F44D /* StopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E17510A2066D00B0F44D /* StopViewController.m */; };
@@ -60,6 +62,10 @@
 		7CEEFF67109F5798005EB194 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
 		7CEEFF68109F5798005EB194 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Unitrans-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Unitrans-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		C923168A10A7842C00A1BB6C /* RealTimeBusInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeBusInfoManager.h; sourceTree = "<group>"; };
+		C923168B10A7842C00A1BB6C /* RealTimeBusInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeBusInfoManager.m; sourceTree = "<group>"; };
+		C923170710A790C100A1BB6C /* RealTimeBusInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeBusInfo.h; sourceTree = "<group>"; };
+		C923170810A790C100A1BB6C /* RealTimeBusInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeBusInfo.m; sourceTree = "<group>"; };
 		C993E16E10A2066D00B0F44D /* AgencyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgencyViewController.h; sourceTree = "<group>"; };
 		C993E16F10A2066D00B0F44D /* AgencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgencyViewController.m; sourceTree = "<group>"; };
 		C993E17210A2066D00B0F44D /* RouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteViewController.h; sourceTree = "<group>"; };
@@ -169,6 +175,8 @@
 				7CC4D06510978EBF00F2BB67 /* StopTime.m */,
 				7CC4D06810978EBF00F2BB67 /* Trip.h */,
 				7CC4D06910978EBF00F2BB67 /* Trip.m */,
+				C923170710A790C100A1BB6C /* RealTimeBusInfo.h */,
+				C923170810A790C100A1BB6C /* RealTimeBusInfo.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -195,6 +203,8 @@
 				C993E17B10A206A300B0F44D /* UnitransAppDelegate.m */,
 				7CEEFF67109F5798005EB194 /* DatabaseManager.h */,
 				7CEEFF68109F5798005EB194 /* DatabaseManager.m */,
+				C923168A10A7842C00A1BB6C /* RealTimeBusInfoManager.h */,
+				C923168B10A7842C00A1BB6C /* RealTimeBusInfoManager.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -278,6 +288,8 @@
 				C993E17910A2066D00B0F44D /* StopViewController.m in Sources */,
 				C993E17C10A206A300B0F44D /* UnitransAppDelegate.m in Sources */,
 				C9AB0A5F10A3627400B75C4B /* StopTimeViewController.m in Sources */,
+				C923168C10A7842C00A1BB6C /* RealTimeBusInfoManager.m in Sources */,
+				C923170910A790C100A1BB6C /* RealTimeBusInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
