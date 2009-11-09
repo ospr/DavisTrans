@@ -17,9 +17,14 @@
 @property (nonatomic, retain) NSNumber * pointSequence;
 @property (nonatomic, retain) NSNumber * pointLongitude;
 @property (nonatomic, retain) NSNumber * pointLatitude;
-@property (nonatomic, retain) Trip * trip;
+@property (nonatomic, retain) NSSet* trips;
 
 @end
 
+@interface Shape (CoreDataGeneratedAccessors)
+- (void)addTripsObject:(Trip *)value;
+- (void)removeTripsObject:(Trip *)value;
+- (void)addTrips:(NSSet *)value;
+- (void)removeTrips:(NSSet *)value;
 
-
+@end

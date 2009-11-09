@@ -15,6 +15,6 @@
 @dynamic pointSequence;
 @dynamic pointLongitude;
 @dynamic pointLatitude;
-@dynamic trip;
+@dynamic trips;
 
 @end
