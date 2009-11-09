@@ -20,6 +20,7 @@
 @dynamic latitude;
 @dynamic stopDescription;
 @dynamic stopTimes;
+@dynamic coordinate;
 
 - (NSArray *)allStopTimesWithRoute:(Route *)route onDate:(NSDate *)date
 {
@@ -33,6 +34,24 @@
     }
     
     return [NSArray arrayWithArray:routeStopTimes];
+}
+
+- (CLLocationCoordinate2D)coordinate
+{
+    CLLocationCoordinate2D coordinate;
+    coordinate.latitude = [[self latitude] doubleValue];
+    coordinate.longitude = [[self longitude] doubleValue];
+    return coordinate;
+}
+
+- (NSString *)title
+{
+    return [self name];
+}
+
+- (NSString *)subtitle
+{
+    return [self stopDescription];
 }
 
 @end

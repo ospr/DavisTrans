@@ -7,11 +7,12 @@
 //
 
 #import <CoreData/CoreData.h>
+#import <MapKit/MapKit.h>
 
 @class StopTime;
 @class Route;
 
-@interface Stop :  NSManagedObject  
+@interface Stop :  NSManagedObject <MKAnnotation>
 {
 }
 
@@ -21,6 +22,7 @@
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSString * stopDescription;
 @property (nonatomic, retain) NSSet* stopTimes;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
 - (NSArray *)allStopTimesWithRoute:(Route *)route onDate:(NSDate *)date;
 

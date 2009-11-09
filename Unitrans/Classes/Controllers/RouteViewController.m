@@ -8,6 +8,7 @@
 
 #import "RouteViewController.h"
 #import "StopViewController.h"
+#import "RouteMapViewController.h"
 #import "Route.h"
 #import "Stop.h"
 
@@ -136,6 +137,10 @@
 	if([indexPath indexAtPosition:0] == 0)
 	{
 		// show map view controller
+        RouteMapViewController *routeMapViewController = [[RouteMapViewController alloc] initWithNibName:@"RouteMapView" bundle:nil];
+        [routeMapViewController setRoute:route];
+        [[self navigationController] pushViewController:routeMapViewController animated:YES];
+        [routeMapViewController release];
 	}
 	else 
 	{

@@ -22,10 +22,16 @@
 @dynamic shapes;
 @dynamic stopTimes;
 @dynamic calendar;
+@dynamic stops;
 
 - (BOOL)hasServiceOnDate:(NSDate *)date
 {
     return [[self calendar] hasServiceDate:date];
+}
+
+- (NSSet *)stops
+{
+    return [[self stopTimes] valueForKey:@"stop"];
 }
 
 @end

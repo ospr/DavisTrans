@@ -24,6 +24,7 @@
 @property (nonatomic, retain) NSSet* shapes;
 @property (nonatomic, retain) NSSet* stopTimes;
 @property (nonatomic, retain) Calendar * calendar;
+@property (nonatomic, readonly) NSSet *stops;
 
 - (BOOL)hasServiceOnDate:(NSDate *)date;
 
