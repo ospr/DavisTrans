@@ -17,6 +17,52 @@
 @synthesize xmlParser;
 @synthesize lastTime;
 
+#pragma mark -
+#pragma mark Singleton Methods
+
+static RealTimeBusInfoManager *sharedRealTimeBusInfoManager = nil;
+
++ (RealTimeBusInfoManager *)sharedRealTimeBusInfoManager
+{
+    if (sharedRealTimeBusInfoManager == nil) {
+        sharedRealTimeBusInfoManager = [[super allocWithZone:NULL] init];
+    }
+    return sharedRealTimeBusInfoManager;
+}
+
++ (id)allocWithZone:(NSZone *)zone
+{
+    return [[self sharedRealTimeBusInfoManager] retain];
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
+}
+
+- (id)retain
+{
+    return self;
+}
+
+- (NSUInteger)retainCount
+{
+    return NSUIntegerMax;  //denotes an object that cannot be released
+}
+
+- (void)release
+{
+    //do nothing
+}
+
+- (id)autorelease
+{
+    return self;
+}
+
+#pragma mark -
+#pragma mark Initializers
+
 - (id) init
 {
 	if(self = [super init])
@@ -27,12 +73,25 @@
 	return self;
 }
 
+#pragma mark -
+#pragma mark Memory management
+
+- (void) dealloc
+{
+	[realTimeBusInfo release];
+	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark Retrieval Methods
+
 - (NSArray *) retrieveRealTimeBusInfo
 {
 	NSURL *xmlURL = [NSURL URLWithString:@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=0"];
 	xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
 	[xmlParser setDelegate:self];
 	[xmlParser parse];
+	[xmlParser release];
 	return [NSArray arrayWithArray:realTimeBusInfo];
 }
 
@@ -49,6 +108,7 @@
 	xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
 	[xmlParser setDelegate:self];
 	[xmlParser parse];
+	[xmlParser release];
 	return [NSArray arrayWithArray:realTimeBusInfo];
 }
 
@@ -60,10 +120,12 @@
 	xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
 	[xmlParser setDelegate:self];
 	[xmlParser parse];
+	[xmlParser release];
 	return [NSArray arrayWithArray:realTimeBusInfo];
 }
 
-// MARK: NSXMLParser Delegate Methods
+#pragma mark -
+#pragma mark NSXMLParser Delegate Methods
 - (void)parserDidStartDocument:(NSXMLParser *)parser 
 {
 	NSLog(@"Found real time bus XML file and started parsing.");
@@ -103,40 +165,6 @@ didStartElement:(NSString *)elementName
 	{
 		[self setLastTime:[[attributeDict valueForKey:@"lastTime"] intValue]];
 	}
-}
-
-/*
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string 
-{
-	NSLog(@"found chars: %@", string);
-	if ([currentElement isEqualToString:@"vehicle"]) 
-	{
-		[currentVehicle appendString:string];
-	}
-}
- */
-
-/*
-- (void)parser:(NSXMLParser *)parser 
- didEndElement:(NSString *)elementName 
-  namespaceURI:(NSString *)namespaceURI 
- qualifiedName:(NSString *)qName 
-{
-	NSLog(@"end element: %@", elementName);
-	
-	if ([elementName isEqualToString:@"vehicle"]) 
-	{
-		// add vehicle info to array
-		[realTimeBusInfo addObject:currentVehicle];
-		//[currentVehicle release];
-	}
-}
- */
-
-- (void) dealloc
-{
-	[realTimeBusInfo release];
-	[super dealloc];
 }
 
 @end

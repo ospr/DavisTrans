@@ -26,4 +26,6 @@
 - (NSArray *) retrieveRealTimeBusInfoFromLastTime;
 - (NSArray *) retrieveRealTimeBusInfoWithRoute:(NSString *)theRoute;
 
++ (RealTimeBusInfoManager *) sharedRealTimeBusInfoManager;
+
 @end
