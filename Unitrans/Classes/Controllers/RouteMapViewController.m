@@ -8,6 +8,8 @@
 
 #import "RouteMapViewController.h"
 #import "StopViewController.h"
+#import "RealTimeBusInfoManager.h"
+#import "RealTimeBusInfo.h"
 #import "Route.h"
 #import "StopTime.h"
 #import "Stop.h"
@@ -23,11 +25,15 @@
 
 @synthesize mapView;
 @synthesize route;
+@synthesize busAnnotations;
 
 - (void)dealloc 
 {
     [route release];
     [routeAnnotationView release];
+    [busAnnotations release];
+    [busTimer release];
+    [busButtonItem release];
     
     [super dealloc];
 }
@@ -36,6 +42,12 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
+    
+    busButtonItem = [[UIBarButtonItem alloc] init];
+    [busButtonItem setTitle:@"Bus"];
+    [busButtonItem setTarget:self];
+    [busButtonItem setAction:@selector(beginContinuousBusUpdatesAction:)];
+    [[self navigationItem] setRightBarButtonItem:busButtonItem];
     
     // For now get a random trip
     Trip *trip = [[route trips] anyObject];
@@ -71,6 +83,12 @@
     [mapView setRegion:[routeAnnotation region]];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    if (busContinuousUpdatesRunning)
+        [self endContinuousBusUpdates];
+}
+
 - (void)didReceiveMemoryWarning 
 {
 	// Releases the view if it doesn't have a superview.
@@ -81,6 +99,7 @@
 {
 	// Release any retained subviews of the main view.
 	[routeAnnotationView release];
+    [busButtonItem release];
 }
 
 # pragma mark -
@@ -114,6 +133,19 @@
 
         return pinAnnotationView;
     }
+    else if ([annotation isKindOfClass:[RealTimeBusInfo class]])
+    {
+        MKAnnotationView *busAnnotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"Bus"];
+        
+        if (!busAnnotationView) {
+            busAnnotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Bus"] autorelease];
+            [busAnnotationView setImage:[UIImage imageNamed:@"TempBusIcon.png"]];
+        }
+        
+        [busAnnotationView setAnnotation:annotation];
+        
+        return busAnnotationView;
+    }
     else if ([annotation isKindOfClass:[CSRouteAnnotation class]])
     {
         return routeAnnotationView;
@@ -136,6 +168,66 @@
 		[[self navigationController] pushViewController:stopViewController animated:YES];
 		[stopViewController release];
     }
+}
+
+# pragma mark -
+# pragma mark RealTimeInfo Methods
+
+- (IBAction)beginContinuousBusUpdatesAction:(id)sender
+{
+    [busButtonItem setAction:@selector(endContinuousBusUpdatesAction:)];
+
+    [self beginContinuousBusUpdates];
+}
+
+- (IBAction)endContinuousBusUpdatesAction:(id)sender
+{
+    [busButtonItem setAction:@selector(beginContinuousBusUpdatesAction:)];
+    
+    [self endContinuousBusUpdates];
+}
+
+- (void)beginContinuousBusUpdates
+{    
+    busTimer = [[NSTimer scheduledTimerWithTimeInterval:4.0
+                                                 target:self
+                                               selector:@selector(updateBusLocations:)
+                                               userInfo:nil
+                                                repeats:YES] retain];
+    busContinuousUpdatesRunning = YES;
+}
+
+- (void)endContinuousBusUpdates
+{
+    busContinuousUpdatesRunning = NO;
+    
+    [busTimer invalidate];
+    [busTimer release];
+    busTimer = nil;
+    
+    if (busAnnotations)
+        [mapView removeAnnotations:busAnnotations];
+    
+    [self setBusAnnotations:nil];
+}
+
+- (void)updateBusLocations:(NSTimer *)timer
+{
+    NSLog(@"updating");
+    
+    // Get all buses for the current route
+    NSArray *busInfos = [[RealTimeBusInfoManager sharedRealTimeBusInfoManager] retrieveRealTimeBusInfoWithRoute:[route shortName]];
+    
+    // Remove buses if they exsisted before
+    if (busAnnotations)
+        [mapView removeAnnotations:busAnnotations];
+    
+    // Add new bus annotations
+    [mapView addAnnotations:busInfos];
+    [self setBusAnnotations:busInfos];
+    
+    // Redraw map
+    [mapView setNeedsDisplay];
 }
 
 @end

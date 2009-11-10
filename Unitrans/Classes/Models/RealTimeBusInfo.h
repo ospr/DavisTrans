@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
 
-@interface RealTimeBusInfo : NSObject {
+@interface RealTimeBusInfo : NSObject <MKAnnotation> {
 	NSString *vehicleID;
 	NSString *routeTag;
 	NSString *dirTag;
@@ -28,6 +29,7 @@
 @property (nonatomic, assign) NSInteger secsSinceReport;
 @property (nonatomic, assign) NSInteger heading;
 @property (nonatomic, assign) BOOL predictable;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
 - (id) initWithVehicleID:(NSString *)theVehicleID 
 			withRouteTag:(NSString *)theRouteTag 

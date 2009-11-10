@@ -15,6 +15,7 @@
 		7C25BFEF10A7DA8300AAD086 /* CSRouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEE10A7DA8300AAD086 /* CSRouteAnnotation.m */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
 		7C25C28010A8CD7300AAD086 /* UIColor_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */; };
+		7C428BCF10A90A5C0024E2B9 /* TempBusIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C428BCE10A90A5C0024E2B9 /* TempBusIcon.png */; };
 		7C7A510410A1153600B396C9 /* TestDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 7C7A510310A1153600B396C9 /* TestDB.sqlite */; };
 		7CC4CFC01096784F00F2BB67 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CC4CFBF1096784F00F2BB67 /* CoreData.framework */; };
 		7CC4CFE31096795200F2BB67 /* TransitModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */; };
@@ -54,6 +55,7 @@
 		7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7C25C27E10A8CD7300AAD086 /* UIColor_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColor_Extensions.h; sourceTree = "<group>"; };
 		7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColor_Extensions.m; sourceTree = "<group>"; };
+		7C428BCE10A90A5C0024E2B9 /* TempBusIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TempBusIcon.png; sourceTree = "<group>"; };
 		7C7A510310A1153600B396C9 /* TestDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = TestDB.sqlite; sourceTree = "<group>"; };
 		7CC4CFBF1096784F00F2BB67 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = TransitModel.xcdatamodel; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				7CC4D0AD1097930600F2BB67 /* NIBs */,
 				7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */,
 				8D1107310486CEB800E47090 /* Unitrans-Info.plist */,
+				7C428BCE10A90A5C0024E2B9 /* TempBusIcon.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				7C7A510410A1153600B396C9 /* TestDB.sqlite in Resources */,
 				C993E18C10A206E800B0F44D /* MainWindow.xib in Resources */,
 				7CE6EFEB10A7B525009BF91A /* RouteMapView.xib in Resources */,
+				7C428BCF10A90A5C0024E2B9 /* TempBusIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

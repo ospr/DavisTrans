@@ -15,13 +15,22 @@
 
 @interface RouteMapViewController : UIViewController {
     IBOutlet MKMapView *mapView;
+    UIBarButtonItem *busButtonItem;
     
     Route *route;
     
     CSRouteView *routeAnnotationView;
+    
+    NSTimer *busTimer;
+    NSArray *busAnnotations;
+    BOOL busContinuousUpdatesRunning;
 }
 
 @property (nonatomic, retain) MKMapView *mapView;
 @property (nonatomic, retain) Route *route;
+@property (nonatomic, retain) NSArray *busAnnotations;
+
+- (void)beginContinuousBusUpdates;
+- (void)endContinuousBusUpdates;
 
 @end

@@ -19,6 +19,7 @@
 @synthesize secsSinceReport;
 @synthesize heading;
 @synthesize predictable;
+@dynamic coordinate;
 
 - (id) init
 {
@@ -57,6 +58,14 @@
 		[self setPredictable:thePredictable];
 	}
 	return self;
+}
+
+- (CLLocationCoordinate2D)coordinate
+{
+    CLLocationCoordinate2D coordinate;
+    coordinate.latitude = lat;
+    coordinate.longitude = lon;
+    return coordinate;
 }
 
 - (void) printInfo
