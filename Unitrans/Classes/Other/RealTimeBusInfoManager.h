@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class RealTimeBusInfo;
 
 @interface RealTimeBusInfoManager : NSObject {
 	NSMutableArray *realTimeBusInfo;
@@ -21,7 +22,8 @@
 @property (nonatomic, retain) NSXMLParser *xmlParser;
 @property (nonatomic, assign) NSInteger lastTime;
 
-- (NSArray *) getRealTimeBusInfo;
-- (NSArray *) getRealTimeBusInfoFromLastTime;
+- (NSArray *) retrieveRealTimeBusInfo;
+- (NSArray *) retrieveRealTimeBusInfoFromLastTime;
+- (RealTimeBusInfo *) retrieveRealTimeBusInfoWithRoute:(NSString *)theRoute;
 
 @end

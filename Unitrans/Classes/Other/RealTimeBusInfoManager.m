@@ -27,7 +27,7 @@
 	return self;
 }
 
-- (NSArray *) getRealTimeBusInfo
+- (NSArray *) retrieveRealTimeBusInfo
 {
 	NSURL *xmlURL = [NSURL URLWithString:@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=0"];
 	xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
@@ -36,7 +36,7 @@
 	return [NSArray arrayWithArray:realTimeBusInfo];
 }
 
-- (NSArray *) getRealTimeBusInfoFromLastTime
+- (NSArray *) retrieveRealTimeBusInfoFromLastTime
 {
 	if(lastTime == -1)
 	{
@@ -44,7 +44,18 @@
 		return nil;
 	}
 	NSString *url = [@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=" stringByAppendingString:[NSString stringWithFormat:@"%d", lastTime]];
-	NSLog(@"%@", url);
+	NSLog(@"Retrieving xml file with url: %@", url);
+	NSURL *xmlURL = [NSURL URLWithString:url];
+	xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
+	[xmlParser setDelegate:self];
+	[xmlParser parse];
+	return [NSArray arrayWithArray:realTimeBusInfo];
+}
+
+- (RealTimeBusInfo *) retrieveRealTimeBusInfoWithRoute:(NSString *)theRoute
+{
+	NSString *url = [@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=0&r=" stringByAppendingString:theRoute];
+	NSLog(@"Retrieving xml file with url: %@", url);
 	NSURL *xmlURL = [NSURL URLWithString:url];
 	xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
 	[xmlParser setDelegate:self];
