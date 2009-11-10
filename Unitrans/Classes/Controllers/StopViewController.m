@@ -19,9 +19,9 @@
 @synthesize stop;
 @synthesize stopTimes;
 @synthesize selectedDate;
+@synthesize selectedDateFormatter;
 @synthesize datePicker;
 @synthesize datePickerSheet;
-@synthesize datePickerToolbar;
 
 /*
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -38,7 +38,9 @@
     [stop release];
 	[stopTimes release];
     [selectedDate release];
-    
+    [selectedDateFormatter release];
+	[datePicker release];
+	[datePickerSheet release];
     [super dealloc];
 }
 
@@ -48,6 +50,40 @@
     [self setTitle:@"Stop Times"];
 	[self setSelectedDate:[NSDate date]];
     [self updateStopTimes];
+	
+	// Initialize NSDateFormatter
+	selectedDateFormatter = [[NSDateFormatter alloc] init];
+	[selectedDateFormatter setTimeStyle:NSDateFormatterNoStyle];
+	[selectedDateFormatter setDateStyle:NSDateFormatterMediumStyle];
+	NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+	[selectedDateFormatter setLocale:usLocale];
+	
+	[usLocale release]; // TODO: ask Kip about retain count of usLocale
+	
+	// Initialize UIDatePicker
+	datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, 44.0, 0.0, 0.0)];
+	[datePicker setDatePickerMode:UIDatePickerModeDate];
+	[datePicker setDate:selectedDate];
+	
+	// Create UIToolBar to go above the UIDatePicker and add "Done" and "Cancel" UIBarButtonItems
+	UIToolbar *datePickerToolbar = [[UIToolbar alloc] init];
+	datePickerToolbar.barStyle = UIBarStyleBlackOpaque;
+	[datePickerToolbar sizeToFit];
+	UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(datePickerCancelClicked:)];
+	UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+	UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(datePickerDoneClicked:)];
+	[datePickerToolbar setItems:[NSArray arrayWithObjects:cancelBtn, flexSpace, doneBtn, nil] animated:YES];
+	
+	[cancelBtn release];
+	[flexSpace release];
+	[doneBtn release];
+	
+	// Initialize UIActionSheet and add UIDatePicker and UIToolbar
+	datePickerSheet = [[UIActionSheet alloc] init];
+	[datePickerSheet addSubview:datePickerToolbar];
+	[datePickerSheet addSubview:datePicker];
+	
+	[datePickerToolbar release];
 }
 
 - (void)updateStopTimes
@@ -138,16 +174,8 @@
     // Set up the cell...
 	if([indexPath section] == 0)
 	{
-		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-		[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-		[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-		NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-		[dateFormatter setLocale:usLocale];
-		[[cell textLabel] setText:[dateFormatter stringFromDate:selectedDate]];
+		[[cell textLabel] setText:[selectedDateFormatter stringFromDate:selectedDate]];
 		[[cell textLabel] setTextAlignment:UITextAlignmentCenter];
-		
-		[dateFormatter release];
-		[usLocale release];
 	}
 	else 
 	{
@@ -168,39 +196,9 @@
 	
 	if([indexPath indexAtPosition:0] == 0)
 	{
-		// Create the UIDatePicker
-		datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, 44.0, 0.0, 0.0)];
-		[datePicker setDatePickerMode:UIDatePickerModeDate];
-		[datePicker setDate:selectedDate];
-		
-		// Create the UIToolbar to go above the UIDatePicker
-		datePickerToolbar = [[UIToolbar alloc] init];
-		datePickerToolbar.barStyle = UIBarStyleBlackOpaque;
-		[datePickerToolbar sizeToFit];
-		
-		// Create and add UIBarButtons "Done" and "Cancel" buttons to UIToolbar
-		NSMutableArray *barItems = [[NSMutableArray alloc] init];
-		UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(datePickerCancelClicked:)];
-		UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-		UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(datePickerDoneClicked:)];
-		[barItems addObject:cancelBtn];
-		[barItems addObject:flexSpace];
-		[barItems addObject:doneBtn];
-		[datePickerToolbar setItems:barItems animated:YES];
-		
-		// Add views to action sheet
-		datePickerSheet = [[UIActionSheet alloc] init];
-		[datePickerSheet addSubview:datePickerToolbar];
-		[datePickerSheet addSubview:datePicker];
+		// Show UIActionSheet
 		[datePickerSheet showInView:self.view];
-		[datePickerSheet setBounds:CGRectMake(0,0,320, 464)]; // TODO: hardcode bounds?? use screen to get current bounds?
-		
-		[cancelBtn release];
-		[doneBtn release];
-		[flexSpace release];
-		[barItems release];
-		[datePicker release];
-		[datePickerToolbar release];
+		[datePickerSheet setBounds:CGRectMake(0.0, 0.0, [[self view] frame].size.width , [[self view] frame].size.height)]; // 464
 	}
 	else 
 	{
@@ -221,8 +219,6 @@
 - (IBAction) datePickerCancelClicked:(id)sender
 {
 	[datePickerSheet dismissWithClickedButtonIndex:0 animated:YES];
-	[datePicker release]; // TODO: why are we releasing here?
-	[datePickerToolbar release]; // TODO: why are we releasing here? (and why not in datePickerDoneClicked??)
 }
 
 /*

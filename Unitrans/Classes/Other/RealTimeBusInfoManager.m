@@ -52,7 +52,7 @@
 	return [NSArray arrayWithArray:realTimeBusInfo];
 }
 
-- (RealTimeBusInfo *) retrieveRealTimeBusInfoWithRoute:(NSString *)theRoute
+- (NSArray *) retrieveRealTimeBusInfoWithRoute:(NSString *)theRoute
 {
 	NSString *url = [@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=0&r=" stringByAppendingString:theRoute];
 	NSLog(@"Retrieving xml file with url: %@", url);

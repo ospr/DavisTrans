@@ -16,18 +16,18 @@
     Stop *stop;
 	NSArray *stopTimes;
 	NSDate *selectedDate; // defaults to today
+	NSDateFormatter *selectedDateFormatter;
 	UIDatePicker *datePicker;
 	UIActionSheet *datePickerSheet;
-	UIToolbar *datePickerToolbar;
 }
 
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) Stop *stop;
 @property (nonatomic, retain) NSArray *stopTimes;
 @property (nonatomic, retain) NSDate *selectedDate;
+@property (nonatomic, retain) NSDateFormatter *selectedDateFormatter;
 @property (nonatomic, retain) UIDatePicker *datePicker;
 @property (nonatomic, retain) UIActionSheet *datePickerSheet;
-@property (nonatomic, retain) UIToolbar *datePickerToolbar;
 
 - (IBAction) datePickerDoneClicked:(id)sender;
 - (IBAction) datePickerCancelClicked:(id)sender;
