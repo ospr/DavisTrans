@@ -131,6 +131,8 @@ static DatabaseManager *sharedDatabaseManager = nil;
         [pool drain];
     }
     
+    [self removeRoutesWithZeroTrips];
+    
     // Clean up dictionaries
     [agencies release];
     [calendars release];
@@ -369,6 +371,13 @@ static DatabaseManager *sharedDatabaseManager = nil;
     return YES;
 }
 
+- (void)removeRoutesWithZeroTrips
+{
+    for (Route *route in [routes allValues])
+        if ([[route trips] count] == 0)
+            [[self managedObjectContext] deleteObject:route];
+}
+
 - (NSNumber *)processHexNumberString:(NSString *)value
 {    
     unsigned intValue = 0;
@@ -453,7 +462,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     if (persistentStoreCoordinator != nil)
         return persistentStoreCoordinator;
 	
-    //NSURL *storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"TestDB.sqlite"]];
+    //NSURL *storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"TestDB6.sqlite"]];
 	NSURL *storeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"TestDB" ofType:@"sqlite"]];
     
     NSLog(@"store url = %@", storeUrl);
