@@ -8,6 +8,7 @@
 
 #import "AgencyViewController.h"
 #import "RouteViewController.h"
+#import "AboutViewController.h"
 #import "Agency.h"
 #import "Route.h"
 #import "DatabaseManager.h"
@@ -32,6 +33,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIBarButtonItem *aboutButtonItem = [[UIBarButtonItem alloc] init];
+    [aboutButtonItem setTitle:@"About"];
+    [aboutButtonItem setTarget:self];
+    [aboutButtonItem setAction:@selector(showAboutViewAction:)];
+    [[self navigationItem] setRightBarButtonItem:aboutButtonItem];
+    [aboutButtonItem release];
  
     // Retrieve and set agency
     Agency *unitransAgency = [[DatabaseManager sharedDatabaseManager] retrieveUnitransAgency:nil];
@@ -102,6 +110,17 @@
     
 	[self.navigationController pushViewController:routeViewController animated:YES];
 	[routeViewController release];
+}
+
+#pragma mark -
+#pragma mark Action Methods
+
+- (IBAction)showAboutViewAction:(id)sender
+{
+    AboutViewController *aboutViewController = [[AboutViewController alloc] init];
+    [aboutViewController setAgency:agency];
+    [[self navigationController] pushViewController:aboutViewController animated:YES];
+    [aboutViewController release];
 }
 
 @end
