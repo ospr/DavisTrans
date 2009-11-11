@@ -10,7 +10,6 @@ Priority
 • Derive "patterns" from GTFS
 • Display list of patterns to choose from in map view.
 • When processing GTFS files, remove routes with no trips (eg N)
-• About/Info view
 • Retrieval of predictions and bus info should be in seperate thread.
 • Organize stops better: separate inbound/outbound sections?
 • At a given stop for a given route also show other arrival times for other routes.
@@ -32,3 +31,4 @@ Done
 =========
 • Add NSDate category to output beginning of day
 • Fix datepicker so that it doesn't set current time when setting current date.
+• About/Info view
