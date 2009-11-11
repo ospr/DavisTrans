@@ -6,13 +6,27 @@ Priority
 • Implement TableView methods for StopTimeViewController
 • Change titles of ViewControllers to be more descriptive
 • Set maximum and minimum dates for date picker
+• Fix annotation view drawing order so that route lies at bottom, buses over the route, and stops on top.
+• Derive "patterns" from GTFS
+• Display list of patterns to choose from in map view.
+• When processing GTFS files, remove routes with no trips (eg N)
+• About/Info view
+• Retrieval of predictions and bus info should be in seperate thread.
+• Organize stops better: separate inbound/outbound sections?
+• At a given stop for a given route also show other arrival times for other routes.
+
 
 Secondary
 =========
+• Left-aligned images for routes table.
+• Bus images also take into account heading direction.
 • SMS Alerts
 • Find nearest stops and distances to other stops
-• Show if buses are late or on time
+• Show if buses are late or on time or early
+  - In StopTimes view we can show this with a simple left aligned image
+  - In mapview we can show this by color coding the buses?
 • Show expired stop times
+• Animate buses
 
 Done
 =========
