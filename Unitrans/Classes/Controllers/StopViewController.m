@@ -159,7 +159,10 @@
 	}
 	else 
 	{
+        StopTime *stopTime = [stopTimes objectAtIndex:[indexPath row]];
+        
 		StopTimeViewController *stopTimeViewController = [[StopTimeViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        [stopTimeViewController setStopTime:stopTime];
 		[self.navigationController pushViewController:stopTimeViewController animated:YES];
 		[stopTimeViewController release];
 	}

@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class StopTime;
 
 @interface StopTimeViewController : UITableViewController {
+    StopTime *stopTime;
+    
 	NSArray *arrivalTimes;
 }
 
+@property (nonatomic, retain) StopTime *stopTime;
 @property (nonatomic, retain) NSArray *arrivalTimes;
 
 @end

@@ -7,10 +7,14 @@
 //
 
 #import "StopTimeViewController.h"
+#import "Trip.h"
+#import "StopTime.h"
+#import "Stop.h"
 
 
 @implementation StopTimeViewController
 
+@synthesize stopTime;
 @synthesize arrivalTimes;
 
 #pragma mark -
@@ -27,6 +31,14 @@
     [super viewDidLoad];
 
 	[self setTitle:@"Arrival Times"];
+    
+    NSSortDescriptor *stopTimeSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"arrivalTime" ascending:YES] autorelease];
+    NSArray *sortedStopTimes = [[[[stopTime trip] stopTimes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopTimeSortDescriptor]];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"arrivalTime > %@", [stopTime arrivalTime]];
+    NSArray *filteredStopTimes = [sortedStopTimes filteredArrayUsingPredicate:predicate];
+    
+    [self setArrivalTimes:filteredStopTimes];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,7 +65,12 @@
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return [arrivalTimes count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	return @"Next arrival times on route:";
 }
 
 // Customize the appearance of table view cells.
@@ -63,11 +80,18 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    // Set up the cell...
+    StopTime *arrivalTime = [arrivalTimes objectAtIndex:[indexPath row]];
+    
+    //NSString *stopAndArrivalString = [NSString stringWithFormat:@"%@  -  %@", [[stopTime stop] name], [stopTime arrivalTimeString]];
+    [[cell textLabel] setText:[[arrivalTime stop] name]];
+    [[cell textLabel] setFont:[UIFont fontWithName:@"Helvetica" size:12]];
 	
+    [[cell detailTextLabel] setText:[arrivalTime arrivalTimeString]];
+    [[cell detailTextLabel] setFont:[UIFont fontWithName:@"Helvetica" size:12]];
+    
     return cell;
 }
 
