@@ -11,6 +11,7 @@
 #import "Stop.h"
 #import "StopTime.h"
 #import "Route.h"
+#import "NSDate_Extensions.h"
 
 
 @implementation StopViewController
@@ -45,7 +46,7 @@
     [super viewDidLoad];
 
     [self setTitle:@"Stop Times"];
-	[self setSelectedDate:[NSDate date]];
+	[self setSelectedDate:[NSDate beginningOfDay:[NSDate date]]]; 
     [self updateStopTimes];
 	
 	// Initialize NSDateFormatter

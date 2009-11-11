@@ -31,6 +31,7 @@
 		7CE6EFE910A7B512009BF91A /* RouteMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6EFE810A7B512009BF91A /* RouteMapViewController.m */; };
 		7CE6EFEB10A7B525009BF91A /* RouteMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE6EFEA10A7B525009BF91A /* RouteMapView.xib */; };
 		7CEEFF69109F5798005EB194 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CEEFF68109F5798005EB194 /* DatabaseManager.m */; };
+		C91476C510AA47B20014E49F /* NSDate_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C91476C410AA47B20014E49F /* NSDate_Extensions.m */; };
 		C923168C10A7842C00A1BB6C /* RealTimeBusInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C923168B10A7842C00A1BB6C /* RealTimeBusInfoManager.m */; };
 		C923170910A790C100A1BB6C /* RealTimeBusInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C923170810A790C100A1BB6C /* RealTimeBusInfo.m */; };
 		C974345110A9F4D50072C7B6 /* Todo in Resources */ = {isa = PBXBuildFile; fileRef = C974345010A9F4D50072C7B6 /* Todo */; };
@@ -83,6 +84,8 @@
 		7CEEFF67109F5798005EB194 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
 		7CEEFF68109F5798005EB194 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Unitrans-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Unitrans-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		C91476C310AA47B20014E49F /* NSDate_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDate_Extensions.h; sourceTree = "<group>"; };
+		C91476C410AA47B20014E49F /* NSDate_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDate_Extensions.m; sourceTree = "<group>"; };
 		C923168A10A7842C00A1BB6C /* RealTimeBusInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeBusInfoManager.h; sourceTree = "<group>"; };
 		C923168B10A7842C00A1BB6C /* RealTimeBusInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeBusInfoManager.m; sourceTree = "<group>"; };
 		C923170710A790C100A1BB6C /* RealTimeBusInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeBusInfo.h; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 			children = (
 				7C25C27E10A8CD7300AAD086 /* UIColor_Extensions.h */,
 				7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */,
+				C91476C310AA47B20014E49F /* NSDate_Extensions.h */,
+				C91476C410AA47B20014E49F /* NSDate_Extensions.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -350,6 +355,7 @@
 				C923168C10A7842C00A1BB6C /* RealTimeBusInfoManager.m in Sources */,
 				C923170910A790C100A1BB6C /* RealTimeBusInfo.m in Sources */,
 				7C25C28010A8CD7300AAD086 /* UIColor_Extensions.m in Sources */,
+				C91476C510AA47B20014E49F /* NSDate_Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
