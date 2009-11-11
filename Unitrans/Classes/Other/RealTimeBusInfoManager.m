@@ -87,12 +87,8 @@ static RealTimeBusInfoManager *sharedRealTimeBusInfoManager = nil;
 
 - (NSArray *) retrieveRealTimeBusInfo
 {
-    [realTimeBusInfo removeAllObjects];
-	NSURL *xmlURL = [NSURL URLWithString:@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=0"];
-	xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
-	[xmlParser setDelegate:self];
-	[xmlParser parse];
-	[xmlParser release];
+	NSString *url = @"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=0";
+	[self retrieveRealTimeBusInfoFromURL:url];
 	return [NSArray arrayWithArray:realTimeBusInfo];
 }
 
@@ -103,44 +99,37 @@ static RealTimeBusInfoManager *sharedRealTimeBusInfoManager = nil;
 		NSLog(@"First time getting info. Returning nil.");
 		return nil;
     }
-    [realTimeBusInfo removeAllObjects];
-	NSString *url = [@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=" stringByAppendingString:[NSString stringWithFormat:@"%d", lastTime]];
-	NSLog(@"Retrieving xml file with url: %@", url);
-	NSURL *xmlURL = [NSURL URLWithString:url];
-	xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
-	[xmlParser setDelegate:self];
-	[xmlParser parse];
-	[xmlParser release];
+	
+	NSString *url = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=%d", lastTime];
+	[self retrieveRealTimeBusInfoFromURL:url];
 	return [NSArray arrayWithArray:realTimeBusInfo];
 }
 
 - (NSArray *) retrieveRealTimeBusInfoWithRoute:(NSString *)theRoute
 {
-    [realTimeBusInfo removeAllObjects];
-	NSString *url = [@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=0&r=" stringByAppendingString:theRoute];
-	NSLog(@"Retrieving xml file with url: %@", url);
-	NSURL *xmlURL = [NSURL URLWithString:url];
+	NSString *url = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=0&r=%@", theRoute];
+	[self retrieveRealTimeBusInfoFromURL:url];
+	return [NSArray arrayWithArray:realTimeBusInfo];
+}
+
+- (void) retrieveRealTimeBusInfoFromURL:(NSString *)theURL
+{
+	NSLog(@"parse at url: %@", theURL);
+	[realTimeBusInfo removeAllObjects];
+	NSURL *xmlURL = [NSURL URLWithString:theURL];
 	xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
 	[xmlParser setDelegate:self];
 	[xmlParser parse];
 	[xmlParser release];
-	return [NSArray arrayWithArray:realTimeBusInfo];
 }
 
 #pragma mark -
 #pragma mark NSXMLParser Delegate Methods
-- (void)parserDidStartDocument:(NSXMLParser *)parser 
-{
-	NSLog(@"Found real time bus XML file and started parsing.");
-}
-
+// TODO: Need to do something with error
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError 
 {
 	NSString * errorString = [NSString stringWithFormat:@"Unable to download XML file from web site (Error code %i )", [parseError code]];
-	NSLog(@"error parsing XML: %@", errorString);
-	
-	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Error loading content" message:errorString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[errorAlert show];
+	NSLog(@"ERROR parsing XML: %@", errorString);
 }
 
 - (void)parser:(NSXMLParser *)parser 
