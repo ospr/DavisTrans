@@ -1,7 +1,6 @@
 
 Priority
 ========
-• Implement PredictionManager
 • Display prediction times
 • Change titles of ViewControllers to be more descriptive
 • Set maximum and minimum dates for date picker
@@ -31,3 +30,4 @@ Done
 • Fix datepicker so that it doesn't set current time when setting current date.
 • About/Info view
 • When processing GTFS files, remove routes with no trips (eg N)
+• Implement PredictionManager

@@ -42,6 +42,7 @@
 		C993E17C10A206A300B0F44D /* UnitransAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E17B10A206A300B0F44D /* UnitransAppDelegate.m */; };
 		C993E18C10A206E800B0F44D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C993E18B10A206E800B0F44D /* MainWindow.xib */; };
 		C9AB0A5F10A3627400B75C4B /* StopTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AB0A5E10A3627400B75C4B /* StopTimeViewController.m */; };
+		C9FD7CC210AB49DC004DEE85 /* PredictionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FD7CC110AB49DC004DEE85 /* PredictionManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +107,8 @@
 		C993E18B10A206E800B0F44D /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		C9AB0A5D10A3627400B75C4B /* StopTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopTimeViewController.h; sourceTree = "<group>"; };
 		C9AB0A5E10A3627400B75C4B /* StopTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTimeViewController.m; sourceTree = "<group>"; };
+		C9FD7CC010AB49DC004DEE85 /* PredictionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PredictionManager.h; sourceTree = "<group>"; };
+		C9FD7CC110AB49DC004DEE85 /* PredictionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PredictionManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +261,8 @@
 				7CEEFF68109F5798005EB194 /* DatabaseManager.m */,
 				C923168A10A7842C00A1BB6C /* RealTimeBusInfoManager.h */,
 				C923168B10A7842C00A1BB6C /* RealTimeBusInfoManager.m */,
+				C9FD7CC010AB49DC004DEE85 /* PredictionManager.h */,
+				C9FD7CC110AB49DC004DEE85 /* PredictionManager.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -362,6 +367,7 @@
 				7C25C28010A8CD7300AAD086 /* UIColor_Extensions.m in Sources */,
 				C91476C510AA47B20014E49F /* NSDate_Extensions.m in Sources */,
 				7CD986F310AA68BE00116483 /* AboutViewController.m in Sources */,
+				C9FD7CC210AB49DC004DEE85 /* PredictionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
