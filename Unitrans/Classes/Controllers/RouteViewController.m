@@ -38,7 +38,7 @@
     NSArray *sortedStops = [[[route allStops] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopsSortDescriptor]];
     [self setStops:sortedStops];
     
-	[self setTitle:@"Stops"];
+	[self setTitle:[NSString stringWithFormat:@"%@ Line Stops", [route shortName]]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,6 +86,7 @@
 	{
 		[[cell textLabel] setText:@"Show Map"];
 		[[cell textLabel] setTextAlignment:UITextAlignmentCenter];
+		[cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
 	}
 	else 
 	{

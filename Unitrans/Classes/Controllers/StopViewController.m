@@ -119,7 +119,7 @@
 	if(section == 0)
 		return [NSString stringWithString:@"Schedule for date:"];
 	else
-		return [NSString string];
+		return [stop name];
 }
 
 // Customize the appearance of table view cells.
@@ -153,9 +153,11 @@
 {
 	if([indexPath indexAtPosition:0] == 0)
 	{
+		// Reselect the selected date (cancel on the date picker can make the picker to show different date
+		[datePicker setDate:selectedDate animated:YES];
 		// Show UIActionSheet
 		[datePickerSheet showInView:self.view];
-		[datePickerSheet setBounds:CGRectMake(0.0, 0.0, [[self view] frame].size.width , [[self view] frame].size.height)]; // 464
+		[datePickerSheet setBounds:CGRectMake(0.0, 0.0, [[self view] frame].size.width , [[self view] frame].size.height)];
 	}
 	else 
 	{
@@ -191,6 +193,7 @@
 
 - (IBAction) datePickerCancelClicked:(id)sender
 {
+	[[self tableView] reloadData];
 	[datePickerSheet dismissWithClickedButtonIndex:0 animated:YES];
 }
 
