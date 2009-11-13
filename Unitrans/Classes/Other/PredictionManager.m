@@ -13,8 +13,8 @@
 @synthesize stopTag;
 @synthesize routeShortname;
 @synthesize stopId;
-@synthesize predictionInMinutes;
 @synthesize predictionTimeFormatter;
+@synthesize predictionTimes;
 
 #pragma mark -
 #pragma mark Singleton Methods
@@ -69,7 +69,7 @@ static PredictionManager *sharedPredictionManager = nil;
 		[self setStopTag:@""];
 		[self setRouteShortname:@""];
 		[self setStopId:@""];
-		[self setPredictionInMinutes:0];
+		predictionTimes = [[NSMutableArray alloc] init];
 		
 		// Initialize NSDateFormatter
 		predictionTimeFormatter = [[NSDateFormatter alloc] init];
@@ -87,6 +87,7 @@ static PredictionManager *sharedPredictionManager = nil;
 
 - (void) dealloc
 {
+	[predictionTimes release];
 	[predictionTimeFormatter release];
 	[super dealloc];
 }
@@ -94,26 +95,65 @@ static PredictionManager *sharedPredictionManager = nil;
 #pragma mark -
 #pragma mark Retrieval methods
 
-- (NSString *) retrievePredictionInMinutesForRoute:(Route *)theRoute atStop:(Stop *)theStop
+// Returns an array strings in minutes
+- (NSArray *) retrievePredictionInMinutesForRoute:(Route *)theRoute atStop:(Stop *)theStop
 {
+	[self initializeRetrieve:theRoute atStop:theStop];
+	return predictionTimes;
+}
+
+// Returns an array of strings in format 'HH:MM am/pm'
+- (NSArray *) retrievePredictionAsTimeForRoute:(Route *)theRoute atStop:(Stop *)theStop
+{
+	[self initializeRetrieve:theRoute atStop:theStop];
+
+	return [self convertMinutesToTime];
+}
+
+// Returns an array of dictionaries with keys 'minutes' and 'time'
+- (NSArray *) retrievePredictionInMinutesAndAsTimeForRoute:(Route *)theRoute atStop:(Stop *)theStop
+{
+	[self initializeRetrieve:theRoute atStop:theStop];
+	
+	NSArray *predictionTimeStrings = [self convertMinutesToTime];
+	NSMutableArray *predictionInMinutesAndTime = [[[NSMutableArray alloc] init] autorelease];
+	
+	NSInteger predictionCount = [predictionTimes count];
+	
+	for(int i = 0; i < predictionCount; i++)
+	{
+		NSDictionary *minAndTime = [[NSDictionary alloc] initWithObjectsAndKeys:[predictionTimes objectAtIndex:i], @"minutes", [predictionTimeStrings objectAtIndex:i], @"time", nil];
+		[predictionInMinutesAndTime addObject:minAndTime];
+		[minAndTime release];
+	}
+	
+	return predictionInMinutesAndTime;
+}
+
+- (NSArray *) convertMinutesToTime
+{
+	NSTimeInterval predictionInSeconds;
+	NSMutableArray *predictionTimeStrings = [[[NSMutableArray alloc] init] autorelease];
+	
+	for(NSString *minutes in predictionTimes)
+	{
+		predictionInSeconds = [minutes intValue] * 60;
+		[predictionTimeStrings addObject:[predictionTimeFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:predictionInSeconds]]];
+	}
+	
+	return [NSArray arrayWithArray:predictionTimeStrings];
+}
+
+// Takes care of pre-retrieval tasks
+- (void) initializeRetrieve:(Route *)theRoute atStop:(Stop *)theStop
+{
+	[predictionTimes removeAllObjects];
 	[self setStopTag:[[theStop code] stringValue]];
 	[self setRouteShortname:[theRoute shortName]];
 	[self retrievePrediction];
-	return [NSString stringWithFormat:@"%d", predictionInMinutes];
 }
 
-- (NSString *) retrievePredictionAsTimeForRoute:(Route *)theRoute atStop:(Stop *)theStop
-{
-	[self setStopTag:[[theStop code] stringValue]];
-	[self setRouteShortname:[theRoute shortName]];
-	[self retrievePrediction];
-	
-	NSTimeInterval predictionInSeconds = predictionInMinutes * 60;
-	NSDate *predictionTime = [[[NSDate alloc] initWithTimeIntervalSinceNow:predictionInSeconds] autorelease];
-	
-	return [predictionTimeFormatter stringFromDate:predictionTime];
-}
-
+// Method to retrieve predictions from XML and store the results into the predictionTimes array
 - (void) retrievePrediction
 {	
 	// Use the stopID from GTFS to look up the correct stopID from routeConfig for prediction
@@ -122,7 +162,7 @@ static PredictionManager *sharedPredictionManager = nil;
 	
 	if([stopId length] == 0)
 	{
-		[self setPredictionInMinutes:-1];
+		// Prediction for stop does not exist (ie. stop at terminal)
 		return;
 	}
 	
@@ -170,8 +210,7 @@ didStartElement:(NSString *)elementName
 	}
 	else if([elementName isEqualToString:@"prediction"])
 	{
-		[self setPredictionInMinutes:[[attributeDict valueForKey:@"minutes"] intValue]];
-		[parser abortParsing];
+		[predictionTimes addObject:[attributeDict valueForKey:@"minutes"]];
 	}
 }
 

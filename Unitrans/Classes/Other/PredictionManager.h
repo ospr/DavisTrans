@@ -14,20 +14,23 @@
 	NSString *stopTag;
 	NSString *routeShortname;
 	NSString *stopId;
-	NSInteger predictionInMinutes;
 	NSDateFormatter *predictionTimeFormatter;
+	NSMutableArray *predictionTimes;
 }
 
 @property (nonatomic, retain) NSString *stopTag;
 @property (nonatomic, retain) NSString *routeShortname;
 @property (nonatomic, retain) NSString *stopId;
-@property (nonatomic, assign) NSInteger predictionInMinutes;
 @property (nonatomic, retain) NSDateFormatter *predictionTimeFormatter;
+@property (nonatomic, retain) NSMutableArray *predictionTimes;
 
 + (PredictionManager *)sharedPredictionManager;
 
-- (NSString *) retrievePredictionInMinutesForRoute:(Route *)theRoute atStop:(Stop *)theStop;
-- (NSString *) retrievePredictionAsTimeForRoute:(Route *)theRoute atStop:(Stop *)theStop;
+- (NSArray *) retrievePredictionInMinutesForRoute:(Route *)theRoute atStop:(Stop *)theStop;
+- (NSArray *) retrievePredictionAsTimeForRoute:(Route *)theRoute atStop:(Stop *)theStop;
+- (NSArray *) retrievePredictionInMinutesAndAsTimeForRoute:(Route *)theRoute atStop:(Stop *)theStop;
+- (NSArray *) convertMinutesToTime;
+- (void) initializeRetrieve:(Route *)theRoute atStop:(Stop *)theStop;
 - (void) retrievePrediction;
 - (void) retrieveStopIDFromRouteConfig;
 - (void) parseXMLAtURLString:(NSString *)theURLString;
