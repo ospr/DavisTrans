@@ -115,8 +115,9 @@
             pinAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Stop"] autorelease];
             [pinAnnotationView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
             [pinAnnotationView setCanShowCallout:YES];
-            [pinAnnotationView setEnabled:YES];
         }
+        
+        [pinAnnotationView setAnnotation:annotation];
 
         return pinAnnotationView;
     }

@@ -11,6 +11,8 @@ Priority
 • Handle errors: Can't load map, can't load predictions, can't load bus locations, can't load core data file etc
 • Show mapview button for StopTimesView and select stop in mapview
 • MapView button disclosure triangle should also go to maps.
+• Indicator when buses are currently updating.
+• Network indicator when we gather data from the internet.
 
 Secondary
 =========
