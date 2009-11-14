@@ -30,7 +30,8 @@
 #pragma mark -
 #pragma mark UIViewController methods
 
-- (void)viewDidLoad {
+- (void)viewDidLoad 
+{
     [super viewDidLoad];
 
     // Get route stops and sort by alphabetical order
@@ -38,17 +39,19 @@
     NSArray *sortedStops = [[[route allStops] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopsSortDescriptor]];
     [self setStops:sortedStops];
     
-	[self setTitle:[NSString stringWithFormat:@"%@ Line Stops", [route shortName]]];
+	[self setTitle:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning 
+{
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload 
+{
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
 }
@@ -57,13 +60,15 @@
 #pragma mark -
 #pragma mark UITableView methods
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
+{
     return 2;
 }
 
 
 // Customize the number of rows in the table view.
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
+{
 	if(section == 0)
 		return 1;
 	else
@@ -72,7 +77,8 @@
 
 
 // Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
     
     static NSString *CellIdentifier = @"Cell";
     
@@ -86,12 +92,15 @@
 	{
 		[[cell textLabel] setText:@"Show Map"];
 		[[cell textLabel] setTextAlignment:UITextAlignmentCenter];
+		[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
 		[cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
 	}
 	else 
 	{
         Stop *stop = [stops objectAtIndex:[indexPath row]];
 		[[cell textLabel] setText:[stop name]];
+		[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
+		[[cell textLabel] setTextAlignment:UITextAlignmentLeft];
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	}
 
@@ -99,7 +108,8 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
+{
     // Navigation logic may go here. Create and push another view controller.
 	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
 	// [self.navigationController pushViewController:anotherViewController];
@@ -121,6 +131,14 @@
 		[self.navigationController pushViewController:stopViewController animated:YES];
 		[stopViewController release];
 	}
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if([indexPath section] == 1)
+		return 35.0;
+	else
+		return [tableView rowHeight];
 }
 
 @end

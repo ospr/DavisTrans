@@ -145,11 +145,14 @@
 	{
 		[[cell textLabel] setText:[selectedDateFormatter stringFromDate:selectedDate]];
 		[[cell textLabel] setTextAlignment:UITextAlignmentCenter];
+		[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
 	}
 	else 
 	{
         StopTime *stopTime = [stopTimes objectAtIndex:[indexPath row]];
 		[[cell textLabel] setText:[stopTime arrivalTimeString]];
+		[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
+		[[cell textLabel] setTextAlignment:UITextAlignmentLeft];
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	}
 
@@ -182,7 +185,6 @@
 {
 	if ([indexPath section] == 1) 
 	{
-	//	NSString *referenceDateString = [NSString stringWithFormat:@"%@ 12:00 am", [referenceDateFormatter stringFromDate:[NSDate date]]];
 		NSUInteger seconds = [[[stopTimes objectAtIndex:[indexPath row]] arrivalTime] unsignedIntegerValue];
 		NSDate *referenceDate = [referenceDateTimeFormatter dateFromString:[NSString stringWithFormat:@"%@ 12:00 am", [referenceDateFormatter stringFromDate:[NSDate date]]]];
 		NSDate *arrivalDate = [[NSDate alloc] initWithTimeInterval:seconds sinceDate:referenceDate];
@@ -198,6 +200,14 @@
 		cell.backgroundColor = [UIColor whiteColor];
 	}
 
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if([indexPath section] == 1)
+		return 35.0;
+	else
+		return [tableView rowHeight];
 }
 
 #pragma mark -
