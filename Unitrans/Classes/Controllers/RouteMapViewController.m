@@ -105,19 +105,6 @@
 # pragma mark -
 # pragma mark MapView Delegate Methods
 
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
-{
-    // Hide route view when resizing
-    [routeAnnotationView setHidden:YES];
-}
-
-- (void)mapView:(MKMapView *)mv regionDidChangeAnimated:(BOOL)animated
-{
-    // Update route path after region changed
-    [routeAnnotationView regionChanged];
-	[routeAnnotationView setHidden:NO];
-}
-
 - (MKAnnotationView *)mapView:(MKMapView *)mv viewForAnnotation:(id <MKAnnotation>)annotation
 {        
     if ([annotation isKindOfClass:[Stop class]]) 
@@ -169,6 +156,29 @@
 		[stopViewController release];
     }
 }
+
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+    // This is a bit of a hack to get the view hierarchy to work in this order: RouteView, BusViews, StopViews
+    
+    // Get the superview for the annotation views
+    UIView *annotationSuperView = [[views lastObject] superview];
+    
+    // Get the index of the routeview and move it to the bottom if it's not already
+    NSUInteger routeViewIndex = [[annotationSuperView subviews] indexOfObject:routeAnnotationView];
+    if (routeViewIndex != NSNotFound && routeViewIndex != 0) {
+        [[routeAnnotationView superview] sendSubviewToBack:routeAnnotationView];
+    }
+    
+    // Iterate through subviews and find the RealTimeBusInfo annotations
+    // move them to just above the routeview
+    for (MKAnnotationView *view in [annotationSuperView subviews])
+    {
+        if ([[view annotation] isKindOfClass:[RealTimeBusInfo class]])
+            [[view superview] insertSubview:view aboveSubview:routeAnnotationView];
+    }
+}
+
 
 # pragma mark -
 # pragma mark RealTimeInfo Methods

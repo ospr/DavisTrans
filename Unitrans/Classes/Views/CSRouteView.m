@@ -135,6 +135,14 @@
 	
 }
 
+- (void)setCenter:(CGPoint)c 
+{    
+    [super setCenter:c];
+    
+    // Update region when ever center changes
+    [self regionChanged];
+}
+
 - (void)dealloc 
 {
 	[_mapView release];
