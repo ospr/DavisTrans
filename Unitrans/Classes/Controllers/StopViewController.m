@@ -21,6 +21,8 @@
 @synthesize stopTimes;
 @synthesize selectedDate;
 @synthesize selectedDateFormatter;
+@synthesize referenceDateFormatter;
+@synthesize referenceDateTimeFormatter;
 @synthesize datePicker;
 @synthesize datePickerSheet;
 
@@ -34,6 +36,8 @@
 	[stopTimes release];
     [selectedDate release];
     [selectedDateFormatter release];
+	[referenceDateFormatter release];
+	[referenceDateTimeFormatter release];
 	[datePicker release];
 	[datePickerSheet release];
     [super dealloc];
@@ -55,8 +59,12 @@
 	[selectedDateFormatter setDateStyle:NSDateFormatterMediumStyle];
 	NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
 	[selectedDateFormatter setLocale:usLocale];
+	[usLocale release]; 
 	
-	[usLocale release]; // TODO: ask Kip about retain count of usLocale
+	referenceDateFormatter = [[NSDateFormatter alloc] init];
+	[referenceDateFormatter setDateFormat:@"yyyy-MM-dd"];
+	referenceDateTimeFormatter = [[NSDateFormatter alloc] init];
+	[referenceDateTimeFormatter setDateFormat:@"yyyy-MM-dd hh:mm a"];
 	
 	// Initialize UIDatePicker
 	datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, 44.0, 0.0, 0.0)];
@@ -168,6 +176,28 @@
 		[self.navigationController pushViewController:stopTimeViewController animated:YES];
 		[stopTimeViewController release];
 	}
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if ([indexPath section] == 1) 
+	{
+	//	NSString *referenceDateString = [NSString stringWithFormat:@"%@ 12:00 am", [referenceDateFormatter stringFromDate:[NSDate date]]];
+		NSUInteger seconds = [[[stopTimes objectAtIndex:[indexPath row]] arrivalTime] unsignedIntegerValue];
+		NSDate *referenceDate = [referenceDateTimeFormatter dateFromString:[NSString stringWithFormat:@"%@ 12:00 am", [referenceDateFormatter stringFromDate:[NSDate date]]]];
+		NSDate *arrivalDate = [[NSDate alloc] initWithTimeInterval:seconds sinceDate:referenceDate];
+		
+		if([arrivalDate earlierDate:[NSDate date]] == arrivalDate)
+			cell.backgroundColor = [UIColor colorWithRed:0.82 green:0.82 blue:0.82 alpha:1.0];
+		else 
+			cell.backgroundColor = [UIColor whiteColor];
+		
+		[arrivalDate release];
+	}
+	else {
+		cell.backgroundColor = [UIColor whiteColor];
+	}
+
 }
 
 #pragma mark -
