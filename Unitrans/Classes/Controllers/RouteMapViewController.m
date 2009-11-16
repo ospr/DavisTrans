@@ -266,6 +266,14 @@
         [alertView release];
     }
     
+    // If there were no buses, then stop upating and alert user
+    if ([busInfos count] == 0) {
+        [self endContinuousBusUpdates];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Buses Found" message:@"There were no buses found for this route at this time." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        [alertView release];
+    }
+    
     // Remove buses if they exsisted before
     if (busAnnotations)
         [mapView removeAnnotations:busAnnotations];
