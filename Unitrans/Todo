@@ -13,6 +13,9 @@ Priority
 • Indicator when buses are currently updating.
 • Network indicator when we gather data from the internet.
 • Decide whether to move "Show in Map" button to a toolbar icon button or move the toolbar "Map" button to a "Show in Map" button.
+• Date picker says Today and Yesterday for today and yesterday dates
+• Date picker has weekday name
+• Date picker has longer more natural height
 
 Secondary
 =========

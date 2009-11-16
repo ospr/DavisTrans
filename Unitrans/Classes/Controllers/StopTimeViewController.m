@@ -85,12 +85,11 @@
     
     StopTime *arrivalTime = [arrivalTimes objectAtIndex:[indexPath row]];
     
-    //NSString *stopAndArrivalString = [NSString stringWithFormat:@"%@  -  %@", [[stopTime stop] name], [stopTime arrivalTimeString]];
     [[cell textLabel] setText:[[arrivalTime stop] name]];
-    [[cell textLabel] setFont:[UIFont fontWithName:@"Helvetica" size:12]];
+    [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
 	
     [[cell detailTextLabel] setText:[arrivalTime arrivalTimeString]];
-    [[cell detailTextLabel] setFont:[UIFont fontWithName:@"Helvetica" size:12]];
+    [[cell detailTextLabel] setFont:[UIFont boldSystemFontOfSize:12]];
     
     return cell;
 }
