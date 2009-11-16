@@ -180,26 +180,54 @@
     }
 }
 
+- (void)mapViewWillStartLoadingMap:(MKMapView *)mapView
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+}
+
+- (void)mapViewDidFinishLoadingMap:(MKMapView *)mapView
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
+
+- (void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error
+{
+    // Load alert message with error
+    if (!errorShown) {
+        NSString *errorString = [[[[error userInfo] objectForKey:NSUnderlyingErrorKey] userInfo] objectForKey:NSLocalizedDescriptionKey];
+        NSString *reason = [NSString stringWithFormat:@"There was an error while loading the map: %@", errorString];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Map Loading Error" message:reason
+                                                       delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];	
+        [alert release];
+                
+        // Show error only once!
+        errorShown = YES;
+    }
+    
+    NSLog(@"Error loading map: %@", error);
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
 
 # pragma mark -
 # pragma mark RealTimeInfo Methods
 
 - (IBAction)beginContinuousBusUpdatesAction:(id)sender
 {
-    [busButtonItem setAction:@selector(endContinuousBusUpdatesAction:)];
-
     [self beginContinuousBusUpdates];
 }
 
 - (IBAction)endContinuousBusUpdatesAction:(id)sender
-{
-    [busButtonItem setAction:@selector(beginContinuousBusUpdatesAction:)];
-    
+{    
     [self endContinuousBusUpdates];
 }
 
 - (void)beginContinuousBusUpdates
 {    
+    [busButtonItem setAction:@selector(endContinuousBusUpdatesAction:)];
+    
     busTimer = [[NSTimer scheduledTimerWithTimeInterval:4.0
                                                  target:self
                                                selector:@selector(updateBusLocations:)
@@ -210,6 +238,7 @@
 
 - (void)endContinuousBusUpdates
 {
+    [busButtonItem setAction:@selector(beginContinuousBusUpdatesAction:)];
     busContinuousUpdatesRunning = NO;
     
     [busTimer invalidate];
@@ -224,10 +253,18 @@
 
 - (void)updateBusLocations:(NSTimer *)timer
 {
-    NSLog(@"updating");
+    NSError *error;
     
     // Get all buses for the current route
-    NSArray *busInfos = [[RealTimeBusInfoManager sharedRealTimeBusInfoManager] retrieveRealTimeBusInfoWithRoute:[route shortName]];
+    NSArray *busInfos = [[RealTimeBusInfoManager sharedRealTimeBusInfoManager] retrieveRealTimeBusInfoWithRoute:[route shortName] error:&error];
+    
+    // If busInfos is nil there was an error
+    if (!busInfos) {
+        [self endContinuousBusUpdates];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Update Bus Location Error" message:@"There was an error while updating bus locations." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        [alertView release];
+    }
     
     // Remove buses if they exsisted before
     if (busAnnotations)

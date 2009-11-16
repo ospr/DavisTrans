@@ -15,17 +15,19 @@
 	NSString *currentElement;
 	NSXMLParser *xmlParser;
 	NSInteger lastTime;
+    NSError *parseError;
 }
 
 @property (nonatomic, retain) NSMutableArray *realTimeBusInfo;
 @property (nonatomic, retain) NSString *currentElement;
 @property (nonatomic, retain) NSXMLParser *xmlParser;
 @property (nonatomic, assign) NSInteger lastTime;
+@property (nonatomic, retain) NSError *parseError;
 
-- (NSArray *) retrieveRealTimeBusInfo;
-- (NSArray *) retrieveRealTimeBusInfoFromLastTime;
-- (NSArray *) retrieveRealTimeBusInfoWithRoute:(NSString *)theRoute;
-- (void) retrieveRealTimeBusInfoFromURL:(NSString *)theURL;
+- (NSArray *) retrieveRealTimeBusInfoError:(NSError **)error;
+- (NSArray *) retrieveRealTimeBusInfoFromLastTimeError:(NSError **)error;
+- (NSArray *) retrieveRealTimeBusInfoWithRoute:(NSString *)theRoute error:(NSError **)error;
+- (NSArray *) retrieveRealTimeBusInfoFromURL:(NSString *)theURL error:(NSError **)error;
 
 + (RealTimeBusInfoManager *) sharedRealTimeBusInfoManager;
 

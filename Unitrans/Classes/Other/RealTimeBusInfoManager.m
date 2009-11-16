@@ -16,6 +16,7 @@
 @synthesize currentElement;
 @synthesize xmlParser;
 @synthesize lastTime;
+@synthesize parseError;
 
 #pragma mark -
 #pragma mark Singleton Methods
@@ -79,20 +80,23 @@ static RealTimeBusInfoManager *sharedRealTimeBusInfoManager = nil;
 - (void) dealloc
 {
 	[realTimeBusInfo release];
+    [realTimeBusInfo release];
+    [currentElement release];
+    [parseError release];
+    
 	[super dealloc];
 }
 
 #pragma mark -
 #pragma mark Retrieval Methods
 
-- (NSArray *) retrieveRealTimeBusInfo
+- (NSArray *) retrieveRealTimeBusInfoError:(NSError **)error
 {
 	NSString *url = @"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=0";
-	[self retrieveRealTimeBusInfoFromURL:url];
-	return [NSArray arrayWithArray:realTimeBusInfo];
+	return [self retrieveRealTimeBusInfoFromURL:url error:error];
 }
 
-- (NSArray *) retrieveRealTimeBusInfoFromLastTime
+- (NSArray *) retrieveRealTimeBusInfoFromLastTimeError:(NSError **)error
 {
 	if(lastTime == -1)
 	{
@@ -101,18 +105,16 @@ static RealTimeBusInfoManager *sharedRealTimeBusInfoManager = nil;
     }
 	
 	NSString *url = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=%d", lastTime];
-	[self retrieveRealTimeBusInfoFromURL:url];
-	return [NSArray arrayWithArray:realTimeBusInfo];
+	return [self retrieveRealTimeBusInfoFromURL:url error:error];
 }
 
-- (NSArray *) retrieveRealTimeBusInfoWithRoute:(NSString *)theRoute
+- (NSArray *) retrieveRealTimeBusInfoWithRoute:(NSString *)theRoute error:(NSError **)error
 {
 	NSString *url = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=0&r=%@", theRoute];
-	[self retrieveRealTimeBusInfoFromURL:url];
-	return [NSArray arrayWithArray:realTimeBusInfo];
+	return [self retrieveRealTimeBusInfoFromURL:url error:error];
 }
 
-- (void) retrieveRealTimeBusInfoFromURL:(NSString *)theURL
+- (NSArray *) retrieveRealTimeBusInfoFromURL:(NSString *)theURL error:(NSError **)error
 {
 	NSLog(@"parse at url: %@", theURL);
 	[realTimeBusInfo removeAllObjects];
@@ -121,15 +123,25 @@ static RealTimeBusInfoManager *sharedRealTimeBusInfoManager = nil;
 	[xmlParser setDelegate:self];
 	[xmlParser parse];
 	[xmlParser release];
+    
+    // If there was an error, then set error and return nil
+    if (parseError) {
+        if (error) 
+            *error = parseError;
+        return nil;
+    }
+    
+    return [NSArray arrayWithArray:realTimeBusInfo];
 }
 
 #pragma mark -
 #pragma mark NSXMLParser Delegate Methods
-// TODO: Need to do something with error
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError 
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)error 
 {
-	NSString * errorString = [NSString stringWithFormat:@"Unable to download XML file from web site (Error code %i )", [parseError code]];
+	NSString * errorString = [NSString stringWithFormat:@"Unable to download XML file from web site error: %@", error];
 	NSLog(@"ERROR parsing XML: %@", errorString);
+    
+    [self setParseError:error];
 }
 
 - (void)parser:(NSXMLParser *)parser 
@@ -137,9 +149,7 @@ didStartElement:(NSString *)elementName
   namespaceURI:(NSString *)namespaceURI 
  qualifiedName:(NSString *)qName 
 	attributes:(NSDictionary *)attributeDict
-{
-	currentElement = [elementName copy];
-	
+{	
 	if([elementName isEqualToString:@"vehicle"])
 	{
 		RealTimeBusInfo *vehicle = [[RealTimeBusInfo alloc] initWithVehicleID:[attributeDict valueForKey:@"id"] 

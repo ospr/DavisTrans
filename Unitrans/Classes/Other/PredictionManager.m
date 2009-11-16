@@ -15,6 +15,7 @@
 @synthesize stopId;
 @synthesize predictionTimeFormatter;
 @synthesize predictionTimes;
+@synthesize parseError;
 
 #pragma mark -
 #pragma mark Singleton Methods
@@ -87,70 +88,30 @@ static PredictionManager *sharedPredictionManager = nil;
 
 - (void) dealloc
 {
+    [stopTag release];
+    [routeShortname release];
+    [stopId release];
 	[predictionTimes release];
 	[predictionTimeFormatter release];
+    [parseError release];
+     
 	[super dealloc];
 }
 
 #pragma mark -
 #pragma mark Retrieval methods
 
-// Returns an array strings in minutes
-- (NSArray *) retrievePredictionInMinutesForRoute:(Route *)theRoute atStop:(Stop *)theStop
+- (NSArray *) retrievePredictionInMinutesForRoute:(Route *)theRoute atStop:(Stop *)theStop error:(NSError **)error
 {
-	[self initializeRetrieve:theRoute atStop:theStop];
-	return predictionTimes;
-}
-
-// Returns an array of strings in format 'HH:MM am/pm'
-- (NSArray *) retrievePredictionAsTimeForRoute:(Route *)theRoute atStop:(Stop *)theStop
-{
-	[self initializeRetrieve:theRoute atStop:theStop];
-
-	return [self convertMinutesToTime];
-}
-
-// Returns an array of dictionaries with keys 'minutes' and 'time'
-- (NSArray *) retrievePredictionInMinutesAndAsTimeForRoute:(Route *)theRoute atStop:(Stop *)theStop
-{
-	[self initializeRetrieve:theRoute atStop:theStop];
-	
-	NSArray *predictionTimeStrings = [self convertMinutesToTime];
-	NSMutableArray *predictionInMinutesAndTime = [[[NSMutableArray alloc] init] autorelease];
-	
-	NSInteger predictionCount = [predictionTimes count];
-	
-	for(int i = 0; i < predictionCount; i++)
-	{
-		NSDictionary *minAndTime = [[NSDictionary alloc] initWithObjectsAndKeys:[predictionTimes objectAtIndex:i], @"minutes", [predictionTimeStrings objectAtIndex:i], @"time", nil];
-		[predictionInMinutesAndTime addObject:minAndTime];
-		[minAndTime release];
-	}
-	
-	return predictionInMinutesAndTime;
-}
-
-- (NSArray *) convertMinutesToTime
-{
-	NSTimeInterval predictionInSeconds;
-	NSMutableArray *predictionTimeStrings = [[[NSMutableArray alloc] init] autorelease];
-	
-	for(NSString *minutes in predictionTimes)
-	{
-		predictionInSeconds = [minutes intValue] * 60;
-		[predictionTimeStrings addObject:[predictionTimeFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:predictionInSeconds]]];
-	}
-	
-	return [NSArray arrayWithArray:predictionTimeStrings];
-}
-
-// Takes care of pre-retrieval tasks
-- (void) initializeRetrieve:(Route *)theRoute atStop:(Stop *)theStop
-{
-	[predictionTimes removeAllObjects];
-	[self setStopTag:[[theStop code] stringValue]];
-	[self setRouteShortname:[theRoute shortName]];
-	[self retrievePrediction];
+    [self retrievePrediction];
+    
+    if (parseError) {
+        if (error)
+            *error = parseError;
+        return nil;
+    }
+    
+    return [NSArray arrayWithArray:predictionTimes];
 }
 
 // Method to retrieve predictions from XML and store the results into the predictionTimes array
@@ -186,12 +147,27 @@ static PredictionManager *sharedPredictionManager = nil;
 	[xmlParser release];
 }
 
+- (NSArray *) convertMinutesToTime:(NSArray *)minutes
+{
+	NSMutableArray *predictionTimeStrings = [NSMutableArray array];
+	
+	for(NSString *minuteString in minutes)
+	{
+        NSTimeInterval predictionInSeconds = [minuteString intValue] * 60;
+		[predictionTimeStrings addObject:[predictionTimeFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:predictionInSeconds]]];
+	}
+	
+	return [NSArray arrayWithArray:predictionTimeStrings];
+}
+
 #pragma mark -
 #pragma mark NSXMLParser Delegate Methods
 
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError 
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)error 
 {
-	//NSLog(@"Parse manually aborted or aborted due to parse error.");
+	NSLog(@"Prediction manager had error while parsing predictions: %@.", error);
+    
+    [self setParseError:error];
 }
 
 - (void)parser:(NSXMLParser *)parser 

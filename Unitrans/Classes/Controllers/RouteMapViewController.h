@@ -24,6 +24,8 @@
     NSTimer *busTimer;
     NSArray *busAnnotations;
     BOOL busContinuousUpdatesRunning;
+    
+    BOOL errorShown;
 }
 
 @property (nonatomic, retain) MKMapView *mapView;
