@@ -12,6 +12,7 @@ Priority
 • MapView button disclosure triangle should also go to maps.
 • Indicator when buses are currently updating.
 • Network indicator when we gather data from the internet.
+• Decide whether to move "Show in Map" button to a toolbar icon button or move the toolbar "Map" button to a "Show in Map" button.
 
 Secondary
 =========
