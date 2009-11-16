@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 @class Route;
+@class Stop;
 @class CSRouteView;
 
 @interface RouteMapViewController : UIViewController {
@@ -18,6 +19,7 @@
     UIBarButtonItem *busButtonItem;
     
     Route *route;
+    Stop *stop;
     
     CSRouteView *routeAnnotationView;
     
@@ -30,6 +32,7 @@
 
 @property (nonatomic, retain) MKMapView *mapView;
 @property (nonatomic, retain) Route *route;
+@property (nonatomic, retain) Stop *stop;
 @property (nonatomic, retain) NSArray *busAnnotations;
 
 - (void)beginContinuousBusUpdates;

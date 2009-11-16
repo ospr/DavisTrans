@@ -25,11 +25,13 @@
 
 @synthesize mapView;
 @synthesize route;
+@synthesize stop;
 @synthesize busAnnotations;
 
 - (void)dealloc 
 {
     [route release];
+    [stop release];
     [routeAnnotationView release];
     [busAnnotations release];
     [busTimer release];
@@ -76,11 +78,18 @@
     [routeAnnotationView setMapView:mapView];
     
     // Add stop annotations
-    for (Stop *stop in [trip stops])
-        [mapView addAnnotation:stop];
+    for (Stop *tripStop in [trip stops])
+        [mapView addAnnotation:tripStop];
     
     // Tell map to zoom to show entire route
     [mapView setRegion:[routeAnnotation region]];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{    
+    // If stop has been set, select it
+    if (stop)
+        [mapView selectAnnotation:stop animated:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

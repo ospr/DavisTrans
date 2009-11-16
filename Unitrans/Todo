@@ -9,7 +9,6 @@ Priority
 • Process stops and remove street title and move bound direction to a seperate property (eg remove st, blvd, and move (WB) to separate property)
 • Split times into Night and Day segments in StopTimes view
 • Handle errors: can't load predictions, can't load core data file etc
-• Show mapview button for StopTimesView and select stop in mapview
 • MapView button disclosure triangle should also go to maps.
 • Indicator when buses are currently updating.
 • Network indicator when we gather data from the internet.
@@ -39,3 +38,4 @@ Done
 • Change titles of ViewControllers to be more descriptive
 • Show expired stop times
 • Handle errors: Can't load map, can't load bus locations
+• Show mapview button for StopTimesView and select stop in mapview

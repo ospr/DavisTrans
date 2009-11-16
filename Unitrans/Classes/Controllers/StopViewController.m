@@ -8,6 +8,7 @@
 
 #import "StopViewController.h"
 #import "StopTimeViewController.h"
+#import "RouteMapViewController.h"
 #import "Stop.h"
 #import "StopTime.h"
 #import "Route.h"
@@ -52,6 +53,13 @@
     [self setTitle:@"Stop Times"];
 	[self setSelectedDate:[NSDate beginningOfDay:[NSDate date]]]; 
     [self updateStopTimes];
+    
+    UIBarButtonItem *mapButtonItem = [[UIBarButtonItem alloc] init];
+    [mapButtonItem setTitle:@"Map"];
+    [mapButtonItem setTarget:self];
+    [mapButtonItem setAction:@selector(showStopInMapAction:)];
+    [[self navigationItem] setRightBarButtonItem:mapButtonItem];
+    [mapButtonItem release];
 	
 	// Initialize NSDateFormatter
 	selectedDateFormatter = [[NSDateFormatter alloc] init];
@@ -235,6 +243,15 @@
 {
 	[[self tableView] reloadData];
 	[datePickerSheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+- (IBAction)showStopInMapAction:(id)action
+{
+    RouteMapViewController *routeMapViewController = [[RouteMapViewController alloc] initWithNibName:@"RouteMapView" bundle:nil];
+    [routeMapViewController setRoute:route];
+    [routeMapViewController setStop:stop];
+    [[self navigationController] pushViewController:routeMapViewController animated:YES];
+    [routeMapViewController release];
 }
 
 @end
