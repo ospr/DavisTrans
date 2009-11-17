@@ -37,5 +37,6 @@
 
 - (void)beginContinuousBusUpdates;
 - (void)endContinuousBusUpdates;
+- (void)updateBusLocations:(NSTimer *)timer;
 
 @end

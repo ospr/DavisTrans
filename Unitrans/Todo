@@ -10,12 +10,13 @@ Priority
 • Split times into Night and Day segments in StopTimes view
 • Handle errors: can't load predictions, can't load core data file etc
 • MapView button disclosure triangle should also go to maps.
-• Indicator when buses are currently updating.
 • Network indicator when we gather data from the internet.
 • Decide whether to move "Show in Map" button to a toolbar icon button or move the toolbar "Map" button to a "Show in Map" button.
 • Date picker says Today and Yesterday for today and yesterday dates
 • Date picker has weekday name
 • Date picker has longer more natural height
+• Derive primary trip (based on shapes) for a route in database manager and use that as the mapview route
+• Fix tile loading bug
 
 Secondary
 =========
@@ -31,6 +32,7 @@ Secondary
 • Derive "patterns" from GTFS
 • Fix annotation view drawing order so that route lies at bottom, buses over the route, and stops over route, and stop description bubbles on top.
 • Display list of patterns to choose from in map view.
+• Some sort of indicator to show the direction of the route on the map
 
 Done
 =========
@@ -43,3 +45,5 @@ Done
 • Show expired stop times
 • Handle errors: Can't load map, can't load bus locations
 • Show mapview button for StopTimesView and select stop in mapview
+• Animate stop pins
+• Activity indicator when buses are currently updating.

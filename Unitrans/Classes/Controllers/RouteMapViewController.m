@@ -124,6 +124,7 @@
             pinAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Stop"] autorelease];
             [pinAnnotationView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
             [pinAnnotationView setCanShowCallout:YES];
+            [pinAnnotationView setAnimatesDrop:YES];
         }
         
         [pinAnnotationView setAnnotation:annotation];
@@ -152,15 +153,13 @@
 }
 
 - (void)mapView:(MKMapView *)mv annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
-{
-    NSLog(@"callout");
-    
+{    
     if ([[view annotation] isKindOfClass:[Stop class]])
     {
-        Stop *stop = [view annotation];
+        Stop *selectedStop = [view annotation];
         
         StopViewController *stopViewController = [[StopViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        [stopViewController setStop:stop];
+        [stopViewController setStop:selectedStop];
         [stopViewController setRoute:route];
 		[[self navigationController] pushViewController:stopViewController animated:YES];
 		[stopViewController release];
@@ -182,9 +181,9 @@
     
     // Iterate through subviews and find the RealTimeBusInfo annotations
     // move them to just above the routeview
-    for (MKAnnotationView *view in [annotationSuperView subviews])
+    for (UIView *view in [annotationSuperView subviews])
     {
-        if ([[view annotation] isKindOfClass:[RealTimeBusInfo class]])
+        if ([view isMemberOfClass:[MKAnnotationView class]] && [[(MKAnnotationView*)view annotation] isKindOfClass:[RealTimeBusInfo class]])
             [[view superview] insertSubview:view aboveSubview:routeAnnotationView];
     }
 }
@@ -236,18 +235,24 @@
 - (void)beginContinuousBusUpdates
 {    
     [busButtonItem setAction:@selector(endContinuousBusUpdatesAction:)];
+    [busButtonItem setStyle:UIBarButtonItemStyleDone];
+    
+    busContinuousUpdatesRunning = YES;
+
+    [self updateBusLocations:nil];
+    
     
     busTimer = [[NSTimer scheduledTimerWithTimeInterval:4.0
                                                  target:self
                                                selector:@selector(updateBusLocations:)
                                                userInfo:nil
                                                 repeats:YES] retain];
-    busContinuousUpdatesRunning = YES;
 }
 
 - (void)endContinuousBusUpdates
 {
     [busButtonItem setAction:@selector(beginContinuousBusUpdatesAction:)];
+    [busButtonItem setStyle:UIBarButtonItemStyleBordered];
     busContinuousUpdatesRunning = NO;
     
     [busTimer invalidate];
@@ -265,7 +270,9 @@
     NSError *error;
     
     // Get all buses for the current route
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSArray *busInfos = [[RealTimeBusInfoManager sharedRealTimeBusInfoManager] retrieveRealTimeBusInfoWithRoute:[route shortName] error:&error];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     // If busInfos is nil there was an error
     if (!busInfos) {
