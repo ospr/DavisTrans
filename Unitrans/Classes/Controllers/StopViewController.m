@@ -22,6 +22,7 @@
 @synthesize stopTimes;
 @synthesize selectedDate;
 @synthesize selectedDateFormatter;
+@synthesize dayOfWeekFormatter;
 @synthesize referenceDateFormatter;
 @synthesize referenceDateTimeFormatter;
 @synthesize datePicker;
@@ -37,6 +38,7 @@
 	[stopTimes release];
     [selectedDate release];
     [selectedDateFormatter release];
+	[dayOfWeekFormatter release];
 	[referenceDateFormatter release];
 	[referenceDateTimeFormatter release];
 	[datePicker release];
@@ -63,16 +65,20 @@
 	
 	// Initialize NSDateFormatter
 	selectedDateFormatter = [[NSDateFormatter alloc] init];
-	[selectedDateFormatter setTimeStyle:NSDateFormatterNoStyle];
-	[selectedDateFormatter setDateStyle:NSDateFormatterMediumStyle];
-	NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-	[selectedDateFormatter setLocale:usLocale];
-	[usLocale release]; 
+	[selectedDateFormatter setDateFormat:@"EEEE MMM dd, yyyy"];
+	//[selectedDateFormatter setTimeStyle:NSDateFormatterNoStyle];
+	//[selectedDateFormatter setDateStyle:NSDateFormatterMediumStyle];
+	//NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+	//[selectedDateFormatter setLocale:usLocale];
+	//[usLocale release]; 
 	
 	referenceDateFormatter = [[NSDateFormatter alloc] init];
 	[referenceDateFormatter setDateFormat:@"yyyy-MM-dd"];
 	referenceDateTimeFormatter = [[NSDateFormatter alloc] init];
 	[referenceDateTimeFormatter setDateFormat:@"yyyy-MM-dd hh:mm a"];
+	
+	dayOfWeekFormatter = [[NSDateFormatter alloc] init];
+	[dayOfWeekFormatter setDateFormat:@"EEEE"];
 	
 	// Initialize UIDatePicker
 	datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, 44.0, 0.0, 0.0)];
@@ -132,8 +138,18 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+	NSTimeInterval secondsInADay = 86400;
 	if(section == 0)
-		return [NSString stringWithString:@"Schedule for date:"];
+	{
+		if([[NSDate beginningOfDay:[NSDate date]] isEqualToDate:[NSDate beginningOfDay:selectedDate]])
+			return [NSString stringWithString:@"Schedule for today:"];
+		else if([[NSDate beginningOfDay:[NSDate dateWithTimeIntervalSinceNow:-secondsInADay]] isEqualToDate:[NSDate beginningOfDay:selectedDate]])
+			return [NSString stringWithString:@"Schedule for yesterday:"];
+		else if([[NSDate beginningOfDay:[NSDate dateWithTimeIntervalSinceNow:secondsInADay]] isEqualToDate:[NSDate beginningOfDay:selectedDate]])
+			return [NSString stringWithString:@"Schedule for tomorrow:"];
+		else
+			return [NSString stringWithString:@"Schedule for date:"];
+	}
 	else
 		return [stop name];
 }

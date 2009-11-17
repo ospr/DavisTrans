@@ -12,8 +12,6 @@ Priority
 • MapView button disclosure triangle should also go to maps.
 • Network indicator when we gather data from the internet.
 • Decide whether to move "Show in Map" button to a toolbar icon button or move the toolbar "Map" button to a "Show in Map" button.
-• Date picker says Today and Yesterday for today and yesterday dates
-• Date picker has weekday name
 • Date picker has longer more natural height
 • Derive primary trip (based on shapes) for a route in database manager and use that as the mapview route
 • Fix tile loading bug
@@ -47,3 +45,5 @@ Done
 • Show mapview button for StopTimesView and select stop in mapview
 • Animate stop pins
 • Activity indicator when buses are currently updating.
+• Date picker has weekday name
+• Date picker says Today, Yesterday and tomorrow for today, yesterday and tomorrow dates
