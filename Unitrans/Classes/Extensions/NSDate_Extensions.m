@@ -11,12 +11,12 @@
 
 @implementation NSDate(NSDate_Extensions)
 
-+ (NSDate *) beginningOfDay:(NSDate *)theDate
+- (NSDate *) beginningOfDay
 {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
 	
     unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
-    NSDateComponents *comp = [calendar components:unitFlags fromDate:theDate];
+    NSDateComponents *comp = [calendar components:unitFlags fromDate:self];
 	
     return [calendar dateFromComponents:comp];
 }

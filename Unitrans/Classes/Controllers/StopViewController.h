@@ -16,6 +16,7 @@
     Stop *stop;
 	NSArray *stopTimes;
 	NSDate *selectedDate; // defaults to today
+    NSTimer *expiredStopTimeTimer;
 	NSDateFormatter *selectedDateFormatter;
 	NSDateFormatter *dayOfWeekFormatter;
 	NSDateFormatter *referenceDateFormatter;
@@ -29,7 +30,6 @@
 @property (nonatomic, retain) NSArray *stopTimes;
 @property (nonatomic, retain) NSDate *selectedDate;
 @property (nonatomic, retain) NSDateFormatter *selectedDateFormatter;
-@property (nonatomic, retain) NSDateFormatter *dayOfWeekFormatter;
 @property (nonatomic, retain) NSDateFormatter *referenceDateFormatter;
 @property (nonatomic, retain) NSDateFormatter *referenceDateTimeFormatter;
 @property (nonatomic, retain) UIDatePicker *datePicker;
@@ -39,5 +39,6 @@
 - (IBAction) datePickerCancelClicked:(id)sender;
 
 - (void)updateStopTimes;
+- (void)addUpdateNextStopTimeTimer;
 
 @end

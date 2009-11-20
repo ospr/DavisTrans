@@ -124,7 +124,6 @@
             pinAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Stop"] autorelease];
             [pinAnnotationView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
             [pinAnnotationView setCanShowCallout:YES];
-            [pinAnnotationView setAnimatesDrop:YES];
         }
         
         [pinAnnotationView setAnnotation:annotation];
@@ -241,12 +240,13 @@
 
     [self updateBusLocations:nil];
     
-    
-    busTimer = [[NSTimer scheduledTimerWithTimeInterval:4.0
-                                                 target:self
-                                               selector:@selector(updateBusLocations:)
-                                               userInfo:nil
-                                                repeats:YES] retain];
+    // If we are still updating after the first update, fire a timer every 4 seconds
+    if (busContinuousUpdatesRunning)
+        busTimer = [[NSTimer scheduledTimerWithTimeInterval:4.0
+                                                     target:self
+                                                   selector:@selector(updateBusLocations:)
+                                                   userInfo:nil
+                                                    repeats:YES] retain];
 }
 
 - (void)endContinuousBusUpdates

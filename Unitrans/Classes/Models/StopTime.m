@@ -28,7 +28,7 @@
 
     if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"hh:mm a"];
+        [dateFormatter setDateFormat:@"h:mm a"];
     }
     if (!referenceDate)
         referenceDate = [[dateFormatter dateFromString:@"12:00 am"] retain];

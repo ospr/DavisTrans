@@ -22,7 +22,6 @@
 @synthesize stopTimes;
 @synthesize selectedDate;
 @synthesize selectedDateFormatter;
-@synthesize dayOfWeekFormatter;
 @synthesize referenceDateFormatter;
 @synthesize referenceDateTimeFormatter;
 @synthesize datePicker;
@@ -38,11 +37,13 @@
 	[stopTimes release];
     [selectedDate release];
     [selectedDateFormatter release];
-	[dayOfWeekFormatter release];
 	[referenceDateFormatter release];
 	[referenceDateTimeFormatter release];
 	[datePicker release];
 	[datePickerSheet release];
+    
+    [expiredStopTimeTimer invalidate];
+    
     [super dealloc];
 }
 
@@ -53,7 +54,7 @@
     [super viewDidLoad];
 
     [self setTitle:@"Stop Times"];
-	[self setSelectedDate:[NSDate beginningOfDay:[NSDate date]]]; 
+	[self setSelectedDate:[[NSDate date] beginningOfDay]]; 
     [self updateStopTimes];
     
     UIBarButtonItem *mapButtonItem = [[UIBarButtonItem alloc] init];
@@ -65,22 +66,18 @@
 	
 	// Initialize NSDateFormatter
 	selectedDateFormatter = [[NSDateFormatter alloc] init];
-	[selectedDateFormatter setDateFormat:@"EEEE MMM dd, yyyy"];
-	//[selectedDateFormatter setTimeStyle:NSDateFormatterNoStyle];
-	//[selectedDateFormatter setDateStyle:NSDateFormatterMediumStyle];
-	//NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-	//[selectedDateFormatter setLocale:usLocale];
-	//[usLocale release]; 
+	[selectedDateFormatter setTimeStyle:NSDateFormatterNoStyle];
+	[selectedDateFormatter setDateStyle:NSDateFormatterFullStyle];
+	NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+	[selectedDateFormatter setLocale:usLocale];
+	[usLocale release]; 
 	
 	referenceDateFormatter = [[NSDateFormatter alloc] init];
 	[referenceDateFormatter setDateFormat:@"yyyy-MM-dd"];
 	referenceDateTimeFormatter = [[NSDateFormatter alloc] init];
 	[referenceDateTimeFormatter setDateFormat:@"yyyy-MM-dd hh:mm a"];
 	
-	dayOfWeekFormatter = [[NSDateFormatter alloc] init];
-	[dayOfWeekFormatter setDateFormat:@"EEEE"];
-	
-	// Initialize UIDatePicker
+    // Initialize UIDatePicker
 	datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, 44.0, 0.0, 0.0)];
 	[datePicker setDatePickerMode:UIDatePickerModeDate];
 	[datePicker setDate:selectedDate];
@@ -104,6 +101,9 @@
 	[datePickerSheet addSubview:datePicker];
 	
 	[datePickerToolbar release];
+    
+    // Add a timer to fire to update the table when the next stop time expires
+    [self addUpdateNextStopTimeTimer];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -138,18 +138,8 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	NSTimeInterval secondsInADay = 86400;
 	if(section == 0)
-	{
-		if([[NSDate beginningOfDay:[NSDate date]] isEqualToDate:[NSDate beginningOfDay:selectedDate]])
-			return [NSString stringWithString:@"Schedule for today:"];
-		else if([[NSDate beginningOfDay:[NSDate dateWithTimeIntervalSinceNow:-secondsInADay]] isEqualToDate:[NSDate beginningOfDay:selectedDate]])
-			return [NSString stringWithString:@"Schedule for yesterday:"];
-		else if([[NSDate beginningOfDay:[NSDate dateWithTimeIntervalSinceNow:secondsInADay]] isEqualToDate:[NSDate beginningOfDay:selectedDate]])
-			return [NSString stringWithString:@"Schedule for tomorrow:"];
-		else
-			return [NSString stringWithString:@"Schedule for date:"];
-	}
+		return [NSString stringWithString:@"Schedule for date:"];
 	else
 		return [stop name];
 }
@@ -167,7 +157,14 @@
     // Set up the cell...
 	if([indexPath section] == 0)
 	{
-		[[cell textLabel] setText:[selectedDateFormatter stringFromDate:selectedDate]];
+        // Set string to "Today" if the date falls on today, otherwise set string using date formatter
+        NSString *dateString;
+        if ([[selectedDate beginningOfDay] isEqualToDate:[[NSDate date] beginningOfDay]])
+            dateString = @"Today";
+        else
+            dateString =  [selectedDateFormatter stringFromDate:selectedDate];
+        
+		[[cell textLabel] setText:dateString];
 		[[cell textLabel] setTextAlignment:UITextAlignmentCenter];
 		[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
 	}
@@ -191,8 +188,8 @@
 		// Reselect the selected date (cancel on the date picker can make the picker to show different date
 		[datePicker setDate:selectedDate animated:YES];
 		// Show UIActionSheet
-		[datePickerSheet showInView:self.view];
-		[datePickerSheet setBounds:CGRectMake(0.0, 0.0, [[self view] frame].size.width , [[self view] frame].size.height)];
+		[datePickerSheet showInView:[self view]];
+        [datePickerSheet setBounds:CGRectMake(0.0, 0.0, [[self view] frame].size.width , [[self view] frame].size.height)];
 	}
 	else 
 	{
@@ -243,6 +240,44 @@
     NSSortDescriptor *stopTimeSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"arrivalTime" ascending:YES] autorelease];
     NSArray *sortedStopTimes = [[stop allStopTimesWithRoute:route onDate:selectedDate] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopTimeSortDescriptor]];
     [self setStopTimes:sortedStopTimes];
+}
+
+- (void)addUpdateNextStopTimeTimer
+{
+    NSDate *now = [NSDate date];
+    NSDate *referenceDate = [referenceDateTimeFormatter dateFromString:[NSString stringWithFormat:@"%@ 12:00 am", [referenceDateFormatter stringFromDate:now]]];
+    NSDate *arrivalDate;
+    NSDate *fireDate = nil;
+    
+    // Loop through all stop times and find the first time that is later than now
+    for (StopTime *stopTime in stopTimes) {
+        NSUInteger seconds = [[stopTime arrivalTime] unsignedIntegerValue];
+        arrivalDate = [[[NSDate alloc] initWithTimeInterval:seconds sinceDate:referenceDate] autorelease];
+        
+        if([arrivalDate laterDate:now] == arrivalDate) {
+            fireDate = arrivalDate;
+            break;
+        }
+    }
+    
+    // If the fireDate is set, add a timer to fire at fireDate
+    if (fireDate) {
+        expiredStopTimeTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:0 target:self selector:@selector(nextStopTimeDidFire:) userInfo:nil repeats:NO];
+        [[NSRunLoop currentRunLoop] addTimer:expiredStopTimeTimer forMode:NSDefaultRunLoopMode];
+        [expiredStopTimeTimer release];
+    }
+    else {
+        expiredStopTimeTimer = nil;
+    }
+}
+
+- (void)nextStopTimeDidFire:(NSTimer *)timer
+{
+    // Reload table to update the greyed out stop times
+    [[self tableView] reloadData];
+    
+    // Add the next stop time timer
+    [self addUpdateNextStopTimeTimer];
 }
 
 #pragma mark -
