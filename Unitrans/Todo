@@ -15,7 +15,6 @@ Priority
 • Date picker has longer more natural height
 • Derive primary trip (based on shapes) for a route in database manager and use that as the mapview route
 • Fix tile loading bug
-• Update greyed out time when ever view is displayed not just in load view (could use a timer to automatically turn the cell grey when we hit the time).
 • Sometimes the bus updates break and have errors after the iphone screen turns off??
 
 Secondary
@@ -50,3 +49,4 @@ Done
 • Activity indicator when buses are currently updating.
 • Date picker has weekday name
 • Date picker says Today, Yesterday and tomorrow for today, yesterday and tomorrow dates
+• Update greyed out time when ever view is displayed not just in load view (could use a timer to automatically turn the cell grey when we hit the time).
