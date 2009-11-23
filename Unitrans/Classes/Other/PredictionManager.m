@@ -103,6 +103,7 @@ static PredictionManager *sharedPredictionManager = nil;
 
 - (NSArray *) retrievePredictionInMinutesForRoute:(Route *)theRoute atStop:(Stop *)theStop error:(NSError **)error
 {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self setParseError:nil];
     [predictionTimes removeAllObjects];
 	[self setStopTag:[[theStop code] stringValue]];
@@ -115,7 +116,7 @@ static PredictionManager *sharedPredictionManager = nil;
             *error = parseError;
         return nil;
     }
-    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     return [NSArray arrayWithArray:predictionTimes];
 }
 
