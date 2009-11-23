@@ -6,7 +6,6 @@ High
 ======
 • Handle errors: can't load predictions, can't load core data file etc (kip)
 • Network indicator when we gather data from the internet. (ken)
-• Move "Show in Map" button to a toolbar icon button (ken)
 • Date picker has longer more natural height (ken)
 • Make bus info and prediction classes one-shot (ken)
 • Need to mark stoptimes as un-expired after 12:00am. (kip)
@@ -61,4 +60,5 @@ Done
 • Display prediction times (kip)
 • Process stops and remove street title and move bound direction to a seperate property (eg remove st, blvd, and move (WB) to separate property) (kip)
 • Derive primary trip (based on shapes) for a route in database manager and use that as the mapview route (kip)
+• Move "Show in Map" button to a toolbar icon button (ken)
 

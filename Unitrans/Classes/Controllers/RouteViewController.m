@@ -33,6 +33,13 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
+	
+	UIBarButtonItem *mapButtonItem = [[UIBarButtonItem alloc] init];
+    [mapButtonItem setTitle:@"Map"];
+    [mapButtonItem setTarget:self];
+    [mapButtonItem setAction:@selector(showStopInMapAction:)];
+    [[self navigationItem] setRightBarButtonItem:mapButtonItem];
+    [mapButtonItem release];
 
     // Get route stops and sort by alphabetical order
     NSSortDescriptor *stopsSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease];
@@ -60,19 +67,10 @@
 #pragma mark -
 #pragma mark UITableView methods
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
-{
-    return 2;
-}
-
-
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-	if(section == 0)
-		return 1;
-	else
-		return [stops count];
+	return [stops count];
 }
 
 
@@ -88,21 +86,11 @@
     }
     
     // Set up the cell...
-	if([indexPath indexAtPosition:0] == 0)
-	{
-		[[cell textLabel] setText:@"Show Map"];
-		[[cell textLabel] setTextAlignment:UITextAlignmentCenter];
-		[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
-		[cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
-	}
-	else 
-	{
-        Stop *stop = [stops objectAtIndex:[indexPath row]];
-		[[cell textLabel] setText:[stop name]];
-		[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
-		[[cell textLabel] setTextAlignment:UITextAlignmentLeft];
-		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-	}
+	Stop *stop = [stops objectAtIndex:[indexPath row]];
+	[[cell textLabel] setText:[stop name]];
+	[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
+	//[[cell textLabel] setTextAlignment:UITextAlignmentLeft];
+	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 
     return cell;
 }
@@ -110,35 +98,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    // Navigation logic may go here. Create and push another view controller.
-	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
-	// [self.navigationController pushViewController:anotherViewController];
-	// [anotherViewController release];
-	if([indexPath indexAtPosition:0] == 0)
-	{
-		// show map view controller
-        RouteMapViewController *routeMapViewController = [[RouteMapViewController alloc] initWithNibName:@"RouteMapView" bundle:nil];
-        [routeMapViewController setRoute:route];
-        [[self navigationController] pushViewController:routeMapViewController animated:YES];
-        [routeMapViewController release];
-	}
-	else 
-	{
-        Stop *selectedStop = [stops objectAtIndex:[indexPath row]];
-		StopViewController *stopViewController = [[StopViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        [stopViewController setStop:selectedStop];
-        [stopViewController setRoute:route];
-		[self.navigationController pushViewController:stopViewController animated:YES];
-		[stopViewController release];
-	}
+	Stop *selectedStop = [stops objectAtIndex:[indexPath row]];
+	StopViewController *stopViewController = [[StopViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	[stopViewController setStop:selectedStop];
+	[stopViewController setRoute:route];
+	[self.navigationController pushViewController:stopViewController animated:YES];
+	[stopViewController release];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if([indexPath section] == 1)
-		return 35.0;
-	else
-		return [tableView rowHeight];
+	return 35.0;
+}
+
+#pragma mark -
+#pragma mark IBAction methods
+- (IBAction)showStopInMapAction:(id)action
+{
+    RouteMapViewController *routeMapViewController = [[RouteMapViewController alloc] initWithNibName:@"RouteMapView" bundle:nil];
+    [routeMapViewController setRoute:route];
+    [[self navigationController] pushViewController:routeMapViewController animated:YES];
+    [routeMapViewController release];
 }
 
 @end
