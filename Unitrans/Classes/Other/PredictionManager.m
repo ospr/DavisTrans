@@ -103,6 +103,11 @@ static PredictionManager *sharedPredictionManager = nil;
 
 - (NSArray *) retrievePredictionInMinutesForRoute:(Route *)theRoute atStop:(Stop *)theStop error:(NSError **)error
 {
+    [self setParseError:nil];
+    [predictionTimes removeAllObjects];
+	[self setStopTag:[[theStop code] stringValue]];
+	[self setRouteShortname:[theRoute shortName]];    
+    
     [self retrievePrediction];
     
     if (parseError) {
@@ -121,11 +126,13 @@ static PredictionManager *sharedPredictionManager = nil;
 	// This prevents nonexistent stopID prediction queries ie. departing stops from terminal have no prediction
 	[self retrieveStopIDFromRouteConfig];
 	
+    // Prediction for stop does not exist (ie. stop at terminal)
 	if([stopId length] == 0)
-	{
-		// Prediction for stop does not exist (ie. stop at terminal)
 		return;
-	}
+    
+    // If there was a parse error while retrieving stop ids return
+    if (parseError)
+        return;
 	
 	NSString *predictionURLstring = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=predictions&a=unitrans&stopId=%@&r=%@", stopId, routeShortname];
 	[self parseXMLAtURLString:predictionURLstring];
@@ -165,9 +172,12 @@ static PredictionManager *sharedPredictionManager = nil;
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)error 
 {
-	NSLog(@"Prediction manager had error while parsing predictions: %@.", error);
-    
-    [self setParseError:error];
+    // If we didn't explicitly abort the parsing, then there was a real error
+    if (!parseAborted) {
+        NSLog(@"Prediction manager had error while parsing predictions: %@.", error);
+        
+        [self setParseError:error];
+    }
 }
 
 - (void)parser:(NSXMLParser *)parser 
@@ -181,6 +191,7 @@ didStartElement:(NSString *)elementName
 		if([stopTag isEqualToString:[attributeDict valueForKey:@"tag"]] && ([attributeDict objectForKey:@"stopId"] != nil))
 		{
 			[self setStopId:[attributeDict valueForKey:@"stopId"]];
+            parseAborted = YES;
 			[parser abortParsing];
 		}
 	}

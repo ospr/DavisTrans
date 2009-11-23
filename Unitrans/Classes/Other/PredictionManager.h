@@ -17,6 +17,7 @@
 	NSDateFormatter *predictionTimeFormatter;
 	NSMutableArray *predictionTimes;
     NSError *parseError;
+    BOOL parseAborted;
 }
 
 @property (nonatomic, retain) NSString *stopTag;

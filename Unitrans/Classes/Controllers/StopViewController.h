@@ -15,6 +15,7 @@
     Route *route;
     Stop *stop;
 	NSArray *stopTimes;
+    NSArray *predictions;
 	NSDate *selectedDate; // defaults to today
     NSTimer *expiredStopTimeTimer;
 	NSDateFormatter *selectedDateFormatter;
@@ -28,6 +29,7 @@
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) Stop *stop;
 @property (nonatomic, retain) NSArray *stopTimes;
+@property (nonatomic, retain) NSArray *predictions;
 @property (nonatomic, retain) NSDate *selectedDate;
 @property (nonatomic, retain) NSDateFormatter *selectedDateFormatter;
 @property (nonatomic, retain) NSDateFormatter *referenceDateFormatter;
@@ -40,5 +42,6 @@
 
 - (void)updateStopTimes;
 - (void)addUpdateNextStopTimeTimer;
+- (void)updateStopTimePredictions;
 
 @end

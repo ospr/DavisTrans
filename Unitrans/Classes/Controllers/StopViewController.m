@@ -13,6 +13,7 @@
 #import "StopTime.h"
 #import "Route.h"
 #import "NSDate_Extensions.h"
+#import "PredictionManager.h"
 
 
 @implementation StopViewController
@@ -20,6 +21,7 @@
 @synthesize route;
 @synthesize stop;
 @synthesize stopTimes;
+@synthesize predictions;
 @synthesize selectedDate;
 @synthesize selectedDateFormatter;
 @synthesize referenceDateFormatter;
@@ -104,6 +106,9 @@
     
     // Add a timer to fire to update the table when the next stop time expires
     [self addUpdateNextStopTimeTimer];
+    
+    // Get predictions
+    [self updateStopTimePredictions];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -123,7 +128,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
-    return 2;
+    return 3;
 }
 
 
@@ -132,16 +137,24 @@
 {
     if(section == 0)
 		return 1;
-	else
+    else if (section == 1)
+        return 1;
+	else if (section == 2)
 		return [stopTimes count];
+    else
+        return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
 	if(section == 0)
 		return [NSString stringWithString:@"Schedule for date:"];
-	else
+    else if (section == 1)
+        return @"Predictions:";
+	else if (section == 2)
 		return [stop name];
+    else
+        return @"";
 }
 
 // Customize the appearance of table view cells.
@@ -168,7 +181,18 @@
 		[[cell textLabel] setTextAlignment:UITextAlignmentCenter];
 		[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
 	}
-	else 
+    else if ([indexPath section] == 1)
+    {
+        NSString *predictionString;
+        if ([predictions count] > 0)
+            predictionString = [predictions componentsJoinedByString:@", "];
+        else
+            predictionString = @"No predictions at this time.";
+        
+        [[cell textLabel] setText:predictionString];
+        [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
+    }
+	else if ([indexPath section] == 2)
 	{
         StopTime *stopTime = [stopTimes objectAtIndex:[indexPath row]];
 		[[cell textLabel] setText:[stopTime arrivalTimeString]];
@@ -183,7 +207,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	if([indexPath indexAtPosition:0] == 0)
+	if([indexPath section] == 0)
 	{
 		// Reselect the selected date (cancel on the date picker can make the picker to show different date
 		[datePicker setDate:selectedDate animated:YES];
@@ -191,7 +215,7 @@
 		[datePickerSheet showInView:[self view]];
         [datePickerSheet setBounds:CGRectMake(0.0, 0.0, [[self view] frame].size.width , [[self view] frame].size.height)];
 	}
-	else 
+	else if([indexPath section] == 2)
 	{
         StopTime *stopTime = [stopTimes objectAtIndex:[indexPath row]];
         
@@ -204,7 +228,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if ([indexPath section] == 1) 
+	if ([indexPath section] == 2) 
 	{
 		NSUInteger seconds = [[[stopTimes objectAtIndex:[indexPath row]] arrivalTime] unsignedIntegerValue];
 		NSDate *referenceDate = [referenceDateTimeFormatter dateFromString:[NSString stringWithFormat:@"%@ 12:00 am", [referenceDateFormatter stringFromDate:[NSDate date]]]];
@@ -212,20 +236,19 @@
 		
 		if([arrivalDate earlierDate:[NSDate date]] == arrivalDate)
 			cell.backgroundColor = [UIColor colorWithRed:0.82 green:0.82 blue:0.82 alpha:1.0];
-		else 
-			cell.backgroundColor = [UIColor whiteColor];
+        else
+            cell.backgroundColor = [UIColor whiteColor];
 		
 		[arrivalDate release];
 	}
-	else {
+    else {
 		cell.backgroundColor = [UIColor whiteColor];
 	}
-
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if([indexPath section] == 1)
+	if([indexPath section] == 2)
 		return 35.0;
 	else
 		return [tableView rowHeight];
@@ -278,6 +301,16 @@
     
     // Add the next stop time timer
     [self addUpdateNextStopTimeTimer];
+}
+
+- (void)updateStopTimePredictions
+{
+    NSError *error;
+    
+    NSArray *newPredictions = [[PredictionManager sharedPredictionManager] retrievePredictionInMinutesForRoute:route atStop:stop error:&error];
+        
+    [self setPredictions:newPredictions];
+    [[self tableView] reloadData];
 }
 
 #pragma mark -
