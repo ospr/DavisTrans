@@ -320,8 +320,10 @@ static DatabaseManager *sharedDatabaseManager = nil;
         Stop *stop = entity;
         if ([header isEqualToString:@"stop_id"])
             [stops setObject:stop forKey:value];
-        else if ([header isEqualToString:@"stop_name"])
-            [stop setName:value];
+        else if ([header isEqualToString:@"stop_name"]) {
+            [stop setName:[self processStopName:value]];
+            [stop setHeading:[self processHeading:value]];
+        }
         else if ([header isEqualToString:@"stop_desc"])
             [stop setStopDescription:value];
         else if ([header isEqualToString:@"stop_lat"])
@@ -354,7 +356,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
         Trip *trip = entity;
         if ([header isEqualToString:@"route_id"])
             [trip setRoute:[routes objectForKey:value]];
-        else if ([header isEqualToString:@"service_id"])
+        else if ([header isEqualToString:@"service_id"])       
             [trip setCalendar:[calendars objectForKey:value]];
         else if ([header isEqualToString:@"trip_id"])
             [trips setObject:trip forKey:value];
@@ -420,6 +422,34 @@ static DatabaseManager *sharedDatabaseManager = nil;
     return [dateFormatter dateFromString:value];
 }
 
+- (NSString *)processStopName:(NSString *)value
+{
+    NSArray *streetSuffixes = [NSArray arrayWithObjects:@"Dr", @"St", @"Blvd", @"Rd", @"Ln", @"Ave", 
+                                                        @"Loop", @"Way", @"Street", @"Ct", 
+                                                        @"(NB)", @"(SB)", @"(WB)", @"(EB)", nil];
+    
+    NSMutableArray *stopNameComponents = [NSMutableArray arrayWithArray:[value componentsSeparatedByString:@" "]];
+    [stopNameComponents removeObjectsInArray:streetSuffixes];
+    
+    return [stopNameComponents componentsJoinedByString:@" "];
+}
+
+- (NSNumber *)processHeading:(NSString *)value
+{
+    if ([value hasSuffix:@"(NB)"])
+        return [NSNumber numberWithInt:kStopHeadingTypeNorthBound];
+    if ([value hasSuffix:@"(SB)"])
+        return [NSNumber numberWithInt:kStopHeadingTypeSouthBound];
+    if ([value hasSuffix:@"(WB)"])
+        return [NSNumber numberWithInt:kStopHeadingTypeWestBound];
+    if ([value hasSuffix:@"(EB)"])
+        return [NSNumber numberWithInt:kStopHeadingTypeEastBound];
+    
+    NSLog(@"Could not find heading for value: '%@'.", value);
+    
+    return nil;
+}
+
 #pragma mark -
 #pragma mark Core Data stack
 
@@ -462,7 +492,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     if (persistentStoreCoordinator != nil)
         return persistentStoreCoordinator;
 	
-    //NSURL *storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"TestDB6.sqlite"]];
+    //NSURL *storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"TestDB7.sqlite"]];
 	NSURL *storeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"TestDB" ofType:@"sqlite"]];
     
     NSLog(@"store url = %@", storeUrl);
@@ -470,7 +500,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     // TODO: remove this/modify before production
     //NSError *rmError;
     //if (![[NSFileManager defaultManager] removeItemAtPath:[storeUrl path] error:&rmError])
-     //   NSLog(@"Error removing store '%@': %@", [storeUrl path], rmError);
+         //NSLog(@"Error removing store '%@': %@", [storeUrl path], rmError);
             
 	NSError *error = nil;
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

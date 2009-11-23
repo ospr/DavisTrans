@@ -18,6 +18,7 @@
 @dynamic name;
 @dynamic longitude;
 @dynamic latitude;
+@dynamic heading;
 @dynamic stopDescription;
 @dynamic stopTimes;
 @dynamic coordinate;
@@ -34,6 +35,18 @@
     }
     
     return [NSArray arrayWithArray:routeStopTimes];
+}
+
+- (NSString *)headingString
+{
+    switch ([[self heading] intValue]) {
+        case kStopHeadingTypeNorthBound: return @"NB";
+        case kStopHeadingTypeSouthBound: return @"SB";
+        case kStopHeadingTypeWestBound:  return @"WB";
+        case kStopHeadingTypeEastBound:  return @"EB";
+    }
+    
+    return @"";
 }
 
 - (CLLocationCoordinate2D)coordinate

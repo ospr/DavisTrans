@@ -61,6 +61,8 @@ typedef enum _ProcessStep {
 - (NSNumber *)processShortNumberString:(NSString *)value;
 - (NSNumber *)processBoolNumberString:(NSString *)value;
 - (NSDate *)processDateString:(NSString *)value;
+- (NSString *)processStopName:(NSString *)value;
+- (NSNumber *)processHeading:(NSString *)value;
 
 - (NSString *)applicationDocumentsDirectory;
 

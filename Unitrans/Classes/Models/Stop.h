@@ -9,6 +9,13 @@
 #import <CoreData/CoreData.h>
 #import <MapKit/MapKit.h>
 
+typedef enum _StopHeadingType {
+    kStopHeadingTypeNorthBound,
+    kStopHeadingTypeSouthBound,
+    kStopHeadingTypeWestBound,
+    kStopHeadingTypeEastBound
+} StopHeadingType;
+
 @class StopTime;
 @class Route;
 
@@ -20,11 +27,13 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * longitude;
 @property (nonatomic, retain) NSNumber * latitude;
+@property (nonatomic, retain) NSNumber * heading;
 @property (nonatomic, retain) NSString * stopDescription;
 @property (nonatomic, retain) NSSet* stopTimes;
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
 - (NSArray *)allStopTimesWithRoute:(Route *)route onDate:(NSDate *)date;
+- (NSString *)headingString;
 
 @end
 
