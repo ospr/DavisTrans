@@ -185,12 +185,13 @@
     {
         NSString *predictionString;
         if ([predictions count] > 0)
-            predictionString = [predictions componentsJoinedByString:@", "];
+            predictionString = [NSString stringWithFormat:@"%@ minutes", [predictions componentsJoinedByString:@", "]];
         else
             predictionString = @"No predictions at this time.";
         
         [[cell textLabel] setText:predictionString];
         [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
+        [cell setAccessoryType:UITableViewCellAccessoryNone];
     }
 	else if ([indexPath section] == 2)
 	{
@@ -215,6 +216,10 @@
 		[datePickerSheet showInView:[self view]];
         [datePickerSheet setBounds:CGRectMake(0.0, 0.0, [[self view] frame].size.width , [[self view] frame].size.height)];
 	}
+    else if ([indexPath section] == 1)
+    {
+        [self updateStopTimePredictions];
+    }
 	else if([indexPath section] == 2)
 	{
         StopTime *stopTime = [stopTimes objectAtIndex:[indexPath row]];
@@ -283,15 +288,14 @@
         }
     }
     
-    // If the fireDate is set, add a timer to fire at fireDate
-    if (fireDate) {
-        expiredStopTimeTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:0 target:self selector:@selector(nextStopTimeDidFire:) userInfo:nil repeats:NO];
-        [[NSRunLoop currentRunLoop] addTimer:expiredStopTimeTimer forMode:NSDefaultRunLoopMode];
-        [expiredStopTimeTimer release];
-    }
-    else {
-        expiredStopTimeTimer = nil;
-    }
+    // If there was no arrivalDate later than now, we fire and update at 12am
+    if (!fireDate)
+        fireDate = referenceDate;
+    
+    // Add a timer to fire at fireDate
+    expiredStopTimeTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:0 target:self selector:@selector(nextStopTimeDidFire:) userInfo:nil repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:expiredStopTimeTimer forMode:NSDefaultRunLoopMode];
+    [expiredStopTimeTimer release];
 }
 
 - (void)nextStopTimeDidFire:(NSTimer *)timer

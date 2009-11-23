@@ -8,11 +8,10 @@ High
 • Network indicator when we gather data from the internet. (ken)
 • Date picker has longer more natural height (ken)
 • Make bus info and prediction classes one-shot (ken)
-• Need to mark stoptimes as un-expired after 12:00am. (kip)
-• Remove stoptimes that are at the end of routes. (kip)
 • Change Silo and MU stops so they just say Silo and MU. (kip)
 • Remove duplicate prediction times. (kip)
 • If there is no stop reference after the & in the stop name then remove the & (eg H Line's Health Sciences Dist Lot 56 & (SB)) (kip)
+• Sort pretiction times (sometimes they're not in order in xml??) (kip
 
 Lower
 =====
@@ -23,6 +22,9 @@ Lower
 • Split times into Night and Day segments in StopTimes view
 • Fix tile loading bug
 • Initial region for L route needs work.
+• Remove stoptimes that are at the end of routes. (kip)
+• Better bus icon.
+• Refresh icon fo prediction cell.
 
 Secondary
 =========
@@ -36,7 +38,6 @@ Secondary
 • Animate buses
 • In RouteView have list of recently chosen stops before list of all stops
 • Derive "patterns" from GTFS
-• Fix annotation view drawing order so that route lies at bottom, buses over the route, and stops over route, and stop description bubbles on top.
 • Display list of patterns to choose from in map view.
 • Some sort of indicator to show the direction of the route on the map
 • Date picker has weekday name
@@ -60,5 +61,8 @@ Done
 • Display prediction times (kip)
 • Process stops and remove street title and move bound direction to a seperate property (eg remove st, blvd, and move (WB) to separate property) (kip)
 • Derive primary trip (based on shapes) for a route in database manager and use that as the mapview route (kip)
+• Fix annotation view drawing order so that route lies at bottom, buses over the route, and stops over route, and stop description bubbles on top.
+• Need to mark stoptimes as un-expired after 12:00am. (kip)
+• Refresh button for preditions (kip)
 • Move "Show in Map" button to a toolbar icon button (ken)
-
+• Specify "minutes" in preditions (kip)

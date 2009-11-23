@@ -73,11 +73,14 @@
 	return [stops count];
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return @"Stops";
+}
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -89,7 +92,6 @@
 	Stop *stop = [stops objectAtIndex:[indexPath row]];
 	[[cell textLabel] setText:[stop name]];
 	[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
-	//[[cell textLabel] setTextAlignment:UITextAlignmentLeft];
 	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 
     return cell;
