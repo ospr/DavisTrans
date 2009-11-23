@@ -4,7 +4,6 @@ Priority
 
 High
 ======
-• Process stops and remove street title and move bound direction to a seperate property (eg remove st, blvd, and move (WB) to separate property) (kip)
 • Handle errors: can't load predictions, can't load core data file etc (kip)
 • Network indicator when we gather data from the internet. (ken)
 • Move "Show in Map" button to a toolbar icon button (ken)
@@ -57,3 +56,4 @@ Done
 • Date picker says Today, Yesterday and tomorrow for today, yesterday and tomorrow dates
 • Update greyed out time when ever view is displayed not just in load view (could use a timer to automatically turn the cell grey when we hit the time).
 • Display prediction times (kip)
+• Process stops and remove street title and move bound direction to a seperate property (eg remove st, blvd, and move (WB) to separate property) (kip)
