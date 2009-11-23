@@ -1,21 +1,28 @@
 
 Priority
 ========
-• Display prediction times
+
+High
+======
+• Display prediction times (kip)
+• Process stops and remove street title and move bound direction to a seperate property (eg remove st, blvd, and move (WB) to separate property) (kip)
+• Handle errors: can't load predictions, can't load core data file etc (kip)
+• Network indicator when we gather data from the internet. (ken)
+• Move "Show in Map" button to a toolbar icon button (ken)
+• Date picker has longer more natural height (ken)
+• Derive primary trip (based on shapes) for a route in database manager and use that as the mapview route (kip)
+• Make bus info and prediction classes one-shot (ken)
+• Need to mark stoptimes as un-expired after 12:00am. (kip)
+• Remove stoptimes that are at the end of routes. (kip)
+
+Lower
+=====
 • Set maximum and minimum dates for date picker
 • Retrieval of predictions and bus info should be in seperate thread.
 • Organize stops better: separate inbound/outbound sections?
 • At a given stop for a given route also show other arrival times for other routes.
-• Process stops and remove street title and move bound direction to a seperate property (eg remove st, blvd, and move (WB) to separate property)
 • Split times into Night and Day segments in StopTimes view
-• Handle errors: can't load predictions, can't load core data file etc
-• MapView button disclosure triangle should also go to maps.
-• Network indicator when we gather data from the internet.
-• Decide whether to move "Show in Map" button to a toolbar icon button or move the toolbar "Map" button to a "Show in Map" button.
-• Date picker has longer more natural height
-• Derive primary trip (based on shapes) for a route in database manager and use that as the mapview route
 • Fix tile loading bug
-• Sometimes the bus updates break and have errors after the iphone screen turns off??
 
 Secondary
 =========
