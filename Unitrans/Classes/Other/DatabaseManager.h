@@ -54,6 +54,7 @@ typedef enum _ProcessStep {
 - (BOOL)processValues:(NSArray *)values withHeaders:(NSArray *)headers error:(NSError **)error;
 
 - (void)removeRoutesWithZeroTrips;
+- (void)derivePrimaryTrips;
 
 - (NSNumber *)processHexNumberString:(NSString *)value;
 - (NSNumber *)processDoubleNumberString:(NSString *)value;

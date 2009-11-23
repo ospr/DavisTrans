@@ -8,10 +8,12 @@ High
 • Network indicator when we gather data from the internet. (ken)
 • Move "Show in Map" button to a toolbar icon button (ken)
 • Date picker has longer more natural height (ken)
-• Derive primary trip (based on shapes) for a route in database manager and use that as the mapview route (kip)
 • Make bus info and prediction classes one-shot (ken)
 • Need to mark stoptimes as un-expired after 12:00am. (kip)
 • Remove stoptimes that are at the end of routes. (kip)
+• Change Silo and MU stops so they just say Silo and MU. (kip)
+• Remove duplicate prediction times. (kip)
+• If there is no stop reference after the & in the stop name then remove the & (eg H Line's Health Sciences Dist Lot 56 & (SB)) (kip)
 
 Lower
 =====
@@ -21,6 +23,7 @@ Lower
 • At a given stop for a given route also show other arrival times for other routes.
 • Split times into Night and Day segments in StopTimes view
 • Fix tile loading bug
+• Initial region for L route needs work.
 
 Secondary
 =========
@@ -57,3 +60,5 @@ Done
 • Update greyed out time when ever view is displayed not just in load view (could use a timer to automatically turn the cell grey when we hit the time).
 • Display prediction times (kip)
 • Process stops and remove street title and move bound direction to a seperate property (eg remove st, blvd, and move (WB) to separate property) (kip)
+• Derive primary trip (based on shapes) for a route in database manager and use that as the mapview route (kip)
+

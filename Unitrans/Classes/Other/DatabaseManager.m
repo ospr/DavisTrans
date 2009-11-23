@@ -132,6 +132,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     }
     
     [self removeRoutesWithZeroTrips];
+    [self derivePrimaryTrips];
     
     // Clean up dictionaries
     [agencies release];
@@ -373,6 +374,28 @@ static DatabaseManager *sharedDatabaseManager = nil;
     return YES;
 }
 
+- (void)derivePrimaryTrips
+{
+    [[routes objectForKey:@"A"] setPrimaryTrip:[trips objectForKey:@"256163"]];
+    [[routes objectForKey:@"B"] setPrimaryTrip:[trips objectForKey:@"256265"]];
+    [[routes objectForKey:@"C"] setPrimaryTrip:[trips objectForKey:@"256346"]];
+    [[routes objectForKey:@"D"] setPrimaryTrip:[trips objectForKey:@"256449"]];
+    [[routes objectForKey:@"E"] setPrimaryTrip:[trips objectForKey:@"256593"]];
+    [[routes objectForKey:@"F"] setPrimaryTrip:[trips objectForKey:@"256695"]];
+    [[routes objectForKey:@"G"] setPrimaryTrip:[trips objectForKey:@"256836"]];
+    [[routes objectForKey:@"H"] setPrimaryTrip:[trips objectForKey:@"265080"]];
+    [[routes objectForKey:@"J"] setPrimaryTrip:[trips objectForKey:@"256986"]];
+    [[routes objectForKey:@"K"] setPrimaryTrip:[trips objectForKey:@"257166"]];
+    [[routes objectForKey:@"L"] setPrimaryTrip:[trips objectForKey:@"257268"]];
+    [[routes objectForKey:@"M"] setPrimaryTrip:[trips objectForKey:@"257371"]];
+    [[routes objectForKey:@"P"] setPrimaryTrip:[trips objectForKey:@"257520"]];
+    [[routes objectForKey:@"Q"] setPrimaryTrip:[trips objectForKey:@"257615"]];
+    [[routes objectForKey:@"S"] setPrimaryTrip:[trips objectForKey:@"257683"]];
+    [[routes objectForKey:@"T"] setPrimaryTrip:[trips objectForKey:@"257695"]];
+    [[routes objectForKey:@"U"] setPrimaryTrip:[trips objectForKey:@"273061"]];
+    [[routes objectForKey:@"W"] setPrimaryTrip:[trips objectForKey:@"257789"]];
+}
+
 - (void)removeRoutesWithZeroTrips
 {
     for (Route *route in [routes allValues])
@@ -492,7 +515,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     if (persistentStoreCoordinator != nil)
         return persistentStoreCoordinator;
 	
-    //NSURL *storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"TestDB7.sqlite"]];
+    //NSURL *storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"TestDB8.sqlite"]];
 	NSURL *storeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"TestDB" ofType:@"sqlite"]];
     
     NSLog(@"store url = %@", storeUrl);
@@ -500,7 +523,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     // TODO: remove this/modify before production
     //NSError *rmError;
     //if (![[NSFileManager defaultManager] removeItemAtPath:[storeUrl path] error:&rmError])
-         //NSLog(@"Error removing store '%@': %@", [storeUrl path], rmError);
+     //   NSLog(@"Error removing store '%@': %@", [storeUrl path], rmError);
             
 	NSError *error = nil;
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

@@ -23,6 +23,7 @@
 @property (nonatomic, retain) NSString * longName;
 @property (nonatomic, retain) NSSet* trips;
 @property (nonatomic, retain) Agency * agency;
+@property (nonatomic, retain) Trip * primaryTrip;
 
 - (NSSet *)allStops;
 

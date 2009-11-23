@@ -22,23 +22,13 @@
 @dynamic longName;
 @dynamic trips;
 @dynamic agency;
+@dynamic primaryTrip;
 
 // TODO: this does not work since not all trips have the same stops
 - (NSSet *)allStops
 {    
-    // Retrieve any trip from the route
-    Trip *trip = [[self trips] anyObject];
-    
-    // Retrieve all stopTimes for the trip
-    NSSet *stopTimes = [trip stopTimes];
-    
-    // Add all stops to stop array
-    NSMutableArray *stops = [NSMutableArray array];
-    for (StopTime *stopTime in stopTimes)
-        [stops addObject:[stopTime stop]];
-    
-    // Return all corresponding stops
-    return [NSSet setWithArray:stops];
+    // Return all stops in primary trip
+    return [[[self primaryTrip] stopTimes] valueForKey:@"stop"];
 }
 
 @end

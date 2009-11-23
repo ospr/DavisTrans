@@ -52,7 +52,7 @@
     [[self navigationItem] setRightBarButtonItem:busButtonItem];
     
     // For now get a random trip
-    Trip *trip = [[route trips] anyObject];
+    Trip *trip = [route primaryTrip];
        
     // Sort shapes by sequence number
     NSSortDescriptor *shapesSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"pointSequence" ascending:YES] autorelease];
