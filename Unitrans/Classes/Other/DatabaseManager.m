@@ -447,12 +447,32 @@ static DatabaseManager *sharedDatabaseManager = nil;
 
 - (NSString *)processStopName:(NSString *)value
 {
+    // If stop name begins with 'Memorial Union'
+    if ([value hasPrefix:@"Memorial Union"]) {
+        if ([value rangeOfString:@"Arrival"].location != NSNotFound)
+            return @"Memorial Union (Arrival)";
+        else
+            return @"Memorial Union (Departure)";
+    }
+    // If stop name begins with 'Silo Terminal'
+    if ([value hasPrefix:@"Silo Terminal"])
+        return @"Silo Terminal";
+    // If stop name begins with 'Hutchison & California'
+    if ([value hasPrefix:@"Hutchison & California"])
+        return @"Hutchison & California (Silo)";
+    
+    // Create array of strings to remove from the stop names
     NSArray *streetSuffixes = [NSArray arrayWithObjects:@"Dr", @"St", @"Blvd", @"Rd", @"Ln", @"Ave", 
                                                         @"Loop", @"Way", @"Street", @"Ct", 
-                                                        @"(NB)", @"(SB)", @"(WB)", @"(EB)", nil];
+                                                        @"(NB)", @"(SB)", @"(WB)", @"(EB)", @"", nil];
     
+    // Remove street suffixes and headings
     NSMutableArray *stopNameComponents = [NSMutableArray arrayWithArray:[value componentsSeparatedByString:@" "]];
     [stopNameComponents removeObjectsInArray:streetSuffixes];
+    
+    // If the last component is '&', then remove it
+    if ([[stopNameComponents lastObject] isEqualToString:@"&"])
+        [stopNameComponents removeLastObject];
     
     return [stopNameComponents componentsJoinedByString:@" "];
 }
@@ -515,7 +535,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     if (persistentStoreCoordinator != nil)
         return persistentStoreCoordinator;
 	
-    //NSURL *storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"TestDB8.sqlite"]];
+    //NSURL *storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"TestDB9.sqlite"]];
 	NSURL *storeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"TestDB" ofType:@"sqlite"]];
     
     NSLog(@"store url = %@", storeUrl);
@@ -523,7 +543,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     // TODO: remove this/modify before production
     //NSError *rmError;
     //if (![[NSFileManager defaultManager] removeItemAtPath:[storeUrl path] error:&rmError])
-     //   NSLog(@"Error removing store '%@': %@", [storeUrl path], rmError);
+    //    NSLog(@"Error removing store '%@': %@", [storeUrl path], rmError);
             
 	NSError *error = nil;
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

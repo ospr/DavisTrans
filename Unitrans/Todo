@@ -8,10 +8,9 @@ High
 • Network indicator when we gather data from the internet. (ken)
 • Date picker has longer more natural height (ken)
 • Make bus info and prediction classes one-shot (ken)
-• Change Silo and MU stops so they just say Silo and MU. (kip)
 • Remove duplicate prediction times. (kip)
-• If there is no stop reference after the & in the stop name then remove the & (eg H Line's Health Sciences Dist Lot 56 & (SB)) (kip)
-• Sort pretiction times (sometimes they're not in order in xml??) (kip
+• Sort pretiction times (sometimes they're not in order in xml??) (kip)
+• Tapping on stop cell in StopTimeView takes user to that stopview. (kip)
 
 Lower
 =====
@@ -24,7 +23,7 @@ Lower
 • Initial region for L route needs work.
 • Remove stoptimes that are at the end of routes. (kip)
 • Better bus icon.
-• Refresh icon fo prediction cell.
+• Refresh icon for prediction cell.
 
 Secondary
 =========
@@ -66,3 +65,5 @@ Done
 • Refresh button for preditions (kip)
 • Move "Show in Map" button to a toolbar icon button (ken)
 • Specify "minutes" in preditions (kip)
+• If there is no stop reference after the & in the stop name then remove the & (eg H Line's Health Sciences Dist Lot 56 & (SB)) (kip)
+• Change Silo and MU stops so they just say Silo and MU. (kip)
