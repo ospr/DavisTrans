@@ -184,7 +184,9 @@
     else if ([indexPath section] == 1)
     {
         NSString *predictionString;
-        if ([predictions count] > 0)
+        if (!predictions)
+            predictionString = @"Error gathering predictions.";
+        else if ([predictions count] > 0)
             predictionString = [NSString stringWithFormat:@"%@ minutes", [predictions componentsJoinedByString:@", "]];
         else
             predictionString = @"No predictions at this time.";
@@ -311,8 +313,18 @@
 {
     NSError *error;
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSArray *newPredictions = [[PredictionManager sharedPredictionManager] retrievePredictionInMinutesForRoute:route atStop:stop error:&error];
-        
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    
+    if (!newPredictions) {
+        NSString *reason = @"There was an error while loading the predictions. Make sure you are connected to the internet.";
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Predictions Loading Error" message:reason
+                                                       delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
+    
     [self setPredictions:newPredictions];
     [[self tableView] reloadData];
 }

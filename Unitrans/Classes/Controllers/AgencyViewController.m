@@ -12,6 +12,7 @@
 #import "Agency.h"
 #import "Route.h"
 #import "DatabaseManager.h"
+#import "UnitransAppDelegate.h"
 
 @implementation AgencyViewController
 
@@ -34,16 +35,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Retrieve and set agency
+    NSError *error;
+    Agency *unitransAgency = [[DatabaseManager sharedDatabaseManager] retrieveUnitransAgency:&error];
+    if (!unitransAgency) {
+        criticalLoadingErrorAlert();
+        return;
+    }
+    [self setAgency:unitransAgency];
+    
     UIBarButtonItem *aboutButtonItem = [[UIBarButtonItem alloc] init];
     [aboutButtonItem setTitle:@"About"];
     [aboutButtonItem setTarget:self];
     [aboutButtonItem setAction:@selector(showAboutViewAction:)];
     [[self navigationItem] setRightBarButtonItem:aboutButtonItem];
     [aboutButtonItem release];
- 
-    // Retrieve and set agency
-    Agency *unitransAgency = [[DatabaseManager sharedDatabaseManager] retrieveUnitransAgency:nil];
-    [self setAgency:unitransAgency];
     
     // Get agency routes and sort by alphabetical order
     NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"shortName" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
@@ -95,11 +101,13 @@
     NSString *detailLabel = [route longName];
 	[[cell textLabel] setText:mainLabel];
     [[cell detailTextLabel] setText:detailLabel];
+    [[cell detailTextLabel] setFont:[UIFont boldSystemFontOfSize:10]];
 	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    
+    //[[cell imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
     
     return cell;
 }
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {    

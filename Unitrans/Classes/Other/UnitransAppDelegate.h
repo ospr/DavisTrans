@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+void criticalLoadingErrorAlert();
+
 @interface UnitransAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	UINavigationController *navigationController;

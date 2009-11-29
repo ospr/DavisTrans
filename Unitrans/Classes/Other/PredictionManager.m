@@ -103,8 +103,8 @@ static PredictionManager *sharedPredictionManager = nil;
 
 - (NSArray *) retrievePredictionInMinutesForRoute:(Route *)theRoute atStop:(Stop *)theStop error:(NSError **)error
 {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self setParseError:nil];
+    parseAborted = NO;
     [predictionTimes removeAllObjects];
 	[self setStopTag:[[theStop code] stringValue]];
 	[self setRouteShortname:[theRoute shortName]];    
@@ -116,7 +116,6 @@ static PredictionManager *sharedPredictionManager = nil;
             *error = parseError;
         return nil;
     }
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     return [NSArray arrayWithArray:predictionTimes];
 }
 
@@ -175,7 +174,7 @@ static PredictionManager *sharedPredictionManager = nil;
 {
     // If we didn't explicitly abort the parsing, then there was a real error
     if (!parseAborted) {
-        NSLog(@"Prediction manager had error while parsing predictions: %@.", error);
+        NSLog(@"Prediction manager had error while parsing predictions: %@ %@.", error, [error userInfo]);
         
         [self setParseError:error];
     }

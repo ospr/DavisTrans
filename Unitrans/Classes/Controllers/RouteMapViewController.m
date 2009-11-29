@@ -201,8 +201,7 @@
 {
     // Load alert message with error
     if (!errorShown) {
-        NSString *errorString = [[[[error userInfo] objectForKey:NSUnderlyingErrorKey] userInfo] objectForKey:NSLocalizedDescriptionKey];
-        NSString *reason = [NSString stringWithFormat:@"There was an error while loading the map: %@", errorString];
+        NSString *reason = @"There was an error while loading the map. Make sure you are connected to the internet.";
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Map Loading Error" message:reason
                                                        delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -277,7 +276,7 @@
     // If busInfos is nil there was an error
     if (!busInfos) {
         [self endContinuousBusUpdates];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Update Bus Location Error" message:@"There was an error while updating bus locations." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Update Bus Location Error" message:@"There was an error while updating bus locations. Make sure you are connected to the internet." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
         [alertView release];
     }

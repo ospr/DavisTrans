@@ -28,6 +28,7 @@
 		7CC4D07010978EBF00F2BB67 /* Agency.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4D06710978EBF00F2BB67 /* Agency.m */; };
 		7CC4D07110978EBF00F2BB67 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4D06910978EBF00F2BB67 /* Trip.m */; };
 		7CD986F310AA68BE00116483 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD986F210AA68BE00116483 /* AboutViewController.m */; };
+		7CE69D6610C1B8E20002DE93 /* TestUI.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69D6510C1B8E20002DE93 /* TestUI.xib */; };
 		7CE6EFE210A7B4B3009BF91A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE6EFE110A7B4B3009BF91A /* MapKit.framework */; };
 		7CE6EFE910A7B512009BF91A /* RouteMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6EFE810A7B512009BF91A /* RouteMapViewController.m */; };
 		7CE6EFEB10A7B525009BF91A /* RouteMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE6EFEA10A7B525009BF91A /* RouteMapView.xib */; };
@@ -81,6 +82,7 @@
 		7CC4D06910978EBF00F2BB67 /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		7CD986F110AA68BE00116483 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		7CD986F210AA68BE00116483 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		7CE69D6510C1B8E20002DE93 /* TestUI.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TestUI.xib; path = ../../../Desktop/TestUI.xib; sourceTree = SOURCE_ROOT; };
 		7CE6EFE110A7B4B3009BF91A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7CE6EFE710A7B512009BF91A /* RouteMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteMapViewController.h; sourceTree = "<group>"; };
 		7CE6EFE810A7B512009BF91A /* RouteMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteMapViewController.m; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				C993E18B10A206E800B0F44D /* MainWindow.xib */,
 				C993E18A10A206D600B0F44D /* AgencyViewController.xib */,
 				7CE6EFEA10A7B525009BF91A /* RouteMapView.xib */,
+				7CE69D6510C1B8E20002DE93 /* TestUI.xib */,
 			);
 			path = NIBs;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				7CE6EFEB10A7B525009BF91A /* RouteMapView.xib in Resources */,
 				7C428BCF10A90A5C0024E2B9 /* TempBusIcon.png in Resources */,
 				C974345110A9F4D50072C7B6 /* Todo in Resources */,
+				7CE69D6610C1B8E20002DE93 /* TestUI.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
