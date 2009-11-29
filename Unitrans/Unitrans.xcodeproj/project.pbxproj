@@ -327,6 +327,7 @@
 		7CE69E5D10C243890002DE93 /* RouteIcons */ = {
 			isa = PBXGroup;
 			children = (
+				7CE69E6D10C243890002DE93 /* RouteIcon.opacity */,
 				7CE69E5E10C243890002DE93 /* ARouteIcon_43.png */,
 				7CE69E5F10C243890002DE93 /* BRouteIcon_43.png */,
 				7CE69E6010C243890002DE93 /* CRouteIcon_43.png */,
@@ -342,7 +343,6 @@
 				7CE69E6A10C243890002DE93 /* NRouteIcon_43.png */,
 				7CE69E6B10C243890002DE93 /* PRouteIcon_43.png */,
 				7CE69E6C10C243890002DE93 /* QRouteIcon_43.png */,
-				7CE69E6D10C243890002DE93 /* RouteIcon.opacity */,
 				7CE69E6E10C243890002DE93 /* SRouteIcon_43.png */,
 				7CE69E6F10C243890002DE93 /* TRouteIcon_43.png */,
 				7CE69E7010C243890002DE93 /* URouteIcon_43.png */,
