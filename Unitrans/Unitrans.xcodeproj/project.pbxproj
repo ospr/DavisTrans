@@ -50,6 +50,7 @@
 		7CE69E8410C243890002DE93 /* URouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E7010C243890002DE93 /* URouteIcon_43.png */; };
 		7CE69E8510C243890002DE93 /* WRouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E7110C243890002DE93 /* WRouteIcon_43.png */; };
 		7CE69E9710C243D00002DE93 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E9610C243D00002DE93 /* Icon.png */; };
+		7CE69EBC10C248250002DE93 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69EBB10C248250002DE93 /* Default.png */; };
 		7CE6EFE210A7B4B3009BF91A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE6EFE110A7B4B3009BF91A /* MapKit.framework */; };
 		7CE6EFE910A7B512009BF91A /* RouteMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6EFE810A7B512009BF91A /* RouteMapViewController.m */; };
 		7CE6EFEB10A7B525009BF91A /* RouteMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE6EFEA10A7B525009BF91A /* RouteMapView.xib */; };
@@ -125,6 +126,7 @@
 		7CE69E7010C243890002DE93 /* URouteIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = URouteIcon_43.png; sourceTree = "<group>"; };
 		7CE69E7110C243890002DE93 /* WRouteIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WRouteIcon_43.png; sourceTree = "<group>"; };
 		7CE69E9610C243D00002DE93 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		7CE69EBB10C248250002DE93 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		7CE6EFE110A7B4B3009BF91A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7CE6EFE710A7B512009BF91A /* RouteMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteMapViewController.h; sourceTree = "<group>"; };
 		7CE6EFE810A7B512009BF91A /* RouteMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteMapViewController.m; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */,
 				8D1107310486CEB800E47090 /* Unitrans-Info.plist */,
 				7CE69E9610C243D00002DE93 /* Icon.png */,
+				7CE69EBB10C248250002DE93 /* Default.png */,
 				7C428BCE10A90A5C0024E2B9 /* TempBusIcon.png */,
 				7CE69E5D10C243890002DE93 /* RouteIcons */,
 				C974345010A9F4D50072C7B6 /* Todo */,
@@ -429,6 +432,7 @@
 				7CE69E8410C243890002DE93 /* URouteIcon_43.png in Resources */,
 				7CE69E8510C243890002DE93 /* WRouteIcon_43.png in Resources */,
 				7CE69E9710C243D00002DE93 /* Icon.png in Resources */,
+				7CE69EBC10C248250002DE93 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

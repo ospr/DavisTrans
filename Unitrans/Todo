@@ -10,11 +10,11 @@ High
 • Remove duplicate prediction times. (kip)
 • Sort pretiction times (sometimes they're not in order in xml??) (kip)
 • Tapping on stop cell in StopTimeView takes user to that stopview. (kip)
+• Retrieval of predictions and bus info should be in seperate thread. (kip)
 
 Lower
 =====
 • Set maximum and minimum dates for date picker
-• Retrieval of predictions and bus info should be in seperate thread.
 • Organize stops better: separate inbound/outbound sections?
 • At a given stop for a given route also show other arrival times for other routes.
 • Split times into Night and Day segments in StopTimes view
