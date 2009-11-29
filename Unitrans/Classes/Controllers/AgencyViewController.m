@@ -104,7 +104,7 @@
     [[cell detailTextLabel] setFont:[UIFont boldSystemFontOfSize:10]];
 	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     
-    //[[cell imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
+    [[cell imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
     
     return cell;
 }
