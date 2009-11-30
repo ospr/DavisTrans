@@ -9,6 +9,7 @@
 #import "RouteViewController.h"
 #import "StopViewController.h"
 #import "RouteMapViewController.h"
+#import "OverlayHeaderView.h"
 #import "Route.h"
 #import "Stop.h"
 
@@ -47,6 +48,21 @@
     [self setStops:sortedStops];
     
 	[self setTitle:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
+
+    // Create detail overlay view
+    CGRect bounds = [[self view] bounds];
+    overlayHeaderView = [[OverlayHeaderView alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
+    [[[overlayHeaderView detailOverlayView] textLabel] setText:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
+    [[[overlayHeaderView detailOverlayView] detailTextLabel] setText:[route longName]];
+    [[[overlayHeaderView detailOverlayView] imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
+    
+    // Create table view (detail overlay's content view)
+    UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [self setTableView:newTableView];
+    [overlayHeaderView setContentView:newTableView];
+    [newTableView release];
+    
+    [self setView:overlayHeaderView];
 }
 
 - (void)didReceiveMemoryWarning 
@@ -79,11 +95,11 @@
 }
 
 // Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
@@ -101,7 +117,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	Stop *selectedStop = [stops objectAtIndex:[indexPath row]];
-	StopViewController *stopViewController = [[StopViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	StopViewController *stopViewController = [[StopViewController alloc] init];//[[StopViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	[stopViewController setStop:selectedStop];
 	[stopViewController setRoute:route];
 	[self.navigationController pushViewController:stopViewController animated:YES];
@@ -117,7 +133,7 @@
 #pragma mark IBAction methods
 - (IBAction)showStopInMapAction:(id)action
 {
-    RouteMapViewController *routeMapViewController = [[RouteMapViewController alloc] initWithNibName:@"RouteMapView" bundle:nil];
+    RouteMapViewController *routeMapViewController = [[RouteMapViewController alloc] init];//WithNibName:@"RouteMapView" bundle:nil];
     [routeMapViewController setRoute:route];
     [[self navigationController] pushViewController:routeMapViewController animated:YES];
     [routeMapViewController release];

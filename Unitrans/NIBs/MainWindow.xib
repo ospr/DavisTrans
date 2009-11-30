@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="184"/>
+			<integer value="186"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -59,6 +59,10 @@
 					<bool key="IBUIOpaque">NO</bool>
 					<bool key="IBUIClipsSubviews">YES</bool>
 					<bool key="IBUIMultipleTouchEnabled">YES</bool>
+					<object class="NSColor" key="IBUITintColor">
+						<int key="NSColorSpace">2</int>
+						<bytes key="NSRGB">MC42MzkyMTU3MDc4IDAuMTk2MDc4NDQ5NSAwLjIwMzkyMTU4NjMAA</bytes>
+					</object>
 				</object>
 				<object class="NSMutableArray" key="IBUIViewControllers">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -188,7 +192,7 @@
 					<string>UIResponder</string>
 					<string>UnitransAppDelegate</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{457, 211}, {320, 480}}</string>
+					<string>{{747, 348}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>AgencyViewController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

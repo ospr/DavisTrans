@@ -13,9 +13,11 @@
 @class Route;
 @class Stop;
 @class CSRouteView;
+@class OverlayHeaderView;
 
-@interface RouteMapViewController : UIViewController {
+@interface RouteMapViewController : UIViewController <MKMapViewDelegate> {
     IBOutlet MKMapView *mapView;
+    OverlayHeaderView *overlayHeaderView;
     UIBarButtonItem *busButtonItem;
     
     Route *route;

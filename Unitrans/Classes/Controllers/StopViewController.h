@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TableViewController.h"
 
 @class Stop;
 @class Route;
+@class OverlayHeaderView;
 
-@interface StopViewController : UITableViewController {
+@interface StopViewController : TableViewController {
     Route *route;
     Stop *stop;
 	NSArray *stopTimes;
@@ -24,6 +26,8 @@
 	NSDateFormatter *referenceDateTimeFormatter;
 	UIDatePicker *datePicker;
 	UIActionSheet *datePickerSheet;
+    
+    OverlayHeaderView *overlayHeaderView;
 }
 
 @property (nonatomic, retain) Route *route;

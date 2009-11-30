@@ -27,8 +27,9 @@
 		7CC4D06F10978EBF00F2BB67 /* StopTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4D06510978EBF00F2BB67 /* StopTime.m */; };
 		7CC4D07010978EBF00F2BB67 /* Agency.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4D06710978EBF00F2BB67 /* Agency.m */; };
 		7CC4D07110978EBF00F2BB67 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4D06910978EBF00F2BB67 /* Trip.m */; };
+		7CCE8A7310C39E1900E1406F /* OverlayHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCE8A7210C39E1900E1406F /* OverlayHeaderView.m */; };
 		7CD986F310AA68BE00116483 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD986F210AA68BE00116483 /* AboutViewController.m */; };
-		7CE69D6610C1B8E20002DE93 /* TestUI.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69D6510C1B8E20002DE93 /* TestUI.xib */; };
+		7CE2275210C347AB00893B6B /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE2275110C347AB00893B6B /* TableViewController.m */; };
 		7CE69E7210C243890002DE93 /* ARouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E5E10C243890002DE93 /* ARouteIcon_43.png */; };
 		7CE69E7310C243890002DE93 /* BRouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E5F10C243890002DE93 /* BRouteIcon_43.png */; };
 		7CE69E7410C243890002DE93 /* CRouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E6010C243890002DE93 /* CRouteIcon_43.png */; };
@@ -51,6 +52,7 @@
 		7CE69E8510C243890002DE93 /* WRouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E7110C243890002DE93 /* WRouteIcon_43.png */; };
 		7CE69E9710C243D00002DE93 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E9610C243D00002DE93 /* Icon.png */; };
 		7CE69EBC10C248250002DE93 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69EBB10C248250002DE93 /* Default.png */; };
+		7CE69EFC10C2FA850002DE93 /* DetailOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE69EFB10C2FA850002DE93 /* DetailOverlayView.m */; };
 		7CE6EFE210A7B4B3009BF91A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE6EFE110A7B4B3009BF91A /* MapKit.framework */; };
 		7CE6EFE910A7B512009BF91A /* RouteMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6EFE810A7B512009BF91A /* RouteMapViewController.m */; };
 		7CE6EFEB10A7B525009BF91A /* RouteMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE6EFEA10A7B525009BF91A /* RouteMapView.xib */; };
@@ -102,9 +104,12 @@
 		7CC4D06710978EBF00F2BB67 /* Agency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Agency.m; sourceTree = "<group>"; };
 		7CC4D06810978EBF00F2BB67 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
 		7CC4D06910978EBF00F2BB67 /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
+		7CCE8A7110C39E1900E1406F /* OverlayHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayHeaderView.h; sourceTree = "<group>"; };
+		7CCE8A7210C39E1900E1406F /* OverlayHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayHeaderView.m; sourceTree = "<group>"; };
 		7CD986F110AA68BE00116483 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		7CD986F210AA68BE00116483 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
-		7CE69D6510C1B8E20002DE93 /* TestUI.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TestUI.xib; path = ../../../Desktop/TestUI.xib; sourceTree = SOURCE_ROOT; };
+		7CE2275010C347AB00893B6B /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		7CE2275110C347AB00893B6B /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		7CE69E5E10C243890002DE93 /* ARouteIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ARouteIcon_43.png; sourceTree = "<group>"; };
 		7CE69E5F10C243890002DE93 /* BRouteIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BRouteIcon_43.png; sourceTree = "<group>"; };
 		7CE69E6010C243890002DE93 /* CRouteIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CRouteIcon_43.png; sourceTree = "<group>"; };
@@ -127,6 +132,8 @@
 		7CE69E7110C243890002DE93 /* WRouteIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WRouteIcon_43.png; sourceTree = "<group>"; };
 		7CE69E9610C243D00002DE93 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		7CE69EBB10C248250002DE93 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		7CE69EFA10C2FA850002DE93 /* DetailOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailOverlayView.h; sourceTree = "<group>"; };
+		7CE69EFB10C2FA850002DE93 /* DetailOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailOverlayView.m; sourceTree = "<group>"; };
 		7CE6EFE110A7B4B3009BF91A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7CE6EFE710A7B512009BF91A /* RouteMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteMapViewController.h; sourceTree = "<group>"; };
 		7CE6EFE810A7B512009BF91A /* RouteMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteMapViewController.m; sourceTree = "<group>"; };
@@ -251,6 +258,8 @@
 				7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */,
 				C91476C310AA47B20014E49F /* NSDate_Extensions.h */,
 				C91476C410AA47B20014E49F /* NSDate_Extensions.m */,
+				7CE2275010C347AB00893B6B /* TableViewController.h */,
+				7CE2275110C347AB00893B6B /* TableViewController.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -322,7 +331,6 @@
 				C993E18B10A206E800B0F44D /* MainWindow.xib */,
 				C993E18A10A206D600B0F44D /* AgencyViewController.xib */,
 				7CE6EFEA10A7B525009BF91A /* RouteMapView.xib */,
-				7CE69D6510C1B8E20002DE93 /* TestUI.xib */,
 			);
 			path = NIBs;
 			sourceTree = "<group>";
@@ -359,6 +367,10 @@
 			children = (
 				7C25BFEA10A7DA4D00AAD086 /* CSRouteView.h */,
 				7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */,
+				7CE69EFA10C2FA850002DE93 /* DetailOverlayView.h */,
+				7CE69EFB10C2FA850002DE93 /* DetailOverlayView.m */,
+				7CCE8A7110C39E1900E1406F /* OverlayHeaderView.h */,
+				7CCE8A7210C39E1900E1406F /* OverlayHeaderView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -410,7 +422,6 @@
 				7CE6EFEB10A7B525009BF91A /* RouteMapView.xib in Resources */,
 				7C428BCF10A90A5C0024E2B9 /* TempBusIcon.png in Resources */,
 				C974345110A9F4D50072C7B6 /* Todo in Resources */,
-				7CE69D6610C1B8E20002DE93 /* TestUI.xib in Resources */,
 				7CE69E7210C243890002DE93 /* ARouteIcon_43.png in Resources */,
 				7CE69E7310C243890002DE93 /* BRouteIcon_43.png in Resources */,
 				7CE69E7410C243890002DE93 /* CRouteIcon_43.png in Resources */,
@@ -468,6 +479,9 @@
 				C91476C510AA47B20014E49F /* NSDate_Extensions.m in Sources */,
 				7CD986F310AA68BE00116483 /* AboutViewController.m in Sources */,
 				C9FD7CC210AB49DC004DEE85 /* PredictionManager.m in Sources */,
+				7CE69EFC10C2FA850002DE93 /* DetailOverlayView.m in Sources */,
+				7CE2275210C347AB00893B6B /* TableViewController.m in Sources */,
+				7CCE8A7310C39E1900E1406F /* OverlayHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

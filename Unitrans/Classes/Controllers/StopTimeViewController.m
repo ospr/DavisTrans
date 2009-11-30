@@ -7,9 +7,11 @@
 //
 
 #import "StopTimeViewController.h"
+#import "OverlayHeaderView.h"
 #import "Trip.h"
 #import "StopTime.h"
 #import "Stop.h"
+#import "Route.h"
 
 
 @implementation StopTimeViewController
@@ -20,7 +22,12 @@
 #pragma mark -
 #pragma mark Memory management
 
-- (void)dealloc {
+- (void)dealloc 
+{
+    [stopTime release];
+    [arrivalTimes release];
+    [overlayHeaderView release];
+    
     [super dealloc];
 }
 
@@ -39,6 +46,22 @@
     NSArray *filteredStopTimes = [sortedStopTimes filteredArrayUsingPredicate:predicate];
     
     [self setArrivalTimes:filteredStopTimes];
+    
+    // Create detail overlay view
+    CGRect bounds = [[self view] bounds];
+    overlayHeaderView = [[OverlayHeaderView alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
+    [[[overlayHeaderView detailOverlayView] textLabel] setText:[NSString stringWithFormat:@"Departing at: %@", [stopTime arrivalTimeString]]];
+    [[[overlayHeaderView detailOverlayView] detailTextLabel] setText:[NSString stringWithFormat:@"Departing from: %@", [[stopTime stop] name]]];
+    [[[overlayHeaderView detailOverlayView] imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [[[stopTime trip] route] shortName]]]];
+    
+    // Create table view (detail overlay's content view)
+    UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    [self setTableView:newTableView];
+    [overlayHeaderView setContentView:newTableView];
+    [newTableView release];
+    
+    // Set view
+    [self setView:overlayHeaderView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,11 +97,11 @@
 }
 
 // Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
     }
@@ -94,12 +117,12 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if([indexPath section] == 0)
 		return 35.0;
 	else
-		return [tableView rowHeight];
+		return [tv rowHeight];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

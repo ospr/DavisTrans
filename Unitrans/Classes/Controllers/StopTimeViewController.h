@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TableViewController.h"
 
 @class StopTime;
+@class OverlayHeaderView;
 
-@interface StopTimeViewController : UITableViewController {
+@interface StopTimeViewController : TableViewController {
     StopTime *stopTime;
-    
 	NSArray *arrivalTimes;
+    
+    OverlayHeaderView *overlayHeaderView;
 }
 
 @property (nonatomic, retain) StopTime *stopTime;

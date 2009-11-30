@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TableViewController.h"
 
 @class Route;
+@class OverlayHeaderView;
 
-@interface RouteViewController : UITableViewController {
+@interface RouteViewController : TableViewController {
     Route *route;
 	NSArray *stops;
+    
+    OverlayHeaderView *overlayHeaderView;
 }
 
 @property (nonatomic, retain) Route *route;

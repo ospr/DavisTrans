@@ -27,7 +27,6 @@ Lower
 
 Secondary
 =========
-• Left-aligned images for routes table.
 • Bus images also take into account heading direction.
 • SMS Alerts
 • Find nearest stops and distances to other stops
@@ -69,3 +68,5 @@ Done
 • Change Silo and MU stops so they just say Silo and MU. (kip)
 • Handle errors: can't load predictions, can't load core data file etc (kip)
 • More generic error messages, until we can take time to make them specific. (kip)
+• Left-aligned images for routes table.
+

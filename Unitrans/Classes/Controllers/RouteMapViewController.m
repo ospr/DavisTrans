@@ -8,6 +8,7 @@
 
 #import "RouteMapViewController.h"
 #import "StopViewController.h"
+#import "OverlayHeaderView.h"
 #import "RealTimeBusInfoManager.h"
 #import "RealTimeBusInfo.h"
 #import "Route.h"
@@ -51,6 +52,9 @@
     [busButtonItem setAction:@selector(beginContinuousBusUpdatesAction:)];
     [[self navigationItem] setRightBarButtonItem:busButtonItem];
     
+    mapView = [[MKMapView alloc] init];
+    [mapView setDelegate:self];
+    
     // For now get a random trip
     Trip *trip = [route primaryTrip];
        
@@ -80,6 +84,18 @@
     // Add stop annotations
     for (Stop *tripStop in [trip stops])
         [mapView addAnnotation:tripStop];
+    
+    // Create detail overlay view
+    CGRect bounds = [[self view] bounds];
+    overlayHeaderView = [[OverlayHeaderView alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
+    [[[overlayHeaderView detailOverlayView] textLabel] setText:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
+    [[[overlayHeaderView detailOverlayView] detailTextLabel] setText:[route longName]];
+    [[[overlayHeaderView detailOverlayView] imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
+
+    [overlayHeaderView setContentView:mapView];
+    
+    [self setView:overlayHeaderView];
+    [overlayHeaderView layoutSubviews];
     
     // Tell map to zoom to show entire route
     [mapView setRegion:[routeAnnotation region]];

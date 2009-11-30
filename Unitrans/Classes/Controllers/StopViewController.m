@@ -9,6 +9,7 @@
 #import "StopViewController.h"
 #import "StopTimeViewController.h"
 #import "RouteMapViewController.h"
+#import "OverlayHeaderView.h"
 #import "Stop.h"
 #import "StopTime.h"
 #import "Route.h"
@@ -104,6 +105,22 @@
 	
 	[datePickerToolbar release];
     
+    // Create detail overlay view
+    CGRect bounds = [[self view] bounds];
+    overlayHeaderView = [[OverlayHeaderView alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
+    [[[overlayHeaderView detailOverlayView] textLabel] setText:[NSString stringWithFormat:@"%@", [stop name]]];
+    [[[overlayHeaderView detailOverlayView] detailTextLabel] setText:[stop stopDescription]];
+    [[[overlayHeaderView detailOverlayView] imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
+    
+    // Create table view (detail overlay's content view)
+    UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    [self setTableView:newTableView];
+    [overlayHeaderView setContentView:newTableView];
+    [newTableView release];
+    
+    // Set view
+    [self setView:overlayHeaderView];
+    
     // Add a timer to fire to update the table when the next stop time expires
     [self addUpdateNextStopTimeTimer];
     
@@ -158,11 +175,11 @@
 }
 
 // Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     static NSString *CellIdentifier = @"StopTimeCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
@@ -226,7 +243,7 @@
 	{
         StopTime *stopTime = [stopTimes objectAtIndex:[indexPath row]];
         
-		StopTimeViewController *stopTimeViewController = [[StopTimeViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		StopTimeViewController *stopTimeViewController = [[StopTimeViewController alloc] init];
         [stopTimeViewController setStopTime:stopTime];
 		[self.navigationController pushViewController:stopTimeViewController animated:YES];
 		[stopTimeViewController release];
@@ -253,12 +270,12 @@
 	}
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if([indexPath section] == 2)
 		return 35.0;
 	else
-		return [tableView rowHeight];
+		return [tv rowHeight];
 }
 
 #pragma mark -

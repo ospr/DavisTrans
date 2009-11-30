@@ -43,7 +43,7 @@
         return;
     }
     [self setAgency:unitransAgency];
-    
+
     UIBarButtonItem *aboutButtonItem = [[UIBarButtonItem alloc] init];
     [aboutButtonItem setTitle:@"About"];
     [aboutButtonItem setTarget:self];
@@ -113,7 +113,7 @@
 {    
     Route *selectedRoute = [routes objectAtIndex:[indexPath row]];
 	
-	RouteViewController *routeViewController = [[RouteViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	RouteViewController *routeViewController = [[RouteViewController alloc] init];//[[RouteViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [routeViewController setRoute:selectedRoute];
     
 	[self.navigationController pushViewController:routeViewController animated:YES];
