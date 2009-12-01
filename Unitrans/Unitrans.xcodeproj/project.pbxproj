@@ -15,7 +15,6 @@
 		7C25BFEF10A7DA8300AAD086 /* CSRouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEE10A7DA8300AAD086 /* CSRouteAnnotation.m */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
 		7C25C28010A8CD7300AAD086 /* UIColor_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */; };
-		7C428BCF10A90A5C0024E2B9 /* TempBusIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C428BCE10A90A5C0024E2B9 /* TempBusIcon.png */; };
 		7C7A510410A1153600B396C9 /* TestDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 7C7A510310A1153600B396C9 /* TestDB.sqlite */; };
 		7CC4CFC01096784F00F2BB67 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CC4CFBF1096784F00F2BB67 /* CoreData.framework */; };
 		7CC4CFE31096795200F2BB67 /* TransitModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */; };
@@ -28,6 +27,7 @@
 		7CC4D07010978EBF00F2BB67 /* Agency.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4D06710978EBF00F2BB67 /* Agency.m */; };
 		7CC4D07110978EBF00F2BB67 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4D06910978EBF00F2BB67 /* Trip.m */; };
 		7CCE8A7310C39E1900E1406F /* OverlayHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCE8A7210C39E1900E1406F /* OverlayHeaderView.m */; };
+		7CD3E3E310C58AB20053771E /* BusTokenIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CD3E3E210C58AB20053771E /* BusTokenIcon.png */; };
 		7CD986F310AA68BE00116483 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD986F210AA68BE00116483 /* AboutViewController.m */; };
 		7CE2275210C347AB00893B6B /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE2275110C347AB00893B6B /* TableViewController.m */; };
 		7CE69E7210C243890002DE93 /* ARouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E5E10C243890002DE93 /* ARouteIcon_43.png */; };
@@ -84,7 +84,6 @@
 		7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7C25C27E10A8CD7300AAD086 /* UIColor_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColor_Extensions.h; sourceTree = "<group>"; };
 		7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColor_Extensions.m; sourceTree = "<group>"; };
-		7C428BCE10A90A5C0024E2B9 /* TempBusIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TempBusIcon.png; sourceTree = "<group>"; };
 		7C7A510310A1153600B396C9 /* TestDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = TestDB.sqlite; sourceTree = "<group>"; };
 		7CC4CFBF1096784F00F2BB67 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = TransitModel.xcdatamodel; sourceTree = "<group>"; };
@@ -106,6 +105,7 @@
 		7CC4D06910978EBF00F2BB67 /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		7CCE8A7110C39E1900E1406F /* OverlayHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayHeaderView.h; sourceTree = "<group>"; };
 		7CCE8A7210C39E1900E1406F /* OverlayHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayHeaderView.m; sourceTree = "<group>"; };
+		7CD3E3E210C58AB20053771E /* BusTokenIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BusTokenIcon.png; sourceTree = "<group>"; };
 		7CD986F110AA68BE00116483 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		7CD986F210AA68BE00116483 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		7CE2275010C347AB00893B6B /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 				8D1107310486CEB800E47090 /* Unitrans-Info.plist */,
 				7CE69E9610C243D00002DE93 /* Icon.png */,
 				7CE69EBB10C248250002DE93 /* Default.png */,
-				7C428BCE10A90A5C0024E2B9 /* TempBusIcon.png */,
+				7CD3E3E210C58AB20053771E /* BusTokenIcon.png */,
 				7CE69E5D10C243890002DE93 /* RouteIcons */,
 				C974345010A9F4D50072C7B6 /* Todo */,
 			);
@@ -420,7 +420,6 @@
 				7C7A510410A1153600B396C9 /* TestDB.sqlite in Resources */,
 				C993E18C10A206E800B0F44D /* MainWindow.xib in Resources */,
 				7CE6EFEB10A7B525009BF91A /* RouteMapView.xib in Resources */,
-				7C428BCF10A90A5C0024E2B9 /* TempBusIcon.png in Resources */,
 				C974345110A9F4D50072C7B6 /* Todo in Resources */,
 				7CE69E7210C243890002DE93 /* ARouteIcon_43.png in Resources */,
 				7CE69E7310C243890002DE93 /* BRouteIcon_43.png in Resources */,
@@ -444,6 +443,7 @@
 				7CE69E8510C243890002DE93 /* WRouteIcon_43.png in Resources */,
 				7CE69E9710C243D00002DE93 /* Icon.png in Resources */,
 				7CE69EBC10C248250002DE93 /* Default.png in Resources */,
+				7CD3E3E310C58AB20053771E /* BusTokenIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

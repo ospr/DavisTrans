@@ -21,7 +21,6 @@ Lower
 • Fix tile loading bug
 • Initial region for L route needs work.
 • Remove stoptimes that are at the end of routes. (kip)
-• Better bus icon.
 • Refresh icon for prediction cell.
 • Tabview in StopView with static times section, and prediction section with fancyness for the predictions.
 
@@ -69,4 +68,4 @@ Done
 • Handle errors: can't load predictions, can't load core data file etc (kip)
 • More generic error messages, until we can take time to make them specific. (kip)
 • Left-aligned images for routes table.
-
+• Better bus icon.

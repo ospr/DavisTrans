@@ -39,8 +39,8 @@
 		CGContextSetStrokeColorWithColor(context, routeAnnotation.lineColor.CGColor);
 		CGContextSetRGBFillColor(context, 0.0, 0.0, 1.0, 1.0);
 		
-		// Draw them with a 3.0 stroke width so they are a bit more visible.
-		CGContextSetLineWidth(context, 3.3);
+		// Draw them with a thick stroke width so they are a bit more visible.
+		CGContextSetLineWidth(context, 4);
 		
 		for(int idx = 0; idx < routeAnnotation.points.count; idx++)
 		{

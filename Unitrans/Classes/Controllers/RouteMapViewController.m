@@ -73,7 +73,7 @@
     
     // Create route annotation to hold the points, and add to mapView
     CSRouteAnnotation *routeAnnotation = [[[CSRouteAnnotation alloc] initWithPoints:points] autorelease];
-    [routeAnnotation setLineColor:[UIColor colorFromHexadecimal:[[route color] integerValue] alpha:0.60]];
+    [routeAnnotation setLineColor:[UIColor colorFromHexadecimal:[[route color] integerValue] alpha:0.65]];
 	[mapView addAnnotation:routeAnnotation];
     
     // Create route annotation view
@@ -152,7 +152,7 @@
         
         if (!busAnnotationView) {
             busAnnotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Bus"] autorelease];
-            [busAnnotationView setImage:[UIImage imageNamed:@"TempBusIcon.png"]];
+            [busAnnotationView setImage:[UIImage imageNamed:@"BusTokenIcon.png"]];
         }
         
         [busAnnotationView setAnnotation:annotation];
