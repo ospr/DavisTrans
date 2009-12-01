@@ -11,6 +11,7 @@ High
 • Sort pretiction times (sometimes they're not in order in xml??) (kip)
 • Tapping on stop cell in StopTimeView takes user to that stopview. (kip)
 • Retrieval of predictions and bus info should be in seperate thread. (kip)
+• Rotating arrow icon for bus direction. (ken)
 
 Lower
 =====
