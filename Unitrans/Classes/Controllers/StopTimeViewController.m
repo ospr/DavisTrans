@@ -7,6 +7,7 @@
 //
 
 #import "StopTimeViewController.h"
+#import "StopViewController.h"
 #import "OverlayHeaderView.h"
 #import "Trip.h"
 #import "StopTime.h"
@@ -125,11 +126,15 @@
 		return [tv rowHeight];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
-	// [self.navigationController pushViewController:anotherViewController];
-	// [anotherViewController release];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
+{    
+    StopTime *selectedStopTime = [arrivalTimes objectAtIndex:[indexPath row]];
+    Stop *selectedStop = [selectedStopTime stop];
+	StopViewController *stopViewController = [[StopViewController alloc] init];
+	[stopViewController setStop:selectedStop];
+	[stopViewController setRoute:[[stopTime trip] route]];
+	[[self navigationController] pushViewController:stopViewController animated:YES];
+	[stopViewController release];
 }
 
 @end
