@@ -37,7 +37,6 @@ NSString *kUnitransEmail = @"unitrans@ucdavis.edu";
     [super viewDidLoad];
     
     [self setTitle:@"About Unitrans"];
-    [[self view] setBackgroundColor:[UIColor colorWithRed:(163/255.0) green:(50/255.0) blue:(52/255.0) alpha:1.0]];
 
     NSDictionary *unitransPhone = [NSDictionary dictionaryWithObjectsAndKeys:
                                    @"Unitrans phone", kMainTextKey,

@@ -101,6 +101,12 @@
     [mapView setRegion:[routeAnnotation region]];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    // Reset errorShown when view appears again, so the user is warned about the error
+    errorShown = NO;
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {    
     // If stop has been set, select it
@@ -173,7 +179,7 @@
     {
         Stop *selectedStop = [view annotation];
         
-        StopViewController *stopViewController = [[StopViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        StopViewController *stopViewController = [[StopViewController alloc] init];
         [stopViewController setStop:selectedStop];
         [stopViewController setRoute:route];
 		[[self navigationController] pushViewController:stopViewController animated:YES];
@@ -296,9 +302,8 @@
         [alertView show];
         [alertView release];
     }
-    
     // If there were no buses, then stop upating and alert user
-    if ([busInfos count] == 0) {
+    else if ([busInfos count] == 0) {
         [self endContinuousBusUpdates];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Buses Found" message:@"There were no buses found for this route at this time." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
@@ -313,8 +318,9 @@
     [mapView addAnnotations:busInfos];
     [self setBusAnnotations:busInfos];
     
-    // Redraw map
-    [mapView setNeedsDisplay];
+    // Redraw map if there was no error
+    if (busInfos)
+        [mapView setNeedsDisplay];
 }
 
 @end
