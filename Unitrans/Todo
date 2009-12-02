@@ -4,8 +4,6 @@ Priority
 
 High
 ======
-• Network indicator when we gather data from the internet. (ken)
-• Date picker has longer more natural height (ken)
 • Make bus info and prediction classes one-shot (ken)
 • Remove duplicate prediction times. (kip)
 • Sort pretiction times (sometimes they're not in order in xml??) (kip)
@@ -70,3 +68,5 @@ Done
 • More generic error messages, until we can take time to make them specific. (kip)
 • Left-aligned images for routes table.
 • Better bus icon.
+• Network indicator when we gather data from the internet. (ken)
+• Date picker has longer more natural height (ken)

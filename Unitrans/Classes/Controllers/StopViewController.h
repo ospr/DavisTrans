@@ -24,8 +24,6 @@
 	NSDateFormatter *dayOfWeekFormatter;
 	NSDateFormatter *referenceDateFormatter;
 	NSDateFormatter *referenceDateTimeFormatter;
-	UIDatePicker *datePicker;
-	UIActionSheet *datePickerSheet;
     
     OverlayHeaderView *overlayHeaderView;
 }
@@ -38,11 +36,6 @@
 @property (nonatomic, retain) NSDateFormatter *selectedDateFormatter;
 @property (nonatomic, retain) NSDateFormatter *referenceDateFormatter;
 @property (nonatomic, retain) NSDateFormatter *referenceDateTimeFormatter;
-@property (nonatomic, retain) UIDatePicker *datePicker;
-@property (nonatomic, retain) UIActionSheet *datePickerSheet;
-
-- (IBAction) datePickerDoneClicked:(id)sender;
-- (IBAction) datePickerCancelClicked:(id)sender;
 
 - (void)updateStopTimes;
 - (void)addUpdateNextStopTimeTimer;

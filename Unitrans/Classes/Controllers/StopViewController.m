@@ -15,6 +15,7 @@
 #import "Route.h"
 #import "NSDate_Extensions.h"
 #import "PredictionManager.h"
+#import "DatePickerController.h"
 
 
 @implementation StopViewController
@@ -27,8 +28,6 @@
 @synthesize selectedDateFormatter;
 @synthesize referenceDateFormatter;
 @synthesize referenceDateTimeFormatter;
-@synthesize datePicker;
-@synthesize datePickerSheet;
 
 #pragma mark -
 #pragma mark Memory management
@@ -42,8 +41,6 @@
     [selectedDateFormatter release];
 	[referenceDateFormatter release];
 	[referenceDateTimeFormatter release];
-	[datePicker release];
-	[datePickerSheet release];
     
     [expiredStopTimeTimer invalidate];
     
@@ -67,6 +64,8 @@
     [[self navigationItem] setRightBarButtonItem:mapButtonItem];
     [mapButtonItem release];
 	
+	[self setSelectedDate:[[NSDate date] beginningOfDay]];
+	
 	// Initialize NSDateFormatter
 	selectedDateFormatter = [[NSDateFormatter alloc] init];
 	[selectedDateFormatter setTimeStyle:NSDateFormatterNoStyle];
@@ -79,31 +78,6 @@
 	[referenceDateFormatter setDateFormat:@"yyyy-MM-dd"];
 	referenceDateTimeFormatter = [[NSDateFormatter alloc] init];
 	[referenceDateTimeFormatter setDateFormat:@"yyyy-MM-dd hh:mm a"];
-	
-    // Initialize UIDatePicker
-	datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0.0, 44.0, 0.0, 0.0)];
-	[datePicker setDatePickerMode:UIDatePickerModeDate];
-	[datePicker setDate:selectedDate];
-	
-	// Create UIToolBar to go above the UIDatePicker and add "Done" and "Cancel" UIBarButtonItems
-	UIToolbar *datePickerToolbar = [[UIToolbar alloc] init];
-	datePickerToolbar.barStyle = UIBarStyleBlackOpaque;
-	[datePickerToolbar sizeToFit];
-	UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(datePickerCancelClicked:)];
-	UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-	UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(datePickerDoneClicked:)];
-	[datePickerToolbar setItems:[NSArray arrayWithObjects:cancelBtn, flexSpace, doneBtn, nil] animated:YES];
-	
-	[cancelBtn release];
-	[flexSpace release];
-	[doneBtn release];
-	
-	// Initialize UIActionSheet and add UIDatePicker and UIToolbar
-	datePickerSheet = [[UIActionSheet alloc] init];
-	[datePickerSheet addSubview:datePickerToolbar];
-	[datePickerSheet addSubview:datePicker];
-	
-	[datePickerToolbar release];
     
     // Create detail overlay view
     CGRect bounds = [[self view] bounds];
@@ -229,11 +203,9 @@
 {
 	if([indexPath section] == 0)
 	{
-		// Reselect the selected date (cancel on the date picker can make the picker to show different date
-		[datePicker setDate:selectedDate animated:YES];
-		// Show UIActionSheet
-		[datePickerSheet showInView:[self view]];
-        [datePickerSheet setBounds:CGRectMake(0.0, 0.0, [[self view] frame].size.width , [[self view] frame].size.height)];
+		DatePickerController *datePickerController = [[DatePickerController alloc] initWithNibName:@"DatePickerController" bundle:nil];
+		[datePickerController setStopViewController:self];
+		[self presentModalViewController:datePickerController animated:YES];
 	}
     else if ([indexPath section] == 1)
     {
@@ -348,19 +320,6 @@
 
 #pragma mark -
 #pragma mark IBAction methods
-- (IBAction) datePickerDoneClicked:(id)sender
-{
-    [self setSelectedDate:[datePicker date]];
-    [self updateStopTimes];
-	[[self tableView] reloadData];
-	[datePickerSheet dismissWithClickedButtonIndex:1 animated:YES];
-}
-
-- (IBAction) datePickerCancelClicked:(id)sender
-{
-	[[self tableView] reloadData];
-	[datePickerSheet dismissWithClickedButtonIndex:0 animated:YES];
-}
 
 - (IBAction)showStopInMapAction:(id)action
 {
