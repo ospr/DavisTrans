@@ -16,49 +16,7 @@
 @synthesize predictionTimeFormatter;
 @synthesize predictionTimes;
 @synthesize parseError;
-
-#pragma mark -
-#pragma mark Singleton Methods
-
-static PredictionManager *sharedPredictionManager = nil;
-
-+ (PredictionManager *)sharedPredictionManager
-{
-    if (sharedPredictionManager == nil) {
-        sharedPredictionManager = [[super allocWithZone:NULL] init];
-    }
-    return sharedPredictionManager;
-}
-
-+ (id)allocWithZone:(NSZone *)zone
-{
-    return [[self sharedPredictionManager] retain];
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    return self;
-}
-
-- (id)retain
-{
-    return self;
-}
-
-- (NSUInteger)retainCount
-{
-    return NSUIntegerMax;  //denotes an object that cannot be released
-}
-
-- (void)release
-{
-    //do nothing
-}
-
-- (id)autorelease
-{
-    return self;
-}
+@synthesize alreadyRetrievedPredictions;
 
 #pragma mark -
 #pragma mark Initializers
@@ -71,6 +29,7 @@ static PredictionManager *sharedPredictionManager = nil;
 		[self setRouteShortname:@""];
 		[self setStopId:@""];
 		predictionTimes = [[NSMutableArray alloc] init];
+		alreadyRetrievedPredictions = NO;
 		
 		// Initialize NSDateFormatter
 		predictionTimeFormatter = [[NSDateFormatter alloc] init];
@@ -103,19 +62,29 @@ static PredictionManager *sharedPredictionManager = nil;
 
 - (NSArray *) retrievePredictionInMinutesForRoute:(Route *)theRoute atStop:(Stop *)theStop error:(NSError **)error
 {
-    [self setParseError:nil];
-    parseAborted = NO;
-    [predictionTimes removeAllObjects];
-	[self setStopTag:[[theStop code] stringValue]];
-	[self setRouteShortname:[theRoute shortName]];    
-    
-    [self retrievePrediction];
-    
-    if (parseError) {
-        if (error)
-            *error = parseError;
-        return nil;
-    }
+	if (!alreadyRetrievedPredictions) {
+		[self setParseError:nil];
+		parseAborted = NO;
+		[predictionTimes removeAllObjects];
+		[self setStopTag:[[theStop code] stringValue]];
+		[self setRouteShortname:[theRoute shortName]];    
+		
+		[self retrievePrediction];
+		
+		if (parseError) {
+			if (error)
+				*error = parseError;
+			return nil;
+		}
+		
+		// this object is dirty
+		alreadyRetrievedPredictions = YES;
+	}
+	else 
+	{
+		NSLog(@"Already retrieved prediction info. Returning last retrieved prediction info. ");
+	}
+
     return [NSArray arrayWithArray:predictionTimes];
 }
 

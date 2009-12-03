@@ -28,6 +28,7 @@
 @synthesize selectedDateFormatter;
 @synthesize referenceDateFormatter;
 @synthesize referenceDateTimeFormatter;
+@synthesize isLoadingPrediction;
 
 #pragma mark -
 #pragma mark Memory management
@@ -56,6 +57,8 @@
     [self setTitle:@"Stop Times"];
 	[self setSelectedDate:[[NSDate date] beginningOfDay]]; 
     [self updateStopTimes];
+	
+	[self setIsLoadingPrediction:NO];
     
     UIBarButtonItem *mapButtonItem = [[UIBarButtonItem alloc] init];
     [mapButtonItem setTitle:@"Map"];
@@ -99,7 +102,8 @@
     [self addUpdateNextStopTimeTimer];
     
     // Get predictions
-    [self updateStopTimePredictions];
+    //[self updateStopTimePredictions];
+	[NSThread detachNewThreadSelector:@selector(updateStopTimePredictions) toTarget:self withObject:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -157,7 +161,7 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-        
+
     // Set up the cell...
 	if([indexPath section] == 0)
 	{
@@ -175,13 +179,22 @@
     else if ([indexPath section] == 1)
     {
         NSString *predictionString;
-        if (!predictions)
-            predictionString = @"Error gathering predictions.";
-        else if ([predictions count] > 0)
-            predictionString = [NSString stringWithFormat:@"%@ minutes", [predictions componentsJoinedByString:@", "]];
-        else
-            predictionString = @"No predictions at this time.";
-        
+		if(isLoadingPrediction)
+		{
+			predictionString = @"Loading...";
+			[self showActivity:YES atTableViewCell:cell];
+		}
+		else 
+		{
+			if (!predictions)
+				predictionString = @"Error gathering predictions.";
+			else if ([predictions count] > 0)
+				predictionString = [NSString stringWithFormat:@"%@ minutes", [predictions componentsJoinedByString:@", "]];
+			else
+				predictionString = @"No predictions at this time.";
+			[self showActivity:NO atTableViewCell:cell];
+		}
+
         [[cell textLabel] setText:predictionString];
         [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
         [cell setAccessoryType:UITableViewCellAccessoryNone];
@@ -194,7 +207,7 @@
 		[[cell textLabel] setTextAlignment:UITextAlignmentLeft];
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	}
-
+	
     return cell;
 }
 
@@ -253,7 +266,7 @@
 #pragma mark -
 #pragma mark Instance methods
 
-- (void)updateStopTimes
+- (void) updateStopTimes
 {
     // Get StopTimes based on route and date and sort
     NSSortDescriptor *stopTimeSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"arrivalTime" ascending:YES] autorelease];
@@ -261,7 +274,7 @@
     [self setStopTimes:sortedStopTimes];
 }
 
-- (void)addUpdateNextStopTimeTimer
+- (void) addUpdateNextStopTimeTimer
 {
     NSDate *now = [NSDate date];
     NSDate *referenceDate = [referenceDateTimeFormatter dateFromString:[NSString stringWithFormat:@"%@ 12:00 am", [referenceDateFormatter stringFromDate:now]]];
@@ -289,7 +302,7 @@
     [expiredStopTimeTimer release];
 }
 
-- (void)nextStopTimeDidFire:(NSTimer *)timer
+- (void) nextStopTimeDidFire:(NSTimer *)timer
 {
     // Reload table to update the greyed out stop times
     [[self tableView] reloadData];
@@ -298,12 +311,20 @@
     [self addUpdateNextStopTimeTimer];
 }
 
-- (void)updateStopTimePredictions
+- (void) updateStopTimePredictions
 {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSError *error;
+	[self setIsLoadingPrediction:YES];
+	
+	NSUInteger indexPathArray[] = {1,0}; 
+	
+	[self showActivity:YES atTableViewCell:[tableView cellForRowAtIndexPath:[NSIndexPath indexPathWithIndexes:indexPathArray length:2]]];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    NSArray *newPredictions = [[PredictionManager sharedPredictionManager] retrievePredictionInMinutesForRoute:route atStop:stop error:&error];
+    //NSArray *newPredictions = [[PredictionManager sharedPredictionManager] retrievePredictionInMinutesForRoute:route atStop:stop error:&error];
+	PredictionManager *predictionManager = [[PredictionManager alloc] init];
+	NSArray *newPredictions = [predictionManager retrievePredictionInMinutesForRoute:route atStop:stop error:&error];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     if (!newPredictions) {
@@ -313,9 +334,28 @@
         [alert show];
         [alert release];
     }
-    
+	
     [self setPredictions:newPredictions];
+	//[self showActivity:NO atTableViewCell:[tableView cellForRowAtIndexPath:[NSIndexPath indexPathWithIndexes:indexPathArray length:2]]];
     [[self tableView] reloadData];
+	[self setIsLoadingPrediction:NO];
+	[predictionManager release];
+	[pool release];
+}
+
+- (void) showActivity:(BOOL)show atTableViewCell:(UITableViewCell *)tableviewCell;
+{
+	if(show)
+	{
+		UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+		[activityIndicatorView startAnimating];
+		[tableviewCell setAccessoryView:activityIndicatorView];
+		[activityIndicatorView release];
+	}
+	else 
+	{
+		[tableviewCell setAccessoryView:nil];
+	}
 }
 
 #pragma mark -

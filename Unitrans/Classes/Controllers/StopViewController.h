@@ -24,6 +24,7 @@
 	NSDateFormatter *dayOfWeekFormatter;
 	NSDateFormatter *referenceDateFormatter;
 	NSDateFormatter *referenceDateTimeFormatter;
+	BOOL isLoadingPrediction;
     
     OverlayHeaderView *overlayHeaderView;
 }
@@ -36,9 +37,11 @@
 @property (nonatomic, retain) NSDateFormatter *selectedDateFormatter;
 @property (nonatomic, retain) NSDateFormatter *referenceDateFormatter;
 @property (nonatomic, retain) NSDateFormatter *referenceDateTimeFormatter;
+@property (nonatomic, assign) BOOL isLoadingPrediction;
 
-- (void)updateStopTimes;
-- (void)addUpdateNextStopTimeTimer;
-- (void)updateStopTimePredictions;
+- (void) updateStopTimes;
+- (void) addUpdateNextStopTimeTimer;
+- (void) updateStopTimePredictions;
+- (void) showActivity:(BOOL)show atTableViewCell:(UITableViewCell *)tableviewCell;
 
 @end

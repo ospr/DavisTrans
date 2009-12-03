@@ -10,6 +10,10 @@
 #import "Route.h"
 #import "Stop.h"
 
+// Prediction Manager is a single-shot class. It will only retrieve info one time per object. 
+// Subsequent calls to retrieval method will return the last retrieved info.
+// Release current object and allocate a new one to retrieve info again.
+
 @interface PredictionManager : NSObject {
 	NSString *stopTag;
 	NSString *routeShortname;
@@ -18,6 +22,9 @@
 	NSMutableArray *predictionTimes;
     NSError *parseError;
     BOOL parseAborted;
+	
+@private
+	BOOL alreadyRetrievedPredictions;
 }
 
 @property (nonatomic, retain) NSString *stopTag;
@@ -26,8 +33,7 @@
 @property (nonatomic, retain) NSDateFormatter *predictionTimeFormatter;
 @property (nonatomic, retain) NSMutableArray *predictionTimes;
 @property (nonatomic, retain) NSError *parseError;
-
-+ (PredictionManager *)sharedPredictionManager;
+@property (nonatomic, readonly) BOOL alreadyRetrievedPredictions;
 
 - (NSArray *) retrievePredictionInMinutesForRoute:(Route *)theRoute atStop:(Stop *)theStop error:(NSError **)error;
 - (NSArray *) convertMinutesToTime:(NSArray *)minutes;
