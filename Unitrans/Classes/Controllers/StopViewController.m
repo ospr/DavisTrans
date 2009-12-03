@@ -316,13 +316,8 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSError *error;
 	[self setIsLoadingPrediction:YES];
-	
-	NSUInteger indexPathArray[] = {1,0}; 
-	
-	[self showActivity:YES atTableViewCell:[tableView cellForRowAtIndexPath:[NSIndexPath indexPathWithIndexes:indexPathArray length:2]]];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    //NSArray *newPredictions = [[PredictionManager sharedPredictionManager] retrievePredictionInMinutesForRoute:route atStop:stop error:&error];
 	PredictionManager *predictionManager = [[PredictionManager alloc] init];
 	NSArray *newPredictions = [predictionManager retrievePredictionInMinutesForRoute:route atStop:stop error:&error];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -336,7 +331,6 @@
     }
 	
     [self setPredictions:newPredictions];
-	//[self showActivity:NO atTableViewCell:[tableView cellForRowAtIndexPath:[NSIndexPath indexPathWithIndexes:indexPathArray length:2]]];
     [[self tableView] reloadData];
 	[self setIsLoadingPrediction:NO];
 	[predictionManager release];
