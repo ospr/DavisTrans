@@ -11,6 +11,14 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		373EEF0910CA40F6007CFD39 /* AnimationImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EEF0810CA40F6007CFD39 /* AnimationImageView.m */; };
+		373EF07A10CC77FF007CFD39 /* RedCircle3.png in Resources */ = {isa = PBXBuildFile; fileRef = 373EF06B10CC77FF007CFD39 /* RedCircle3.png */; };
+		373EF07C10CC77FF007CFD39 /* RedCircle4.png in Resources */ = {isa = PBXBuildFile; fileRef = 373EF06D10CC77FF007CFD39 /* RedCircle4.png */; };
+		373EF07E10CC77FF007CFD39 /* RedCircle5.png in Resources */ = {isa = PBXBuildFile; fileRef = 373EF06F10CC77FF007CFD39 /* RedCircle5.png */; };
+		373EF08010CC77FF007CFD39 /* RedCircle6.png in Resources */ = {isa = PBXBuildFile; fileRef = 373EF07110CC77FF007CFD39 /* RedCircle6.png */; };
+		373EF08210CC77FF007CFD39 /* RedCircle7.png in Resources */ = {isa = PBXBuildFile; fileRef = 373EF07310CC77FF007CFD39 /* RedCircle7.png */; };
+		373EF08410CC77FF007CFD39 /* RedCircle8.png in Resources */ = {isa = PBXBuildFile; fileRef = 373EF07510CC77FF007CFD39 /* RedCircle8.png */; };
+		3795472510C7A13E005A2D93 /* BusAnimationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */; };
 		7C25BFEC10A7DA4D00AAD086 /* CSRouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */; };
 		7C25BFEF10A7DA8300AAD086 /* CSRouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEE10A7DA8300AAD086 /* CSRouteAnnotation.m */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
@@ -79,6 +87,16 @@
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Unitrans_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Unitrans_Prefix.pch; path = ../../Unitrans_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		373EEF0710CA40F6007CFD39 /* AnimationImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationImageView.h; sourceTree = "<group>"; };
+		373EEF0810CA40F6007CFD39 /* AnimationImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationImageView.m; sourceTree = "<group>"; };
+		373EF06B10CC77FF007CFD39 /* RedCircle3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle3.png; sourceTree = "<group>"; };
+		373EF06D10CC77FF007CFD39 /* RedCircle4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle4.png; sourceTree = "<group>"; };
+		373EF06F10CC77FF007CFD39 /* RedCircle5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle5.png; sourceTree = "<group>"; };
+		373EF07110CC77FF007CFD39 /* RedCircle6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle6.png; sourceTree = "<group>"; };
+		373EF07310CC77FF007CFD39 /* RedCircle7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle7.png; sourceTree = "<group>"; };
+		373EF07510CC77FF007CFD39 /* RedCircle8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle8.png; sourceTree = "<group>"; };
+		3795472310C7A13E005A2D93 /* BusAnimationAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusAnimationAnnotationView.h; sourceTree = "<group>"; };
+		3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusAnimationAnnotationView.m; sourceTree = "<group>"; };
 		7C25BFEA10A7DA4D00AAD086 /* CSRouteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRouteView.h; sourceTree = "<group>"; };
 		7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRouteView.m; sourceTree = "<group>"; };
 		7C25BFED10A7DA8300AAD086 /* CSRouteAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRouteAnnotation.h; sourceTree = "<group>"; };
@@ -237,6 +255,7 @@
 				7CE69E9610C243D00002DE93 /* Icon.png */,
 				7CE69EBB10C248250002DE93 /* Default.png */,
 				7CD3E3E210C58AB20053771E /* BusTokenIcon.png */,
+				373EF06510CC77FF007CFD39 /* Circles */,
 				7CE69E5D10C243890002DE93 /* RouteIcons */,
 				C974345010A9F4D50072C7B6 /* Todo */,
 			);
@@ -254,6 +273,27 @@
 				7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		373EF06510CC77FF007CFD39 /* Circles */ = {
+			isa = PBXGroup;
+			children = (
+				373EF06610CC77FF007CFD39 /* Red */,
+			);
+			path = Circles;
+			sourceTree = "<group>";
+		};
+		373EF06610CC77FF007CFD39 /* Red */ = {
+			isa = PBXGroup;
+			children = (
+				373EF06B10CC77FF007CFD39 /* RedCircle3.png */,
+				373EF06D10CC77FF007CFD39 /* RedCircle4.png */,
+				373EF06F10CC77FF007CFD39 /* RedCircle5.png */,
+				373EF07110CC77FF007CFD39 /* RedCircle6.png */,
+				373EF07310CC77FF007CFD39 /* RedCircle7.png */,
+				373EF07510CC77FF007CFD39 /* RedCircle8.png */,
+			);
+			path = Red;
 			sourceTree = "<group>";
 		};
 		7C25C27B10A8CD1000AAD086 /* Extensions */ = {
@@ -379,6 +419,10 @@
 				7CE69EFB10C2FA850002DE93 /* DetailOverlayView.m */,
 				7CCE8A7110C39E1900E1406F /* OverlayHeaderView.h */,
 				7CCE8A7210C39E1900E1406F /* OverlayHeaderView.m */,
+				3795472310C7A13E005A2D93 /* BusAnimationAnnotationView.h */,
+				3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */,
+				373EEF0710CA40F6007CFD39 /* AnimationImageView.h */,
+				373EEF0810CA40F6007CFD39 /* AnimationImageView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -453,6 +497,12 @@
 				7CE69EBC10C248250002DE93 /* Default.png in Resources */,
 				7CD3E3E310C58AB20053771E /* BusTokenIcon.png in Resources */,
 				C98B1F0510C6611500F26386 /* DatePickerController.xib in Resources */,
+				373EF07A10CC77FF007CFD39 /* RedCircle3.png in Resources */,
+				373EF07C10CC77FF007CFD39 /* RedCircle4.png in Resources */,
+				373EF07E10CC77FF007CFD39 /* RedCircle5.png in Resources */,
+				373EF08010CC77FF007CFD39 /* RedCircle6.png in Resources */,
+				373EF08210CC77FF007CFD39 /* RedCircle7.png in Resources */,
+				373EF08410CC77FF007CFD39 /* RedCircle8.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +542,8 @@
 				7CE2275210C347AB00893B6B /* TableViewController.m in Sources */,
 				7CCE8A7310C39E1900E1406F /* OverlayHeaderView.m in Sources */,
 				C98B1ECA10C63CCC00F26386 /* DatePickerController.m in Sources */,
+				3795472510C7A13E005A2D93 /* BusAnimationAnnotationView.m in Sources */,
+				373EEF0910CA40F6007CFD39 /* AnimationImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

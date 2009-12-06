@@ -19,6 +19,8 @@
 
 #import "CSRouteView.h"
 #import "CSRouteAnnotation.h"
+#import "BusAnimationAnnotationView.h"
+#import "AnimationImageView.h"
 
 #import "UIColor_Extensions.h"
 
@@ -154,11 +156,10 @@
     }
     else if ([annotation isKindOfClass:[RealTimeBusInfo class]])
     {
-        MKAnnotationView *busAnnotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"Bus"];
+        BusAnimationAnnotationView *busAnnotationView = (BusAnimationAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Bus"];
         
         if (!busAnnotationView) {
-            busAnnotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Bus"] autorelease];
-            [busAnnotationView setImage:[UIImage imageNamed:@"BusTokenIcon.png"]];
+            busAnnotationView = [[[BusAnimationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Bus"] autorelease];
         }
         
         [busAnnotationView setAnnotation:annotation];
