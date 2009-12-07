@@ -18,7 +18,10 @@
 		373EF08010CC77FF007CFD39 /* RedCircle6.png in Resources */ = {isa = PBXBuildFile; fileRef = 373EF07110CC77FF007CFD39 /* RedCircle6.png */; };
 		373EF08210CC77FF007CFD39 /* RedCircle7.png in Resources */ = {isa = PBXBuildFile; fileRef = 373EF07310CC77FF007CFD39 /* RedCircle7.png */; };
 		373EF08410CC77FF007CFD39 /* RedCircle8.png in Resources */ = {isa = PBXBuildFile; fileRef = 373EF07510CC77FF007CFD39 /* RedCircle8.png */; };
+		373EF0A510CC8AFE007CFD39 /* ConcurrentOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0A410CC8AFE007CFD39 /* ConcurrentOperation.m */; };
+		373EF0AC10CC9047007CFD39 /* PredictionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0AB10CC9047007CFD39 /* PredictionOperation.m */; };
 		3795472510C7A13E005A2D93 /* BusAnimationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */; };
+		37C127A210CC9DB6007604BB /* BusInformationOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C127A110CC9DB6007604BB /* BusInformationOperation.m */; };
 		7C25BFEC10A7DA4D00AAD086 /* CSRouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */; };
 		7C25BFEF10A7DA8300AAD086 /* CSRouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEE10A7DA8300AAD086 /* CSRouteAnnotation.m */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
@@ -66,7 +69,6 @@
 		7CE6EFEB10A7B525009BF91A /* RouteMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE6EFEA10A7B525009BF91A /* RouteMapView.xib */; };
 		7CEEFF69109F5798005EB194 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CEEFF68109F5798005EB194 /* DatabaseManager.m */; };
 		C91476C510AA47B20014E49F /* NSDate_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C91476C410AA47B20014E49F /* NSDate_Extensions.m */; };
-		C923168C10A7842C00A1BB6C /* RealTimeBusInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C923168B10A7842C00A1BB6C /* RealTimeBusInfoManager.m */; };
 		C923170910A790C100A1BB6C /* RealTimeBusInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C923170810A790C100A1BB6C /* RealTimeBusInfo.m */; };
 		C974345110A9F4D50072C7B6 /* Todo in Resources */ = {isa = PBXBuildFile; fileRef = C974345010A9F4D50072C7B6 /* Todo */; };
 		C98B1ECA10C63CCC00F26386 /* DatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = C98B1EC910C63CCC00F26386 /* DatePickerController.m */; };
@@ -77,7 +79,6 @@
 		C993E17C10A206A300B0F44D /* UnitransAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E17B10A206A300B0F44D /* UnitransAppDelegate.m */; };
 		C993E18C10A206E800B0F44D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C993E18B10A206E800B0F44D /* MainWindow.xib */; };
 		C9AB0A5F10A3627400B75C4B /* StopTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AB0A5E10A3627400B75C4B /* StopTimeViewController.m */; };
-		C9FD7CC210AB49DC004DEE85 /* PredictionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FD7CC110AB49DC004DEE85 /* PredictionManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,8 +96,14 @@
 		373EF07110CC77FF007CFD39 /* RedCircle6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle6.png; sourceTree = "<group>"; };
 		373EF07310CC77FF007CFD39 /* RedCircle7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle7.png; sourceTree = "<group>"; };
 		373EF07510CC77FF007CFD39 /* RedCircle8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle8.png; sourceTree = "<group>"; };
+		373EF0A310CC8AFE007CFD39 /* ConcurrentOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConcurrentOperation.h; sourceTree = "<group>"; };
+		373EF0A410CC8AFE007CFD39 /* ConcurrentOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConcurrentOperation.m; sourceTree = "<group>"; };
+		373EF0AA10CC9047007CFD39 /* PredictionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PredictionOperation.h; sourceTree = "<group>"; };
+		373EF0AB10CC9047007CFD39 /* PredictionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PredictionOperation.m; sourceTree = "<group>"; };
 		3795472310C7A13E005A2D93 /* BusAnimationAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusAnimationAnnotationView.h; sourceTree = "<group>"; };
 		3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusAnimationAnnotationView.m; sourceTree = "<group>"; };
+		37C127A010CC9DB6007604BB /* BusInformationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusInformationOperation.h; sourceTree = "<group>"; };
+		37C127A110CC9DB6007604BB /* BusInformationOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusInformationOperation.m; sourceTree = "<group>"; };
 		7C25BFEA10A7DA4D00AAD086 /* CSRouteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRouteView.h; sourceTree = "<group>"; };
 		7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRouteView.m; sourceTree = "<group>"; };
 		7C25BFED10A7DA8300AAD086 /* CSRouteAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRouteAnnotation.h; sourceTree = "<group>"; };
@@ -163,8 +170,6 @@
 		8D1107310486CEB800E47090 /* Unitrans-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Unitrans-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		C91476C310AA47B20014E49F /* NSDate_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDate_Extensions.h; sourceTree = "<group>"; };
 		C91476C410AA47B20014E49F /* NSDate_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDate_Extensions.m; sourceTree = "<group>"; };
-		C923168A10A7842C00A1BB6C /* RealTimeBusInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeBusInfoManager.h; sourceTree = "<group>"; };
-		C923168B10A7842C00A1BB6C /* RealTimeBusInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeBusInfoManager.m; sourceTree = "<group>"; };
 		C923170710A790C100A1BB6C /* RealTimeBusInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeBusInfo.h; sourceTree = "<group>"; };
 		C923170810A790C100A1BB6C /* RealTimeBusInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeBusInfo.m; sourceTree = "<group>"; };
 		C974345010A9F4D50072C7B6 /* Todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Todo; sourceTree = "<group>"; };
@@ -183,8 +188,6 @@
 		C993E18B10A206E800B0F44D /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		C9AB0A5D10A3627400B75C4B /* StopTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopTimeViewController.h; sourceTree = "<group>"; };
 		C9AB0A5E10A3627400B75C4B /* StopTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTimeViewController.m; sourceTree = "<group>"; };
-		C9FD7CC010AB49DC004DEE85 /* PredictionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PredictionManager.h; sourceTree = "<group>"; };
-		C9FD7CC110AB49DC004DEE85 /* PredictionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PredictionManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +213,7 @@
 				7CC4D048109788F300F2BB67 /* Controllers */,
 				7CE6F04510A7C8B0009BF91A /* Views */,
 				7CC4D00710967B9A00F2BB67 /* Models */,
+				373EF0A010CC8AEA007CFD39 /* Operations */,
 				7CC4D0491097891B00F2BB67 /* Other */,
 				7C25C27B10A8CD1000AAD086 /* Extensions */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -296,6 +300,19 @@
 			path = Red;
 			sourceTree = "<group>";
 		};
+		373EF0A010CC8AEA007CFD39 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				373EF0A310CC8AFE007CFD39 /* ConcurrentOperation.h */,
+				373EF0A410CC8AFE007CFD39 /* ConcurrentOperation.m */,
+				373EF0AA10CC9047007CFD39 /* PredictionOperation.h */,
+				373EF0AB10CC9047007CFD39 /* PredictionOperation.m */,
+				37C127A010CC9DB6007604BB /* BusInformationOperation.h */,
+				37C127A110CC9DB6007604BB /* BusInformationOperation.m */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
 		7C25C27B10A8CD1000AAD086 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,10 +381,6 @@
 				C993E17B10A206A300B0F44D /* UnitransAppDelegate.m */,
 				7CEEFF67109F5798005EB194 /* DatabaseManager.h */,
 				7CEEFF68109F5798005EB194 /* DatabaseManager.m */,
-				C923168A10A7842C00A1BB6C /* RealTimeBusInfoManager.h */,
-				C923168B10A7842C00A1BB6C /* RealTimeBusInfoManager.m */,
-				C9FD7CC010AB49DC004DEE85 /* PredictionManager.h */,
-				C9FD7CC110AB49DC004DEE85 /* PredictionManager.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -532,18 +545,19 @@
 				7CE6EFE910A7B512009BF91A /* RouteMapViewController.m in Sources */,
 				7C25BFEC10A7DA4D00AAD086 /* CSRouteView.m in Sources */,
 				7C25BFEF10A7DA8300AAD086 /* CSRouteAnnotation.m in Sources */,
-				C923168C10A7842C00A1BB6C /* RealTimeBusInfoManager.m in Sources */,
 				C923170910A790C100A1BB6C /* RealTimeBusInfo.m in Sources */,
 				7C25C28010A8CD7300AAD086 /* UIColor_Extensions.m in Sources */,
 				C91476C510AA47B20014E49F /* NSDate_Extensions.m in Sources */,
 				7CD986F310AA68BE00116483 /* AboutViewController.m in Sources */,
-				C9FD7CC210AB49DC004DEE85 /* PredictionManager.m in Sources */,
 				7CE69EFC10C2FA850002DE93 /* DetailOverlayView.m in Sources */,
 				7CE2275210C347AB00893B6B /* TableViewController.m in Sources */,
 				7CCE8A7310C39E1900E1406F /* OverlayHeaderView.m in Sources */,
 				C98B1ECA10C63CCC00F26386 /* DatePickerController.m in Sources */,
 				3795472510C7A13E005A2D93 /* BusAnimationAnnotationView.m in Sources */,
 				373EEF0910CA40F6007CFD39 /* AnimationImageView.m in Sources */,
+				373EF0A510CC8AFE007CFD39 /* ConcurrentOperation.m in Sources */,
+				373EF0AC10CC9047007CFD39 /* PredictionOperation.m in Sources */,
+				37C127A210CC9DB6007604BB /* BusInformationOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

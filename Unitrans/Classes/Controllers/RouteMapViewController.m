@@ -9,7 +9,6 @@
 #import "RouteMapViewController.h"
 #import "StopViewController.h"
 #import "OverlayHeaderView.h"
-#import "RealTimeBusInfoManager.h"
 #import "RealTimeBusInfo.h"
 #import "Route.h"
 #import "StopTime.h"
@@ -29,6 +28,7 @@
 @synthesize mapView;
 @synthesize route;
 @synthesize stop;
+@synthesize busInformationOperation;
 @synthesize busAnnotations;
 
 - (void)dealloc 
@@ -288,23 +288,25 @@
 }
 
 - (void)updateBusLocations:(NSTimer *)timer
-{
-    NSError *error;
-    
+{    
     // Get all buses for the current route
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    NSArray *busInfos = [[RealTimeBusInfoManager sharedRealTimeBusInfoManager] retrieveRealTimeBusInfoWithRoute:[route shortName] error:&error];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    
+    [self setBusInformationOperation:[[[BusInformationOperation alloc] initWithRouteName:[route shortName]] autorelease]];
+    [busInformationOperation setDelegate:self];
+    [busInformationOperation start];
+}
+
+- (void)updateBusAnnotations:(NSArray *)newBusAnnotations
+{
     // If busInfos is nil there was an error
-    if (!busInfos) {
+    if (!newBusAnnotations) {
         [self endContinuousBusUpdates];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Update Bus Location Error" message:@"There was an error while updating bus locations. Make sure you are connected to the internet." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
         [alertView release];
     }
     // If there were no buses, then stop upating and alert user
-    else if ([busInfos count] == 0) {
+    else if ([newBusAnnotations count] == 0) {
         [self endContinuousBusUpdates];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Buses Found" message:@"There were no buses found for this route at this time." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
@@ -316,12 +318,28 @@
         [mapView removeAnnotations:busAnnotations];
     
     // Add new bus annotations
-    [mapView addAnnotations:busInfos];
-    [self setBusAnnotations:busInfos];
+    [mapView addAnnotations:newBusAnnotations];
+    [self setBusAnnotations:newBusAnnotations];
     
-    // Redraw map if there was no error
-    if (busInfos)
-        [mapView setNeedsDisplay];
+    // Redraw map
+    [mapView setNeedsDisplay];
+}
+
+#pragma mark BusInformationOperation Delegate Methods
+#pragma mark -
+
+- (void)busInformation:(BusInformationOperation *)busInformationOperation didFinishWithBusInformation:(NSArray *)busInformation
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+    [self updateBusAnnotations:busInformation];
+}
+
+- (void)busInformation:(BusInformationOperation *)busInformationOperation didFailWithError:(NSError *)error
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    
+    [self updateBusAnnotations:nil];
 }
 
 @end

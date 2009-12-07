@@ -1,43 +1,35 @@
 //
-//  PredictionManager.m
+//  PredictionOperation.m
 //  Unitrans
 //
-//  Created by Ken Zheng on 11/11/09.
+//  Created by Kip on 12/6/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import "PredictionManager.h"
+#import "PredictionOperation.h"
+#import "Route.h"
+#import "Stop.h"
 
-@implementation PredictionManager
+
+@implementation PredictionOperation
 
 @synthesize stopTag;
-@synthesize routeShortname;
+@synthesize routeName;
 @synthesize stopId;
-@synthesize predictionTimeFormatter;
 @synthesize predictionTimes;
 @synthesize parseError;
-@synthesize alreadyRetrievedPredictions;
+@synthesize delegate;
 
 #pragma mark -
 #pragma mark Initializers
 
-- (id) init
+- (id) initWithRouteName:(NSString *)newRouteName stopTag:(NSString *)newStopTag
 {
 	if(self = [super init])
 	{
-		[self setStopTag:@""];
-		[self setRouteShortname:@""];
-		[self setStopId:@""];
+		[self setStopTag:newStopTag];
+		[self setRouteName:newRouteName];
 		predictionTimes = [[NSMutableArray alloc] init];
-		alreadyRetrievedPredictions = NO;
-		
-		// Initialize NSDateFormatter
-		predictionTimeFormatter = [[NSDateFormatter alloc] init];
-		[predictionTimeFormatter setTimeStyle:NSDateFormatterShortStyle];
-		[predictionTimeFormatter setDateStyle:NSDateFormatterNoStyle];
-		NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-		[predictionTimeFormatter setLocale:usLocale];
-		[usLocale release];
 	}
 	return self;
 }
@@ -48,49 +40,38 @@
 - (void) dealloc
 {
     [stopTag release];
-    [routeShortname release];
+    [routeName release];
     [stopId release];
 	[predictionTimes release];
-	[predictionTimeFormatter release];
     [parseError release];
-     
+    
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark ConcurrentOperation Override Methods
+
+- (void)main
+{
+    [self retrievePredictions];
+}
+
+- (void)didFinishOperation
+{
+    // If no error call predictions delegate method
+    // otherwise call fail method
+    if (!parseError)
+        [delegate predictionOperation:self didFinishWithPredictions:predictionTimes];
+    else
+        [delegate predictionOperation:self didFailWithError:parseError];
 }
 
 #pragma mark -
 #pragma mark Retrieval methods
 
-- (NSArray *) retrievePredictionInMinutesForRoute:(Route *)theRoute atStop:(Stop *)theStop error:(NSError **)error
-{
-	if (!alreadyRetrievedPredictions) {
-		[self setParseError:nil];
-		parseAborted = NO;
-		[predictionTimes removeAllObjects];
-		[self setStopTag:[[theStop code] stringValue]];
-		[self setRouteShortname:[theRoute shortName]];    
-		
-		[self retrievePrediction];
-		
-		if (parseError) {
-			if (error)
-				*error = parseError;
-			return nil;
-		}
-		
-		// this object is dirty
-		alreadyRetrievedPredictions = YES;
-	}
-	else 
-	{
-		NSLog(@"Already retrieved prediction info. Returning last retrieved prediction info. ");
-	}
-
-    return [NSArray arrayWithArray:predictionTimes];
-}
-
 // Method to retrieve predictions from XML and store the results into the predictionTimes array
-- (void) retrievePrediction
-{	
+- (void) retrievePredictions
+{
 	// Use the stopID from GTFS to look up the correct stopID from routeConfig for prediction
 	// This prevents nonexistent stopID prediction queries ie. departing stops from terminal have no prediction
 	[self retrieveStopIDFromRouteConfig];
@@ -103,14 +84,13 @@
     if (parseError)
         return;
 	
-	NSString *predictionURLstring = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=predictions&a=unitrans&stopId=%@&r=%@", stopId, routeShortname];
+	NSString *predictionURLstring = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=predictions&a=unitrans&stopId=%@&r=%@", stopId, routeName];
 	[self parseXMLAtURLString:predictionURLstring];
 }
 
 - (void) retrieveStopIDFromRouteConfig
 {
-	NSString *routeConfigURLString = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=routeConfig&a=unitrans&r=%@", routeShortname];
-	[self setStopId:@""];
+	NSString *routeConfigURLString = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=routeConfig&a=unitrans&r=%@", routeName];
 	[self parseXMLAtURLString:routeConfigURLString];
 }
 
@@ -121,19 +101,6 @@
 	[xmlParser setDelegate:self];
 	[xmlParser parse];
 	[xmlParser release];
-}
-
-- (NSArray *) convertMinutesToTime:(NSArray *)minutes
-{
-	NSMutableArray *predictionTimeStrings = [NSMutableArray array];
-	
-	for(NSString *minuteString in minutes)
-	{
-        NSTimeInterval predictionInSeconds = [minuteString intValue] * 60;
-		[predictionTimeStrings addObject:[predictionTimeFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:predictionInSeconds]]];
-	}
-	
-	return [NSArray arrayWithArray:predictionTimeStrings];
 }
 
 #pragma mark -

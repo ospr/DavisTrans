@@ -14,7 +14,6 @@
 #import "StopTime.h"
 #import "Route.h"
 #import "NSDate_Extensions.h"
-#import "PredictionManager.h"
 #import "DatePickerController.h"
 
 
@@ -24,11 +23,11 @@
 @synthesize stop;
 @synthesize stopTimes;
 @synthesize predictions;
+@synthesize predictionOperation;
 @synthesize selectedDate;
 @synthesize selectedDateFormatter;
 @synthesize referenceDateFormatter;
 @synthesize referenceDateTimeFormatter;
-@synthesize isLoadingPrediction;
 
 #pragma mark -
 #pragma mark Memory management
@@ -38,6 +37,8 @@
     [route release];
     [stop release];
 	[stopTimes release];
+    [predictions release];
+    [predictionOperation release];
     [selectedDate release];
     [selectedDateFormatter release];
 	[referenceDateFormatter release];
@@ -57,9 +58,8 @@
     [self setTitle:@"Stop Times"];
 	[self setSelectedDate:[[NSDate date] beginningOfDay]]; 
     [self updateStopTimes];
-	
-	[self setIsLoadingPrediction:NO];
-    
+    [self setPredictions:[NSArray array]];
+	    
     UIBarButtonItem *mapButtonItem = [[UIBarButtonItem alloc] init];
     [mapButtonItem setTitle:@"Map"];
     [mapButtonItem setTarget:self];
@@ -100,10 +100,13 @@
     
     // Add a timer to fire to update the table when the next stop time expires
     [self addUpdateNextStopTimeTimer];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
-    // Get predictions
-    //[self updateStopTimePredictions];
-	[NSThread detachNewThreadSelector:@selector(updateStopTimePredictions) toTarget:self withObject:nil];
+    [self updateStopTimePredictions];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -178,11 +181,15 @@
 	}
     else if ([indexPath section] == 1)
     {
+        if (![cell accessoryView]) {
+            predictionLoadingIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            [cell setAccessoryView:predictionLoadingIndicatorView];
+        }
+        
         NSString *predictionString;
-		if(isLoadingPrediction)
+		if(loadingPredictions)
 		{
 			predictionString = @"Loading...";
-			[self showActivity:YES atTableViewCell:cell];
 		}
 		else 
 		{
@@ -192,7 +199,6 @@
 				predictionString = [NSString stringWithFormat:@"%@ minutes", [predictions componentsJoinedByString:@", "]];
 			else
 				predictionString = @"No predictions at this time.";
-			[self showActivity:NO atTableViewCell:cell];
 		}
 
         [[cell textLabel] setText:predictionString];
@@ -294,7 +300,7 @@
     
     // If there was no arrivalDate later than now, we fire and update at 12am
     if (!fireDate)
-        fireDate = referenceDate;
+        fireDate = [referenceDate addTimeInterval:24*60*60];
     
     // Add a timer to fire at fireDate
     expiredStopTimeTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:0 target:self selector:@selector(nextStopTimeDidFire:) userInfo:nil repeats:NO];
@@ -313,43 +319,40 @@
 
 - (void) updateStopTimePredictions
 {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSError *error;
-	[self setIsLoadingPrediction:YES];
-    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-	PredictionManager *predictionManager = [[PredictionManager alloc] init];
-	NSArray *newPredictions = [predictionManager retrievePredictionInMinutesForRoute:route atStop:stop error:&error];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [predictionLoadingIndicatorView startAnimating];
+    loadingPredictions = YES;
     
-    if (!newPredictions) {
-        NSString *reason = @"There was an error while loading the predictions. Make sure you are connected to the internet.";
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Predictions Loading Error" message:reason
-                                                       delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-    }
+    [self setPredictionOperation:[[[PredictionOperation alloc] initWithRouteName:[route shortName] stopTag:[[stop code] stringValue]] autorelease]];
+    [predictionOperation setDelegate:self];
+    [predictionOperation start];
+    [tableView reloadData];
+}
+
+#pragma mark PredictionOperation Delegate Methods
+#pragma mark -
+
+- (void)predictionOperation:(PredictionOperation *)predictionOperation didFinishWithPredictions:(NSArray *)newPredictions
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [predictionLoadingIndicatorView stopAnimating];
+    loadingPredictions = NO;
 	
     [self setPredictions:newPredictions];
     [[self tableView] reloadData];
-	[self setIsLoadingPrediction:NO];
-	[predictionManager release];
-	[pool release];
 }
 
-- (void) showActivity:(BOOL)show atTableViewCell:(UITableViewCell *)tableviewCell;
+- (void)predictionOperation:(PredictionOperation *)predictionOperation didFailWithError:(NSError *)error
 {
-	if(show)
-	{
-		UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		[activityIndicatorView startAnimating];
-		[tableviewCell setAccessoryView:activityIndicatorView];
-		[activityIndicatorView release];
-	}
-	else 
-	{
-		[tableviewCell setAccessoryView:nil];
-	}
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [predictionLoadingIndicatorView stopAnimating];
+    loadingPredictions = NO;
+    
+    NSString *reason = @"There was an error while loading the predictions. Make sure you are connected to the internet.";
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Predictions Loading Error" message:reason
+                                                   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
 }
 
 #pragma mark -

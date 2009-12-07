@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "BusInformationOperation.h"
 
 @class Route;
 @class Stop;
 @class CSRouteView;
 @class OverlayHeaderView;
 
-@interface RouteMapViewController : UIViewController <MKMapViewDelegate> {
+@interface RouteMapViewController : UIViewController <MKMapViewDelegate, BusInformationOperationDelegate> {
     IBOutlet MKMapView *mapView;
     OverlayHeaderView *overlayHeaderView;
     UIBarButtonItem *busButtonItem;
@@ -25,6 +26,7 @@
     
     CSRouteView *routeAnnotationView;
     
+    BusInformationOperation *busInformationOperation;
     NSTimer *busTimer;
     NSArray *busAnnotations;
     BOOL busContinuousUpdatesRunning;
@@ -35,6 +37,7 @@
 @property (nonatomic, retain) MKMapView *mapView;
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) Stop *stop;
+@property (nonatomic, retain) BusInformationOperation *busInformationOperation;
 @property (nonatomic, retain) NSArray *busAnnotations;
 
 - (void)beginContinuousBusUpdates;
