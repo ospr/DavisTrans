@@ -9,6 +9,7 @@
 #import "Agency.h"
 
 #import "Route.h"
+#import "Calendar.h"
 
 @implementation Agency 
 
@@ -16,5 +17,14 @@
 @dynamic phone;
 @dynamic url;
 @dynamic routes;
+
+- (BOOL)transitDataUpToDate
+{
+    // Pick a random calendar since all of them have the same end/start dates
+    // And determine if the current date falls within the range or not
+    Calendar *calendar = (Calendar *)[[[[self routes] anyObject] primaryTrip] calendar];
+    
+    return [calendar validServiceOnDate:[NSDate date]];
+}
 
 @end

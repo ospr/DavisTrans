@@ -26,7 +26,7 @@
 
 - (BOOL)hasServiceOnDate:(NSDate *)date
 {
-    return [[self calendar] hasServiceDate:date];
+    return [[self calendar] hasServiceOnDate:date];
 }
 
 - (NSSet *)stops

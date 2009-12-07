@@ -25,8 +25,7 @@
 @dynamic trips;
 @dynamic calendarDates;
 
-// TODO: incorporate exceptions
-- (BOOL)hasServiceDate:(NSDate *)date
+- (BOOL)hasServiceOnDate:(NSDate *)date
 {
     // Iterate through calendarDates and check whether the
     // given date has an exception
@@ -61,6 +60,16 @@
     }
     
     return NO;
+}
+
+- (BOOL)validServiceOnDate:(NSDate *)date
+{    
+    // Return whether the current date falls withing start and end date range
+    if ([[self startDate] earlierDate:date] == date || [[self endDate] laterDate:date] == date) {
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end

@@ -27,7 +27,8 @@
 @property (nonatomic, retain) NSSet* trips;
 @property (nonatomic, retain) NSSet* calendarDates;
 
-- (BOOL)hasServiceDate:(NSDate *)date;
+- (BOOL)hasServiceOnDate:(NSDate *)date;
+- (BOOL)validServiceOnDate:(NSDate *)date;
 
 @end
 
