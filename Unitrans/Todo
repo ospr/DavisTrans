@@ -8,6 +8,7 @@ High
 • Sort pretiction times (sometimes they're not in order in xml??) (kip)
 • Rotating arrow icon for bus direction. (ken)
 • StopTimeView has sections for next arrival times AND previous departure times (kip)
+• Warn user when mail/phone not available in about view
 
 Lower
 =====
@@ -18,7 +19,6 @@ Lower
 • Fix tile loading bug
 • Initial region for L route needs work.
 • Remove stoptimes that are at the end of routes. (kip)
-• Refresh icon for prediction cell.
 • Tabview in StopView with static times section, and prediction section with fancyness for the predictions.
 
 Secondary
@@ -35,6 +35,7 @@ Secondary
 • Display list of patterns to choose from in map view.
 • Some sort of indicator to show the direction of the route on the map
 • Date picker has weekday name
+• Shake to go to home view (routes view)?
 
 Done
 =========
@@ -70,3 +71,4 @@ Done
 • Date picker has longer more natural height (ken)
 • Make bus info and prediction classes one-shot (ken)
 • Tapping on stop cell in StopTimeView takes user to that stopview. (kip)
+• Refresh icon for prediction cell.

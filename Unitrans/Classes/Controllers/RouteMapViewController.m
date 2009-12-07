@@ -156,11 +156,9 @@
     }
     else if ([annotation isKindOfClass:[RealTimeBusInfo class]])
     {
-        BusAnimationAnnotationView *busAnnotationView = (BusAnimationAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Bus"];
-        
-        if (!busAnnotationView) {
-            busAnnotationView = [[[BusAnimationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Bus"] autorelease];
-        }
+        // Create a new bus annotation view every time so that the
+        // animation is updated everytime the bus view updates
+        BusAnimationAnnotationView *busAnnotationView = [[[BusAnimationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Bus"] autorelease];
         
         [busAnnotationView setAnnotation:annotation];
         

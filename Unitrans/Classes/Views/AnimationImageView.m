@@ -55,12 +55,13 @@
 
 - (void)startAnimating
 {    
-    // Fire off the animation after animationDuration+animationDelay time
-    [NSTimer scheduledTimerWithTimeInterval:([self animationDuration] + animationDelay)
-                                     target:self 
-                                   selector:@selector(resetAnimation:) 
-                                   userInfo:nil
-                                    repeats:NO];
+    // Fire off the animation after animationDuration+animationDelay time if it's not zero
+    if (animationDelay > 0.00001)
+        [NSTimer scheduledTimerWithTimeInterval:([self animationDuration] + animationDelay)
+                                         target:self 
+                                       selector:@selector(resetAnimation:) 
+                                       userInfo:nil
+                                        repeats:NO];
     
     [super startAnimating];
 }

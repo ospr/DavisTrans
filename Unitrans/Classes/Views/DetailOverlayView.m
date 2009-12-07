@@ -57,9 +57,34 @@
                      
 - (void)layoutSubviews
 {    
-    [imageView setFrame:CGRectMake(10, 7, 43, 43)];
-    [textLabel setFrame:CGRectMake(61, 7, 229, 21)];
-    [detailTextLabel setFrame:CGRectMake(61, 29, 229, 21)];
+    // Padding between text and image
+    CGFloat textImagePadding = 5.0;
+    
+    // ImageViewFrame
+    // Size: Size of image
+    // Origin: x = 0, y = point where image is centered horizontally
+    CGRect imageViewFrame;
+    imageViewFrame.size = [[imageView image] size];
+    imageViewFrame.origin = CGPointMake(0, ([self bounds].size.height - imageViewFrame.size.height) / 2.0);
+    [imageView setFrame:imageViewFrame];
+    
+    // TextLabelFrame
+    // Size: width = bound's width - imageView's furthest x value + padding, height = font height
+    // Origin: x = imageView's furthest x value + padding, y = bottom label rests on center line
+    CGRect textLabelFrame;
+    CGSize textLabelFontSize = [[textLabel text] sizeWithFont:[textLabel font]];
+    textLabelFrame.origin = CGPointMake(imageViewFrame.origin.x + imageViewFrame.size.width + textImagePadding, ([self bounds].size.height / 2.0) - textLabelFontSize.height);
+    textLabelFrame.size = CGSizeMake([self bounds].size.width - textLabelFrame.origin.x, textLabelFontSize.height);
+    [textLabel setFrame:textLabelFrame];
+    
+    // DetailTextLabelFrame
+    // Size: width = width of textLabelFrame, height = font height
+    // Origin: x = x origin of textLabelFrame, y = 2 points below bounds center
+    CGRect detailTextLabelFrame;
+    CGSize detailTextLabelFontSize = [[detailTextLabel text] sizeWithFont:[detailTextLabel font]];
+    detailTextLabelFrame.size = CGSizeMake(textLabelFrame.size.width, detailTextLabelFontSize.height);
+    detailTextLabelFrame.origin = CGPointMake(textLabelFrame.origin.x, ([self bounds].size.height / 2.0) + 2.0);
+    [detailTextLabel setFrame:detailTextLabelFrame];
 }
 
 - (void)drawRect:(CGRect)rect 
