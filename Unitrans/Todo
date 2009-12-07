@@ -8,7 +8,7 @@ High
 • Sort pretiction times (sometimes they're not in order in xml??) (kip)
 • Rotating arrow icon for bus direction. (ken)
 • StopTimeView has sections for next arrival times AND previous departure times (kip)
-• Warn user when mail/phone not available in about view
+• Alert user when static schedule is out of date
 
 Lower
 =====
@@ -72,3 +72,4 @@ Done
 • Make bus info and prediction classes one-shot (ken)
 • Tapping on stop cell in StopTimeView takes user to that stopview. (kip)
 • Refresh icon for prediction cell.
+• Warn user when mail/phone not available in about view
