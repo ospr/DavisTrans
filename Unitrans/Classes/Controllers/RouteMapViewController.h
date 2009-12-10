@@ -17,21 +17,20 @@
 @class OverlayHeaderView;
 
 @interface RouteMapViewController : UIViewController <MKMapViewDelegate, BusInformationOperationDelegate> {
-    IBOutlet MKMapView *mapView;
-    OverlayHeaderView *overlayHeaderView;
-    UIBarButtonItem *busButtonItem;
-    
     Route *route;
     Stop *stop;
-    
-    CSRouteView *routeAnnotationView;
     
     BusInformationOperation *busInformationOperation;
     NSTimer *busTimer;
     NSArray *busAnnotations;
-    BOOL busContinuousUpdatesRunning;
     
+    BOOL busContinuousUpdatesRunning;
     BOOL errorShown;
+    
+    MKMapView *mapView;
+    CSRouteView *routeAnnotationView;
+    OverlayHeaderView *overlayHeaderView;
+    UIBarButtonItem *busButtonItem;
 }
 
 @property (nonatomic, retain) MKMapView *mapView;

@@ -40,12 +40,13 @@
 
 	[self setTitle:@"Arrival Times"];
     
+    // Sort StopTimes
     NSSortDescriptor *stopTimeSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"arrivalTime" ascending:YES] autorelease];
     NSArray *sortedStopTimes = [[[[stopTime trip] stopTimes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopTimeSortDescriptor]];
     
+    // Filter StopTimes so that only times after main StopTime's arrival time are left
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"arrivalTime > %@", [stopTime arrivalTime]];
     NSArray *filteredStopTimes = [sortedStopTimes filteredArrayUsingPredicate:predicate];
-    
     [self setArrivalTimes:filteredStopTimes];
     
     // Create detail overlay view
@@ -80,8 +81,6 @@
 #pragma mark -
 #pragma mark UITableView methods
 
-// TODO: Implement UITableView methods
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -98,28 +97,33 @@
 }
 
 // Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+{    
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
+    if (!cell) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        
+        [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
+        [[cell detailTextLabel] setFont:[UIFont boldSystemFontOfSize:12]];
     }
-    
-    StopTime *arrivalTime = [arrivalTimes objectAtIndex:[indexPath row]];
-    
-    [[cell textLabel] setText:[[arrivalTime stop] name]];
-    [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
-	
-    [[cell detailTextLabel] setText:[arrivalTime arrivalTimeString]];
-    [[cell detailTextLabel] setFont:[UIFont boldSystemFontOfSize:12]];
     
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    StopTime *arrivalTime = [arrivalTimes objectAtIndex:[indexPath row]];
+    
+    // Set arrivalTime's stop name and time string
+    [[cell textLabel] setText:[[arrivalTime stop] name]];
+    [[cell detailTextLabel] setText:[arrivalTime arrivalTimeString]];
+}
+
 - (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // Smaller height for time cells
 	if([indexPath section] == 0)
 		return 35.0;
 	else
@@ -128,11 +132,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {    
+    // Get selected stopTime and the selected stop
     StopTime *selectedStopTime = [arrivalTimes objectAtIndex:[indexPath row]];
     Stop *selectedStop = [selectedStopTime stop];
+    
+    // Create new StopViewController
 	StopViewController *stopViewController = [[StopViewController alloc] init];
 	[stopViewController setStop:selectedStop];
 	[stopViewController setRoute:[[stopTime trip] route]];
+    
+    // Push StopViewController onto nav stack
 	[[self navigationController] pushViewController:stopViewController animated:YES];
 	[stopViewController release];
 }

@@ -11,6 +11,8 @@
 
 @interface NSDate(NSDate_Extensions)
 
++ (NSDate *)beginningOfToday;
+
 - (NSDate *) beginningOfDay;
 
 @end

@@ -27,6 +27,7 @@ NSString *kUnitransEmail = @"unitrans@ucdavis.edu";
 
 - (void)dealloc
 {
+    [agency release];
     [aboutItems release];
     
     [super dealloc];
@@ -72,19 +73,17 @@ NSString *kUnitransEmail = @"unitrans@ucdavis.edu";
 	// e.g. self.myOutlet = nil;
 }
 
-
+#pragma mark -
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-// Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [aboutItems count];
 }
 
-// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {    
     static NSString *CellIdentifier = @"Cell";
@@ -93,13 +92,17 @@ NSString *kUnitransEmail = @"unitrans@ucdavis.edu";
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
-    
+    	
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     NSDictionary *item = [aboutItems objectAtIndex:[indexPath row]];
     
+    // Set item's main text and detail text
     [[cell textLabel] setText:[item objectForKey:kMainTextKey]];
-    [[cell detailTextLabel] setText:[item objectForKey:kDetailTextKey]];
-	
-    return cell;
+    [[cell detailTextLabel] setText:[item objectForKey:kDetailTextKey]];    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 

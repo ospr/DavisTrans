@@ -11,6 +11,11 @@
 
 @implementation NSDate(NSDate_Extensions)
 
++ (NSDate *)beginningOfToday
+{
+    return [[NSDate date] beginningOfDay];
+}
+
 - (NSDate *) beginningOfDay
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];

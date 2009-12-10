@@ -25,9 +25,6 @@
 @synthesize predictions;
 @synthesize predictionOperation;
 @synthesize selectedDate;
-@synthesize selectedDateFormatter;
-@synthesize referenceDateFormatter;
-@synthesize referenceDateTimeFormatter;
 
 #pragma mark -
 #pragma mark Memory management
@@ -38,13 +35,13 @@
     [stop release];
 	[stopTimes release];
     [predictions release];
-    [predictionOperation release];
     [selectedDate release];
-    [selectedDateFormatter release];
-	[referenceDateFormatter release];
-	[referenceDateTimeFormatter release];
-    
+
     [expiredStopTimeTimer invalidate];
+    
+    [predictionOperation release];
+    [predictionLoadingIndicatorView release];
+    [overlayHeaderView release];
     
     [super dealloc];
 }
@@ -59,29 +56,14 @@
 	[self setSelectedDate:[[NSDate date] beginningOfDay]]; 
     [self updateStopTimes];
     [self setPredictions:[NSArray array]];
-	    
+    
     UIBarButtonItem *mapButtonItem = [[UIBarButtonItem alloc] init];
     [mapButtonItem setTitle:@"Map"];
     [mapButtonItem setTarget:self];
     [mapButtonItem setAction:@selector(showStopInMapAction:)];
     [[self navigationItem] setRightBarButtonItem:mapButtonItem];
     [mapButtonItem release];
-	
-	[self setSelectedDate:[[NSDate date] beginningOfDay]];
-	
-	// Initialize NSDateFormatter
-	selectedDateFormatter = [[NSDateFormatter alloc] init];
-	[selectedDateFormatter setTimeStyle:NSDateFormatterNoStyle];
-	[selectedDateFormatter setDateStyle:NSDateFormatterFullStyle];
-	NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-	[selectedDateFormatter setLocale:usLocale];
-	[usLocale release]; 
-	
-	referenceDateFormatter = [[NSDateFormatter alloc] init];
-	[referenceDateFormatter setDateFormat:@"yyyy-MM-dd"];
-	referenceDateTimeFormatter = [[NSDateFormatter alloc] init];
-	[referenceDateTimeFormatter setDateFormat:@"yyyy-MM-dd hh:mm a"];
-    
+		    
     // Create detail overlay view
     CGRect bounds = [[self view] bounds];
     overlayHeaderView = [[OverlayHeaderView alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
@@ -133,11 +115,11 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    if(section == 0)
+    if(section == SectionIndexSelectedDate)
 		return 1;
-    else if (section == 1)
+    else if (section == SectionIndexPredictions)
         return 1;
-	else if (section == 2)
+	else if (section == SectionIndexStopTimes)
 		return [stopTimes count];
     else
         return 0;
@@ -145,11 +127,11 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	if(section == 0)
+	if(section == SectionIndexSelectedDate)
 		return [NSString stringWithString:@"Schedule for date:"];
-    else if (section == 1)
+    else if (section == SectionIndexPredictions)
         return @"Predictions:";
-	else if (section == 2)
+	else if (section == SectionIndexStopTimes)
 		return [stop name];
     else
         return @"";
@@ -158,79 +140,91 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    static NSString *CellIdentifier = @"StopTimeCell";
+    NSString *cellIdentifier = nil;
     
-    UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    // Get cellIdentifier based on current section
+    switch ([indexPath section]) {
+        case SectionIndexSelectedDate: cellIdentifier = @"SelectedDate"; break;
+        case SectionIndexPredictions:  cellIdentifier = @"Prediction"; break;
+        case SectionIndexStopTimes:    cellIdentifier = @"StopTimes"; break;
     }
-
-    // Set up the cell...
-	if([indexPath section] == 0)
-	{
-        // Set string to "Today" if the date falls on today, otherwise set string using date formatter
-        NSString *dateString;
-        if ([[selectedDate beginningOfDay] isEqualToDate:[[NSDate date] beginningOfDay]])
-            dateString = @"Today";
-        else
-            dateString =  [selectedDateFormatter stringFromDate:selectedDate];
+    
+    UITableViewCell *cell = [[self tableView] dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    // If cell was not found create a new one and set it up
+    if (!cell) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         
-		[[cell textLabel] setText:dateString];
-		[[cell textLabel] setTextAlignment:UITextAlignmentCenter];
-		[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
-	}
-    else if ([indexPath section] == 1)
-    {
-        if (![cell accessoryView]) {
+        // Set up the cell
+        if([indexPath section] == SectionIndexSelectedDate)
+        {
+            [[cell textLabel] setTextAlignment:UITextAlignmentCenter];
+            [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
+        }
+        else if ([indexPath section] == SectionIndexPredictions)
+        {
+            // Add activity indicator to spin while gathering prediction data
             predictionLoadingIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             [cell setAccessoryView:predictionLoadingIndicatorView];
+            
+            [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
         }
-        
-        NSString *predictionString;
-		if(loadingPredictions)
-		{
-			predictionString = @"Loading...";
-		}
-		else 
-		{
-			if (!predictions)
-				predictionString = @"Error gathering predictions.";
-			else if ([predictions count] > 0)
-				predictionString = [NSString stringWithFormat:@"%@ minutes", [predictions componentsJoinedByString:@", "]];
-			else
-				predictionString = @"No predictions at this time.";
-		}
-
-        [[cell textLabel] setText:predictionString];
-        [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
-        [cell setAccessoryType:UITableViewCellAccessoryNone];
+        else if ([indexPath section] == SectionIndexStopTimes)
+        {
+            [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
+            [[cell textLabel] setTextAlignment:UITextAlignmentLeft];
+            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        }
     }
-	else if ([indexPath section] == 2)
+
+    return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([indexPath section] == SectionIndexSelectedDate) 
+    {
+        [[cell textLabel] setText:[self selectedDateString]];
+    }
+    else if ([indexPath section] == SectionIndexPredictions) 
+    {
+        [[cell textLabel] setText:[self predictionString]];
+    }
+	else if ([indexPath section] == SectionIndexStopTimes) 
 	{
         StopTime *stopTime = [stopTimes objectAtIndex:[indexPath row]];
-		[[cell textLabel] setText:[stopTime arrivalTimeString]];
-		[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
-		[[cell textLabel] setTextAlignment:UITextAlignmentLeft];
-		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        
+		NSUInteger seconds = [[stopTime arrivalTime] unsignedIntegerValue];
+		NSDate *referenceDate = [NSDate beginningOfToday];
+		NSDate *arrivalDate = [[NSDate alloc] initWithTimeInterval:seconds sinceDate:referenceDate];
+		
+		if([arrivalDate earlierDate:[NSDate date]] == arrivalDate)
+			cell.backgroundColor = [UIColor colorWithRed:0.82 green:0.82 blue:0.82 alpha:1.0];
+        else
+            cell.backgroundColor = [UIColor whiteColor];
+		
+		[arrivalDate release];
+        
+        [[cell textLabel] setText:[stopTime arrivalTimeString]];
 	}
-	
-    return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	if([indexPath section] == 0)
+	if([indexPath section] == SectionIndexSelectedDate)
 	{
 		DatePickerController *datePickerController = [[DatePickerController alloc] initWithNibName:@"DatePickerController" bundle:nil];
 		[datePickerController setStopViewController:self];
 		[self presentModalViewController:datePickerController animated:YES];
 	}
-    else if ([indexPath section] == 1)
+    else if ([indexPath section] == SectionIndexPredictions)
     {
         [self updateStopTimePredictions];
     }
-	else if([indexPath section] == 2)
+	else if([indexPath section] == SectionIndexStopTimes)
 	{
         StopTime *stopTime = [stopTimes objectAtIndex:[indexPath row]];
         
@@ -241,32 +235,43 @@
 	}
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	if ([indexPath section] == 2) 
-	{
-		NSUInteger seconds = [[[stopTimes objectAtIndex:[indexPath row]] arrivalTime] unsignedIntegerValue];
-		NSDate *referenceDate = [referenceDateTimeFormatter dateFromString:[NSString stringWithFormat:@"%@ 12:00 am", [referenceDateFormatter stringFromDate:[NSDate date]]]];
-		NSDate *arrivalDate = [[NSDate alloc] initWithTimeInterval:seconds sinceDate:referenceDate];
-		
-		if([arrivalDate earlierDate:[NSDate date]] == arrivalDate)
-			cell.backgroundColor = [UIColor colorWithRed:0.82 green:0.82 blue:0.82 alpha:1.0];
-        else
-            cell.backgroundColor = [UIColor whiteColor];
-		
-		[arrivalDate release];
-	}
-    else {
-		cell.backgroundColor = [UIColor whiteColor];
-	}
-}
-
 - (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if([indexPath section] == 2)
+	if([indexPath section] == SectionIndexStopTimes)
 		return 35.0;
 	else
-		return [tv rowHeight];
+		return [[self tableView] rowHeight];
+}
+
+#pragma mark -
+#pragma mark Convenience Methods
+
+- (NSString *)selectedDateString
+{
+    NSDateFormatter *selectedDateFormatter = nil;
+    
+    if (!selectedDateFormatter) {
+        selectedDateFormatter = [[NSDateFormatter alloc] init];
+        [selectedDateFormatter setDateStyle:NSDateFormatterFullStyle];
+    }
+    
+    // Set string to "Today" if the date falls on today, otherwise set string using date formatter
+    if ([[selectedDate beginningOfDay] isEqualToDate:[[NSDate date] beginningOfDay]])
+        return @"Today";
+    
+    return [selectedDateFormatter stringFromDate:selectedDate];
+}
+
+- (NSString *)predictionString
+{
+    if(loadingPredictions)
+        return @"Loading...";
+    else if (!predictions)
+        return @"Error gathering predictions.";
+    else if ([predictions count] > 0)
+        return [NSString stringWithFormat:@"%@ minutes", [predictions componentsJoinedByString:@", "]];
+    else
+        return @"No predictions at this time.";
 }
 
 #pragma mark -
@@ -283,7 +288,7 @@
 - (void) addUpdateNextStopTimeTimer
 {
     NSDate *now = [NSDate date];
-    NSDate *referenceDate = [referenceDateTimeFormatter dateFromString:[NSString stringWithFormat:@"%@ 12:00 am", [referenceDateFormatter stringFromDate:now]]];
+    NSDate *referenceDate = [NSDate beginningOfToday];
     NSDate *arrivalDate;
     NSDate *fireDate = nil;
     

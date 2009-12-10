@@ -35,29 +35,35 @@
 {
     [route release];
     [stop release];
-    [routeAnnotationView release];
-    [busAnnotations release];
+    
+    [busInformationOperation release];
     [busTimer release];
+    [busAnnotations release];
+    
+    [mapView release];
+    [routeAnnotationView release];
+    [overlayHeaderView release];
     [busButtonItem release];
     
     [super dealloc];
 }
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
     
+    // Create bus button
     busButtonItem = [[UIBarButtonItem alloc] init];
     [busButtonItem setTitle:@"Bus"];
     [busButtonItem setTarget:self];
     [busButtonItem setAction:@selector(beginContinuousBusUpdatesAction:)];
     [[self navigationItem] setRightBarButtonItem:busButtonItem];
     
+    // Create mapView
     mapView = [[MKMapView alloc] init];
     [mapView setDelegate:self];
     
-    // For now get a random trip
+    // For now get primary
     Trip *trip = [route primaryTrip];
        
     // Sort shapes by sequence number
@@ -142,6 +148,7 @@
 {        
     if ([annotation isKindOfClass:[Stop class]]) 
     {
+        // Use a simple pinAnnotation for the stops
         MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Stop"];
         
         if (!pinAnnotationView) {
@@ -176,11 +183,15 @@
 {    
     if ([[view annotation] isKindOfClass:[Stop class]])
     {
+        // Get stop user selected to view
         Stop *selectedStop = [view annotation];
         
+        // Create new StopViewController
         StopViewController *stopViewController = [[StopViewController alloc] init];
         [stopViewController setStop:selectedStop];
         [stopViewController setRoute:route];
+        
+        // Push StopViewController onto nav stack
 		[[self navigationController] pushViewController:stopViewController animated:YES];
 		[stopViewController release];
     }
@@ -233,7 +244,7 @@
         errorShown = YES;
     }
     
-    NSLog(@"Error loading map: %@", error);
+    NSLog(@"Error loading map: %@ %@", error, [error userInfo]);
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }

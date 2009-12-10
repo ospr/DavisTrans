@@ -44,6 +44,7 @@
     }
     [self setAgency:unitransAgency];
 
+    // Create about button
     UIBarButtonItem *aboutButtonItem = [[UIBarButtonItem alloc] init];
     [aboutButtonItem setTitle:@"About"];
     [aboutButtonItem setTarget:self];
@@ -61,6 +62,7 @@
 {
     [super viewDidAppear:animated];
     
+    // Check to make sure that transit data is up to date, if not alert user!
     if (![agency transitDataUpToDate]) {
         NSString *reason = @"Your schedule data is out of date.";
         
@@ -92,45 +94,50 @@
 }
 
 
-// Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [routes count];
 }
 
 
-// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
+    if (!cell) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        
+        [[cell detailTextLabel] setFont:[UIFont boldSystemFontOfSize:10]];
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     }
     
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     Route *route = [routes objectAtIndex:[indexPath row]];
     
-    // Set up the cell...
+    // Set route name and description
     NSString *mainLabel = [NSString stringWithFormat:@"%@ Line",  [route shortName]];
     NSString *detailLabel = [route longName];
 	[[cell textLabel] setText:mainLabel];
     [[cell detailTextLabel] setText:detailLabel];
-    [[cell detailTextLabel] setFont:[UIFont boldSystemFontOfSize:10]];
-	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     
+    // Set route icon
     [[cell imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
-    
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {    
     Route *selectedRoute = [routes objectAtIndex:[indexPath row]];
 	
-	RouteViewController *routeViewController = [[RouteViewController alloc] init];//[[RouteViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    // Create new RouteViewController
+	RouteViewController *routeViewController = [[RouteViewController alloc] init];
     [routeViewController setRoute:selectedRoute];
     
-	[self.navigationController pushViewController:routeViewController animated:YES];
+    // Push RouteViewController on navigation stack
+	[[self navigationController] pushViewController:routeViewController animated:YES];
 	[routeViewController release];
 }
 

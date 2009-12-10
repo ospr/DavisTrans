@@ -10,6 +10,12 @@
 #import "TableViewController.h"
 #import "PredictionOperation.h"
 
+typedef enum _StopViewSectionIndex {
+    SectionIndexSelectedDate = 0,
+    SectionIndexPredictions = 1,
+    SectionIndexStopTimes = 2
+} StopViewSectionIndex;
+
 @class Stop;
 @class Route;
 @class OverlayHeaderView;
@@ -19,31 +25,33 @@
     Stop *stop;
 	NSArray *stopTimes;
     NSArray *predictions;
-    PredictionOperation *predictionOperation;
-	NSDate *selectedDate; // defaults to today
-    NSTimer *expiredStopTimeTimer;
-	NSDateFormatter *selectedDateFormatter;
-	NSDateFormatter *dayOfWeekFormatter;
-	NSDateFormatter *referenceDateFormatter;
-	NSDateFormatter *referenceDateTimeFormatter;
-    UIActivityIndicatorView *predictionLoadingIndicatorView;
+	NSDate *selectedDate;
+
     BOOL loadingPredictions;
     
+    // Timers
+    NSTimer *expiredStopTimeTimer;
+
+    // Operations
+    PredictionOperation *predictionOperation;
+    
+    // Subviews
     OverlayHeaderView *overlayHeaderView;
+    UIActivityIndicatorView *predictionLoadingIndicatorView;
 }
 
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) Stop *stop;
 @property (nonatomic, retain) NSArray *stopTimes;
 @property (nonatomic, retain) NSArray *predictions;
-@property (nonatomic, retain) PredictionOperation *predictionOperation;
 @property (nonatomic, retain) NSDate *selectedDate;
-@property (nonatomic, retain) NSDateFormatter *selectedDateFormatter;
-@property (nonatomic, retain) NSDateFormatter *referenceDateFormatter;
-@property (nonatomic, retain) NSDateFormatter *referenceDateTimeFormatter;
+@property (nonatomic, retain) PredictionOperation *predictionOperation;
 
 - (void) updateStopTimes;
 - (void) addUpdateNextStopTimeTimer;
 - (void) updateStopTimePredictions;
+
+- (NSString *)selectedDateString;
+- (NSString *)predictionString;
 
 @end

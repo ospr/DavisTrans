@@ -25,6 +25,8 @@
     [route release];
     [stops release];
     
+    [overlayHeaderView release];
+    
     [super dealloc];
 }
 
@@ -34,7 +36,10 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
+    
+    [self setTitle:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
 	
+    // Create map button
 	UIBarButtonItem *mapButtonItem = [[UIBarButtonItem alloc] init];
     [mapButtonItem setTitle:@"Map"];
     [mapButtonItem setTarget:self];
@@ -46,8 +51,6 @@
     NSSortDescriptor *stopsSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease];
     NSArray *sortedStops = [[[route allStops] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopsSortDescriptor]];
     [self setStops:sortedStops];
-    
-	[self setTitle:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
 
     // Create detail overlay view
     CGRect bounds = [[self view] bounds];
@@ -102,25 +105,34 @@
     UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        
+        [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     }
-    
-    // Set up the cell...
-	Stop *stop = [stops objectAtIndex:[indexPath row]];
-	[[cell textLabel] setText:[stop name]];
-	[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
-	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Stop *stop = [stops objectAtIndex:[indexPath row]];
+    
+    // Set stop name
+	[[cell textLabel] setText:[stop name]];
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	Stop *selectedStop = [stops objectAtIndex:[indexPath row]];
-	StopViewController *stopViewController = [[StopViewController alloc] init];//[[StopViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    // Create new StopViewController
+	StopViewController *stopViewController = [[StopViewController alloc] init];
 	[stopViewController setStop:selectedStop];
 	[stopViewController setRoute:route];
-	[self.navigationController pushViewController:stopViewController animated:YES];
+    
+    // Push StopViewController onto nav stack
+	[[self navigationController] pushViewController:stopViewController animated:YES];
 	[stopViewController release];
 }
 
@@ -133,8 +145,11 @@
 #pragma mark IBAction methods
 - (IBAction)showStopInMapAction:(id)action
 {
-    RouteMapViewController *routeMapViewController = [[RouteMapViewController alloc] init];//WithNibName:@"RouteMapView" bundle:nil];
+    // Create new RouteMapViewController
+    RouteMapViewController *routeMapViewController = [[RouteMapViewController alloc] init];
     [routeMapViewController setRoute:route];
+    
+    // Push RouteMapViewController onto nav stack
     [[self navigationController] pushViewController:routeMapViewController animated:YES];
     [routeMapViewController release];
 }
