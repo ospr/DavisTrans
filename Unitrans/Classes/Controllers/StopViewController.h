@@ -27,10 +27,12 @@ typedef enum _StopViewSectionIndex {
     NSArray *predictions;
 	NSDate *selectedDate;
 
+    BOOL predictionsContinuousUpdatesRunning;
     BOOL loadingPredictions;
     
     // Timers
     NSTimer *expiredStopTimeTimer;
+    NSTimer *predictionTimer;
 
     // Operations
     PredictionOperation *predictionOperation;
@@ -50,6 +52,9 @@ typedef enum _StopViewSectionIndex {
 - (void) updateStopTimes;
 - (void) addUpdateNextStopTimeTimer;
 - (void) updateStopTimePredictions;
+
+- (void)beginContinuousPredictionsUpdates;
+- (void)endContinuousPredictionsUpdates;
 
 - (NSString *)selectedDateString;
 - (NSString *)predictionString;

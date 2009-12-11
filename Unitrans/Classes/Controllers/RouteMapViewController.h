@@ -30,7 +30,6 @@
     MKMapView *mapView;
     CSRouteView *routeAnnotationView;
     OverlayHeaderView *overlayHeaderView;
-    UIBarButtonItem *busButtonItem;
 }
 
 @property (nonatomic, retain) MKMapView *mapView;
@@ -41,6 +40,6 @@
 
 - (void)beginContinuousBusUpdates;
 - (void)endContinuousBusUpdates;
-- (void)updateBusLocations:(NSTimer *)timer;
+- (void)updateBusLocations;
 
 @end

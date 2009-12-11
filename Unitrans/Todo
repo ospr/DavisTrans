@@ -8,6 +8,7 @@ High
 • Sort pretiction times (sometimes they're not in order in xml??) (kip)
 • Rotating arrow icon for bus direction. (ken)
 • StopTimeView has sections for next arrival times AND previous departure times (kip)
+• Fix bug where bus remains on map after ending bus updates because thread was still running and finishes and updates the map.
 
 Lower
 =====

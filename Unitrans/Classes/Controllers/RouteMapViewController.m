@@ -33,17 +33,19 @@
 
 - (void)dealloc 
 {
+    // End bus updates if they are still running
+    if (busContinuousUpdatesRunning)
+        [self endContinuousBusUpdates];
+    
     [route release];
     [stop release];
     
     [busInformationOperation release];
-    [busTimer release];
     [busAnnotations release];
     
     [mapView release];
     [routeAnnotationView release];
     [overlayHeaderView release];
-    [busButtonItem release];
     
     [super dealloc];
 }
@@ -51,13 +53,6 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-    
-    // Create bus button
-    busButtonItem = [[UIBarButtonItem alloc] init];
-    [busButtonItem setTitle:@"Bus"];
-    [busButtonItem setTarget:self];
-    [busButtonItem setAction:@selector(beginContinuousBusUpdatesAction:)];
-    [[self navigationItem] setRightBarButtonItem:busButtonItem];
     
     // Create mapView
     mapView = [[MKMapView alloc] init];
@@ -111,19 +106,27 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+        
     // Reset errorShown when view appears again, so the user is warned about the error
     errorShown = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {    
+    [super viewDidAppear:animated];
+    
     // If stop has been set, select it
     if (stop)
         [mapView selectAnnotation:stop animated:YES];
+    
+    [self beginContinuousBusUpdates];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [super viewDidDisappear:animated];
+    
     if (busContinuousUpdatesRunning)
         [self endContinuousBusUpdates];
 }
@@ -138,7 +141,6 @@
 {
 	// Release any retained subviews of the main view.
 	[routeAnnotationView release];
-    [busButtonItem release];
 }
 
 # pragma mark -
@@ -252,38 +254,23 @@
 # pragma mark -
 # pragma mark RealTimeInfo Methods
 
-- (IBAction)beginContinuousBusUpdatesAction:(id)sender
-{
-    [self beginContinuousBusUpdates];
-}
-
-- (IBAction)endContinuousBusUpdatesAction:(id)sender
-{    
-    [self endContinuousBusUpdates];
-}
-
 - (void)beginContinuousBusUpdates
-{    
-    [busButtonItem setAction:@selector(endContinuousBusUpdatesAction:)];
-    [busButtonItem setStyle:UIBarButtonItemStyleDone];
-    
+{        
     busContinuousUpdatesRunning = YES;
 
-    [self updateBusLocations:nil];
+    [self updateBusLocations];
     
     // If we are still updating after the first update, fire a timer every 4 seconds
     if (busContinuousUpdatesRunning)
         busTimer = [[NSTimer scheduledTimerWithTimeInterval:4.0
                                                      target:self
-                                                   selector:@selector(updateBusLocations:)
+                                                   selector:@selector(updateBusLocations)
                                                    userInfo:nil
                                                     repeats:YES] retain];
 }
 
 - (void)endContinuousBusUpdates
 {
-    [busButtonItem setAction:@selector(beginContinuousBusUpdatesAction:)];
-    [busButtonItem setStyle:UIBarButtonItemStyleBordered];
     busContinuousUpdatesRunning = NO;
     
     [busTimer invalidate];
@@ -296,7 +283,7 @@
     [self setBusAnnotations:nil];
 }
 
-- (void)updateBusLocations:(NSTimer *)timer
+- (void)updateBusLocations
 {    
     // Get all buses for the current route
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
