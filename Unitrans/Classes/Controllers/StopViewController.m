@@ -31,13 +31,19 @@
 
 - (void)dealloc 
 {
+    // End continuous updates if still running
+    if (predictionsContinuousUpdatesRunning)
+        [self endContinuousPredictionsUpdates];
+    
     [route release];
     [stop release];
 	[stopTimes release];
     [predictions release];
     [selectedDate release];
 
+    // Invalidate current expiredStopTimeTimer and release it
     [expiredStopTimeTimer invalidate];
+    [expiredStopTimeTimer release];
     
     [predictionOperation release];
     [predictionLoadingIndicatorView release];
@@ -84,11 +90,19 @@
     [self addUpdateNextStopTimeTimer];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     
-    [self updateStopTimePredictions];
+    [self beginContinuousPredictionsUpdates];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    if (predictionsContinuousUpdatesRunning)
+        [self endContinuousPredictionsUpdates];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -222,7 +236,12 @@
 	}
     else if ([indexPath section] == SectionIndexPredictions)
     {
-        [self updateStopTimePredictions];
+        // If the continuous updates aren't running, start them up again
+        // otherwise just call the single update method
+        if (!predictionsContinuousUpdatesRunning)
+            [self beginContinuousPredictionsUpdates];
+        else
+            [self updateStopTimePredictions];
     }
 	else if([indexPath section] == SectionIndexStopTimes)
 	{
@@ -277,6 +296,30 @@
 #pragma mark -
 #pragma mark Instance methods
 
+- (void)beginContinuousPredictionsUpdates
+{
+    predictionsContinuousUpdatesRunning = YES;
+    
+    [self updateStopTimePredictions];
+    
+    // If we are still updating after the first update, start a timer to updated every 20 seconds
+    if (predictionsContinuousUpdatesRunning)
+        predictionTimer = [[NSTimer scheduledTimerWithTimeInterval:20.0
+                                                            target:self
+                                                          selector:@selector(updateStopTimePredictions) 
+                                                          userInfo:nil
+                                                           repeats:YES] retain];
+}
+
+- (void)endContinuousPredictionsUpdates
+{
+    predictionsContinuousUpdatesRunning = NO;
+    
+    [predictionTimer invalidate];
+    [predictionTimer release];
+    predictionTimer = nil;
+}
+
 - (void) updateStopTimes
 {
     // Get StopTimes based on route and date and sort
@@ -308,9 +351,9 @@
         fireDate = [referenceDate addTimeInterval:24*60*60];
     
     // Add a timer to fire at fireDate
+    [expiredStopTimeTimer release]; // Release previous timer
     expiredStopTimeTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:0 target:self selector:@selector(nextStopTimeDidFire:) userInfo:nil repeats:NO];
     [[NSRunLoop currentRunLoop] addTimer:expiredStopTimeTimer forMode:NSDefaultRunLoopMode];
-    [expiredStopTimeTimer release];
 }
 
 - (void) nextStopTimeDidFire:(NSTimer *)timer
@@ -358,6 +401,11 @@
                                                    delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     [alert release];
+    
+    [self endContinuousPredictionsUpdates];
+    
+    [self setPredictions:nil];
+    [[self tableView] reloadData];
 }
 
 #pragma mark -
