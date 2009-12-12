@@ -20,14 +20,25 @@
     
     if (self) {        
         UIImage *busImage = [UIImage imageNamed:@"BusTokenIcon.png"];
+        
         NSArray *animationImages = [NSArray arrayWithObjects:
-                                    [UIImage imageNamed:@"RedCircle8.png"],
-                                    [UIImage imageNamed:@"RedCircle7.png"],
-                                    [UIImage imageNamed:@"RedCircle6.png"],
-                                    [UIImage imageNamed:@"RedCircle5.png"],
-                                    [UIImage imageNamed:@"RedCircle4.png"],
-                                    [UIImage imageNamed:@"RedCircle3.png"],
-                                    nil];
+                                   [UIImage imageNamed:@"RedCircle_25_0.png"],
+                                   [UIImage imageNamed:@"RedCircle_30_0.png"],
+                                   [UIImage imageNamed:@"RedCircle_35_0.png"],
+                                   [UIImage imageNamed:@"RedCircle_40_0.png"],
+                                   [UIImage imageNamed:@"RedCircle_45_0.png"],
+                                   [UIImage imageNamed:@"RedCircle_50_0.png"],
+                                   [UIImage imageNamed:@"RedCircle_55_0.png"],
+                                   [UIImage imageNamed:@"RedCircle_60_0.png"],
+                                   [UIImage imageNamed:@"RedCircle_65_0.png"],
+                                   [UIImage imageNamed:@"RedCircle_70_0.png"],
+                                   [UIImage imageNamed:@"RedCircle_75_0.png"],
+                                   [UIImage imageNamed:@"RedCircle_80_10.png"],
+                                   [UIImage imageNamed:@"RedCircle_85_20.png"],
+                                   [UIImage imageNamed:@"RedCircle_90_40.png"],
+                                   [UIImage imageNamed:@"RedCircle_95_60.png"],
+                                   [UIImage imageNamed:@"RedCircle_100_80.png"],
+                                   nil];
         
         imageView = [[AnimationImageView alloc] initWithStaticImage:busImage animationImages:animationImages];
         [imageView setAnimationDuration:1];
