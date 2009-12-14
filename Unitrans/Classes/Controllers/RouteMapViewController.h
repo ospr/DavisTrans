@@ -15,6 +15,7 @@
 @class Stop;
 @class CSRouteView;
 @class OverlayHeaderView;
+@class CSRouteAnnotation;
 
 @interface RouteMapViewController : UIViewController <MKMapViewDelegate, BusInformationOperationDelegate> {
     Route *route;
@@ -23,6 +24,7 @@
     BusInformationOperation *busInformationOperation;
     NSTimer *busTimer;
     NSArray *busAnnotations;
+    CSRouteAnnotation *routeAnnotation;
     
     BOOL busContinuousUpdatesRunning;
     BOOL errorShown;
@@ -38,6 +40,7 @@
 @property (nonatomic, retain) BusInformationOperation *busInformationOperation;
 @property (nonatomic, retain) NSArray *busAnnotations;
 
+- (void)zoomFitAnimated:(BOOL)animated;
 - (void)beginContinuousBusUpdates;
 - (void)endContinuousBusUpdates;
 - (void)updateBusLocations;

@@ -38,6 +38,7 @@
 		37CB1DC610D355EE00661E8E /* RedCircle_90_40.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1DAE10D355EE00661E8E /* RedCircle_90_40.png */; };
 		37CB1DC710D355EE00661E8E /* RedCircle_95_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1DAF10D355EE00661E8E /* RedCircle_95_0.png */; };
 		37CB1DC810D355EE00661E8E /* RedCircle_95_60.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1DB010D355EE00661E8E /* RedCircle_95_60.png */; };
+		37CB1DCE10D35DB000661E8E /* Location.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1DCD10D35DB000661E8E /* Location.png */; };
 		7C25BFEC10A7DA4D00AAD086 /* CSRouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */; };
 		7C25BFEF10A7DA8300AAD086 /* CSRouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEE10A7DA8300AAD086 /* CSRouteAnnotation.m */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
@@ -136,6 +137,7 @@
 		37CB1DAE10D355EE00661E8E /* RedCircle_90_40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_90_40.png; sourceTree = "<group>"; };
 		37CB1DAF10D355EE00661E8E /* RedCircle_95_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_95_0.png; sourceTree = "<group>"; };
 		37CB1DB010D355EE00661E8E /* RedCircle_95_60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_95_60.png; sourceTree = "<group>"; };
+		37CB1DCD10D35DB000661E8E /* Location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Location.png; sourceTree = "<group>"; };
 		7C25BFEA10A7DA4D00AAD086 /* CSRouteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRouteView.h; sourceTree = "<group>"; };
 		7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRouteView.m; sourceTree = "<group>"; };
 		7C25BFED10A7DA8300AAD086 /* CSRouteAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRouteAnnotation.h; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				7CE69E9610C243D00002DE93 /* Icon.png */,
 				7CE69EBB10C248250002DE93 /* Default.png */,
 				7CD3E3E210C58AB20053771E /* BusTokenIcon.png */,
+				37CB1DCD10D35DB000661E8E /* Location.png */,
 				373EF06510CC77FF007CFD39 /* Circles */,
 				7CE69E5D10C243890002DE93 /* RouteIcons */,
 				C974345010A9F4D50072C7B6 /* Todo */,
@@ -580,6 +583,7 @@
 				37CB1DC610D355EE00661E8E /* RedCircle_90_40.png in Resources */,
 				37CB1DC710D355EE00661E8E /* RedCircle_95_0.png in Resources */,
 				37CB1DC810D355EE00661E8E /* RedCircle_95_60.png in Resources */,
+				37CB1DCE10D35DB000661E8E /* Location.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,7 +20,6 @@ Lower
 • Initial region for L route needs work.
 • Remove stoptimes that are at the end of routes. (kip)
 • Tabview in StopView with static times section, and prediction section with fancyness for the predictions.
-• With user location on map, have button that zooms out so that entire route and user location are visible on map.
 
 Secondary
 =========
@@ -75,3 +74,4 @@ Done
 • Refresh icon for prediction cell.
 • Warn user when mail/phone not available in about view
 • Alert user when static schedule is out of date
+• Have button that zooms out so that entire route and user location are visible on map.

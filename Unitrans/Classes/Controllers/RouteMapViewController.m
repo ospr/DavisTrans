@@ -42,6 +42,7 @@
     
     [busInformationOperation release];
     [busAnnotations release];
+    [routeAnnotation release];
     
     [mapView release];
     [routeAnnotationView release];
@@ -53,6 +54,14 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
+    
+    // Create about button
+    UIBarButtonItem *zoomFitButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Location.png"] 
+                                                                      style:UIBarButtonItemStylePlain 
+                                                                     target:self 
+                                                                     action:@selector(zoomFitAction:)];
+    [[self navigationItem] setRightBarButtonItem:zoomFitButton];
+    [zoomFitButton release];    
     
     // Create mapView
     mapView = [[MKMapView alloc] init];
@@ -75,7 +84,7 @@
     }
     
     // Create route annotation to hold the points, and add to mapView
-    CSRouteAnnotation *routeAnnotation = [[[CSRouteAnnotation alloc] initWithPoints:points] autorelease];
+    routeAnnotation = [[CSRouteAnnotation alloc] initWithPoints:points];
     [routeAnnotation setLineColor:[UIColor colorFromHexadecimal:[[route color] integerValue] alpha:0.65]];
 	[mapView addAnnotation:routeAnnotation];
     
@@ -101,7 +110,7 @@
     [overlayHeaderView layoutSubviews];
     
     // Tell map to zoom to show entire route
-    [mapView setRegion:[routeAnnotation region]];
+    [self zoomFitAnimated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -254,6 +263,11 @@
 # pragma mark -
 # pragma mark RealTimeInfo Methods
 
+- (void)zoomFitAnimated:(BOOL)animated
+{
+    [mapView setRegion:[routeAnnotation region] animated:animated];
+}
+
 - (void)beginContinuousBusUpdates
 {        
     busContinuousUpdatesRunning = YES;
@@ -321,8 +335,8 @@
     [mapView setNeedsDisplay];
 }
 
-#pragma mark BusInformationOperation Delegate Methods
 #pragma mark -
+#pragma mark BusInformationOperation Delegate Methods
 
 - (void)busInformation:(BusInformationOperation *)busInformationOperation didFinishWithBusInformation:(NSArray *)busInformation
 {
@@ -336,6 +350,14 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     [self updateBusAnnotations:nil];
+}
+
+#pragma mark -
+#pragma mark Actions
+
+- (void)zoomFitAction:(id)sender
+{
+    [self zoomFitAnimated:YES];
 }
 
 @end
