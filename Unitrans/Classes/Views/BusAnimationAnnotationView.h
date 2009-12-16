@@ -13,8 +13,10 @@
 
 @interface BusAnimationAnnotationView : MKAnnotationView {
     AnimationImageView *imageView;
+	UIImageView *busArrowImageView;
 }
 
 @property (nonatomic, retain) AnimationImageView *imageView;
+@property (nonatomic, retain) UIImageView *busArrowImageView;
 
 @end

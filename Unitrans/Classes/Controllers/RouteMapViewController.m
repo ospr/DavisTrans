@@ -22,6 +22,7 @@
 #import "AnimationImageView.h"
 
 #import "UIColor_Extensions.h"
+#import "Transform.h"
 
 @implementation RouteMapViewController
 
@@ -178,6 +179,10 @@
         // animation is updated everytime the bus view updates
         BusAnimationAnnotationView *busAnnotationView = [[[BusAnimationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Bus"] autorelease];
         
+		// Rotate the bus arrow direction
+		// Can't get rid of the warning. Tried casting it to RealTimeBusInfo but got an error
+		[[busAnnotationView busArrowImageView] setTransform:[Transform rotateByDegrees:[annotation heading]]];
+		 
         [busAnnotationView setAnnotation:annotation];
         
         return busAnnotationView;

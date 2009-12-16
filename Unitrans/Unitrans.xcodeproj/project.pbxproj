@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -90,6 +90,8 @@
 		C974345110A9F4D50072C7B6 /* Todo in Resources */ = {isa = PBXBuildFile; fileRef = C974345010A9F4D50072C7B6 /* Todo */; };
 		C98B1ECA10C63CCC00F26386 /* DatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = C98B1EC910C63CCC00F26386 /* DatePickerController.m */; };
 		C98B1F0510C6611500F26386 /* DatePickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C98B1F0410C6611500F26386 /* DatePickerController.xib */; };
+		C98E582110D70EFE00B08808 /* Transform.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E582010D70EFE00B08808 /* Transform.m */; };
+		C98E592610D7458900B08808 /* BusArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C98E592510D7458900B08808 /* BusArrow.png */; };
 		C993E17610A2066D00B0F44D /* AgencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E16F10A2066D00B0F44D /* AgencyViewController.m */; };
 		C993E17810A2066D00B0F44D /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E17310A2066D00B0F44D /* RouteViewController.m */; };
 		C993E17910A2066D00B0F44D /* StopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E17510A2066D00B0F44D /* StopViewController.m */; };
@@ -210,6 +212,9 @@
 		C98B1EC810C63CCC00F26386 /* DatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerController.h; sourceTree = "<group>"; };
 		C98B1EC910C63CCC00F26386 /* DatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerController.m; sourceTree = "<group>"; };
 		C98B1F0410C6611500F26386 /* DatePickerController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePickerController.xib; sourceTree = "<group>"; };
+		C98E581F10D70EFE00B08808 /* Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transform.h; sourceTree = "<group>"; };
+		C98E582010D70EFE00B08808 /* Transform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transform.m; sourceTree = "<group>"; };
+		C98E592510D7458900B08808 /* BusArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BusArrow.png; sourceTree = "<group>"; };
 		C993E16E10A2066D00B0F44D /* AgencyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgencyViewController.h; sourceTree = "<group>"; };
 		C993E16F10A2066D00B0F44D /* AgencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgencyViewController.m; sourceTree = "<group>"; };
 		C993E17210A2066D00B0F44D /* RouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteViewController.h; sourceTree = "<group>"; };
@@ -293,6 +298,7 @@
 				7CE69E9610C243D00002DE93 /* Icon.png */,
 				7CE69EBB10C248250002DE93 /* Default.png */,
 				7CD3E3E210C58AB20053771E /* BusTokenIcon.png */,
+				C98E592510D7458900B08808 /* BusArrow.png */,
 				37CB1DCD10D35DB000661E8E /* Location.png */,
 				373EF06510CC77FF007CFD39 /* Circles */,
 				7CE69E5D10C243890002DE93 /* RouteIcons */,
@@ -432,6 +438,8 @@
 				C993E17B10A206A300B0F44D /* UnitransAppDelegate.m */,
 				7CEEFF67109F5798005EB194 /* DatabaseManager.h */,
 				7CEEFF68109F5798005EB194 /* DatabaseManager.m */,
+				C98E581F10D70EFE00B08808 /* Transform.h */,
+				C98E582010D70EFE00B08808 /* Transform.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -517,7 +525,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Unitrans" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Unitrans */;
 			projectDirPath = "";
@@ -584,6 +592,7 @@
 				37CB1DC710D355EE00661E8E /* RedCircle_95_0.png in Resources */,
 				37CB1DC810D355EE00661E8E /* RedCircle_95_60.png in Resources */,
 				37CB1DCE10D35DB000661E8E /* Location.png in Resources */,
+				C98E592610D7458900B08808 /* BusArrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,6 +635,7 @@
 				373EF0A510CC8AFE007CFD39 /* ConcurrentOperation.m in Sources */,
 				373EF0AC10CC9047007CFD39 /* PredictionOperation.m in Sources */,
 				37C127A210CC9DB6007604BB /* BusInformationOperation.m in Sources */,
+				C98E582110D70EFE00B08808 /* Transform.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,7 +678,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.1.2;
+				SDKROOT = iphonesimulator3.1.2;
 			};
 			name = Debug;
 		};
@@ -681,7 +691,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.1.2;
+				SDKROOT = iphonesimulator3.1.2;
 			};
 			name = Release;
 		};

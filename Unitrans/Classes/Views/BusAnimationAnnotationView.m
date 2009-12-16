@@ -8,17 +8,25 @@
 
 #import "BusAnimationAnnotationView.h"
 #import "AnimationImageView.h"
+#import "Transform.h"
 
 
 @implementation BusAnimationAnnotationView
 
 @synthesize imageView;
+@synthesize busArrowImageView;
 
 - (id)initWithAnnotation:annotation reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     
-    if (self) {        
+    if (self) {    
+		UIImage *busArrowImage = [UIImage imageNamed:@"BusArrow.png"];
+		busArrowImageView = [[UIImageView alloc] initWithImage:busArrowImage];
+		
+		// Position the arrow correctly with the BusTokenIcon
+		[busArrowImageView setFrame:CGRectMake(10, 11, busArrowImage.size.width, busArrowImage.size.height)];
+		
         UIImage *busImage = [UIImage imageNamed:@"BusTokenIcon.png"];
         
         NSArray *animationImages = [NSArray arrayWithObjects:
@@ -45,12 +53,19 @@
         [imageView setAnimationDelay:0.0]; // No delay needed since we create a new annotationview everytime we update the bus location
         [imageView startAnimating];
         [self addSubview:imageView];
+		[self addSubview:busArrowImageView];
         
         // Now set the frame so that it just encloses the imageView
         [self setFrame:CGRectMake(0, 0, [imageView frame].size.width, [imageView frame].size.height)];
     }
     
     return self;
+}
+
+- (void)dealloc
+{
+	[busArrowImageView release];
+	[super dealloc];
 }
 
 @end
