@@ -8,7 +8,6 @@
 
 #import "BusAnimationAnnotationView.h"
 #import "AnimationImageView.h"
-#import "Transform.h"
 
 
 @implementation BusAnimationAnnotationView
@@ -25,7 +24,7 @@
 		busArrowImageView = [[UIImageView alloc] initWithImage:busArrowImage];
 		
 		// Position the arrow correctly with the BusTokenIcon
-		[busArrowImageView setFrame:CGRectMake(10, 11, busArrowImage.size.width, busArrowImage.size.height)];
+		[busArrowImageView setFrame:CGRectMake(3, 4, busArrowImage.size.width, busArrowImage.size.height)];
 		
         UIImage *busImage = [UIImage imageNamed:@"BusTokenIcon.png"];
         
