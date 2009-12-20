@@ -67,6 +67,7 @@
     // Create mapView
     mapView = [[MKMapView alloc] init];
     [mapView setDelegate:self];
+    [mapView setShowsUserLocation:YES];
     
     // For now get primary
     Trip *trip = [route primaryTrip];
@@ -175,15 +176,16 @@
     }
     else if ([annotation isKindOfClass:[RealTimeBusInfo class]])
     {
+        RealTimeBusInfo *busInfoAnnotation = annotation;
+        
         // Create a new bus annotation view every time so that the
         // animation is updated everytime the bus view updates
-        BusAnimationAnnotationView *busAnnotationView = [[[BusAnimationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Bus"] autorelease];
+        BusAnimationAnnotationView *busAnnotationView = [[[BusAnimationAnnotationView alloc] initWithAnnotation:busInfoAnnotation reuseIdentifier:@"Bus"] autorelease];
         
 		// Rotate the bus arrow direction
-		// Can't get rid of the warning. Tried casting it to RealTimeBusInfo but got an error
-		[[busAnnotationView busArrowImageView] setTransform:[Transform rotateByDegrees:[annotation heading]]];
+		[[busAnnotationView busArrowImageView] setTransform:[Transform rotateByDegrees:[busInfoAnnotation heading]]];
 		 
-        [busAnnotationView setAnnotation:annotation];
+        [busAnnotationView setAnnotation:busInfoAnnotation];
         
         return busAnnotationView;
     }
