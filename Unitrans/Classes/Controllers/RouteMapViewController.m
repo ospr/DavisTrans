@@ -29,8 +29,10 @@
 @synthesize mapView;
 @synthesize route;
 @synthesize stop;
+@synthesize routePattern;
 @synthesize busInformationOperation;
 @synthesize busAnnotations;
+@synthesize stopAnnotations;
 
 - (void)dealloc 
 {
@@ -40,9 +42,11 @@
     
     [route release];
     [stop release];
+    [routePattern release];
     
     [busInformationOperation release];
     [busAnnotations release];
+    [stopAnnotations release];
     [routeAnnotation release];
     
     [mapView release];
@@ -56,60 +60,43 @@
 {
     [super viewDidLoad];
     
-    // Create about button
-    UIBarButtonItem *zoomFitButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Location.png"] 
-                                                                      style:UIBarButtonItemStylePlain 
-                                                                     target:self 
-                                                                     action:@selector(zoomFitAction:)];
-    [[self navigationItem] setRightBarButtonItem:zoomFitButton];
-    [zoomFitButton release];    
+    // Create patterns button
+    UIBarButtonItem *showPatternsButton = [[UIBarButtonItem alloc] initWithTitle:@"Patterns" 
+                                                                           style:UIBarButtonItemStylePlain
+                                                                          target:self
+                                                                          action:@selector(showPatternsAction:)];
+    [[self navigationItem] setRightBarButtonItem:showPatternsButton];
+    [showPatternsButton release];
     
     // Create mapView
     mapView = [[MKMapView alloc] init];
     [mapView setDelegate:self];
     [mapView setShowsUserLocation:YES];
-    
-    // For now get primary
-    Trip *trip = [route primaryTrip];
-       
-    // Sort shapes by sequence number
-    NSSortDescriptor *shapesSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"pointSequence" ascending:YES] autorelease];
-    NSArray *sortedShapes = [[[trip shapes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:shapesSortDescriptor]];
-    
-    // Iterate through shapes and add their locations to the array
-    NSMutableArray *points = [NSMutableArray array];
-    for (Shape *shape in sortedShapes) 
-    {
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:[[shape pointLatitude] doubleValue] longitude:[[shape pointLongitude] doubleValue]];
-        [points addObject:location];
-        [location release];
-    }
-    
+        
     // Create route annotation to hold the points, and add to mapView
-    routeAnnotation = [[CSRouteAnnotation alloc] initWithPoints:points];
+    routeAnnotation = [[CSRouteAnnotation alloc] init];
     [routeAnnotation setLineColor:[UIColor colorFromHexadecimal:[[route color] integerValue] alpha:0.65]];
-	[mapView addAnnotation:routeAnnotation];
     
     // Create route annotation view
     routeAnnotationView = [[CSRouteView alloc] initWithAnnotation:routeAnnotation reuseIdentifier:@"Route"];
     [routeAnnotationView setFrame:CGRectMake(0, 0, [mapView frame].size.width, [mapView frame].size.height)];
     [routeAnnotationView setMapView:mapView];
-    
-    // Add stop annotations
-    for (Stop *tripStop in [trip stops])
-        [mapView addAnnotation:tripStop];
-    
+        
     // Create detail overlay view
     CGRect bounds = [[self view] bounds];
     overlayHeaderView = [[OverlayHeaderView alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
     [[[overlayHeaderView detailOverlayView] textLabel] setText:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
     [[[overlayHeaderView detailOverlayView] detailTextLabel] setText:[route longName]];
     [[[overlayHeaderView detailOverlayView] imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
-
     [overlayHeaderView setContentView:mapView];
     
+    // Set main view to the overlay view
     [self setView:overlayHeaderView];
     [overlayHeaderView layoutSubviews];
+    
+    // Update map with default route pattern
+    RoutePattern *defaultRoutePattern = [[route orderedRoutePatterns] objectAtIndex:0];
+    [self updateMapWithRoutePattern:defaultRoutePattern];
     
     // Tell map to zoom to show entire route
     [self zoomFitAnimated:NO];
@@ -360,11 +347,90 @@
 }
 
 #pragma mark -
+#pragma mark Route Pattern Methods
+
+- (void)updateMapWithRoutePattern:(RoutePattern *)newRoutePattern
+{
+    // If the routePatterns are the same we don't need to update anything
+    if ([newRoutePattern isEqual:routePattern])
+        return;
+    
+    [self setRoutePattern:newRoutePattern];
+    
+    // Get trip
+    Trip *trip = [newRoutePattern trip];
+    
+    // Sort shapes by sequence number
+    NSSortDescriptor *shapesSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"pointSequence" ascending:YES] autorelease];
+    NSArray *sortedShapes = [[[trip shapes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:shapesSortDescriptor]];
+    
+    // Iterate through shapes and add their locations to the array
+    NSMutableArray *points = [NSMutableArray array];
+    for (Shape *shape in sortedShapes) 
+    {
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:[[shape pointLatitude] doubleValue] longitude:[[shape pointLongitude] doubleValue]];
+        [points addObject:location];
+        [location release];
+    }
+    
+    // Update points in routeAnnotation
+    [routeAnnotation setPoints:points];
+    [mapView removeAnnotation:routeAnnotation];
+    [mapView addAnnotation:routeAnnotation];
+    
+    // Remove old stopAnnotations and add new ones
+    [mapView removeAnnotations:stopAnnotations];
+    [mapView addAnnotations:[[trip stops] allObjects]];
+    
+    // Set new stopAnnotations
+    [self setStopAnnotations:[[trip stops] allObjects]];
+}
+
+#pragma mark -
+#pragma mark UIActionSheet Delegate Methods
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    // Ignore cancels
+    if (buttonIndex == [actionSheet cancelButtonIndex])
+        return;
+    
+    // Get selected routePattern and set it
+    RoutePattern *selectedRoutePattern = [[route orderedRoutePatterns] objectAtIndex:buttonIndex];
+    
+    // Update map with new route pattern
+    [self updateMapWithRoutePattern:selectedRoutePattern];
+    [self zoomFitAnimated:YES];
+}
+
+#pragma mark -
 #pragma mark Actions
 
-- (void)zoomFitAction:(id)sender
+- (IBAction)zoomFitAction:(id)sender
 {
     [self zoomFitAnimated:YES];
+}
+
+- (IBAction)showPatternsAction:(id)sender
+{
+    // Set up actionSheet for patterns
+    UIActionSheet *patternSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Route Pattern" 
+                                                              delegate:self
+                                                     cancelButtonTitle:nil
+                                                destructiveButtonTitle:nil
+                                                     otherButtonTitles:nil];
+    
+    // Add pattern names to actionSheet
+    for (NSString *patternName in [[route orderedRoutePatterns] valueForKey:@"name"])
+        [patternSheet addButtonWithTitle:patternName];
+
+    // Add Cancel button
+    [patternSheet addButtonWithTitle:@"Cancel"];
+    [patternSheet setCancelButtonIndex:([patternSheet numberOfButtons] - 1)];
+    
+    // Show actionSheet
+    [patternSheet showInView:[self view]];
+    [patternSheet release];
 }
 
 @end

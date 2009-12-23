@@ -23,12 +23,39 @@
 @dynamic trips;
 @dynamic agency;
 @dynamic primaryTrip;
+@dynamic routePatterns;
+@dynamic orderedRoutePatterns;
+
+- (void)dealloc
+{
+    [orderedRoutePatterns release];
+    
+    [super dealloc];
+}
 
 // TODO: this does not work since not all trips have the same stops
 - (NSSet *)allStops
 {    
     // Return all stops in primary trip
     return [[[self primaryTrip] stopTimes] valueForKey:@"stop"];
+}
+
+- (NSArray *)orderedRoutePatterns
+{
+    if (!orderedRoutePatterns) {
+        // Sort routePatterns by sequenceNumber
+        NSSortDescriptor *routePatternDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"sequenceNumber" ascending:YES] autorelease];
+        [self setOrderedRoutePatterns:[[[self routePatterns] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:routePatternDescriptor]]];
+    }
+    
+    return orderedRoutePatterns;
+}
+
+- (void)setOrderedRoutePatterns:(NSArray *)newOrderedRoutePatterns
+{
+    [newOrderedRoutePatterns retain];
+    [orderedRoutePatterns release];
+    orderedRoutePatterns = newOrderedRoutePatterns;
 }
 
 @end

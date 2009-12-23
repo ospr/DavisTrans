@@ -16,6 +16,7 @@
 		373EF0AC10CC9047007CFD39 /* PredictionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0AB10CC9047007CFD39 /* PredictionOperation.m */; };
 		3795472510C7A13E005A2D93 /* BusAnimationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */; };
 		37C127A210CC9DB6007604BB /* BusInformationOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C127A110CC9DB6007604BB /* BusInformationOperation.m */; };
+		37C2C57D10E003EE0001E1AF /* RoutePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2C57C10E003EE0001E1AF /* RoutePattern.m */; };
 		37CB1DB210D355EE00661E8E /* RedCircle_100_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1D9A10D355EE00661E8E /* RedCircle_100_0.png */; };
 		37CB1DB310D355EE00661E8E /* RedCircle_100_80.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1D9B10D355EE00661E8E /* RedCircle_100_80.png */; };
 		37CB1DB410D355EE00661E8E /* RedCircle_20_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1D9C10D355EE00661E8E /* RedCircle_20_0.png */; };
@@ -117,6 +118,8 @@
 		3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusAnimationAnnotationView.m; sourceTree = "<group>"; };
 		37C127A010CC9DB6007604BB /* BusInformationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusInformationOperation.h; sourceTree = "<group>"; };
 		37C127A110CC9DB6007604BB /* BusInformationOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusInformationOperation.m; sourceTree = "<group>"; };
+		37C2C57B10E003EE0001E1AF /* RoutePattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutePattern.h; sourceTree = "<group>"; };
+		37C2C57C10E003EE0001E1AF /* RoutePattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutePattern.m; sourceTree = "<group>"; };
 		37CB1D9A10D355EE00661E8E /* RedCircle_100_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_100_0.png; sourceTree = "<group>"; };
 		37CB1D9B10D355EE00661E8E /* RedCircle_100_80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_100_80.png; sourceTree = "<group>"; };
 		37CB1D9C10D355EE00661E8E /* RedCircle_20_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_20_0.png; sourceTree = "<group>"; };
@@ -392,6 +395,8 @@
 				7CC4D06310978EBF00F2BB67 /* Calendar.m */,
 				7CC4D06010978EBF00F2BB67 /* CalendarDate.h */,
 				7CC4D06110978EBF00F2BB67 /* CalendarDate.m */,
+				37C2C57B10E003EE0001E1AF /* RoutePattern.h */,
+				37C2C57C10E003EE0001E1AF /* RoutePattern.m */,
 				7CC4D05C10978EBF00F2BB67 /* Route.h */,
 				7CC4D05D10978EBF00F2BB67 /* Route.m */,
 				7CC4D05E10978EBF00F2BB67 /* Shape.h */,
@@ -636,6 +641,7 @@
 				373EF0AC10CC9047007CFD39 /* PredictionOperation.m in Sources */,
 				37C127A210CC9DB6007604BB /* BusInformationOperation.m in Sources */,
 				C98E582110D70EFE00B08808 /* Transform.m in Sources */,
+				37C2C57D10E003EE0001E1AF /* RoutePattern.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

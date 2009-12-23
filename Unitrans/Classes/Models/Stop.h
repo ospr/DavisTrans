@@ -7,7 +7,13 @@
 //
 
 #import <CoreData/CoreData.h>
-#import <MapKit/MapKit.h>
+
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+    #import <MapKit/MapKit.h>
+    #define USING_MAP_KIT 1
+#else
+    #define USING_MAP_KIT 0
+#endif
 
 typedef enum _StopHeadingType {
     kStopHeadingTypeNorthBound,
@@ -19,7 +25,11 @@ typedef enum _StopHeadingType {
 @class StopTime;
 @class Route;
 
-@interface Stop :  NSManagedObject <MKAnnotation>
+#if USING_MAP_KIT
+    @interface Stop :  NSManagedObject <MKAnnotation>
+#else
+    @interface Stop :  NSManagedObject
+#endif
 {
 }
 
@@ -30,7 +40,9 @@ typedef enum _StopHeadingType {
 @property (nonatomic, retain) NSNumber * heading;
 @property (nonatomic, retain) NSString * stopDescription;
 @property (nonatomic, retain) NSSet* stopTimes;
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+#if USING_MAP_KIT
+    @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+#endif
 
 - (NSArray *)allStopTimesWithRoute:(Route *)route onDate:(NSDate *)date;
 - (NSString *)headingString;

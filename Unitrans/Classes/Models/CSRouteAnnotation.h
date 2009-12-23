@@ -15,7 +15,7 @@
 @interface CSRouteAnnotation : NSObject <MKAnnotation>
 {
 	// points that make up the route. 
-	NSMutableArray* _points; 
+	NSArray* _points; 
 	
 	// computed span of the route
 	MKCoordinateSpan _span;
@@ -30,12 +30,14 @@
 	NSString* _routeID;
 }
 
-// initialize with an array of points representing the route. 
--(id) initWithPoints:(NSArray*) points;
-
 @property (readonly) MKCoordinateRegion region;
 @property (nonatomic, retain) UIColor* lineColor;
-@property (nonatomic, retain) NSMutableArray* points;
+@property (nonatomic, retain) NSArray* points;
 @property (nonatomic, retain) NSString* routeID;
+
+// initialize with an array of points representing the route. 
+-(id)initWithPoints:(NSArray*)points;
+
+- (void)updateRegion;
 
 @end

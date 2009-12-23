@@ -12,19 +12,44 @@
 @implementation CSRouteAnnotation
 @synthesize coordinate = _center;
 @synthesize lineColor = _lineColor;
-@synthesize points = _points; 
+@dynamic points;
 @synthesize routeID = _routeID;
 
--(id) initWithPoints:(NSArray*) points
+- (id)init
 {
-	self = [super init];
+    self = [super init];
+    
+    if (self) {
+        // create a unique ID for this route so it can be added to dictionaries by this key. 
+        self.routeID = [NSString stringWithFormat:@"%p", self];
+    }
+    
+    return self;
+}
+
+- (id)initWithPoints:(NSArray*)points
+{
+	self = [self init];
 	
-	_points = [[NSMutableArray alloc] initWithArray:points];
+    if (self) {
+        [self setPoints:points];
+        [self setLineColor:[UIColor blueColor]];
+    }
 	
-	// create a unique ID for this route so it can be added to dictionaries by this key. 
-	self.routeID = [NSString stringWithFormat:@"%p", self];
+	return self;
+}
+
+- (void) dealloc
+{
+	[_points release];
+	[_lineColor release];
+    [_routeID release];
 	
-	
+	[super dealloc];
+}
+
+- (void)updateRegion
+{		
 	// determine a logical center point for this route based on the middle of the lat/lon extents.
 	double maxLat = -91;
 	double minLat =  91;
@@ -44,21 +69,16 @@
 		if(coordinate.longitude < minLon)
 			minLon = coordinate.longitude; 
 	}
-
+    
 	_span.latitudeDelta = (maxLat + 90) - (minLat + 90);
 	_span.longitudeDelta = (maxLon + 180) - (minLon + 180);
 	
 	// the center point is the average of the max and mins
 	_center.latitude = minLat + _span.latitudeDelta / 2;
 	_center.longitude = minLon + _span.longitudeDelta / 2;
-	
-	self.lineColor = [UIColor blueColor];
-	//NSLog(@"Found center of new Route Annotation at %lf, %ld", _center.latitude, _center.longitude);
-	
-	return self;
 }
 
--(MKCoordinateRegion) region
+- (MKCoordinateRegion)region
 {
 	MKCoordinateRegion region;
 	region.center = _center;
@@ -67,12 +87,18 @@
 	return region;
 }
 
--(void) dealloc
+- (void)setPoints:(NSArray *)newPoints
 {
-	[_points release];
-	self.lineColor = nil;
-	
-	[super dealloc];
+    [newPoints retain];
+    [_points release];
+    _points = newPoints;
+    
+    [self updateRegion];
+}
+
+- (NSArray *)points
+{
+    return _points;
 }
 
 @end

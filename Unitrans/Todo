@@ -16,12 +16,13 @@ Lower
 • At a given stop for a given route also show other arrival times for other routes.
 • Split times into Night and Day segments in StopTimes view
 • Fix tile loading bug
-• Initial region for L route needs work.
+• Initial region for L & F route needs work.
 • Remove stoptimes that are at the end of routes. (kip)
 • Tabview in StopView with static times section, and prediction section with fancyness for the predictions.
 
 Secondary
 =========
+• Stop annotations show stop sequence number in title
 • SMS Alerts
 • Find nearest stops and distances to other stops
 • Show if buses are late or on time or early
@@ -29,7 +30,6 @@ Secondary
   - In mapview we can show this by color coding the buses?
 • Animate buses
 • In RouteView have list of recently chosen stops before list of all stops
-• Derive "patterns" from GTFS
 • Display list of patterns to choose from in map view.
 • Some sort of indicator to show the direction of the route on the map
 • Date picker has weekday name
@@ -74,3 +74,4 @@ Done
 • Alert user when static schedule is out of date
 • Have button that zooms out so that entire route and user location are visible on map.
 • Rotating arrow icon for bus direction. (ken)
+• Derive "patterns" from GTFS

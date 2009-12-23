@@ -21,7 +21,10 @@
 @dynamic heading;
 @dynamic stopDescription;
 @dynamic stopTimes;
-@dynamic coordinate;
+
+#if USING_MAP_KIT
+    @dynamic coordinate;
+#endif
 
 - (NSArray *)allStopTimesWithRoute:(Route *)route onDate:(NSDate *)date
 {
@@ -49,6 +52,7 @@
     return @"";
 }
 
+#if USING_MAP_KIT
 - (CLLocationCoordinate2D)coordinate
 {
     CLLocationCoordinate2D coordinate;
@@ -56,6 +60,7 @@
     coordinate.longitude = [[self longitude] doubleValue];
     return coordinate;
 }
+#endif
 
 - (NSString *)title
 {

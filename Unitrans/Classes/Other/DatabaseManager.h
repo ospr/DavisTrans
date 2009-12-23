@@ -55,6 +55,7 @@ typedef enum _ProcessStep {
 
 - (void)removeRoutesWithZeroTrips;
 - (void)derivePrimaryTrips;
+- (void)deriveRoutePatterns;
 
 - (NSNumber *)processHexNumberString:(NSString *)value;
 - (NSNumber *)processDoubleNumberString:(NSString *)value;

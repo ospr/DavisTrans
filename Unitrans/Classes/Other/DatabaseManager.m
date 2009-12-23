@@ -11,6 +11,7 @@
 #import "Agency.h"
 #import "Calendar.h"
 #import "CalendarDate.h"
+#import "RoutePattern.h"
 #import "Route.h"
 #import "Shape.h"
 #import "Stop.h"
@@ -134,6 +135,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     
     [self removeRoutesWithZeroTrips];
     [self derivePrimaryTrips];
+    [self deriveRoutePatterns];
     
     // Clean up dictionaries
     [agencies release];
@@ -373,6 +375,39 @@ static DatabaseManager *sharedDatabaseManager = nil;
     }
     
     return YES;
+}
+
+- (void)deriveRoutePatterns
+{
+    for (Route *route in [routes allValues])
+    {
+        NSMutableSet *usedTrips = [[NSMutableSet alloc] init];
+        for (Trip *currentTrip in [route trips])
+        {
+            // If the trip was already assigned a pattern just skip it
+            if ([usedTrips containsObject:currentTrip])
+                continue;
+            
+            NSMutableSet *patternTrips = [[NSMutableSet alloc] init];
+            for (Trip *trip in [route trips])
+            {
+                // If trip has the same stops and shape it belongs in the same pattern
+                if ([[trip stops] isEqualToSet:[currentTrip stops]] && [[trip shapes] isEqualToSet:[currentTrip shapes]]) {
+                    [patternTrips addObject:trip];
+                    [usedTrips addObject:trip];
+                }
+            }
+            
+            // Create new pattern and set trips
+            RoutePattern *pattern = [self insertNewObjectForEntityForName:@"RoutePattern"];
+            [pattern setTrips:patternTrips];
+            
+            // Add pattern to route
+            [route addRoutePatternsObject:pattern];
+            [patternTrips release];
+        }
+        [usedTrips release];
+    }
 }
 
 - (void)derivePrimaryTrips
