@@ -23,6 +23,7 @@
 		37C2CE6110E7FD790001E1AF /* StopSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2CE6010E7FD790001E1AF /* StopSegmentedViewController.m */; };
 		37C2CEBA10E881F70001E1AF /* Location.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C2CEB910E881F70001E1AF /* Location.png */; };
 		37C2CF3A10E8914D0001E1AF /* ExtendedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2CF3910E8914D0001E1AF /* ExtendedViewController.m */; };
+		37C2D00B10E95F6F0001E1AF /* StopTimeSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2D00A10E95F6F0001E1AF /* StopTimeSegmentedViewController.m */; };
 		37CB1DB210D355EE00661E8E /* RedCircle_100_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1D9A10D355EE00661E8E /* RedCircle_100_0.png */; };
 		37CB1DB310D355EE00661E8E /* RedCircle_100_80.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1D9B10D355EE00661E8E /* RedCircle_100_80.png */; };
 		37CB1DB410D355EE00661E8E /* RedCircle_20_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1D9C10D355EE00661E8E /* RedCircle_20_0.png */; };
@@ -135,6 +136,8 @@
 		37C2CEB910E881F70001E1AF /* Location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Location.png; sourceTree = "<group>"; };
 		37C2CF3810E8914D0001E1AF /* ExtendedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendedViewController.h; sourceTree = "<group>"; };
 		37C2CF3910E8914D0001E1AF /* ExtendedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendedViewController.m; sourceTree = "<group>"; };
+		37C2D00910E95F6F0001E1AF /* StopTimeSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopTimeSegmentedViewController.h; sourceTree = "<group>"; };
+		37C2D00A10E95F6F0001E1AF /* StopTimeSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTimeSegmentedViewController.m; sourceTree = "<group>"; };
 		37CB1D9A10D355EE00661E8E /* RedCircle_100_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_100_0.png; sourceTree = "<group>"; };
 		37CB1D9B10D355EE00661E8E /* RedCircle_100_80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_100_80.png; sourceTree = "<group>"; };
 		37CB1D9C10D355EE00661E8E /* RedCircle_20_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_20_0.png; sourceTree = "<group>"; };
@@ -455,6 +458,8 @@
 				37C2CCC810E715A40001E1AF /* RouteSegmentedViewController.m */,
 				37C2CE5F10E7FD790001E1AF /* StopSegmentedViewController.h */,
 				37C2CE6010E7FD790001E1AF /* StopSegmentedViewController.m */,
+				37C2D00910E95F6F0001E1AF /* StopTimeSegmentedViewController.h */,
+				37C2D00A10E95F6F0001E1AF /* StopTimeSegmentedViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -670,6 +675,7 @@
 				37C2CCC910E715A40001E1AF /* RouteSegmentedViewController.m in Sources */,
 				37C2CE6110E7FD790001E1AF /* StopSegmentedViewController.m in Sources */,
 				37C2CF3A10E8914D0001E1AF /* ExtendedViewController.m in Sources */,
+				37C2D00B10E95F6F0001E1AF /* StopTimeSegmentedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

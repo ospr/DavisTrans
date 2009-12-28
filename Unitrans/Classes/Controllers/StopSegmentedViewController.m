@@ -12,7 +12,7 @@
 #import "Stop.h"
 #import "StopViewController.h"
 #import "RouteMapViewController.h"
-
+#import "ExtendedViewController.h"
 
 @implementation StopSegmentedViewController
 
@@ -48,9 +48,9 @@
     [[self navigationController] setToolbarHidden:NO animated:animated];
 }
 
-- (UIViewController *)viewControllerForSelectedSegmentIndex:(NSInteger)index
+- (ExtendedViewController *)viewControllerForSelectedSegmentIndex:(NSInteger)index
 {
-    UIViewController *viewController = nil;
+    ExtendedViewController *viewController = nil;
     
     NSString *segmentIdentifier = [[self segmentItems] objectAtIndex:index];
     

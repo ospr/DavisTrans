@@ -7,7 +7,7 @@
 //
 
 #import "StopViewController.h"
-#import "StopTimeViewController.h"
+#import "StopTimeSegmentedViewController.h"
 #import "RouteMapViewController.h"
 #import "OverlayHeaderView.h"
 #import "Stop.h"
@@ -240,7 +240,7 @@
 	{
         StopTime *stopTime = [stopTimes objectAtIndex:[indexPath row]];
         
-		StopTimeViewController *stopTimeViewController = [[StopTimeViewController alloc] init];
+        StopTimeSegmentedViewController *stopTimeViewController = [[StopTimeSegmentedViewController alloc] init];
         [stopTimeViewController setStopTime:stopTime];
 		[self.navigationController pushViewController:stopTimeViewController animated:YES];
 		[stopTimeViewController release];

@@ -19,6 +19,7 @@
 
 @synthesize stopTime;
 @synthesize arrivalTimes;
+@dynamic dataType;
 
 #pragma mark -
 #pragma mark Memory management
@@ -40,20 +41,9 @@
 
 	[self setTitle:@"Arrival Times"];
     
-    // Sort StopTimes
-    NSSortDescriptor *stopTimeSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"arrivalTime" ascending:YES] autorelease];
-    NSArray *sortedStopTimes = [[[[stopTime trip] stopTimes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopTimeSortDescriptor]];
-    
-    // Filter StopTimes so that only times after main StopTime's arrival time are left
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"arrivalTime > %@", [stopTime arrivalTime]];
-    NSArray *filteredStopTimes = [sortedStopTimes filteredArrayUsingPredicate:predicate];
-    [self setArrivalTimes:filteredStopTimes];
-    
     // Create detail overlay view
     CGRect bounds = [[self view] bounds];
     overlayHeaderView = [[OverlayHeaderView alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
-    [[[overlayHeaderView detailOverlayView] textLabel] setText:[NSString stringWithFormat:@"Departing at: %@", [stopTime arrivalTimeString]]];
-    [[[overlayHeaderView detailOverlayView] detailTextLabel] setText:[NSString stringWithFormat:@"Departing from: %@", [[stopTime stop] name]]];
     [[[overlayHeaderView detailOverlayView] imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [[[stopTime trip] route] shortName]]]];
     
     // Create table view (detail overlay's content view)
@@ -64,6 +54,9 @@
     
     // Set view
     [self setView:overlayHeaderView];
+    
+    // Update stop times to show correct times
+    [self updateStopTimes];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,6 +69,49 @@
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
+}
+
+#pragma mark -
+#pragma mark Arrival/Departure Filter Methods
+
+- (void)setDataType:(StopTimeViewDataType)newDataType
+{
+    dataType = newDataType;
+    
+    // Update stopTimes when dataType is set
+    [self updateStopTimes];
+}
+
+- (StopTimeViewDataType)dataType
+{
+    return dataType;
+}
+
+- (void)updateStopTimes
+{
+    // Sort StopTimes
+    NSSortDescriptor *stopTimeSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"arrivalTime" ascending:YES] autorelease];
+    NSArray *sortedStopTimes = [[[[stopTime trip] stopTimes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopTimeSortDescriptor]];
+    
+    // Filter StopTimes so that only times after main StopTime's arrival time are left
+    NSPredicate *filterPredicate;
+    
+    switch ([self dataType]) {
+        case kStopTimeViewDataTypeArrivalTimes: 
+            filterPredicate = [NSPredicate predicateWithFormat:@"arrivalTime > %@", [stopTime arrivalTime]]; 
+            [[[overlayHeaderView detailOverlayView] textLabel] setText:[NSString stringWithFormat:@"Departing at %@", [stopTime arrivalTimeString]]];
+            [[[overlayHeaderView detailOverlayView] detailTextLabel] setText:[NSString stringWithFormat:@"From: %@", [[stopTime stop] name]]];
+            break;
+        case kStopTimeViewDataTypeDepartureTimes: 
+            filterPredicate = [NSPredicate predicateWithFormat:@"arrivalTime < %@", [stopTime arrivalTime]]; 
+            [[[overlayHeaderView detailOverlayView] textLabel] setText:[NSString stringWithFormat:@"Arriving at %@", [stopTime arrivalTimeString]]];
+            [[[overlayHeaderView detailOverlayView] detailTextLabel] setText:[NSString stringWithFormat:@"To: %@", [[stopTime stop] name]]];
+            break;
+        default: return;
+    }
+    
+    NSArray *filteredStopTimes = [sortedStopTimes filteredArrayUsingPredicate:filterPredicate];
+    [self setArrivalTimes:filteredStopTimes];
 }
 
 #pragma mark -
@@ -93,7 +129,12 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	return @"Next arrival times on route:";
+    if (dataType == kStopTimeViewDataTypeArrivalTimes)
+        return @"Next arrival times on route:";
+    else if (dataType == kStopTimeViewDataTypeDepartureTimes)
+        return @"Previous departure times on route:";
+    
+    return nil;
 }
 
 // Customize the appearance of table view cells.

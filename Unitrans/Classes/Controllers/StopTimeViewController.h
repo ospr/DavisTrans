@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "TableViewController.h"
 
+typedef enum _StopTimeViewDataType {
+    kStopTimeViewDataTypeArrivalTimes,
+    kStopTimeViewDataTypeDepartureTimes
+} StopTimeViewDataType;
+
 @class StopTime;
 @class OverlayHeaderView;
 
@@ -17,9 +22,14 @@
 	NSArray *arrivalTimes;
     
     OverlayHeaderView *overlayHeaderView;
+    
+    StopTimeViewDataType dataType;
 }
 
 @property (nonatomic, retain) StopTime *stopTime;
 @property (nonatomic, retain) NSArray *arrivalTimes;
+@property (nonatomic, assign) StopTimeViewDataType dataType;
+
+- (void)updateStopTimes;
 
 @end
