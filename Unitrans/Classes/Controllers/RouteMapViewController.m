@@ -7,7 +7,7 @@
 //
 
 #import "RouteMapViewController.h"
-#import "StopViewController.h"
+#import "StopSegmentedViewController.h"
 #import "OverlayHeaderView.h"
 #import "RealTimeBusInfo.h"
 #import "Route.h"
@@ -61,12 +61,20 @@
     [super viewDidLoad];
     
     // Create patterns button
-    UIBarButtonItem *showPatternsButton = [[UIBarButtonItem alloc] initWithTitle:@"Patterns" 
-                                                                           style:UIBarButtonItemStylePlain
+    UIBarButtonItem *showPatternsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Network.png"]
+                                                                           style:UIBarButtonItemStyleBordered
                                                                           target:self
                                                                           action:@selector(showPatternsAction:)];
     [[self navigationItem] setRightBarButtonItem:showPatternsButton];
     [showPatternsButton release];
+    
+    // Create zoomFit button
+    UIBarButtonItem *zoomFitButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Location.png"] 
+                                                                      style:UIBarButtonItemStyleBordered 
+                                                                     target:self 
+                                                                     action:@selector(zoomFitAction:)];
+    [[self navigationItem] setLeftBarButtonItem:zoomFitButton];
+    [zoomFitButton release];
     
     // Create mapView
     mapView = [[MKMapView alloc] init];
@@ -192,13 +200,13 @@
         Stop *selectedStop = [view annotation];
         
         // Create new StopViewController
-        StopViewController *stopViewController = [[StopViewController alloc] init];
-        [stopViewController setStop:selectedStop];
-        [stopViewController setRoute:route];
+        StopSegmentedViewController *stopSegmentedViewController = [[StopSegmentedViewController alloc] init];
+        [stopSegmentedViewController setStop:selectedStop];
+        [stopSegmentedViewController setRoute:route];
         
         // Push StopViewController onto nav stack
-		[[self navigationController] pushViewController:stopViewController animated:YES];
-		[stopViewController release];
+		[[self navigationController] pushViewController:stopSegmentedViewController animated:YES];
+		[stopSegmentedViewController release];
     }
 }
 

@@ -62,13 +62,6 @@
 	[self setSelectedDate:[[NSDate date] beginningOfDay]]; 
     [self updateStopTimes];
     [self setPredictions:[NSArray array]];
-    
-    UIBarButtonItem *mapButtonItem = [[UIBarButtonItem alloc] init];
-    [mapButtonItem setTitle:@"Map"];
-    [mapButtonItem setTarget:self];
-    [mapButtonItem setAction:@selector(showStopInMapAction:)];
-    [[self navigationItem] setRightBarButtonItem:mapButtonItem];
-    [mapButtonItem release];
 		    
     // Create detail overlay view
     CGRect bounds = [[self view] bounds];
@@ -406,18 +399,6 @@
     
     [self setPredictions:nil];
     [[self tableView] reloadData];
-}
-
-#pragma mark -
-#pragma mark IBAction methods
-
-- (IBAction)showStopInMapAction:(id)action
-{
-    RouteMapViewController *routeMapViewController = [[RouteMapViewController alloc] initWithNibName:@"RouteMapView" bundle:nil];
-    [routeMapViewController setRoute:route];
-    [routeMapViewController setStop:stop];
-    [[self navigationController] pushViewController:routeMapViewController animated:YES];
-    [routeMapViewController release];
 }
 
 @end

@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ExtendedViewController.h"
 
-
-@interface TableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface TableViewController : ExtendedViewController <UITableViewDelegate, UITableViewDataSource> {
     UITableView *tableView;
 }
 

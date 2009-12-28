@@ -14,6 +14,9 @@
 #import "DatabaseManager.h"
 #import "UnitransAppDelegate.h"
 
+#import "RouteSegmentedViewController.h"
+#import "SegmentedViewController.h"
+
 @implementation AgencyViewController
 
 @synthesize agency;
@@ -56,6 +59,14 @@
     NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"shortName" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
     NSArray *sortedRoutes = [[[unitransAgency routes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     [self setRoutes:sortedRoutes];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // Hide navigation controller
+    [[self navigationController] setToolbarHidden:YES animated:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -131,14 +142,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {    
     Route *selectedRoute = [routes objectAtIndex:[indexPath row]];
-	
-    // Create new RouteViewController
-	RouteViewController *routeViewController = [[RouteViewController alloc] init];
-    [routeViewController setRoute:selectedRoute];
     
-    // Push RouteViewController on navigation stack
-	[[self navigationController] pushViewController:routeViewController animated:YES];
-	[routeViewController release];
+    RouteSegmentedViewController *routeSegmentedViewController = [[RouteSegmentedViewController alloc] init];
+    [routeSegmentedViewController setRoute:selectedRoute];
+    
+    [[self navigationController] pushViewController:routeSegmentedViewController animated:YES];
+    [routeSegmentedViewController release];
 }
 
 #pragma mark -

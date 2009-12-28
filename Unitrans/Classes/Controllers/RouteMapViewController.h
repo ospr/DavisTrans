@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "BusInformationOperation.h"
+#import "ExtendedViewController.h"
 
 @class Route;
 @class Stop;
@@ -18,7 +19,7 @@
 @class OverlayHeaderView;
 @class CSRouteAnnotation;
 
-@interface RouteMapViewController : UIViewController <MKMapViewDelegate, BusInformationOperationDelegate, UIActionSheetDelegate> {
+@interface RouteMapViewController : ExtendedViewController <MKMapViewDelegate, BusInformationOperationDelegate, UIActionSheetDelegate> {
     Route *route;
     Stop *stop;
     RoutePattern *routePattern;

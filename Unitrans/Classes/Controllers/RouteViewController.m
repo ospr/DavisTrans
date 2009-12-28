@@ -7,7 +7,7 @@
 //
 
 #import "RouteViewController.h"
-#import "StopViewController.h"
+#import "StopSegmentedViewController.h"
 #import "RouteMapViewController.h"
 #import "OverlayHeaderView.h"
 #import "Route.h"
@@ -38,14 +38,6 @@
     [super viewDidLoad];
     
     [self setTitle:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
-	
-    // Create map button
-	UIBarButtonItem *mapButtonItem = [[UIBarButtonItem alloc] init];
-    [mapButtonItem setTitle:@"Map"];
-    [mapButtonItem setTarget:self];
-    [mapButtonItem setAction:@selector(showStopInMapAction:)];
-    [[self navigationItem] setRightBarButtonItem:mapButtonItem];
-    [mapButtonItem release];
 
     // Get route stops and sort by alphabetical order
     NSSortDescriptor *stopsSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease];
@@ -127,31 +119,18 @@
 	Stop *selectedStop = [stops objectAtIndex:[indexPath row]];
     
     // Create new StopViewController
-	StopViewController *stopViewController = [[StopViewController alloc] init];
-	[stopViewController setStop:selectedStop];
-	[stopViewController setRoute:route];
+    StopSegmentedViewController *stopSegmentedViewController = [[StopSegmentedViewController alloc] init];
+	[stopSegmentedViewController setStop:selectedStop];
+	[stopSegmentedViewController setRoute:route];
     
     // Push StopViewController onto nav stack
-	[[self navigationController] pushViewController:stopViewController animated:YES];
-	[stopViewController release];
+	[[self navigationController] pushViewController:stopSegmentedViewController animated:YES];
+	[stopSegmentedViewController release];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	return 35.0;
-}
-
-#pragma mark -
-#pragma mark IBAction methods
-- (IBAction)showStopInMapAction:(id)action
-{
-    // Create new RouteMapViewController
-    RouteMapViewController *routeMapViewController = [[RouteMapViewController alloc] init];
-    [routeMapViewController setRoute:route];
-    
-    // Push RouteMapViewController onto nav stack
-    [[self navigationController] pushViewController:routeMapViewController animated:YES];
-    [routeMapViewController release];
 }
 
 @end

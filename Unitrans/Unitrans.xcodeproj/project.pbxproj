@@ -17,6 +17,12 @@
 		3795472510C7A13E005A2D93 /* BusAnimationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */; };
 		37C127A210CC9DB6007604BB /* BusInformationOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C127A110CC9DB6007604BB /* BusInformationOperation.m */; };
 		37C2C57D10E003EE0001E1AF /* RoutePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2C57C10E003EE0001E1AF /* RoutePattern.m */; };
+		37C2CB7F10E3F54B0001E1AF /* SegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2CB7E10E3F54B0001E1AF /* SegmentedViewController.m */; };
+		37C2CCC910E715A40001E1AF /* RouteSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2CCC810E715A40001E1AF /* RouteSegmentedViewController.m */; };
+		37C2CE4810E7EFB60001E1AF /* Network.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C2CE4710E7EFB60001E1AF /* Network.png */; };
+		37C2CE6110E7FD790001E1AF /* StopSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2CE6010E7FD790001E1AF /* StopSegmentedViewController.m */; };
+		37C2CEBA10E881F70001E1AF /* Location.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C2CEB910E881F70001E1AF /* Location.png */; };
+		37C2CF3A10E8914D0001E1AF /* ExtendedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2CF3910E8914D0001E1AF /* ExtendedViewController.m */; };
 		37CB1DB210D355EE00661E8E /* RedCircle_100_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1D9A10D355EE00661E8E /* RedCircle_100_0.png */; };
 		37CB1DB310D355EE00661E8E /* RedCircle_100_80.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1D9B10D355EE00661E8E /* RedCircle_100_80.png */; };
 		37CB1DB410D355EE00661E8E /* RedCircle_20_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1D9C10D355EE00661E8E /* RedCircle_20_0.png */; };
@@ -39,7 +45,6 @@
 		37CB1DC610D355EE00661E8E /* RedCircle_90_40.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1DAE10D355EE00661E8E /* RedCircle_90_40.png */; };
 		37CB1DC710D355EE00661E8E /* RedCircle_95_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1DAF10D355EE00661E8E /* RedCircle_95_0.png */; };
 		37CB1DC810D355EE00661E8E /* RedCircle_95_60.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1DB010D355EE00661E8E /* RedCircle_95_60.png */; };
-		37CB1DCE10D35DB000661E8E /* Location.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1DCD10D35DB000661E8E /* Location.png */; };
 		7C25BFEC10A7DA4D00AAD086 /* CSRouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */; };
 		7C25BFEF10A7DA8300AAD086 /* CSRouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEE10A7DA8300AAD086 /* CSRouteAnnotation.m */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
@@ -120,6 +125,16 @@
 		37C127A110CC9DB6007604BB /* BusInformationOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusInformationOperation.m; sourceTree = "<group>"; };
 		37C2C57B10E003EE0001E1AF /* RoutePattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutePattern.h; sourceTree = "<group>"; };
 		37C2C57C10E003EE0001E1AF /* RoutePattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutePattern.m; sourceTree = "<group>"; };
+		37C2CB7D10E3F54B0001E1AF /* SegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentedViewController.h; sourceTree = "<group>"; };
+		37C2CB7E10E3F54B0001E1AF /* SegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentedViewController.m; sourceTree = "<group>"; };
+		37C2CCC710E715A40001E1AF /* RouteSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteSegmentedViewController.h; sourceTree = "<group>"; };
+		37C2CCC810E715A40001E1AF /* RouteSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteSegmentedViewController.m; sourceTree = "<group>"; };
+		37C2CE4710E7EFB60001E1AF /* Network.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Network.png; sourceTree = "<group>"; };
+		37C2CE5F10E7FD790001E1AF /* StopSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopSegmentedViewController.h; sourceTree = "<group>"; };
+		37C2CE6010E7FD790001E1AF /* StopSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopSegmentedViewController.m; sourceTree = "<group>"; };
+		37C2CEB910E881F70001E1AF /* Location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Location.png; sourceTree = "<group>"; };
+		37C2CF3810E8914D0001E1AF /* ExtendedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendedViewController.h; sourceTree = "<group>"; };
+		37C2CF3910E8914D0001E1AF /* ExtendedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendedViewController.m; sourceTree = "<group>"; };
 		37CB1D9A10D355EE00661E8E /* RedCircle_100_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_100_0.png; sourceTree = "<group>"; };
 		37CB1D9B10D355EE00661E8E /* RedCircle_100_80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_100_80.png; sourceTree = "<group>"; };
 		37CB1D9C10D355EE00661E8E /* RedCircle_20_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_20_0.png; sourceTree = "<group>"; };
@@ -142,7 +157,6 @@
 		37CB1DAE10D355EE00661E8E /* RedCircle_90_40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_90_40.png; sourceTree = "<group>"; };
 		37CB1DAF10D355EE00661E8E /* RedCircle_95_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_95_0.png; sourceTree = "<group>"; };
 		37CB1DB010D355EE00661E8E /* RedCircle_95_60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_95_60.png; sourceTree = "<group>"; };
-		37CB1DCD10D35DB000661E8E /* Location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Location.png; sourceTree = "<group>"; };
 		7C25BFEA10A7DA4D00AAD086 /* CSRouteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRouteView.h; sourceTree = "<group>"; };
 		7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRouteView.m; sourceTree = "<group>"; };
 		7C25BFED10A7DA8300AAD086 /* CSRouteAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRouteAnnotation.h; sourceTree = "<group>"; };
@@ -302,7 +316,8 @@
 				7CE69EBB10C248250002DE93 /* Default.png */,
 				7CD3E3E210C58AB20053771E /* BusTokenIcon.png */,
 				C90525F010D9AB3D00B1B7F1 /* BusArrow.png */,
-				37CB1DCD10D35DB000661E8E /* Location.png */,
+				37C2CEB910E881F70001E1AF /* Location.png */,
+				37C2CE4710E7EFB60001E1AF /* Network.png */,
 				373EF06510CC77FF007CFD39 /* Circles */,
 				7CE69E5D10C243890002DE93 /* RouteIcons */,
 				C974345010A9F4D50072C7B6 /* Todo */,
@@ -382,6 +397,10 @@
 				C91476C410AA47B20014E49F /* NSDate_Extensions.m */,
 				7CE2275010C347AB00893B6B /* TableViewController.h */,
 				7CE2275110C347AB00893B6B /* TableViewController.m */,
+				37C2CB7D10E3F54B0001E1AF /* SegmentedViewController.h */,
+				37C2CB7E10E3F54B0001E1AF /* SegmentedViewController.m */,
+				37C2CF3810E8914D0001E1AF /* ExtendedViewController.h */,
+				37C2CF3910E8914D0001E1AF /* ExtendedViewController.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -432,6 +451,10 @@
 				7CD986F210AA68BE00116483 /* AboutViewController.m */,
 				C98B1EC810C63CCC00F26386 /* DatePickerController.h */,
 				C98B1EC910C63CCC00F26386 /* DatePickerController.m */,
+				37C2CCC710E715A40001E1AF /* RouteSegmentedViewController.h */,
+				37C2CCC810E715A40001E1AF /* RouteSegmentedViewController.m */,
+				37C2CE5F10E7FD790001E1AF /* StopSegmentedViewController.h */,
+				37C2CE6010E7FD790001E1AF /* StopSegmentedViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -596,8 +619,9 @@
 				37CB1DC610D355EE00661E8E /* RedCircle_90_40.png in Resources */,
 				37CB1DC710D355EE00661E8E /* RedCircle_95_0.png in Resources */,
 				37CB1DC810D355EE00661E8E /* RedCircle_95_60.png in Resources */,
-				37CB1DCE10D35DB000661E8E /* Location.png in Resources */,
 				C90525F110D9AB3D00B1B7F1 /* BusArrow.png in Resources */,
+				37C2CE4810E7EFB60001E1AF /* Network.png in Resources */,
+				37C2CEBA10E881F70001E1AF /* Location.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,6 +666,10 @@
 				37C127A210CC9DB6007604BB /* BusInformationOperation.m in Sources */,
 				C98E582110D70EFE00B08808 /* Transform.m in Sources */,
 				37C2C57D10E003EE0001E1AF /* RoutePattern.m in Sources */,
+				37C2CB7F10E3F54B0001E1AF /* SegmentedViewController.m in Sources */,
+				37C2CCC910E715A40001E1AF /* RouteSegmentedViewController.m in Sources */,
+				37C2CE6110E7FD790001E1AF /* StopSegmentedViewController.m in Sources */,
+				37C2CF3A10E8914D0001E1AF /* ExtendedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
