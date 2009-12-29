@@ -46,6 +46,10 @@
         return;
     }
     [self setAgency:unitransAgency];
+    
+    // Add Unitrans image as title
+    UIImageView *titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"UnitransTitle.png"]] autorelease];
+    [[self navigationItem] setTitleView:titleView];
 
     // Create about button
     UIBarButtonItem *aboutButtonItem = [[UIBarButtonItem alloc] init];
