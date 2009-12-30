@@ -16,7 +16,6 @@
 @class Stop;
 @class RoutePattern;
 @class CSRouteView;
-@class OverlayHeaderView;
 @class CSRouteAnnotation;
 
 @interface RouteMapViewController : ExtendedViewController <MKMapViewDelegate, BusInformationOperationDelegate, UIActionSheetDelegate> {
@@ -35,7 +34,6 @@
     
     MKMapView *mapView;
     CSRouteView *routeAnnotationView;
-    OverlayHeaderView *overlayHeaderView;
 }
 
 @property (nonatomic, retain) MKMapView *mapView;

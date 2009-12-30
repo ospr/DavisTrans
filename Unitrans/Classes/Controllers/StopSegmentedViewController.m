@@ -13,6 +13,7 @@
 #import "StopViewController.h"
 #import "RouteMapViewController.h"
 #import "ExtendedViewController.h"
+#import "DetailOverlayView.h"
 
 @implementation StopSegmentedViewController
 
@@ -41,15 +42,23 @@
     [super dealloc];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidLoad
 {
-    [super viewWillAppear:animated];
+    [super viewDidLoad];
     
-    [[self navigationController] setToolbarHidden:NO animated:animated];
+    // Create detail overlay view
+    DetailOverlayView *detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, 255, 40)];
+    [[detailOverlayView textLabel] setText:[stop name]];
+    [[detailOverlayView detailTextLabel] setText:[stop stopDescription]];
+    [[detailOverlayView imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
+    
+    // Set navbar title view
+    [[self navigationItem] setTitleView:detailOverlayView];
+    [detailOverlayView release];
 }
 
 - (ExtendedViewController *)viewControllerForSelectedSegmentIndex:(NSInteger)index
-{
+{    
     ExtendedViewController *viewController = nil;
     
     NSString *segmentIdentifier = [[self segmentItems] objectAtIndex:index];

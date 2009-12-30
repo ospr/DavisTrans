@@ -8,7 +8,6 @@
 
 #import "RouteMapViewController.h"
 #import "StopSegmentedViewController.h"
-#import "OverlayHeaderView.h"
 #import "RealTimeBusInfo.h"
 #import "Route.h"
 #import "StopTime.h"
@@ -51,7 +50,6 @@
     
     [mapView release];
     [routeAnnotationView release];
-    [overlayHeaderView release];
     
     [super dealloc];
 }
@@ -77,9 +75,10 @@
     [zoomFitButton release];
     
     // Create mapView
-    mapView = [[MKMapView alloc] init];
+    mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, [[self view] frame].size.width, [[self view] frame].size.height)];
     [mapView setDelegate:self];
     [mapView setShowsUserLocation:YES];
+    [self setView:mapView];
         
     // Create route annotation to hold the points, and add to mapView
     routeAnnotation = [[CSRouteAnnotation alloc] init];
@@ -89,18 +88,6 @@
     routeAnnotationView = [[CSRouteView alloc] initWithAnnotation:routeAnnotation reuseIdentifier:@"Route"];
     [routeAnnotationView setFrame:CGRectMake(0, 0, [mapView frame].size.width, [mapView frame].size.height)];
     [routeAnnotationView setMapView:mapView];
-        
-    // Create detail overlay view
-    CGRect bounds = [[self view] bounds];
-    overlayHeaderView = [[OverlayHeaderView alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
-    [[[overlayHeaderView detailOverlayView] textLabel] setText:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
-    [[[overlayHeaderView detailOverlayView] detailTextLabel] setText:[route longName]];
-    [[[overlayHeaderView detailOverlayView] imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
-    [overlayHeaderView setContentView:mapView];
-    
-    // Set main view to the overlay view
-    [self setView:overlayHeaderView];
-    [overlayHeaderView layoutSubviews];
     
     // Update map with default route pattern
     RoutePattern *defaultRoutePattern = [[route orderedRoutePatterns] objectAtIndex:0];

@@ -76,6 +76,8 @@
     textLabelFrame.origin = CGPointMake(imageViewFrame.origin.x + imageViewFrame.size.width + textImagePadding, ([self bounds].size.height / 2.0) - textLabelFontSize.height);
     textLabelFrame.size = CGSizeMake([self bounds].size.width - textLabelFrame.origin.x, textLabelFontSize.height);
     [textLabel setFrame:textLabelFrame];
+    [textLabel setShadowColor:[UIColor blackColor]];
+    [textLabel setAdjustsFontSizeToFitWidth:YES];
     
     // DetailTextLabelFrame
     // Size: width = width of textLabelFrame, height = font height
@@ -85,10 +87,16 @@
     detailTextLabelFrame.size = CGSizeMake(textLabelFrame.size.width, detailTextLabelFontSize.height);
     detailTextLabelFrame.origin = CGPointMake(textLabelFrame.origin.x, ([self bounds].size.height / 2.0) + 2.0);
     [detailTextLabel setFrame:detailTextLabelFrame];
+    [detailTextLabel setShadowColor:[UIColor blackColor]];
+    [detailTextLabel setAdjustsFontSizeToFitWidth:YES];
 }
 
 - (void)drawRect:(CGRect)rect 
 {
+    // If no background color is set, don't draw anything
+    if (![self backgroundColor])
+        return;
+    
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
     
@@ -98,7 +106,7 @@
     
     CGContextSetShadow(context, myShadowOffset, 20);
 
-    CGContextSetRGBFillColor(context, 163/255.0, 50/255.0, 52/255.0, 1);
+    CGContextSetFillColorWithColor(context, [[self backgroundColor] CGColor]);
     CGContextFillRect(context, boundsOffset);
     
     CGContextRestoreGState(context);

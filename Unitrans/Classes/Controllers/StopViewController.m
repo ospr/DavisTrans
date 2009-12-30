@@ -9,7 +9,6 @@
 #import "StopViewController.h"
 #import "StopTimeSegmentedViewController.h"
 #import "RouteMapViewController.h"
-#import "OverlayHeaderView.h"
 #import "Stop.h"
 #import "StopTime.h"
 #import "Route.h"
@@ -47,7 +46,6 @@
     
     [predictionOperation release];
     [predictionLoadingIndicatorView release];
-    [overlayHeaderView release];
     
     [super dealloc];
 }
@@ -62,22 +60,14 @@
 	[self setSelectedDate:[[NSDate date] beginningOfDay]]; 
     [self updateStopTimes];
     [self setPredictions:[NSArray array]];
-		    
-    // Create detail overlay view
-    CGRect bounds = [[self view] bounds];
-    overlayHeaderView = [[OverlayHeaderView alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
-    [[[overlayHeaderView detailOverlayView] textLabel] setText:[NSString stringWithFormat:@"%@", [stop name]]];
-    [[[overlayHeaderView detailOverlayView] detailTextLabel] setText:[stop stopDescription]];
-    [[[overlayHeaderView detailOverlayView] imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
-    
-    // Create table view (detail overlay's content view)
+		        
+    // Create table view
     UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self setTableView:newTableView];
-    [overlayHeaderView setContentView:newTableView];
-    [newTableView release];
     
     // Set view
-    [self setView:overlayHeaderView];
+    [self setView:newTableView];
+    [newTableView release];
     
     // Add a timer to fire to update the table when the next stop time expires
     [self addUpdateNextStopTimeTimer];

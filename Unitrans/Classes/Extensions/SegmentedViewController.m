@@ -150,9 +150,6 @@
     // Create an array of toolbar items and set them
     NSArray *toolbarItems = [NSArray arrayWithObjects:leftBarButtonItem, flexibleSpaceItem, segmentedButtonItem, flexibleSpaceItem, rightBarButtonItem, nil];
     [self setToolbarItems:toolbarItems];
-        
-    // Set new view
-    //[self setView:selectedView];
  
     if (!selectedViewController)
         [self setView:selectedView];

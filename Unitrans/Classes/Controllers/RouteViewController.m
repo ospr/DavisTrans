@@ -9,7 +9,7 @@
 #import "RouteViewController.h"
 #import "StopSegmentedViewController.h"
 #import "RouteMapViewController.h"
-#import "OverlayHeaderView.h"
+#import "DetailOverlayView.h"
 #import "Route.h"
 #import "Stop.h"
 
@@ -24,8 +24,6 @@
 - (void)dealloc {
     [route release];
     [stops release];
-    
-    [overlayHeaderView release];
     
     [super dealloc];
 }
@@ -43,21 +41,15 @@
     NSSortDescriptor *stopsSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease];
     NSArray *sortedStops = [[[route allStops] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopsSortDescriptor]];
     [self setStops:sortedStops];
-
-    // Create detail overlay view
-    CGRect bounds = [[self view] bounds];
-    overlayHeaderView = [[OverlayHeaderView alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
-    [[[overlayHeaderView detailOverlayView] textLabel] setText:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
-    [[[overlayHeaderView detailOverlayView] detailTextLabel] setText:[route longName]];
-    [[[overlayHeaderView detailOverlayView] imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
     
-    // Create table view (detail overlay's content view)
+    // Create table view
     UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     [self setTableView:newTableView];
-    [overlayHeaderView setContentView:newTableView];
+
+    // Set view
+    [self setView:tableView];
     [newTableView release];
-    
-    [self setView:overlayHeaderView];
+
 }
 
 - (void)didReceiveMemoryWarning 

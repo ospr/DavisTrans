@@ -18,7 +18,6 @@ typedef enum _StopViewSectionIndex {
 
 @class Stop;
 @class Route;
-@class OverlayHeaderView;
 
 @interface StopViewController : TableViewController <PredictionOperationDelegate> {
     Route *route;
@@ -38,7 +37,6 @@ typedef enum _StopViewSectionIndex {
     PredictionOperation *predictionOperation;
     
     // Subviews
-    OverlayHeaderView *overlayHeaderView;
     UIActivityIndicatorView *predictionLoadingIndicatorView;
 }
 

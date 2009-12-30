@@ -8,7 +8,6 @@
 
 #import "StopTimeViewController.h"
 #import "StopViewController.h"
-#import "OverlayHeaderView.h"
 #import "Trip.h"
 #import "StopTime.h"
 #import "Stop.h"
@@ -28,7 +27,6 @@
 {
     [stopTime release];
     [arrivalTimes release];
-    [overlayHeaderView release];
     
     [super dealloc];
 }
@@ -40,20 +38,15 @@
     [super viewDidLoad];
 
 	[self setTitle:@"Arrival Times"];
-    
-    // Create detail overlay view
-    CGRect bounds = [[self view] bounds];
-    overlayHeaderView = [[OverlayHeaderView alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
-    [[[overlayHeaderView detailOverlayView] imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [[[stopTime trip] route] shortName]]]];
-    
-    // Create table view (detail overlay's content view)
+        
+    // Create table view
     UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self setTableView:newTableView];
-    [overlayHeaderView setContentView:newTableView];
-    [newTableView release];
+    [self setView:newTableView];
     
     // Set view
-    [self setView:overlayHeaderView];
+    [self setView:newTableView];
+    [newTableView release];
     
     // Update stop times to show correct times
     [self updateStopTimes];
@@ -99,13 +92,9 @@
     switch ([self dataType]) {
         case kStopTimeViewDataTypeArrivalTimes: 
             filterPredicate = [NSPredicate predicateWithFormat:@"arrivalTime > %@", [stopTime arrivalTime]]; 
-            [[[overlayHeaderView detailOverlayView] textLabel] setText:[NSString stringWithFormat:@"Departing at %@", [stopTime arrivalTimeString]]];
-            [[[overlayHeaderView detailOverlayView] detailTextLabel] setText:[NSString stringWithFormat:@"From: %@", [[stopTime stop] name]]];
             break;
         case kStopTimeViewDataTypeDepartureTimes: 
             filterPredicate = [NSPredicate predicateWithFormat:@"arrivalTime < %@", [stopTime arrivalTime]]; 
-            [[[overlayHeaderView detailOverlayView] textLabel] setText:[NSString stringWithFormat:@"Arriving at %@", [stopTime arrivalTimeString]]];
-            [[[overlayHeaderView detailOverlayView] detailTextLabel] setText:[NSString stringWithFormat:@"To: %@", [[stopTime stop] name]]];
             break;
         default: return;
     }

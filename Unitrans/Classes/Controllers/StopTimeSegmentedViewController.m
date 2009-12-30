@@ -10,7 +10,9 @@
 
 #import "StopTimeViewController.h"
 #import "StopTime.h"
-
+#import "Trip.h"
+#import "Route.h"
+#import "DetailOverlayView.h"
 
 @implementation StopTimeSegmentedViewController
 
@@ -32,6 +34,21 @@
     [stopTimeViewController release];
     
     [super dealloc];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // Create detail overlay view
+    DetailOverlayView *detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, 255, 40)];
+    [[detailOverlayView textLabel] setText:[NSString stringWithFormat:@"Depart - Arrive at %@", [stopTime arrivalTimeString]]];
+    [[detailOverlayView detailTextLabel] setText:[NSString stringWithFormat:@"From - To: %@", [[stopTime stop] name]]];
+    [[detailOverlayView imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [[[stopTime trip] route] shortName]]]];
+    
+    // Set navbar title view
+    [[self navigationItem] setTitleView:detailOverlayView];
+    [detailOverlayView release];
 }
 
 - (ExtendedViewController *)viewControllerForSelectedSegmentIndex:(NSInteger)index

@@ -15,13 +15,10 @@ typedef enum _StopTimeViewDataType {
 } StopTimeViewDataType;
 
 @class StopTime;
-@class OverlayHeaderView;
 
 @interface StopTimeViewController : TableViewController {
     StopTime *stopTime;
 	NSArray *arrivalTimes;
-    
-    OverlayHeaderView *overlayHeaderView;
     
     StopTimeViewDataType dataType;
 }
