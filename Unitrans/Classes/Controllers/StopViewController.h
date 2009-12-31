@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TableViewController.h"
 #import "PredictionOperation.h"
+#import "DatePickerController.h"
 
 typedef enum _StopViewSectionIndex {
     SectionIndexSelectedDate = 0,
@@ -19,15 +20,20 @@ typedef enum _StopViewSectionIndex {
 @class Stop;
 @class Route;
 
-@interface StopViewController : TableViewController <PredictionOperationDelegate> {
+@interface StopViewController : TableViewController <PredictionOperationDelegate, DatePickerControllerDelegate> {
     Route *route;
     Stop *stop;
-	NSArray *stopTimes;
+	
+	NSArray *activeStopTimes;	// the stop times to display
+	NSArray *allStopTimes;		// contains all the stop times
+	NSArray *currentStopTimes;	// contains only the stop times which aren't expired
     NSArray *predictions;
+	
 	NSDate *selectedDate;
 
     BOOL predictionsContinuousUpdatesRunning;
     BOOL loadingPredictions;
+	BOOL showExpiredStopTimes;
     
     // Timers
     NSTimer *expiredStopTimeTimer;
@@ -42,9 +48,12 @@ typedef enum _StopViewSectionIndex {
 
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) Stop *stop;
-@property (nonatomic, retain) NSArray *stopTimes;
+@property (nonatomic, retain) NSArray *activeStopTimes;
+@property (nonatomic, retain) NSArray *allStopTimes;
+@property (nonatomic, retain) NSArray *currentStopTimes;
 @property (nonatomic, retain) NSArray *predictions;
 @property (nonatomic, retain) NSDate *selectedDate;
+@property (nonatomic, assign) BOOL showExpiredStopTimes;
 @property (nonatomic, retain) PredictionOperation *predictionOperation;
 
 - (void) updateStopTimes;

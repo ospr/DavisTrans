@@ -62,6 +62,7 @@
 		7CC4D06F10978EBF00F2BB67 /* StopTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4D06510978EBF00F2BB67 /* StopTime.m */; };
 		7CC4D07010978EBF00F2BB67 /* Agency.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4D06710978EBF00F2BB67 /* Agency.m */; };
 		7CC4D07110978EBF00F2BB67 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4D06910978EBF00F2BB67 /* Trip.m */; };
+		7CCE8A7310C39E1900E1406F /* OverlayHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCE8A7210C39E1900E1406F /* OverlayHeaderView.m */; };
 		7CD3E3E310C58AB20053771E /* BusTokenIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CD3E3E210C58AB20053771E /* BusTokenIcon.png */; };
 		7CD986F310AA68BE00116483 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD986F210AA68BE00116483 /* AboutViewController.m */; };
 		7CE2275210C347AB00893B6B /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE2275110C347AB00893B6B /* TableViewController.m */; };
@@ -187,6 +188,8 @@
 		7CC4D06710978EBF00F2BB67 /* Agency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Agency.m; sourceTree = "<group>"; };
 		7CC4D06810978EBF00F2BB67 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
 		7CC4D06910978EBF00F2BB67 /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
+		7CCE8A7110C39E1900E1406F /* OverlayHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayHeaderView.h; sourceTree = "<group>"; };
+		7CCE8A7210C39E1900E1406F /* OverlayHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayHeaderView.m; sourceTree = "<group>"; };
 		7CD3E3E210C58AB20053771E /* BusTokenIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BusTokenIcon.png; sourceTree = "<group>"; };
 		7CD986F110AA68BE00116483 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		7CD986F210AA68BE00116483 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
@@ -522,6 +525,8 @@
 				7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */,
 				7CE69EFA10C2FA850002DE93 /* DetailOverlayView.h */,
 				7CE69EFB10C2FA850002DE93 /* DetailOverlayView.m */,
+				7CCE8A7110C39E1900E1406F /* OverlayHeaderView.h */,
+				7CCE8A7210C39E1900E1406F /* OverlayHeaderView.m */,
 				3795472310C7A13E005A2D93 /* BusAnimationAnnotationView.h */,
 				3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */,
 				373EEF0710CA40F6007CFD39 /* AnimationImageView.h */,
@@ -661,6 +666,7 @@
 				7CD986F310AA68BE00116483 /* AboutViewController.m in Sources */,
 				7CE69EFC10C2FA850002DE93 /* DetailOverlayView.m in Sources */,
 				7CE2275210C347AB00893B6B /* TableViewController.m in Sources */,
+				7CCE8A7310C39E1900E1406F /* OverlayHeaderView.m in Sources */,
 				C98B1ECA10C63CCC00F26386 /* DatePickerController.m in Sources */,
 				3795472510C7A13E005A2D93 /* BusAnimationAnnotationView.m in Sources */,
 				373EEF0910CA40F6007CFD39 /* AnimationImageView.m in Sources */,

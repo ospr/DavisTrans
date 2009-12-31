@@ -7,18 +7,28 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StopViewController.h"
 
+@protocol DatePickerControllerDelegate;
 
 @interface DatePickerController : UIViewController {
-	StopViewController *stopViewController;
+	NSDate *initialDate;
+	
 	IBOutlet UIDatePicker *datePicker;
+	
+	id<DatePickerControllerDelegate> delegate;
 }
 
-@property (retain, nonatomic) StopViewController *stopViewController;
-@property (retain, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (nonatomic, retain) NSDate *initialDate;
+@property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
+@property (nonatomic, retain) id<DatePickerControllerDelegate> delegate;
 
-- (IBAction) cancel;
-- (IBAction) done;
+- (IBAction) cancel:(id)sender;
+- (IBAction) done:(id)sender;
 
+@end
+
+// Delegate methods
+@protocol DatePickerControllerDelegate <NSObject>
+@required
+- (void) datePickerController:(DatePickerController *)datePickerController dateChangedTo:(NSDate *)newDate;
 @end

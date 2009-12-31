@@ -13,16 +13,18 @@
 #import "StopTime.h"
 #import "Route.h"
 #import "NSDate_Extensions.h"
-#import "DatePickerController.h"
 
 
 @implementation StopViewController
 
 @synthesize route;
 @synthesize stop;
-@synthesize stopTimes;
+@synthesize activeStopTimes;
+@synthesize allStopTimes;
+@synthesize currentStopTimes;
 @synthesize predictions;
 @synthesize predictionOperation;
+@synthesize showExpiredStopTimes;
 @synthesize selectedDate;
 
 #pragma mark -
@@ -36,7 +38,9 @@
     
     [route release];
     [stop release];
-	[stopTimes release];
+	[activeStopTimes release];
+	[allStopTimes release];
+	[currentStopTimes release];
     [predictions release];
     [selectedDate release];
 
@@ -58,6 +62,7 @@
 
     [self setTitle:@"Stop Times"];
 	[self setSelectedDate:[[NSDate date] beginningOfDay]]; 
+	[self setShowExpiredStopTimes:NO];
     [self updateStopTimes];
     [self setPredictions:[NSArray array]];
 		        
@@ -117,7 +122,7 @@
     else if (section == SectionIndexPredictions)
         return 1;
 	else if (section == SectionIndexStopTimes)
-		return [stopTimes count];
+		return [activeStopTimes count] + 1; // +1 for show/hide exp. times cell
     else
         return 0;
 }
@@ -169,9 +174,18 @@
         }
         else if ([indexPath section] == SectionIndexStopTimes)
         {
-            [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
-            [[cell textLabel] setTextAlignment:UITextAlignmentLeft];
-            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+			if ([indexPath row] == 0) 
+			{
+				[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
+				[[cell textLabel] setTextAlignment:UITextAlignmentLeft];
+				[cell setAccessoryType:UITableViewCellAccessoryNone];
+			}
+			else
+			{
+				[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
+				[[cell textLabel] setTextAlignment:UITextAlignmentLeft];
+				[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+			}
         }
     }
 
@@ -191,20 +205,26 @@
     }
 	else if ([indexPath section] == SectionIndexStopTimes) 
 	{
-        StopTime *stopTime = [stopTimes objectAtIndex:[indexPath row]];
-        
-		NSUInteger seconds = [[stopTime arrivalTime] unsignedIntegerValue];
-		NSDate *referenceDate = [NSDate beginningOfToday];
-		NSDate *arrivalDate = [[NSDate alloc] initWithTimeInterval:seconds sinceDate:referenceDate];
-		
-		if([arrivalDate earlierDate:[NSDate date]] == arrivalDate)
-			cell.backgroundColor = [UIColor colorWithRed:0.82 green:0.82 blue:0.82 alpha:1.0];
-        else
-            cell.backgroundColor = [UIColor whiteColor];
-		
-		[arrivalDate release];
-        
-        [[cell textLabel] setText:[stopTime arrivalTimeString]];
+		if ([indexPath row] == 0) 
+		{
+			if (showExpiredStopTimes) 
+				[[cell textLabel] setText:@"Hide expired times"];
+			else 
+				[[cell textLabel] setText:@"Show expired times"];
+			cell.backgroundColor = [UIColor whiteColor];
+		}
+		else {
+			StopTime *stopTime = [activeStopTimes objectAtIndex:[indexPath row]-1];
+			NSDate *arrivalDate = [[NSDate alloc] initWithTimeInterval:[[stopTime arrivalTime] unsignedIntegerValue] sinceDate:[selectedDate beginningOfDay]];
+			
+			if([arrivalDate earlierDate:[NSDate date]] == arrivalDate)
+				cell.backgroundColor = [UIColor colorWithRed:0.82 green:0.82 blue:0.82 alpha:1.0];
+			else
+				cell.backgroundColor = [UIColor whiteColor];
+			
+			[arrivalDate release];
+			[[cell textLabel] setText:[stopTime arrivalTimeString]];
+		}
 	}
 }
 
@@ -213,8 +233,9 @@
 {
 	if([indexPath section] == SectionIndexSelectedDate)
 	{
-		DatePickerController *datePickerController = [[DatePickerController alloc] initWithNibName:@"DatePickerController" bundle:nil];
-		[datePickerController setStopViewController:self];
+		DatePickerController *datePickerController = [[[DatePickerController alloc] initWithNibName:@"DatePickerController" bundle:nil] autorelease];
+		[datePickerController setDelegate:self];
+		[datePickerController setInitialDate:selectedDate];
 		[self presentModalViewController:datePickerController animated:YES];
 	}
     else if ([indexPath section] == SectionIndexPredictions)
@@ -228,12 +249,23 @@
     }
 	else if([indexPath section] == SectionIndexStopTimes)
 	{
-        StopTime *stopTime = [stopTimes objectAtIndex:[indexPath row]];
-        
-        StopTimeSegmentedViewController *stopTimeViewController = [[StopTimeSegmentedViewController alloc] init];
-        [stopTimeViewController setStopTime:stopTime];
-		[self.navigationController pushViewController:stopTimeViewController animated:YES];
-		[stopTimeViewController release];
+		if ([indexPath row] == 0) 
+		{
+			if (showExpiredStopTimes) 
+				[self setActiveStopTimes:currentStopTimes];
+			else
+				[self setActiveStopTimes:allStopTimes];
+			[self setShowExpiredStopTimes:!showExpiredStopTimes];
+			[[self tableView] reloadData];
+		}
+		else
+		{
+			StopTime *stopTime = [activeStopTimes objectAtIndex:[indexPath row]-1];
+			StopTimeSegmentedViewController *stopTimeViewController = [[StopTimeSegmentedViewController alloc] init];
+			[stopTimeViewController setStopTime:stopTime];
+			[self.navigationController pushViewController:stopTimeViewController animated:YES];
+			[stopTimeViewController release];
+		}
 	}
 }
 
@@ -306,9 +338,34 @@
 - (void) updateStopTimes
 {
     // Get StopTimes based on route and date and sort
-    NSSortDescriptor *stopTimeSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"arrivalTime" ascending:YES] autorelease];
+    NSSortDescriptor *stopTimeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"arrivalTime" ascending:YES];
     NSArray *sortedStopTimes = [[stop allStopTimesWithRoute:route onDate:selectedDate] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopTimeSortDescriptor]];
-    [self setStopTimes:sortedStopTimes];
+	[stopTimeSortDescriptor release];
+    [self setAllStopTimes:sortedStopTimes];
+
+	// Filter out expired times
+	NSInteger index = 0;
+	
+	for (index = 0; index < [allStopTimes count]; index++) 
+	{
+		NSDate *arrivalDate = [[NSDate alloc] initWithTimeInterval:[[[allStopTimes objectAtIndex:index] arrivalTime] unsignedIntValue] sinceDate:[selectedDate beginningOfDay]];
+		if([arrivalDate earlierDate:[NSDate date]] != arrivalDate)
+		{
+			[arrivalDate release];
+			break;
+		}
+		[arrivalDate release];
+	}
+	
+	NSRange range = NSMakeRange(index, [allStopTimes count] - index);
+	[self setCurrentStopTimes:[allStopTimes objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range]]];	
+	
+	// Update activeStopTimes
+	if (showExpiredStopTimes)
+		[self setActiveStopTimes:allStopTimes];
+	else 
+		[self setActiveStopTimes:currentStopTimes];
+	[tableView reloadData];
 }
 
 - (void) addUpdateNextStopTimeTimer
@@ -319,7 +376,7 @@
     NSDate *fireDate = nil;
     
     // Loop through all stop times and find the first time that is later than now
-    for (StopTime *stopTime in stopTimes) {
+    for (StopTime *stopTime in activeStopTimes) {
         NSUInteger seconds = [[stopTime arrivalTime] unsignedIntegerValue];
         arrivalDate = [[[NSDate alloc] initWithTimeInterval:seconds sinceDate:referenceDate] autorelease];
         
@@ -360,8 +417,8 @@
     [tableView reloadData];
 }
 
-#pragma mark PredictionOperation Delegate Methods
 #pragma mark -
+#pragma mark PredictionOperation Delegate Methods
 
 - (void)predictionOperation:(PredictionOperation *)predictionOperation didFinishWithPredictions:(NSArray *)newPredictions
 {
@@ -389,6 +446,15 @@
     
     [self setPredictions:nil];
     [[self tableView] reloadData];
+}
+
+#pragma mark -
+#pragma mark DatePickerControllerDelegate methods
+
+- (void) datePickerController:(DatePickerController *)datePickerController dateChangedTo:(NSDate *)newDate
+{
+	[self setSelectedDate:newDate];
+	[self updateStopTimes];
 }
 
 @end

@@ -11,15 +11,16 @@
 
 @implementation DatePickerController
 
-@synthesize stopViewController;
+@synthesize initialDate;
 @synthesize datePicker;
+@synthesize delegate;
 
 #pragma mark -
 #pragma mark Memory Management
 - (void)dealloc 
 {
-    [stopViewController release];
-    
+	[initialDate release];
+    [datePicker release];
     [super dealloc];
 }
 
@@ -31,7 +32,7 @@
     [super viewDidLoad];
 	
 	// set date picker to show selected date
-	[datePicker setDate:[stopViewController selectedDate]];
+	[datePicker setDate:initialDate];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,16 +50,15 @@
 #pragma mark -
 #pragma mark IBAction methods
 
-- (IBAction) cancel
+- (IBAction) cancel:(id)sender
 {
 	[self dismissModalViewControllerAnimated:YES];
 }
 
-- (IBAction) done
+- (IBAction) done:(id)sender
 {
-	[stopViewController setSelectedDate:[datePicker date]];
-	[stopViewController updateStopTimes];
-	[[stopViewController tableView] reloadData];
+	if (![[datePicker date] isEqualToDate:initialDate]) 
+		[delegate datePickerController:self dateChangedTo:[datePicker date]];
 	[self dismissModalViewControllerAnimated:YES];
 }
 
