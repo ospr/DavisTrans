@@ -25,6 +25,7 @@
     
     BusInformationOperation *busInformationOperation;
     NSTimer *busTimer;
+    NSTimeInterval busUpdateInterval;
     NSArray *busAnnotations;
     NSArray *stopAnnotations;
     CSRouteAnnotation *routeAnnotation;

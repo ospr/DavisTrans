@@ -23,6 +23,9 @@
 #import "UIColor_Extensions.h"
 #import "Transform.h"
 
+NSTimeInterval kBusUpdateShortInterval = 4.0;
+NSTimeInterval kBusUpdateLongInterval = 20.0;
+
 @implementation RouteMapViewController
 
 @synthesize mapView;
@@ -32,6 +35,17 @@
 @synthesize busInformationOperation;
 @synthesize busAnnotations;
 @synthesize stopAnnotations;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
+    if (self) {
+        busUpdateInterval = kBusUpdateShortInterval;
+    }
+    
+    return self;
+}
 
 - (void)dealloc 
 {
@@ -257,19 +271,28 @@
     [mapView setRegion:[routeAnnotation region] animated:animated];
 }
 
+- (void)startNewBusUpdateTimer
+{
+    [busTimer invalidate];
+    [busTimer release];
+    busTimer = nil;
+    
+    busTimer = [[NSTimer scheduledTimerWithTimeInterval:busUpdateInterval
+                                                 target:self
+                                               selector:@selector(updateBusLocations)
+                                               userInfo:nil
+                                                repeats:YES] retain];
+}
+
 - (void)beginContinuousBusUpdates
 {        
     busContinuousUpdatesRunning = YES;
 
     [self updateBusLocations];
     
-    // If we are still updating after the first update, fire a timer every 4 seconds
+    // If we are still updating after the first update, fire a timer to update
     if (busContinuousUpdatesRunning)
-        busTimer = [[NSTimer scheduledTimerWithTimeInterval:4.0
-                                                     target:self
-                                                   selector:@selector(updateBusLocations)
-                                                   userInfo:nil
-                                                    repeats:YES] retain];
+        [self startNewBusUpdateTimer];
 }
 
 - (void)endContinuousBusUpdates
@@ -304,12 +327,15 @@
         [alertView show];
         [alertView release];
     }
-    // If there were no buses, then stop upating and alert user
-    else if ([newBusAnnotations count] == 0) {
-        [self endContinuousBusUpdates];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Buses Found" message:@"There were no buses found for this route at this time." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
-        [alertView release];
+    // If there were no buses, slow the update
+    else if ([newBusAnnotations count] == 0 && busUpdateInterval != kBusUpdateLongInterval) {
+        busUpdateInterval = kBusUpdateLongInterval;
+        [self startNewBusUpdateTimer];
+    }
+    // If there are buses, update more quickly
+    else if ([newBusAnnotations count] && busUpdateInterval != kBusUpdateShortInterval) {
+        busUpdateInterval = kBusUpdateShortInterval;
+        [self startNewBusUpdateTimer];
     }
     
     // Remove buses if they exsisted before
