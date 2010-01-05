@@ -33,11 +33,16 @@
     [super dealloc];
 }
 
-// TODO: this does not work since not all trips have the same stops
 - (NSSet *)allStops
 {    
-    // Return all stops in primary trip
-    return [[[self primaryTrip] stopTimes] valueForKey:@"stop"];
+    NSMutableSet *allStops = [NSMutableSet set];
+    
+    // Loop through routePatterns and add all stops
+    for (RoutePattern *routePattern in [self routePatterns]) {
+        [allStops unionSet:[routePattern stops]];
+    }
+    
+    return allStops;
 }
 
 - (NSArray *)orderedRoutePatterns

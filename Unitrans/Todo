@@ -10,7 +10,6 @@ High
 • Fix bug where bus remains on map after ending bus updates because thread was still running and finishes and updates the map.
 • Favorites/Recent stop section in RouteView
 • MapView for StopTimeView (move arrival/departure times to same table)
-• Show ALL stops in RouteView
 • Derive valid times for Patterns
 • Add other bus phones (tipsy, uniride, etc)
 
@@ -80,3 +79,4 @@ Done
 • Rotating arrow icon for bus direction. (ken)
 • Derive "patterns" from GTFS
 • Display list of patterns to choose from in map view.
+• Show ALL stops in RouteView

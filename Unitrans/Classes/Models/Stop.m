@@ -43,10 +43,10 @@
 - (NSString *)headingString
 {
     switch ([[self heading] intValue]) {
-        case kStopHeadingTypeNorthBound: return @"NB";
-        case kStopHeadingTypeSouthBound: return @"SB";
-        case kStopHeadingTypeWestBound:  return @"WB";
-        case kStopHeadingTypeEastBound:  return @"EB";
+        case kStopHeadingTypeNorthBound: return @"Northbound";
+        case kStopHeadingTypeSouthBound: return @"Southbound";
+        case kStopHeadingTypeWestBound:  return @"Westbound";
+        case kStopHeadingTypeEastBound:  return @"Eastbound";
     }
     
     return @"";

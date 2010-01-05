@@ -88,9 +88,10 @@
     
     UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
         
         [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
+        [[cell detailTextLabel] setFont:[UIFont systemFontOfSize:10]];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     }
 
@@ -101,8 +102,9 @@
 {
     Stop *stop = [stops objectAtIndex:[indexPath row]];
     
-    // Set stop name
+    // Set stop name and heading
 	[[cell textLabel] setText:[stop name]];
+    [[cell detailTextLabel] setText:[stop headingString]];
 }
 
 
