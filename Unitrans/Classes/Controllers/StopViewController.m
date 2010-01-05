@@ -148,7 +148,12 @@
     switch ([indexPath section]) {
         case SectionIndexSelectedDate: cellIdentifier = @"SelectedDate"; break;
         case SectionIndexPredictions:  cellIdentifier = @"Prediction"; break;
-        case SectionIndexStopTimes:    cellIdentifier = @"StopTimes"; break;
+        case SectionIndexStopTimes:    
+            if ([indexPath row] == 0)
+                cellIdentifier = @"ExpiredCell";
+            else 
+                cellIdentifier = @"StopTimes";
+            break;
     }
     
     UITableViewCell *cell = [[self tableView] dequeueReusableCellWithIdentifier:cellIdentifier];
