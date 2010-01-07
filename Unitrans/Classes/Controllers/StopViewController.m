@@ -287,7 +287,7 @@
 
 - (NSString *)selectedDateString
 {
-    NSDateFormatter *selectedDateFormatter = nil;
+    static NSDateFormatter *selectedDateFormatter = nil;
     
     if (!selectedDateFormatter) {
         selectedDateFormatter = [[NSDateFormatter alloc] init];
