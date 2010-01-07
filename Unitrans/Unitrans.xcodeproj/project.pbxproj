@@ -11,6 +11,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		37103A2D10F328FD00246728 /* GMaps_Blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 37103A2C10F328FD00246728 /* GMaps_Blank.png */; };
 		373EEF0910CA40F6007CFD39 /* AnimationImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EEF0810CA40F6007CFD39 /* AnimationImageView.m */; };
 		373EF0A510CC8AFE007CFD39 /* ConcurrentOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0A410CC8AFE007CFD39 /* ConcurrentOperation.m */; };
 		373EF0AC10CC9047007CFD39 /* PredictionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0AB10CC9047007CFD39 /* PredictionOperation.m */; };
@@ -91,7 +92,6 @@
 		7CE69EFC10C2FA850002DE93 /* DetailOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE69EFB10C2FA850002DE93 /* DetailOverlayView.m */; };
 		7CE6EFE210A7B4B3009BF91A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE6EFE110A7B4B3009BF91A /* MapKit.framework */; };
 		7CE6EFE910A7B512009BF91A /* RouteMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6EFE810A7B512009BF91A /* RouteMapViewController.m */; };
-		7CE6EFEB10A7B525009BF91A /* RouteMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE6EFEA10A7B525009BF91A /* RouteMapView.xib */; };
 		7CEEFF69109F5798005EB194 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CEEFF68109F5798005EB194 /* DatabaseManager.m */; };
 		C90525F110D9AB3D00B1B7F1 /* BusArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C90525F010D9AB3D00B1B7F1 /* BusArrow.png */; };
 		C91476C510AA47B20014E49F /* NSDate_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C91476C410AA47B20014E49F /* NSDate_Extensions.m */; };
@@ -115,6 +115,7 @@
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Unitrans_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Unitrans_Prefix.pch; path = ../../Unitrans_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		37103A2C10F328FD00246728 /* GMaps_Blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GMaps_Blank.png; sourceTree = "<group>"; };
 		373EEF0710CA40F6007CFD39 /* AnimationImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationImageView.h; sourceTree = "<group>"; };
 		373EEF0810CA40F6007CFD39 /* AnimationImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationImageView.m; sourceTree = "<group>"; };
 		373EF0A310CC8AFE007CFD39 /* ConcurrentOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConcurrentOperation.h; sourceTree = "<group>"; };
@@ -222,7 +223,6 @@
 		7CE6EFE110A7B4B3009BF91A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7CE6EFE710A7B512009BF91A /* RouteMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteMapViewController.h; sourceTree = "<group>"; };
 		7CE6EFE810A7B512009BF91A /* RouteMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteMapViewController.m; sourceTree = "<group>"; };
-		7CE6EFEA10A7B525009BF91A /* RouteMapView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteMapView.xib; sourceTree = "<group>"; };
 		7CEEFF67109F5798005EB194 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
 		7CEEFF68109F5798005EB194 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Unitrans-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Unitrans-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -324,6 +324,7 @@
 				C90525F010D9AB3D00B1B7F1 /* BusArrow.png */,
 				37C2CEB910E881F70001E1AF /* Location.png */,
 				37C2CE4710E7EFB60001E1AF /* Network.png */,
+				37103A2C10F328FD00246728 /* GMaps_Blank.png */,
 				373EF06510CC77FF007CFD39 /* Circles */,
 				7CE69E5D10C243890002DE93 /* RouteIcons */,
 				C974345010A9F4D50072C7B6 /* Todo */,
@@ -485,7 +486,6 @@
 			children = (
 				C993E18B10A206E800B0F44D /* MainWindow.xib */,
 				C993E18A10A206D600B0F44D /* AgencyViewController.xib */,
-				7CE6EFEA10A7B525009BF91A /* RouteMapView.xib */,
 				C98B1F0410C6611500F26386 /* DatePickerController.xib */,
 			);
 			path = NIBs;
@@ -579,7 +579,6 @@
 			files = (
 				7C7A510410A1153600B396C9 /* TestDB.sqlite in Resources */,
 				C993E18C10A206E800B0F44D /* MainWindow.xib in Resources */,
-				7CE6EFEB10A7B525009BF91A /* RouteMapView.xib in Resources */,
 				C974345110A9F4D50072C7B6 /* Todo in Resources */,
 				7CE69E7210C243890002DE93 /* ARouteIcon_43.png in Resources */,
 				7CE69E7310C243890002DE93 /* BRouteIcon_43.png in Resources */,
@@ -631,6 +630,7 @@
 				37C2CE4810E7EFB60001E1AF /* Network.png in Resources */,
 				37C2CEBA10E881F70001E1AF /* Location.png in Resources */,
 				37C2D0B310E98CB30001E1AF /* UnitransTitle.png in Resources */,
+				37103A2D10F328FD00246728 /* GMaps_Blank.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

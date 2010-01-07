@@ -68,6 +68,16 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [super dealloc];
 }
 
+- (void)loadView
+{
+    // Set view to be an image of google maps before it has loaded
+    // so the loading of the view is quicker
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GMaps_Blank.png"]];
+    
+    [self setView:imageView];
+    [imageView release];
+}
+
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
@@ -87,13 +97,16 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
                                                                      action:@selector(zoomFitAction:)];
     [[self navigationItem] setLeftBarButtonItem:zoomFitButton];
     [zoomFitButton release];
-    
+}
+
+- (void)loadMapView
+{
     // Create mapView
     mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, [[self view] frame].size.width, [[self view] frame].size.height)];
     [mapView setDelegate:self];
     [mapView setShowsUserLocation:YES];
     [self setView:mapView];
-        
+    
     // Create route annotation to hold the points, and add to mapView
     routeAnnotation = [[CSRouteAnnotation alloc] init];
     [routeAnnotation setLineColor:[UIColor colorFromHexadecimal:[[route color] integerValue] alpha:0.65]];
@@ -122,6 +135,10 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 - (void)viewDidAppear:(BOOL)animated
 {    
     [super viewDidAppear:animated];
+    
+    // Load mapView after the view has appeared
+    if (!mapView)
+        [self loadMapView];
     
     // If stop has been set, select it
     if (stop)
