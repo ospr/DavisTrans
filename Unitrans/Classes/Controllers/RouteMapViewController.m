@@ -42,6 +42,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     
     if (self) {
         busUpdateInterval = kBusUpdateShortInterval;
+        [self setSegmentTransition:UIViewAnimationTransitionFlipFromRight];
     }
     
     return self;

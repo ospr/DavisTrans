@@ -12,6 +12,7 @@
 @implementation ExtendedViewController
 
 @synthesize segmentedViewController;
+@synthesize segmentTransition;
 
 - (void)dealloc 
 {

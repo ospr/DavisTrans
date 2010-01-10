@@ -81,3 +81,4 @@ Done
 • Derive "patterns" from GTFS
 • Display list of patterns to choose from in map view.
 • Show ALL stops in RouteView
+• Fix transition animation between list view and map view so that it flips back and forth.

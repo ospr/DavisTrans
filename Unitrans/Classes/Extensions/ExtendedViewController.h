@@ -12,8 +12,10 @@
 
 @interface ExtendedViewController : UIViewController {
     SegmentedViewController *segmentedViewController;
+    UIViewAnimationTransition segmentTransition;
 }
 
 @property (nonatomic, retain) SegmentedViewController *segmentedViewController;
+@property (nonatomic, assign) UIViewAnimationTransition segmentTransition;
 
 @end

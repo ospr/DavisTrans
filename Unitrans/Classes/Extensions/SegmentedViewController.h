@@ -11,7 +11,7 @@
 @class ExtendedViewController;
 
 @interface SegmentedViewController : UIViewController {
-    UIViewController *selectedViewController;
+    ExtendedViewController *selectedViewController;
     
     UISegmentedControl *segmentedControl;
     UIBarButtonItem *segmentedButtonItem;
@@ -23,14 +23,14 @@
     NSTimeInterval viewTransitionDuration;
 }
 
-@property (nonatomic, retain) UIViewController *selectedViewController;
+@property (nonatomic, retain) ExtendedViewController *selectedViewController;
 @property (nonatomic, readonly) UISegmentedControl *segmentedControl;
 @property (nonatomic, retain) NSArray *segmentItems;
 
 - (ExtendedViewController *)viewControllerForSelectedSegmentIndex:(NSInteger)index;
 - (void)segmentIndexWasSelected:(NSInteger)index;
 
-- (void)animateViewTransition:(UIViewAnimationTransition)transition fromViewController:(UIViewController *)fromViewCtl toViewController:(UIViewController *)toViewCtl;
+- (void)animateViewTransitionFromViewController:(UIViewController *)fromViewCtl toViewController:(UIViewController *)toViewCtl;
 
 @end
 

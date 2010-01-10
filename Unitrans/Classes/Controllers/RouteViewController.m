@@ -19,7 +19,18 @@
 @synthesize stops;
 
 #pragma mark -
-#pragma mark Memory management
+#pragma mark Init Methods
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
+    if (self) {
+        [self setSegmentTransition:UIViewAnimationTransitionFlipFromLeft];
+    }
+    
+    return self;
+}
 
 - (void)dealloc {
     [route release];

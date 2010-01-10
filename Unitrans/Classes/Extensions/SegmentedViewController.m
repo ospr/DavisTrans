@@ -154,7 +154,7 @@
     if (!selectedViewController)
         [self setView:selectedView];
     else
-        [self animateViewTransition:UIViewAnimationTransitionFlipFromLeft fromViewController:selectedViewController toViewController:newSelectedViewController];
+        [self animateViewTransitionFromViewController:selectedViewController toViewController:newSelectedViewController];
     
     [self setSelectedViewController:newSelectedViewController];
 }
@@ -162,7 +162,7 @@
 #pragma mark -
 #pragma mark View Transition Methods
 
-- (void)animateViewTransition:(UIViewAnimationTransition)transition fromViewController:(UIViewController *)fromViewCtl toViewController:(UIViewController *)toViewCtl
+- (void)animateViewTransitionFromViewController:(ExtendedViewController *)fromViewCtl toViewController:(ExtendedViewController *)toViewCtl
 {    
     NSDictionary *context = [[NSDictionary dictionaryWithObjectsAndKeys:fromViewCtl, @"FromViewController",
                                                                         toViewCtl,   @"ToViewController", nil] retain]; 
@@ -170,6 +170,9 @@
     // Move to will start animation method?
     [fromViewCtl viewWillDisappear:YES];
     [toViewCtl viewWillAppear:YES];
+    
+    // Determine animation
+    UIViewAnimationTransition transition = [toViewCtl segmentTransition];
     
     // Animate setting view property to new view
 	[UIView beginAnimations:nil context:context];
