@@ -192,8 +192,9 @@
         {
 			if ([indexPath row] == 0) 
 			{
-				[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
+				[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:14]];
 				[[cell textLabel] setTextAlignment:UITextAlignmentLeft];
+                [[cell textLabel] setTextColor:[UIColor blueColor]];
 				[cell setAccessoryType:UITableViewCellAccessoryNone];
 			}
 			else
@@ -224,9 +225,9 @@
 		if ([indexPath row] == 0) 
 		{
 			if (showExpiredStopTimes) 
-				[[cell textLabel] setText:@"Hide expired times"];
+				[[cell textLabel] setText:@"Hide expired times..."];
 			else 
-				[[cell textLabel] setText:@"Show expired times"];
+				[[cell textLabel] setText:@"Show expired times..."];
 			cell.backgroundColor = [UIColor whiteColor];
 		}
 		else {
