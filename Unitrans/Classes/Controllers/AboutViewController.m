@@ -14,11 +14,24 @@ NSString *kMainTextKey = @"Main";
 NSString *kDetailTextKey = @"Detail";
 NSString *kResourceURLKey = @"URL";
 
+NSString *kUnitransPhone = @"530-752-BUSS";
+NSString *kUnitransPhoneText = @"(530) 752-BUSS";
 NSString *kUnitransEmail = @"unitrans@ucdavis.edu";
+
+NSString *kTipsyPhone = @"530-752-6666";
+NSString *kTipsyPhoneText = @"(530) 752-6666";
+NSString *kTipsyWebsite = @"http://daviswiki.org/Tipsy_Taxi";
+
+NSString *kUniRidePhone = @"530-754-4373";
+NSString *kUniRidePhoneText = @"(530) 754-4373";
+NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
 
 @implementation AboutViewController
 
 @synthesize agency;
+
+#pragma mark -
+#pragma mark Init Methods
 
 - (id)init
 {
@@ -33,32 +46,67 @@ NSString *kUnitransEmail = @"unitrans@ucdavis.edu";
     [super dealloc];
 }
 
+#pragma mark -
+#pragma mark UIViewController Methods
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self setTitle:@"About Unitrans"];
+    [self setTitle:@"Contacts"];
 
     NSDictionary *unitransPhone = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   @"Unitrans phone", kMainTextKey,
-                                   [agency phone], kDetailTextKey,
-                                   [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", [agency phone]]], kResourceURLKey,
+                                   @"phone", kMainTextKey,
+                                   kUnitransPhoneText, kDetailTextKey,
+                                   [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", kUnitransPhone]], kResourceURLKey,
                                    nil];
     
     NSDictionary *unitransWebsite = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     @"Unitrans website", kMainTextKey,
+                                     @"website", kMainTextKey,
                                      [agency url], kDetailTextKey,
-                                     [NSURL URLWithString:[NSString stringWithFormat:[agency url]]], kResourceURLKey,
+                                     [NSURL URLWithString:[agency url]], kResourceURLKey,
                                      nil];
     
     NSDictionary *unitransEmail = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   @"Unitrans email", kMainTextKey,
+                                   @"email", kMainTextKey,
                                    kUnitransEmail, kDetailTextKey,
                                    [NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", kUnitransEmail]], kResourceURLKey,
                                    nil];
+        
+    NSDictionary *tipsyPhone = [NSDictionary dictionaryWithObjectsAndKeys:
+                                @"phone", kMainTextKey,
+                                kTipsyPhoneText, kDetailTextKey,
+                                [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", kTipsyPhone]], kResourceURLKey,
+                                nil];
     
+    NSDictionary *tipsyWebsite = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  @"website", kMainTextKey,
+                                  kTipsyWebsite, kDetailTextKey,
+                                  [NSURL URLWithString:kTipsyWebsite], kResourceURLKey,
+                                  nil];
     
-    aboutItems = [[NSArray alloc] initWithObjects:unitransWebsite, unitransPhone, unitransEmail, nil];
+    NSDictionary *uniRidePhone = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  @"phone", kMainTextKey,
+                                  kUniRidePhoneText, kDetailTextKey,
+                                  [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", kUniRidePhone]], kResourceURLKey,
+                                  nil];
+    
+    NSDictionary *uniRideWebsite = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    @"website", kMainTextKey,
+                                    kUniRideWebsite, kDetailTextKey,
+                                    [NSURL URLWithString:kUniRideWebsite], kResourceURLKey,
+                                    nil];
+    
+    NSDictionary *about = [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"About", kMainTextKey,
+                           nil];
+    
+    NSArray *unitrans = [NSArray arrayWithObjects:unitransPhone, unitransWebsite, unitransEmail, nil];
+    NSArray *tipsy = [NSArray arrayWithObjects:tipsyPhone, tipsyWebsite, nil];
+    NSArray *uniride = [NSArray arrayWithObjects:uniRidePhone, uniRideWebsite, nil];
+    NSArray *moreInfo = [NSArray arrayWithObjects:about, nil];
+    
+    aboutItems = [[NSArray alloc] initWithObjects:unitrans, tipsy, uniride, moreInfo, nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -77,20 +125,53 @@ NSString *kUnitransEmail = @"unitrans@ucdavis.edu";
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [aboutItems count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [aboutItems count];
+    return [[aboutItems objectAtIndex:section] count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0)
+        return @"Unitrans";
+    if (section == 1)
+        return @"Tipsy Taxi";
+    if (section == 2)
+        return @"UniRide";
+    if (section == 3)
+        return @"More Info";
+    
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {    
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *ContactsCell = @"ContactsCell";
+    static NSString *AboutCell    = @"AboutCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    NSString *cellIdentifier = nil;
+    
+    if ([indexPath section] == 3)
+        cellIdentifier = AboutCell;
+    else
+        cellIdentifier = ContactsCell;
+        
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        // About cell
+        if ([indexPath section] == 3)
+        {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AboutCell] autorelease];
+            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        }
+        // Contacts cells
+        else
+        {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:ContactsCell] autorelease];
+            [[cell detailTextLabel] setAdjustsFontSizeToFitWidth:YES];
+        }
     }
     	
     return cell;
@@ -98,7 +179,7 @@ NSString *kUnitransEmail = @"unitrans@ucdavis.edu";
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *item = [aboutItems objectAtIndex:[indexPath row]];
+    NSDictionary *item = [[aboutItems objectAtIndex:[indexPath section]] objectAtIndex:[indexPath row]];
     
     // Set item's main text and detail text
     [[cell textLabel] setText:[item objectForKey:kMainTextKey]];
@@ -107,23 +188,31 @@ NSString *kUnitransEmail = @"unitrans@ucdavis.edu";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    NSDictionary *item = [aboutItems objectAtIndex:[indexPath row]];
+    NSDictionary *item = [[aboutItems objectAtIndex:[indexPath section]] objectAtIndex:[indexPath row]];
     
-    NSURL *url = [item objectForKey:kResourceURLKey];
-    
-    if (url) {
-        // Open URL if we can open the URL
-        if ([[UIApplication sharedApplication] canOpenURL:url]) {
-            [[UIApplication sharedApplication] openURL:url];
-        }
-        // If we can't open the URL, then alert the user
-        else {
-            NSString *reason = @"Your device does not support this feature.";
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unsupported Feature" message:reason
-                                                           delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-            [alert release];
-        }
+    if ([indexPath section] == 3)
+    {
+        // Show about view
+    }
+    else
+    {
+        // Open URL for selected cell
+        NSURL *url = [item objectForKey:kResourceURLKey];
+        
+        if (url) {
+            // Open URL if we can open the URL
+            if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                [[UIApplication sharedApplication] openURL:url];
+            }
+            // If we can't open the URL, then alert the user
+            else {
+                NSString *reason = @"Your device does not support this feature.";
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unsupported Feature" message:reason
+                                                               delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+                [alert release];
+            }
+        }        
     }
 }
 
@@ -131,7 +220,6 @@ NSString *kUnitransEmail = @"unitrans@ucdavis.edu";
 {
     [[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
 }
-
 
 @end
 

@@ -53,7 +53,7 @@
 
     // Create about button
     UIBarButtonItem *aboutButtonItem = [[UIBarButtonItem alloc] init];
-    [aboutButtonItem setTitle:@"About"];
+    [aboutButtonItem setTitle:@"Info"];
     [aboutButtonItem setTarget:self];
     [aboutButtonItem setAction:@selector(showAboutViewAction:)];
     [[self navigationItem] setRightBarButtonItem:aboutButtonItem];

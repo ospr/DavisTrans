@@ -13,6 +13,8 @@
 @interface AboutViewController : UITableViewController {
     Agency *agency;
     NSArray *aboutItems;
+    
+    NSMutableArray *sections;
 }  
 
 @property (nonatomic, retain) Agency *agency;
