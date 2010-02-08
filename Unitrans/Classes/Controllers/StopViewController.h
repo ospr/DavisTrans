@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "TableViewController.h"
 #import "PredictionOperation.h"
-#import "DatePickerController.h"
+
+@protocol StopViewControllerDelegate;
 
 typedef enum _StopViewSectionIndex {
     SectionIndexSelectedDate = 0,
@@ -20,7 +21,7 @@ typedef enum _StopViewSectionIndex {
 @class Stop;
 @class Route;
 
-@interface StopViewController : TableViewController <PredictionOperationDelegate, DatePickerControllerDelegate> {
+@interface StopViewController : TableViewController <PredictionOperationDelegate> {
     Route *route;
     Stop *stop;
 	
@@ -44,6 +45,8 @@ typedef enum _StopViewSectionIndex {
     
     // Subviews
     UIActivityIndicatorView *predictionLoadingIndicatorView;
+	
+	id<StopViewControllerDelegate> delegate;
 }
 
 @property (nonatomic, retain) Route *route;
@@ -55,6 +58,7 @@ typedef enum _StopViewSectionIndex {
 @property (nonatomic, retain) NSDate *selectedDate;
 @property (nonatomic, assign) BOOL showExpiredStopTimes;
 @property (nonatomic, retain) PredictionOperation *predictionOperation;
+@property (nonatomic, retain) id<StopViewControllerDelegate> delegate;
 
 - (void) updateStopTimes;
 - (void) addUpdateNextStopTimeTimer;
@@ -67,3 +71,10 @@ typedef enum _StopViewSectionIndex {
 - (NSString *)predictionString;
 
 @end
+
+// Delegate methods
+@protocol StopViewControllerDelegate <NSObject>
+@required
+- (void) stopViewController:(StopViewController *)stopviewController showDatePickerWithDate:(NSDate *)date;
+@end
+

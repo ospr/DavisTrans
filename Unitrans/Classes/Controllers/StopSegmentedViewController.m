@@ -14,6 +14,7 @@
 #import "RouteMapViewController.h"
 #import "ExtendedViewController.h"
 #import "DetailOverlayView.h"
+#import "DatePickerController.h"
 
 @implementation StopSegmentedViewController
 
@@ -68,6 +69,7 @@
     {
         if (!stopViewController) {
             stopViewController = [[StopViewController alloc] init];
+			[stopViewController setDelegate:self];
             [stopViewController setRoute:route];
             [stopViewController setStop:stop];
         }
@@ -87,6 +89,31 @@
     }
     
     return viewController;
+}
+
+#pragma mark -
+#pragma mark StopViewController Delegate
+
+- (void) stopViewController:(StopViewController *)stopviewController showDatePickerWithDate:(NSDate *)date
+{
+	DatePickerController *datePickerController = [[[DatePickerController alloc] initWithNibName:@"DatePickerController" bundle:nil] autorelease];
+	[datePickerController setDelegate:self];
+	[datePickerController setInitialDate:date];
+	[[self navigationController] presentModalViewController:datePickerController animated:YES];
+}
+
+#pragma mark -
+#pragma mark DatePickerControllerDelegate methods
+
+- (void) datePickerController:(DatePickerController *)datePickerController dateChangedTo:(NSDate *)newDate
+{
+	if(newDate)
+	{
+		[stopViewController setSelectedDate:newDate];
+		[stopViewController updateStopTimes];
+	}
+	
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 @end

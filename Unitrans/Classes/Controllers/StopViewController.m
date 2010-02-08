@@ -26,6 +26,7 @@
 @synthesize predictionOperation;
 @synthesize showExpiredStopTimes;
 @synthesize selectedDate;
+@synthesize delegate;
 
 #pragma mark -
 #pragma mark Init Methods
@@ -250,10 +251,7 @@
 {
 	if([indexPath section] == SectionIndexSelectedDate)
 	{
-		DatePickerController *datePickerController = [[[DatePickerController alloc] initWithNibName:@"DatePickerController" bundle:nil] autorelease];
-		[datePickerController setDelegate:self];
-		[datePickerController setInitialDate:selectedDate];
-		[self presentModalViewController:datePickerController animated:YES];
+		[delegate stopViewController:self showDatePickerWithDate:selectedDate];
 	}
     else if ([indexPath section] == SectionIndexPredictions)
     {
@@ -463,15 +461,6 @@
     
     [self setPredictions:nil];
     [[self tableView] reloadData];
-}
-
-#pragma mark -
-#pragma mark DatePickerControllerDelegate methods
-
-- (void) datePickerController:(DatePickerController *)datePickerController dateChangedTo:(NSDate *)newDate
-{
-	[self setSelectedDate:newDate];
-	[self updateStopTimes];
 }
 
 @end

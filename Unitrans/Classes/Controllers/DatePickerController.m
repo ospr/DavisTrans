@@ -52,14 +52,15 @@
 
 - (IBAction) cancel:(id)sender
 {
-	[self dismissModalViewControllerAnimated:YES];
+	[delegate datePickerController:self dateChangedTo:nil];
 }
 
 - (IBAction) done:(id)sender
 {
-	if (![[datePicker date] isEqualToDate:initialDate]) 
+	if ([[datePicker date] isEqualToDate:initialDate]) 
+		[delegate datePickerController:self dateChangedTo:nil];
+	else
 		[delegate datePickerController:self dateChangedTo:[datePicker date]];
-	[self dismissModalViewControllerAnimated:YES];
 }
 
 @end

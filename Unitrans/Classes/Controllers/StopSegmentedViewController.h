@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 
 #import "SegmentedViewController.h"
+#import "StopViewController.h"
+#import "DatePickerController.h"
 
 @class Route;
 @class Stop;
-@class StopViewController;
 @class RouteMapViewController;
 
-@interface StopSegmentedViewController : SegmentedViewController {
+@interface StopSegmentedViewController : SegmentedViewController <StopViewControllerDelegate, DatePickerControllerDelegate> {
     Route *route;
     Stop *stop;
     
