@@ -9,9 +9,9 @@ High
 • Sort pretiction times (sometimes they're not in order in xml??) (kip)
 • Fix bug where bus remains on map after ending bus updates because thread was still running and finishes and updates the map.
 • Favorites/Recent stop section in RouteView
-• MapView for StopTimeView (move arrival/departure times to same table)
-• Derive valid times for Patterns
 • Show all stops in mapView and have the pattern button just change the path
+• Verify that phone numbers are correct by calling them ;)
+• View not correctly set up when navigating to a new StopView from StopTimeView
 
 Lower
 =====
@@ -20,10 +20,12 @@ Lower
 • Initial region for L & F route needs work.
 • Remove stoptimes that are at the end of routes. (??) (kip)
 • Move loading of mapView to a separate thread instead of using place-holder image.
+• Pre-calculate map span for each route
+• Fix (hide) tile loading bug
 
 Secondary
 =========
-• Fix tile loading bug
+• MapView for StopTimeView (move arrival/departure times to same table)
 • At a given stop for a given route also show other arrival times for other routes.
 • Organize stops better: separate inbound/outbound sections?
 • Stop annotations show stop sequence number in title
