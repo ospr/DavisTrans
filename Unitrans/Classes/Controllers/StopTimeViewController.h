@@ -14,15 +14,18 @@ typedef enum _StopTimeViewDataType {
     kStopTimeViewDataTypeDepartureTimes
 } StopTimeViewDataType;
 
+@class Route;
 @class StopTime;
 
 @interface StopTimeViewController : TableViewController {
+    Route *route;
     StopTime *stopTime;
 	NSArray *arrivalTimes;
     
     StopTimeViewDataType dataType;
 }
 
+@property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) StopTime *stopTime;
 @property (nonatomic, retain) NSArray *arrivalTimes;
 @property (nonatomic, assign) StopTimeViewDataType dataType;

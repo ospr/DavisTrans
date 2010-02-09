@@ -5,12 +5,9 @@ Priority
 High
 ======
 • Create new CreditView with credits.
-• Remove duplicate prediction times. (kip)
-• Sort pretiction times (sometimes they're not in order in xml??) (kip)
 • Fix bug where bus remains on map after ending bus updates because thread was still running and finishes and updates the map.
 • Favorites/Recent stop section in RouteView
 • Verify that phone numbers are correct by calling them ;)
-• View not correctly set up when navigating to a new StopView from StopTimeView
 • HUD to display currently selected pattern for mapView
 
 Lower
@@ -19,8 +16,7 @@ Lower
 • Set maximum and minimum dates for date picker
 • Initial region for L & F route needs work.
 • Remove stoptimes that are at the end of routes. (??) (kip)
-• Move loading of mapView to a separate thread instead of using place-holder image.
-• Pre-calculate map span for each route
+• Move loading of mapView to a separate thread instead of using place-holder image OR Pre-calculate map span for each route
 • Fix (hide) tile loading bug
 
 Secondary
@@ -86,3 +82,6 @@ Done
 • StopTimeView has sections for next arrival times AND previous departure times (kip)
 • Add other bus phones (tipsy, uniride, etc)
 • Show all stops in mapView and have the pattern button just change the path
+• Remove duplicate prediction times. (kip)
+• Sort pretiction times (sometimes they're not in order in xml??) (kip)
+• View not correctly set up when navigating to a new StopView from StopTimeView

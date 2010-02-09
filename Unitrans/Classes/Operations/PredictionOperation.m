@@ -86,6 +86,11 @@
 	
 	NSString *predictionURLstring = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=predictions&a=unitrans&stopId=%@&r=%@", stopId, routeName];
 	[self parseXMLAtURLString:predictionURLstring];
+    
+    // HACK: NextBus sometimes returns duplicate times and out of order, we fix that here
+    // Remove duplicate times and sort
+    [self setPredictionTimes:[NSMutableArray arrayWithArray:[[NSSet setWithArray:predictionTimes] allObjects]]];
+    [predictionTimes sortUsingSelector:@selector(compare:)];
 }
 
 - (void) retrieveStopIDFromRouteConfig

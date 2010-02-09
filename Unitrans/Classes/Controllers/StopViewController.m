@@ -276,10 +276,12 @@
 		else
 		{
 			StopTime *stopTime = [activeStopTimes objectAtIndex:[indexPath row]-1];
-			StopTimeSegmentedViewController *stopTimeViewController = [[StopTimeSegmentedViewController alloc] init];
-			[stopTimeViewController setStopTime:stopTime];
-			[self.navigationController pushViewController:stopTimeViewController animated:YES];
-			[stopTimeViewController release];
+			StopTimeSegmentedViewController *stopTimeSegmentedViewController = [[StopTimeSegmentedViewController alloc] init];
+            [stopTimeSegmentedViewController setRoute:route];
+			[stopTimeSegmentedViewController setStopTime:stopTime];
+            
+			[self.navigationController pushViewController:stopTimeSegmentedViewController animated:YES];
+			[stopTimeSegmentedViewController release];
 		}
 	}
 }

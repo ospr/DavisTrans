@@ -9,15 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "SegmentedViewController.h"
 
+@class Route;
 @class StopTime;
 @class StopTimeViewController;
 
 @interface StopTimeSegmentedViewController : SegmentedViewController {
+    Route *route;
     StopTime *stopTime;
     
     StopTimeViewController *stopTimeViewController;
 }
 
+@property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) StopTime *stopTime;
 
 @end

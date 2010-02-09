@@ -7,7 +7,7 @@
 //
 
 #import "StopTimeViewController.h"
-#import "StopViewController.h"
+#import "StopSegmentedViewController.h"
 #import "Trip.h"
 #import "StopTime.h"
 #import "Stop.h"
@@ -16,6 +16,7 @@
 
 @implementation StopTimeViewController
 
+@synthesize route;
 @synthesize stopTime;
 @synthesize arrivalTimes;
 @dynamic dataType;
@@ -36,6 +37,7 @@
 
 - (void)dealloc 
 {
+    [route release];
     [stopTime release];
     [arrivalTimes release];
     
@@ -175,16 +177,16 @@
 {    
     // Get selected stopTime and the selected stop
     StopTime *selectedStopTime = [arrivalTimes objectAtIndex:[indexPath row]];
-    Stop *selectedStop = [selectedStopTime stop];
+    Stop *selectedStop = [selectedStopTime stop];    
     
     // Create new StopViewController
-	StopViewController *stopViewController = [[StopViewController alloc] init];
-	[stopViewController setStop:selectedStop];
-	[stopViewController setRoute:[[stopTime trip] route]];
+    StopSegmentedViewController *stopSegmentedViewController = [[StopSegmentedViewController alloc] init];
+	[stopSegmentedViewController setStop:selectedStop];
+	[stopSegmentedViewController setRoute:route];
     
     // Push StopViewController onto nav stack
-	[[self navigationController] pushViewController:stopViewController animated:YES];
-	[stopViewController release];
+	[[self navigationController] pushViewController:stopSegmentedViewController animated:YES];
+	[stopSegmentedViewController release];
 }
 
 @end

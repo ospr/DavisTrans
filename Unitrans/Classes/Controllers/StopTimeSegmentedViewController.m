@@ -16,6 +16,7 @@
 
 @implementation StopTimeSegmentedViewController
 
+@synthesize route;
 @synthesize stopTime;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil 
@@ -31,6 +32,9 @@
 
 - (void)dealloc 
 {
+    [route release];
+    [stopTime release];
+    
     [stopTimeViewController release];
     
     [super dealloc];
@@ -58,6 +62,7 @@
     // Create view controller if needed
     if (!stopTimeViewController) {
         stopTimeViewController = [[StopTimeViewController alloc] init];
+        [stopTimeViewController setRoute:route];
         [stopTimeViewController setStopTime:stopTime];
     }
 
