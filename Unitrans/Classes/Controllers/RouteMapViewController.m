@@ -121,6 +121,9 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     RoutePattern *defaultRoutePattern = [[route orderedRoutePatterns] objectAtIndex:0];
     [self updateMapWithRoutePattern:defaultRoutePattern];
     
+    // Set stopAnnotations to all stops in route
+    [self setStopAnnotations:[[route allStops] allObjects]];
+    
     // Tell map to zoom to show entire route
     [self zoomFitAnimated:NO];
 }
@@ -174,19 +177,38 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 - (MKAnnotationView *)mapView:(MKMapView *)mv viewForAnnotation:(id <MKAnnotation>)annotation
 {        
     if ([annotation isKindOfClass:[Stop class]]) 
-    {
-        // Use a simple pinAnnotation for the stops
-        MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Stop"];
-        
-        if (!pinAnnotationView) {
-            pinAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Stop"] autorelease];
-            [pinAnnotationView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
-            [pinAnnotationView setCanShowCallout:YES];
+    {        
+        // If Stop is in current route pattern list of stops add a regular pin
+        if ([[[routePattern trip] stops] containsObject:annotation])
+        {   
+            MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Stop"];
+            
+            if (!pinAnnotationView) {
+                pinAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Stop"] autorelease];
+                [pinAnnotationView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
+                [pinAnnotationView setCanShowCallout:YES];
+            }
+            
+            [pinAnnotationView setAnnotation:annotation];
+            
+            return pinAnnotationView;
         }
-        
-        [pinAnnotationView setAnnotation:annotation];
-
-        return pinAnnotationView;
+        // Else if Stop is NOT in the current route pattern, add a hidden pin
+        else {
+            MKAnnotationView *pinAnnotationView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"HiddenStop"];
+            
+            if (!pinAnnotationView) {
+                pinAnnotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"HiddenStop"] autorelease];
+                [pinAnnotationView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
+                [pinAnnotationView setCanShowCallout:YES];
+                [pinAnnotationView setImage:[UIImage imageNamed:@"HiddenStop.png"]];
+                [pinAnnotationView setCenterOffset:CGPointMake(8, -16)];
+            }
+            
+            [pinAnnotationView setAnnotation:annotation];
+            
+            return pinAnnotationView;
+        }
     }
     else if ([annotation isKindOfClass:[RealTimeBusInfo class]])
     {
@@ -245,7 +267,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     // Iterate through subviews and find the RealTimeBusInfo annotations
     // move them to just above the routeview
     for (UIView *view in [annotationSuperView subviews])
-    {
+    {   
         if ([view isMemberOfClass:[MKAnnotationView class]] && [[(MKAnnotationView*)view annotation] isKindOfClass:[RealTimeBusInfo class]])
             [[view superview] insertSubview:view aboveSubview:routeAnnotationView];
     }
@@ -417,12 +439,9 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [mapView removeAnnotation:routeAnnotation];
     [mapView addAnnotation:routeAnnotation];
     
-    // Remove old stopAnnotations and add new ones
+    // Update stopAnnotations
     [mapView removeAnnotations:stopAnnotations];
-    [mapView addAnnotations:[[trip stops] allObjects]];
-    
-    // Set new stopAnnotations
-    [self setStopAnnotations:[[trip stops] allObjects]];
+    [mapView addAnnotations:[[route allStops] allObjects]];    
 }
 
 #pragma mark -

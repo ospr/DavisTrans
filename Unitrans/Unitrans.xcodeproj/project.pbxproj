@@ -36,6 +36,7 @@
 		376FD62311017C43004CC2AF /* URouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD60F11017C43004CC2AF /* URouteToolbarIcon_43.png */; };
 		376FD62411017C43004CC2AF /* WRouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD61011017C43004CC2AF /* WRouteToolbarIcon_43.png */; };
 		3795472510C7A13E005A2D93 /* BusAnimationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */; };
+		37BAFE4C1120FB0500077C65 /* HiddenStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BAFE4B1120FB0500077C65 /* HiddenStop.png */; };
 		37C127A210CC9DB6007604BB /* BusInformationOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C127A110CC9DB6007604BB /* BusInformationOperation.m */; };
 		37C2C57D10E003EE0001E1AF /* RoutePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2C57C10E003EE0001E1AF /* RoutePattern.m */; };
 		37C2CB7F10E3F54B0001E1AF /* SegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2CB7E10E3F54B0001E1AF /* SegmentedViewController.m */; };
@@ -163,6 +164,7 @@
 		376FD61011017C43004CC2AF /* WRouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WRouteToolbarIcon_43.png; sourceTree = "<group>"; };
 		3795472310C7A13E005A2D93 /* BusAnimationAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusAnimationAnnotationView.h; sourceTree = "<group>"; };
 		3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusAnimationAnnotationView.m; sourceTree = "<group>"; };
+		37BAFE4B1120FB0500077C65 /* HiddenStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HiddenStop.png; sourceTree = "<group>"; };
 		37C127A010CC9DB6007604BB /* BusInformationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusInformationOperation.h; sourceTree = "<group>"; };
 		37C127A110CC9DB6007604BB /* BusInformationOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusInformationOperation.m; sourceTree = "<group>"; };
 		37C2C57B10E003EE0001E1AF /* RoutePattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutePattern.h; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				37C2CEB910E881F70001E1AF /* Location.png */,
 				37C2CE4710E7EFB60001E1AF /* Network.png */,
 				37103A2C10F328FD00246728 /* GMaps_Blank.png */,
+				37BAFE4B1120FB0500077C65 /* HiddenStop.png */,
 				373EF06510CC77FF007CFD39 /* Circles */,
 				376FD5FC11017C43004CC2AF /* RouteToolbarIcons */,
 				7CE69E5D10C243890002DE93 /* RouteIcons */,
@@ -714,6 +717,7 @@
 				376FD62211017C43004CC2AF /* TRouteToolbarIcon_43.png in Resources */,
 				376FD62311017C43004CC2AF /* URouteToolbarIcon_43.png in Resources */,
 				376FD62411017C43004CC2AF /* WRouteToolbarIcon_43.png in Resources */,
+				37BAFE4C1120FB0500077C65 /* HiddenStop.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
