@@ -10,10 +10,6 @@ High
 • HUD to display currently selected pattern for mapView
 • Fix bug where if a time expires while displayed in the StopView, the time isn't hidden when hide expire times is pressed.
 • Expired times don't correctly update after 12am??
-• Sometimes cancel button in choose pattern sheet doesn't work??
-• Fix bug where navigating from StopTimeView to StopView mapView doesn't show map
-• Need to offset popup view correctly after a user selects a hidden stop pin
-• In RouteMapView if a Stop has been specified, then change the color of the pin
 
 Lower
 =====
@@ -21,13 +17,11 @@ Lower
 • Set maximum and minimum dates for date picker
 • Initial region for L & F route needs work.
 • Derive whether a stopTime is at the beginning of a trip or not, if so then specify that that time is a departure and the rest are arrival stop times
-• Move loading of mapView to a separate thread instead of using place-holder image OR Pre-calculate map span for each route
 • Fix (hide) tile loading bug
 • Show prediction times in accessory popup view when user taps a stop
 • Don't remove pins when changing patterns, instead just update pin images
 • Clean up bus pulse circles
-• Map span should include all stop pins
-• Use pins instead of route coordinates to derive map span (should speed things up too)
+• Make pin for selected stops also "hidden" when necessary
 
 Secondary
 =========
@@ -104,3 +98,9 @@ Done
 • Sort stops by name then by direction bound.
 • Specify when there are no buses running in schedule table and hide show/hide expired cell
 • Fix Arrival/Departure transitions in StopTimeView
+• Fix bug where navigating from StopTimeView to StopView mapView doesn't show map
+• In RouteMapView if a Stop has been specified, then change the color of the pin
+• Need to offset popup view correctly after a user selects a hidden stop pin
+• Map span should include all stop pins
+• Use pins instead of route coordinates to derive map span (should speed things up too)
+• Sometimes cancel button in choose pattern sheet doesn't work??

@@ -165,7 +165,22 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 
 - (MKAnnotationView *)mapView:(MKMapView *)mv viewForAnnotation:(id <MKAnnotation>)annotation
 {        
-    if ([annotation isKindOfClass:[Stop class]]) 
+    if (stop && [stop isEqual:annotation]) 
+    {
+        MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"DefaultStop"];
+        
+        if (!pinAnnotationView) {
+            pinAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"DefaultStop"] autorelease];
+            [pinAnnotationView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
+            [pinAnnotationView setCanShowCallout:YES];
+            [pinAnnotationView setPinColor:MKPinAnnotationColorPurple];
+        }
+        
+        [pinAnnotationView setAnnotation:annotation];
+        
+        return pinAnnotationView;
+    }
+    else if ([annotation isKindOfClass:[Stop class]]) 
     {        
         // If Stop is in current route pattern list of stops add a regular pin
         if ([[[routePattern trip] stops] containsObject:annotation])
@@ -192,6 +207,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
                 [pinAnnotationView setCanShowCallout:YES];
                 [pinAnnotationView setImage:[UIImage imageNamed:@"HiddenStop.png"]];
                 [pinAnnotationView setCenterOffset:CGPointMake(8, -16)];
+                [pinAnnotationView setCalloutOffset:CGPointMake(-8, 1)];
             }
             
             [pinAnnotationView setAnnotation:annotation];
@@ -497,11 +513,9 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 - (IBAction)showPatternsAction:(id)sender
 {
     // Set up actionSheet for patterns
-    UIActionSheet *patternSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Route Pattern" 
-                                                              delegate:self
-                                                     cancelButtonTitle:nil
-                                                destructiveButtonTitle:nil
-                                                     otherButtonTitles:nil];
+    UIActionSheet *patternSheet = [[UIActionSheet alloc] init];
+    [patternSheet setTitle:@"Choose Route Pattern"];
+    [patternSheet setDelegate:self];
     
     // Add pattern names to actionSheet
     for (NSString *patternName in [[route orderedRoutePatterns] valueForKey:@"name"])
@@ -512,7 +526,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [patternSheet setCancelButtonIndex:([patternSheet numberOfButtons] - 1)];
     
     // Show actionSheet
-    [patternSheet showInView:[self view]];
+    [patternSheet showFromToolbar:[[self navigationController] toolbar]];
     [patternSheet release];
 }
 
