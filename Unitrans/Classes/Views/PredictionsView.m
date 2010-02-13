@@ -127,6 +127,8 @@ CGFloat kLoadingIndicatorPadding = 5.0;
         predictionText = @"Updating Predictions...";
     else if (!predictions)
         predictionText = @"Error gathering predictions.";
+    else if ([predictions count] == 1 && [[predictions objectAtIndex:0] isEqual:@"Now"])
+        predictionText = @"Now";
     else if ([predictions count] > 0)
         predictionText = [NSString stringWithFormat:@"%@ minutes", [predictions componentsJoinedByString:@", "]];
     else
@@ -143,8 +145,13 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [loadingIndicatorView stopAnimating];
     loading = NO;
+    
+    // If the first time is 0 convert it to "Now"
+    NSMutableArray *mutableNewPredictions = [NSMutableArray arrayWithArray:newPredictions];
+    if ([newPredictions count] > 0 && [[newPredictions objectAtIndex:0] isEqualToNumber:[NSNumber numberWithInteger:0]])
+        [mutableNewPredictions replaceObjectAtIndex:0 withObject:@"Now"];
 	
-    [self setPredictions:newPredictions];
+    [self setPredictions:[NSArray arrayWithArray:mutableNewPredictions]];
     [self updatePredictionText];
 }
 

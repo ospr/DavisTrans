@@ -49,8 +49,9 @@
     [self setTitle:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
 
     // Get route stops and sort by alphabetical order
-    NSSortDescriptor *stopsSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease];
-    NSArray *sortedStops = [[[route allStops] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopsSortDescriptor]];
+    NSSortDescriptor *stopsSortDescriptor1 = [[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease];
+    NSSortDescriptor *stopsSortDescriptor2 = [[[NSSortDescriptor alloc] initWithKey:@"headingString" ascending:YES] autorelease];
+    NSArray *sortedStops = [[[route allStops] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:stopsSortDescriptor1, stopsSortDescriptor2, nil]];
     [self setStops:sortedStops];
     
     // Create table view

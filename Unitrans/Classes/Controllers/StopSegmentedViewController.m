@@ -50,7 +50,7 @@
     // Create detail overlay view
     DetailOverlayView *detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, 255, 40)];
     [[detailOverlayView textLabel] setText:[stop name]];
-    [[detailOverlayView detailTextLabel] setText:[stop stopDescription]];
+    [[detailOverlayView detailTextLabel] setText:[stop headingString]];
     [[detailOverlayView imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteToolbarIcon_43.png", [route shortName]]]];
     
     // Set navbar title view

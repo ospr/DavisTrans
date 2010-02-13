@@ -14,6 +14,7 @@
 #import "StopTime.h"
 #import "Route.h"
 #import "NSDate_Extensions.h"
+#import "UIColor_Extensions.h"
 
 CGFloat kPredictionViewHeight = 50.0;
 
@@ -136,8 +137,12 @@ CGFloat kPredictionViewHeight = 50.0;
 {
     if(section == SectionIndexSelectedDate)
 		return 1;
-	else if (section == SectionIndexStopTimes)
-		return [activeStopTimes count] + 1; // +1 for show/hide exp. times cell
+	else if (section == SectionIndexStopTimes) {
+        if ([self shouldShowNoMoreScheduledArrivals])
+            return 1 + 1; // 1 for the show/hide expired times and 1 for "no more buses" cell
+        else 
+            return [activeStopTimes count] + 1; // +1 for show/hide expired times cell
+    }
     else
         return 0;
 }
@@ -145,9 +150,9 @@ CGFloat kPredictionViewHeight = 50.0;
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
 	if(section == SectionIndexSelectedDate)
-		return [NSString stringWithString:@"Schedule for date:"];
+		return @"Schedule Date";
 	else if (section == SectionIndexStopTimes)
-		return @"Schedule";
+		return @"Scheduled Stop Times";
     else
         return @"";
 }
@@ -163,7 +168,9 @@ CGFloat kPredictionViewHeight = 50.0;
         case SectionIndexStopTimes:    
             if ([indexPath row] == 0)
                 cellIdentifier = @"ExpiredCell";
-            else 
+            else if ([self shouldShowNoMoreScheduledArrivals])
+                cellIdentifier = @"NoBuses";
+            else
                 cellIdentifier = @"StopTimes";
             break;
     }
@@ -175,26 +182,28 @@ CGFloat kPredictionViewHeight = 50.0;
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         
         // Set up the cell
-        if([indexPath section] == SectionIndexSelectedDate)
+        if([cellIdentifier isEqualToString:@"SelectedDate"])
         {
             [[cell textLabel] setTextAlignment:UITextAlignmentCenter];
             [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
         }
-        else if ([indexPath section] == SectionIndexStopTimes)
+        else if ([cellIdentifier isEqualToString:@"ExpiredCell"])
         {
-			if ([indexPath row] == 0) 
-			{
-				[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:14]];
-				[[cell textLabel] setTextAlignment:UITextAlignmentLeft];
-                [[cell textLabel] setTextColor:[UIColor blueColor]];
-				[cell setAccessoryType:UITableViewCellAccessoryNone];
-			}
-			else
-			{
-				[[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
-				[[cell textLabel] setTextAlignment:UITextAlignmentLeft];
-				[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-			}
+            [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:14]];
+            [[cell textLabel] setTextAlignment:UITextAlignmentLeft];
+            [[cell textLabel] setTextColor:[UIColor blueColor]];
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+        }
+        else if ([cellIdentifier isEqualToString:@"NoBuses"])
+        {
+            [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
+            [cell setBackgroundColor:[UIColor extraLightGrayColor]];
+        }
+        else if ([cellIdentifier isEqualToString:@"StopTimes"])
+        {
+            [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
+            [[cell textLabel] setTextAlignment:UITextAlignmentLeft];
+            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         }
     }
 
@@ -212,20 +221,27 @@ CGFloat kPredictionViewHeight = 50.0;
 	{
 		if ([indexPath row] == 0) 
 		{
-			if (showExpiredStopTimes) 
+            if ([allStopTimes count] == 0)
+                [[cell textLabel] setText:@"No scheduled bus service."];
+			else if (showExpiredStopTimes) 
 				[[cell textLabel] setText:@"Hide expired times..."];
 			else 
 				[[cell textLabel] setText:@"Show expired times..."];
-			cell.backgroundColor = [UIColor whiteColor];
 		}
-		else {
-			StopTime *stopTime = [activeStopTimes objectAtIndex:[indexPath row]-1];
+        else if ([self shouldShowNoMoreScheduledArrivals])
+        {
+            [[cell textLabel] setText:@"No more scheduled arrivals at this time."];
+        }
+		else
+        {
+			StopTime *stopTime = [activeStopTimes objectAtIndex:[indexPath row]-1]; // -1 for show/hide expired times cell
 			NSDate *arrivalDate = [[NSDate alloc] initWithTimeInterval:[[stopTime arrivalTime] unsignedIntegerValue] sinceDate:[selectedDate beginningOfDay]];
 			
+            // Cells with expired times are colored grey, non-expired cells are colored white
 			if([arrivalDate earlierDate:[NSDate date]] == arrivalDate)
-				cell.backgroundColor = [UIColor colorWithRed:0.82 green:0.82 blue:0.82 alpha:1.0];
+				[cell setBackgroundColor:[UIColor extraLightGrayColor]];
 			else
-				cell.backgroundColor = [UIColor whiteColor];
+				[cell setBackgroundColor:[UIColor whiteColor]];
 			
 			[arrivalDate release];
 			[[cell textLabel] setText:[stopTime arrivalTimeString]];
@@ -248,6 +264,7 @@ CGFloat kPredictionViewHeight = 50.0;
 				[self setActiveStopTimes:currentStopTimes];
 			else
 				[self setActiveStopTimes:allStopTimes];
+            
 			[self setShowExpiredStopTimes:!showExpiredStopTimes];
 			[[self tableView] reloadData];
 		}
@@ -289,6 +306,11 @@ CGFloat kPredictionViewHeight = 50.0;
         return @"Today";
     
     return [selectedDateFormatter stringFromDate:selectedDate];
+}
+
+- (BOOL)shouldShowNoMoreScheduledArrivals
+{
+    return !showExpiredStopTimes && [currentStopTimes count] == 0 && [allStopTimes count] != 0;
 }
 
 #pragma mark -

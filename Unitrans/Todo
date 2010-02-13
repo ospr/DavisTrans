@@ -8,24 +8,24 @@ High
 • Favorites/Recent stop section in RouteView
 • Verify that phone numbers are correct by calling them ;)
 • HUD to display currently selected pattern for mapView
-• Change "Info" button to "I"
-• Fix sorting of prediction times
 • Fix bug where if a time expires while displayed in the StopView, the time isn't hidden when hide expire times is pressed.
-• Convert a 0 prediction to "Now"
-• Sort stops by name then by direction bound.
 • Expired times don't correctly update after 12am??
-• Change "Buses Head..." to just the bound name
-• Specify when there are no buses running in schedule table and hide show/hide expired cell
+• Sometimes cancel button in choose pattern sheet doesn't work??
+• Fix bug where navigating from StopTimeView to StopView mapView doesn't show map
 
 Lower
 =====
 • PredictionTimes for selected stop in RouteMapView
 • Set maximum and minimum dates for date picker
 • Initial region for L & F route needs work.
-• Remove stoptimes that are at the end of routes. (??) (kip)
+• Derive whether a stopTime is at the beginning of a trip or not, if so then specify that that time is a departure and the rest are arrival stop times
 • Move loading of mapView to a separate thread instead of using place-holder image OR Pre-calculate map span for each route
 • Fix (hide) tile loading bug
 • Show prediction times in accessory popup view when user taps a stop
+• Don't remove pins when changing patterns, instead just update pin images
+• Clean up bus pulse circles
+• Map span should include all stop pins
+• Use pins instead of route coordinates to derive map span (should speed things up too)
 
 Secondary
 =========
@@ -95,3 +95,10 @@ Done
 • View not correctly set up when navigating to a new StopView from StopTimeView
 • HUD to display prediction times
 • Change "List" to "Schedule" in StopSegmentedViewController
+• Change "Info" button to "I"
+• Change "Buses Head..." to just the bound name
+• Fix sorting of prediction times
+• Convert a 0 prediction to "Now"
+• Sort stops by name then by direction bound.
+• Specify when there are no buses running in schedule table and hide show/hide expired cell
+• Fix Arrival/Departure transitions in StopTimeView

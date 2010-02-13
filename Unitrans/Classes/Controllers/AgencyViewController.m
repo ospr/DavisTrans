@@ -8,7 +8,6 @@
 
 #import "AgencyViewController.h"
 #import "RouteViewController.h"
-#import "AboutViewController.h"
 #import "Agency.h"
 #import "Route.h"
 #import "DatabaseManager.h"
@@ -51,13 +50,12 @@
     UIImageView *titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"UnitransTitle.png"]] autorelease];
     [[self navigationItem] setTitleView:titleView];
 
-    // Create about button
-    UIBarButtonItem *aboutButtonItem = [[UIBarButtonItem alloc] init];
-    [aboutButtonItem setTitle:@"Info"];
-    [aboutButtonItem setTarget:self];
-    [aboutButtonItem setAction:@selector(showAboutViewAction:)];
-    [[self navigationItem] setRightBarButtonItem:aboutButtonItem];
-    [aboutButtonItem release];
+    // Add info button
+    UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [infoButton addTarget:self action:@selector(showAboutViewAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *infoButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
+    [[self navigationItem] setRightBarButtonItem:infoButtonItem];
+    [infoButtonItem release];
     
     // Get agency routes and sort by alphabetical order
     NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"shortName" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
@@ -161,8 +159,20 @@
 {
     AboutViewController *aboutViewController = [[AboutViewController alloc] init];
     [aboutViewController setAgency:agency];
-    [[self navigationController] pushViewController:aboutViewController animated:YES];
+    [aboutViewController setDelegate:self];
+    
+    UINavigationController *infoNavigationController = [[UINavigationController alloc] initWithRootViewController:aboutViewController];
+    [[infoNavigationController navigationBar] setTintColor:[[[self navigationController] navigationBar] tintColor]];
+    
+    [[self navigationController] presentModalViewController:infoNavigationController animated:YES];
+    
     [aboutViewController release];
+    [infoNavigationController release];
+}
+
+- (void)aboutViewControllerDidFinish:(AboutViewController *)aboutViewController
+{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

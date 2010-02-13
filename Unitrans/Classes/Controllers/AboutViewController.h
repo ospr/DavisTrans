@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol AboutViewControllerDelegate;
+
 @class Agency;
 
 @interface AboutViewController : UITableViewController {
@@ -15,8 +17,17 @@
     NSArray *aboutItems;
     
     NSMutableArray *sections;
+    
+    id<AboutViewControllerDelegate> delegate;
 }  
 
 @property (nonatomic, retain) Agency *agency;
+@property (nonatomic, assign) id<AboutViewControllerDelegate> delegate;
 
+@end
+
+// Delegate methods
+@protocol AboutViewControllerDelegate <NSObject>
+@required
+- (void)aboutViewControllerDidFinish:(AboutViewController *)aboutViewController;
 @end

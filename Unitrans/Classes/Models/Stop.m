@@ -69,7 +69,7 @@
 
 - (NSString *)subtitle
 {
-    return [self stopDescription];
+    return [self headingString];
 }
 
 @end

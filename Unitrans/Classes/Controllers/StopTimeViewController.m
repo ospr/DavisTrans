@@ -24,17 +24,6 @@
 #pragma mark -
 #pragma mark Init Methods
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    
-    if (self) {
-        [self setSegmentTransition:UIViewAnimationTransitionFlipFromLeft];
-    }
-    
-    return self;
-}
-
 - (void)dealloc 
 {
     [route release];
@@ -187,6 +176,17 @@
     // Push StopViewController onto nav stack
 	[[self navigationController] pushViewController:stopSegmentedViewController animated:YES];
 	[stopSegmentedViewController release];
+}
+
+#pragma mark -
+#pragma mark Custom Accessor Methods
+
+- (UIViewAnimationTransition)segmentTransition
+{
+    if (dataType == kStopTimeViewDataTypeArrivalTimes)
+        return UIViewAnimationTransitionFlipFromLeft;
+    else
+        return UIViewAnimationTransitionFlipFromRight;
 }
 
 @end

@@ -54,6 +54,7 @@ typedef enum _StopViewSectionIndex {
 - (void) addUpdateNextStopTimeTimer;
 
 - (NSString *)selectedDateString;
+- (BOOL)shouldShowNoMoreScheduledArrivals;
 
 @end
 

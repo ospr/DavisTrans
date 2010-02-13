@@ -29,6 +29,7 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
 @implementation AboutViewController
 
 @synthesize agency;
+@synthesize delegate;
 
 #pragma mark -
 #pragma mark Init Methods
@@ -53,8 +54,15 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
 {
     [super viewDidLoad];
     
+    // Set title
     [self setTitle:@"Contacts"];
+    
+    // Add done button
+    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
+    [[self navigationItem] setRightBarButtonItem:doneItem];
+    [doneItem release];
 
+                                                                                                                                            
     NSDictionary *unitransPhone = [NSDictionary dictionaryWithObjectsAndKeys:
                                    @"phone", kMainTextKey,
                                    kUnitransPhoneText, kDetailTextKey,
@@ -219,6 +227,11 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     [[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
+}
+
+- (IBAction)done:(id)sender
+{
+    [delegate aboutViewControllerDidFinish:self];
 }
 
 @end

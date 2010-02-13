@@ -13,4 +13,6 @@
 
 + (UIColor *)colorFromHexadecimal:(NSInteger)hex alpha:(CGFloat)alpha;
 
++ (UIColor *)extraLightGrayColor;
+
 @end
