@@ -45,6 +45,8 @@
 @property (nonatomic, retain) NSArray *busAnnotations;
 @property (nonatomic, retain) NSArray *stopAnnotations;
 
+- (void)loadMapView;
+
 - (void)zoomFitAnimated:(BOOL)animated;
 - (void)beginContinuousBusUpdates;
 - (void)endContinuousBusUpdates;

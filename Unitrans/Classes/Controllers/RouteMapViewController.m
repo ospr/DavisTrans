@@ -69,19 +69,12 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [super dealloc];
 }
 
-- (void)loadView
-{
-    // Set view to be an image of google maps before it has loaded
-    // so the loading of the view is quicker
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GMaps_Blank.png"]];
-    
-    [self setView:imageView];
-    [imageView release];
-}
-
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
+    
+    // Load mapView
+    [self loadMapView];
     
     // Create patterns button
     UIBarButtonItem *showPatternsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Network.png"]
@@ -139,10 +132,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 - (void)viewDidAppear:(BOOL)animated
 {    
     [super viewDidAppear:animated];
-    
-    // Load mapView after the view has appeared
-    if (!mapView)
-        [self loadMapView];
     
     // If stop has been set, select it
     if (stop)
@@ -303,13 +292,49 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
-# pragma mark -
-# pragma mark RealTimeInfo Methods
+#pragma mark -
+#pragma mark Map Region Methods
+
+- (MKCoordinateRegion)defaultStopRegion
+{
+    MKCoordinateRegion region;
+	
+	double maxLat = -91;
+	double minLat =  91;
+	double maxLon = -181;
+	double minLon =  181;
+	
+	for(Stop *stopAnnotation in [self stopAnnotations])
+	{
+		CLLocationCoordinate2D coordinate = [stopAnnotation coordinate];
+		
+		if(coordinate.latitude > maxLat)
+			maxLat = coordinate.latitude;
+		if(coordinate.latitude < minLat)
+			minLat = coordinate.latitude;
+		if(coordinate.longitude > maxLon)
+			maxLon = coordinate.longitude;
+		if(coordinate.longitude < minLon)
+			minLon = coordinate.longitude; 
+	}
+    
+	region.span.latitudeDelta = (maxLat + 90) - (minLat + 90);
+	region.span.longitudeDelta = (maxLon + 180) - (minLon + 180);
+	
+	// the center point is the average of the max and mins
+	region.center.latitude = minLat + region.span.latitudeDelta / 2;
+	region.center.longitude = minLon + region.span.longitudeDelta / 2;
+    
+    return region;
+}
 
 - (void)zoomFitAnimated:(BOOL)animated
 {
-    [mapView setRegion:[routeAnnotation region] animated:animated];
+    [mapView setRegion:[self defaultStopRegion] animated:animated];
 }
+
+# pragma mark -
+# pragma mark RealTimeInfo Methods
 
 - (void)startNewBusUpdateTimer
 {

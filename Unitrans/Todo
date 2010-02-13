@@ -12,6 +12,8 @@ High
 • Expired times don't correctly update after 12am??
 • Sometimes cancel button in choose pattern sheet doesn't work??
 • Fix bug where navigating from StopTimeView to StopView mapView doesn't show map
+• Need to offset popup view correctly after a user selects a hidden stop pin
+• In RouteMapView if a Stop has been specified, then change the color of the pin
 
 Lower
 =====
