@@ -28,24 +28,11 @@
 		
         UIImage *busImage = [UIImage imageNamed:@"BusTokenIcon.png"];
         
-        NSArray *animationImages = [NSArray arrayWithObjects:
-                                   [UIImage imageNamed:@"RedCircle_25_0.png"],
-                                   [UIImage imageNamed:@"RedCircle_30_0.png"],
-                                   [UIImage imageNamed:@"RedCircle_35_0.png"],
-                                   [UIImage imageNamed:@"RedCircle_40_0.png"],
-                                   [UIImage imageNamed:@"RedCircle_45_0.png"],
-                                   [UIImage imageNamed:@"RedCircle_50_0.png"],
-                                   [UIImage imageNamed:@"RedCircle_55_0.png"],
-                                   [UIImage imageNamed:@"RedCircle_60_0.png"],
-                                   [UIImage imageNamed:@"RedCircle_65_0.png"],
-                                   [UIImage imageNamed:@"RedCircle_70_0.png"],
-                                   [UIImage imageNamed:@"RedCircle_75_0.png"],
-                                   [UIImage imageNamed:@"RedCircle_80_10.png"],
-                                   [UIImage imageNamed:@"RedCircle_85_20.png"],
-                                   [UIImage imageNamed:@"RedCircle_90_40.png"],
-                                   [UIImage imageNamed:@"RedCircle_95_60.png"],
-                                   [UIImage imageNamed:@"RedCircle_100_80.png"],
-                                   nil];
+        // Add circle pulses
+        NSMutableArray *animationImages = [NSMutableArray array];
+        for (int red_index = 24; red_index <= 100 ; red_index += 4) {
+            [animationImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"%d.png", red_index]]];
+        }
         
         imageView = [[AnimationImageView alloc] initWithStaticImage:busImage animationImages:animationImages];
         [imageView setAnimationDuration:1];
