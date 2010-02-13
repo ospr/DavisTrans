@@ -26,7 +26,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     
     if (self) {
-        [self setSegmentItems:[NSArray arrayWithObjects:@"List", @"Map", nil]];
+        [self setSegmentItems:[NSArray arrayWithObjects:@"Schedule", @"Map", nil]];
     }
     
     return self;
@@ -65,7 +65,7 @@
     NSString *segmentIdentifier = [[self segmentItems] objectAtIndex:index];
     
     // Load RouteViewController
-    if ([segmentIdentifier isEqualToString:@"List"]) 
+    if ([segmentIdentifier isEqualToString:@"Schedule"]) 
     {
         if (!stopViewController) {
             stopViewController = [[StopViewController alloc] init];

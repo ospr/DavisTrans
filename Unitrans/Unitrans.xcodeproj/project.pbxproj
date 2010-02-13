@@ -35,6 +35,8 @@
 		376FD62211017C43004CC2AF /* TRouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD60E11017C43004CC2AF /* TRouteToolbarIcon_43.png */; };
 		376FD62311017C43004CC2AF /* URouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD60F11017C43004CC2AF /* URouteToolbarIcon_43.png */; };
 		376FD62411017C43004CC2AF /* WRouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD61011017C43004CC2AF /* WRouteToolbarIcon_43.png */; };
+		377854DA11223596008E0886 /* PredictionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 377854D911223596008E0886 /* PredictionsView.m */; };
+		377855CC11225CE8008E0886 /* RedButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 377855CB11225CE8008E0886 /* RedButton.png */; };
 		3795472510C7A13E005A2D93 /* BusAnimationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */; };
 		37BAFE4C1120FB0500077C65 /* HiddenStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BAFE4B1120FB0500077C65 /* HiddenStop.png */; };
 		37C127A210CC9DB6007604BB /* BusInformationOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C127A110CC9DB6007604BB /* BusInformationOperation.m */; };
@@ -69,6 +71,7 @@
 		37CB1DC610D355EE00661E8E /* RedCircle_90_40.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1DAE10D355EE00661E8E /* RedCircle_90_40.png */; };
 		37CB1DC710D355EE00661E8E /* RedCircle_95_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1DAF10D355EE00661E8E /* RedCircle_95_0.png */; };
 		37CB1DC810D355EE00661E8E /* RedCircle_95_60.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB1DB010D355EE00661E8E /* RedCircle_95_60.png */; };
+		37D1A0E01125F97900E753EF /* TableBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D1A0DF1125F97900E753EF /* TableBackground.png */; };
 		7C25BFEC10A7DA4D00AAD086 /* CSRouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */; };
 		7C25BFEF10A7DA8300AAD086 /* CSRouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEE10A7DA8300AAD086 /* CSRouteAnnotation.m */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
@@ -162,6 +165,9 @@
 		376FD60E11017C43004CC2AF /* TRouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TRouteToolbarIcon_43.png; sourceTree = "<group>"; };
 		376FD60F11017C43004CC2AF /* URouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = URouteToolbarIcon_43.png; sourceTree = "<group>"; };
 		376FD61011017C43004CC2AF /* WRouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WRouteToolbarIcon_43.png; sourceTree = "<group>"; };
+		377854D811223596008E0886 /* PredictionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PredictionsView.h; sourceTree = "<group>"; };
+		377854D911223596008E0886 /* PredictionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PredictionsView.m; sourceTree = "<group>"; };
+		377855CB11225CE8008E0886 /* RedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedButton.png; sourceTree = "<group>"; };
 		3795472310C7A13E005A2D93 /* BusAnimationAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusAnimationAnnotationView.h; sourceTree = "<group>"; };
 		3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusAnimationAnnotationView.m; sourceTree = "<group>"; };
 		37BAFE4B1120FB0500077C65 /* HiddenStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HiddenStop.png; sourceTree = "<group>"; };
@@ -204,6 +210,7 @@
 		37CB1DAE10D355EE00661E8E /* RedCircle_90_40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_90_40.png; sourceTree = "<group>"; };
 		37CB1DAF10D355EE00661E8E /* RedCircle_95_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_95_0.png; sourceTree = "<group>"; };
 		37CB1DB010D355EE00661E8E /* RedCircle_95_60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedCircle_95_60.png; sourceTree = "<group>"; };
+		37D1A0DF1125F97900E753EF /* TableBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TableBackground.png; sourceTree = "<group>"; };
 		7C25BFEA10A7DA4D00AAD086 /* CSRouteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRouteView.h; sourceTree = "<group>"; };
 		7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRouteView.m; sourceTree = "<group>"; };
 		7C25BFED10A7DA8300AAD086 /* CSRouteAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRouteAnnotation.h; sourceTree = "<group>"; };
@@ -365,6 +372,8 @@
 				37C2CE4710E7EFB60001E1AF /* Network.png */,
 				37103A2C10F328FD00246728 /* GMaps_Blank.png */,
 				37BAFE4B1120FB0500077C65 /* HiddenStop.png */,
+				377855CB11225CE8008E0886 /* RedButton.png */,
+				37D1A0DF1125F97900E753EF /* TableBackground.png */,
 				373EF06510CC77FF007CFD39 /* Circles */,
 				376FD5FC11017C43004CC2AF /* RouteToolbarIcons */,
 				7CE69E5D10C243890002DE93 /* RouteIcons */,
@@ -597,6 +606,8 @@
 				3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */,
 				373EEF0710CA40F6007CFD39 /* AnimationImageView.h */,
 				373EEF0810CA40F6007CFD39 /* AnimationImageView.m */,
+				377854D811223596008E0886 /* PredictionsView.h */,
+				377854D911223596008E0886 /* PredictionsView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -718,6 +729,8 @@
 				376FD62311017C43004CC2AF /* URouteToolbarIcon_43.png in Resources */,
 				376FD62411017C43004CC2AF /* WRouteToolbarIcon_43.png in Resources */,
 				37BAFE4C1120FB0500077C65 /* HiddenStop.png in Resources */,
+				377855CC11225CE8008E0886 /* RedButton.png in Resources */,
+				37D1A0E01125F97900E753EF /* TableBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,6 +779,7 @@
 				37C2CE6110E7FD790001E1AF /* StopSegmentedViewController.m in Sources */,
 				37C2CF3A10E8914D0001E1AF /* ExtendedViewController.m in Sources */,
 				37C2D00B10E95F6F0001E1AF /* StopTimeSegmentedViewController.m in Sources */,
+				377854DA11223596008E0886 /* PredictionsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

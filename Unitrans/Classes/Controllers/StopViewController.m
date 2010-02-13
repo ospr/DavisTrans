@@ -9,11 +9,13 @@
 #import "StopViewController.h"
 #import "StopTimeSegmentedViewController.h"
 #import "RouteMapViewController.h"
+#import "PredictionsView.h"
 #import "Stop.h"
 #import "StopTime.h"
 #import "Route.h"
 #import "NSDate_Extensions.h"
 
+CGFloat kPredictionViewHeight = 50.0;
 
 @implementation StopViewController
 
@@ -22,8 +24,6 @@
 @synthesize activeStopTimes;
 @synthesize allStopTimes;
 @synthesize currentStopTimes;
-@synthesize predictions;
-@synthesize predictionOperation;
 @synthesize showExpiredStopTimes;
 @synthesize selectedDate;
 @synthesize delegate;
@@ -44,24 +44,18 @@
 
 - (void)dealloc 
 {
-    // End continuous updates if still running
-    if (predictionsContinuousUpdatesRunning)
-        [self endContinuousPredictionsUpdates];
-    
     [route release];
     [stop release];
 	[activeStopTimes release];
 	[allStopTimes release];
 	[currentStopTimes release];
-    [predictions release];
     [selectedDate release];
 
     // Invalidate current expiredStopTimeTimer and release it
     [expiredStopTimeTimer invalidate];
     [expiredStopTimeTimer release];
     
-    [predictionOperation release];
-    [predictionLoadingIndicatorView release];
+    [predictionsView release];
     
     [super dealloc];
 }
@@ -69,22 +63,36 @@
 #pragma mark -
 #pragma mark UIViewController methods
 
-- (void)viewDidLoad {
+- (void)loadView
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TableBackground.png"]];
+    [imageView setUserInteractionEnabled:YES];
+    [self setView:imageView];
+    [imageView release];
+}
+
+- (void)viewDidLoad 
+{
     [super viewDidLoad];
 
     [self setTitle:@"Stop Times"];
 	[self setSelectedDate:[[NSDate date] beginningOfDay]]; 
 	[self setShowExpiredStopTimes:NO];
     [self updateStopTimes];
-    [self setPredictions:[NSArray array]];
-		        
-    // Create table view
-    UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    [self setTableView:newTableView];
     
-    // Set view
-    [self setView:newTableView];
-    [newTableView release];
+    // Create table view
+    CGRect tableViewFrame = CGRectMake(0, kPredictionViewHeight-5, [[self view] frame].size.width, [[self view] frame].size.height-kPredictionViewHeight+5);
+    UITableView *newTableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStyleGrouped];
+    [self setTableView:newTableView];
+    [[self view] addSubview:newTableView];
+    
+    // Create predictions view
+    // Start view off screen (above) so we can animate it moving down later
+    predictionsView = [[PredictionsView alloc] initWithFrame:CGRectMake(0, -kPredictionViewHeight, [[self view] frame].size.width, kPredictionViewHeight)];
+    [predictionsView setRoute:route];
+    [predictionsView setStop:stop];
+    [predictionsView beginContinuousPredictionsUpdates];
+    [[self view] addSubview:predictionsView];
     
     // Add a timer to fire to update the table when the next stop time expires
     [self addUpdateNextStopTimeTimer];
@@ -94,15 +102,13 @@
 {
     [super viewDidAppear:animated];
     
-    [self beginContinuousPredictionsUpdates];
-}
+    // Animate sliding prediction view down
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.25];
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    if (predictionsContinuousUpdatesRunning)
-        [self endContinuousPredictionsUpdates];
+    [predictionsView setFrame:CGRectMake(0, 0, [[self view] frame].size.width, kPredictionViewHeight)];
+    	
+	[UIView commitAnimations];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -122,17 +128,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
-    return 3;
+    return 2;
 }
-
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
     if(section == SectionIndexSelectedDate)
 		return 1;
-    else if (section == SectionIndexPredictions)
-        return 1;
 	else if (section == SectionIndexStopTimes)
 		return [activeStopTimes count] + 1; // +1 for show/hide exp. times cell
     else
@@ -143,10 +146,8 @@
 {
 	if(section == SectionIndexSelectedDate)
 		return [NSString stringWithString:@"Schedule for date:"];
-    else if (section == SectionIndexPredictions)
-        return @"Predictions:";
 	else if (section == SectionIndexStopTimes)
-		return [stop name];
+		return @"Schedule";
     else
         return @"";
 }
@@ -159,7 +160,6 @@
     // Get cellIdentifier based on current section
     switch ([indexPath section]) {
         case SectionIndexSelectedDate: cellIdentifier = @"SelectedDate"; break;
-        case SectionIndexPredictions:  cellIdentifier = @"Prediction"; break;
         case SectionIndexStopTimes:    
             if ([indexPath row] == 0)
                 cellIdentifier = @"ExpiredCell";
@@ -179,15 +179,6 @@
         {
             [[cell textLabel] setTextAlignment:UITextAlignmentCenter];
             [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
-        }
-        else if ([indexPath section] == SectionIndexPredictions)
-        {
-            // Add activity indicator to spin while gathering prediction data
-            predictionLoadingIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            [cell setAccessoryView:predictionLoadingIndicatorView];
-            
-            [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
-            [cell setAccessoryType:UITableViewCellAccessoryNone];
         }
         else if ([indexPath section] == SectionIndexStopTimes)
         {
@@ -216,10 +207,6 @@
     if ([indexPath section] == SectionIndexSelectedDate) 
     {
         [[cell textLabel] setText:[self selectedDateString]];
-    }
-    else if ([indexPath section] == SectionIndexPredictions) 
-    {
-        [[cell textLabel] setText:[self predictionString]];
     }
 	else if ([indexPath section] == SectionIndexStopTimes) 
 	{
@@ -253,15 +240,6 @@
 	{
 		[delegate stopViewController:self showDatePickerWithDate:selectedDate];
 	}
-    else if ([indexPath section] == SectionIndexPredictions)
-    {
-        // If the continuous updates aren't running, start them up again
-        // otherwise just call the single update method
-        if (!predictionsContinuousUpdatesRunning)
-            [self beginContinuousPredictionsUpdates];
-        else
-            [self updateStopTimePredictions];
-    }
 	else if([indexPath section] == SectionIndexStopTimes)
 	{
 		if ([indexPath row] == 0) 
@@ -313,44 +291,8 @@
     return [selectedDateFormatter stringFromDate:selectedDate];
 }
 
-- (NSString *)predictionString
-{
-    if(loadingPredictions)
-        return @"Loading...";
-    else if (!predictions)
-        return @"Error gathering predictions.";
-    else if ([predictions count] > 0)
-        return [NSString stringWithFormat:@"%@ minutes", [predictions componentsJoinedByString:@", "]];
-    else
-        return @"No predictions at this time.";
-}
-
 #pragma mark -
 #pragma mark Instance methods
-
-- (void)beginContinuousPredictionsUpdates
-{
-    predictionsContinuousUpdatesRunning = YES;
-    
-    [self updateStopTimePredictions];
-    
-    // If we are still updating after the first update, start a timer to updated every 20 seconds
-    if (predictionsContinuousUpdatesRunning)
-        predictionTimer = [[NSTimer scheduledTimerWithTimeInterval:20.0
-                                                            target:self
-                                                          selector:@selector(updateStopTimePredictions) 
-                                                          userInfo:nil
-                                                           repeats:YES] retain];
-}
-
-- (void)endContinuousPredictionsUpdates
-{
-    predictionsContinuousUpdatesRunning = NO;
-    
-    [predictionTimer invalidate];
-    [predictionTimer release];
-    predictionTimer = nil;
-}
 
 - (void) updateStopTimes
 {
@@ -420,49 +362,6 @@
     
     // Add the next stop time timer
     [self addUpdateNextStopTimeTimer];
-}
-
-- (void) updateStopTimePredictions
-{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [predictionLoadingIndicatorView startAnimating];
-    loadingPredictions = YES;
-    
-    [self setPredictionOperation:[[[PredictionOperation alloc] initWithRouteName:[route shortName] stopTag:[[stop code] stringValue]] autorelease]];
-    [predictionOperation setDelegate:self];
-    [predictionOperation start];
-    [tableView reloadData];
-}
-
-#pragma mark -
-#pragma mark PredictionOperation Delegate Methods
-
-- (void)predictionOperation:(PredictionOperation *)predictionOperation didFinishWithPredictions:(NSArray *)newPredictions
-{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    [predictionLoadingIndicatorView stopAnimating];
-    loadingPredictions = NO;
-	
-    [self setPredictions:newPredictions];
-    [[self tableView] reloadData];
-}
-
-- (void)predictionOperation:(PredictionOperation *)predictionOperation didFailWithError:(NSError *)error
-{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    [predictionLoadingIndicatorView stopAnimating];
-    loadingPredictions = NO;
-    
-    NSString *reason = @"There was an error while loading the predictions. Make sure you are connected to the internet.";
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Predictions Loading Error" message:reason
-                                                   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
-    [alert release];
-    
-    [self endContinuousPredictionsUpdates];
-    
-    [self setPredictions:nil];
-    [[self tableView] reloadData];
 }
 
 @end
