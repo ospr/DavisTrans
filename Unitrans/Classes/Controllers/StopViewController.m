@@ -268,6 +268,10 @@ CGFloat kPredictionViewHeight = 50.0;
 			[self setShowExpiredStopTimes:!showExpiredStopTimes];
 			[[self tableView] reloadData];
 		}
+		else if ([self shouldShowNoMoreScheduledArrivals])
+		{
+			[[self tableView] deselectRowAtIndexPath:indexPath animated:YES];
+		}
 		else
 		{
 			StopTime *stopTime = [activeStopTimes objectAtIndex:[indexPath row]-1];
