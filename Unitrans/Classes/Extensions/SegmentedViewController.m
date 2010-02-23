@@ -13,6 +13,7 @@
 
 @implementation SegmentedViewController
 
+@synthesize contentView;
 @synthesize selectedViewController;
 @synthesize segmentedControl;
 @synthesize segmentItems;
@@ -32,6 +33,7 @@
 
 - (void)dealloc 
 {
+    [contentView release];
     [segmentedControl release];
     [segmentedButtonItem release];
     [flexibleSpaceItem release];
@@ -47,7 +49,7 @@
     
     // Unhide the toolbar and set tint color
     [[[self navigationController] toolbar] setTintColor:[[[self navigationController] navigationBar] tintColor]];
-        
+ 
     // Create segmentedControl used to switch between views
     segmentedControl = [[UISegmentedControl alloc] initWithItems:[self segmentItems]];
     [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
@@ -61,14 +63,19 @@
     // Create a flexible space item to use in the toolbar
     flexibleSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    // Select first segment
-    if ([[self segmentItems] count] != 0)
-        [segmentedControl setSelectedSegmentIndex:0];
+    // Create a content view to hold views for animation
+    contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[self view] frame].size.width, [[self view] frame].size.height)];
+    [contentView setAutoresizingMask:(UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth)];
+    [[self view] addSubview:contentView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    // Select first segment
+    if ([[self segmentItems] count] != 0)
+        [segmentedControl setSelectedSegmentIndex:0];
     
     // Forward onto selected view controller
     [selectedViewController viewWillAppear:animated];
@@ -152,7 +159,7 @@
     [self setToolbarItems:toolbarItems];
  
     if (!selectedViewController)
-        [self setView:selectedView];
+        [self setMainView:selectedView];
     else
         [self animateViewTransitionFromViewController:selectedViewController toViewController:newSelectedViewController];
     
@@ -180,12 +187,11 @@
     [UIView setAnimationDidStopSelector:@selector(animateViewTransitionDidStop:finished:context:)];
 	[UIView setAnimationDuration:viewTransitionDuration];
 
-    
 	[UIView setAnimationTransition:transition
-                           forView:[[self view] superview]
+                           forView:contentView
                              cache:YES];
-        
-    [self setView:[toViewCtl view]];
+      
+    [self setMainView:[toViewCtl view]];
 	
 	[UIView commitAnimations];
 }
@@ -203,5 +209,24 @@
     [contextDictionary release];
 }
 
+#pragma mark -
+#pragma mark Custom Accessor Methods
+
+- (void)setMainView:(UIView *)newMainView
+{
+    // Setting the mainView simply adds the "mainView" as a subview to the contentView
+    // That way we can animate the segmented view swapping by animating the contentView
+    
+    // Resize main view to fix content view
+    [newMainView setFrame:CGRectMake(0, 0, [contentView frame].size.width, [contentView frame].size.height)];
+    
+    // Either set the subview if there isn't one already, or remove the subview and add the subview
+    if ([[contentView subviews] count] == 0)
+        [contentView addSubview:newMainView];
+    else {
+        [[[contentView subviews] objectAtIndex:0] removeFromSuperview];
+        [contentView addSubview:newMainView];
+    }
+}
 
 @end

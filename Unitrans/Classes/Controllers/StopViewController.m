@@ -9,14 +9,13 @@
 #import "StopViewController.h"
 #import "StopTimeSegmentedViewController.h"
 #import "RouteMapViewController.h"
-#import "PredictionsView.h"
 #import "Stop.h"
 #import "StopTime.h"
 #import "Route.h"
 #import "NSDate_Extensions.h"
 #import "UIColor_Extensions.h"
 
-CGFloat kPredictionViewHeight = 50.0;
+//CGFloat kPredictionViewHeight = 50.0;
 
 @implementation StopViewController
 
@@ -56,21 +55,11 @@ CGFloat kPredictionViewHeight = 50.0;
     [expiredStopTimeTimer invalidate];
     [expiredStopTimeTimer release];
     
-    [predictionsView release];
-    
     [super dealloc];
 }
 
 #pragma mark -
 #pragma mark UIViewController methods
-
-- (void)loadView
-{
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TableBackground.png"]];
-    [imageView setUserInteractionEnabled:YES];
-    [self setView:imageView];
-    [imageView release];
-}
 
 - (void)viewDidLoad 
 {
@@ -82,34 +71,16 @@ CGFloat kPredictionViewHeight = 50.0;
     [self updateStopTimes];
     
     // Create table view
-    CGRect tableViewFrame = CGRectMake(0, kPredictionViewHeight-5, [[self view] frame].size.width, [[self view] frame].size.height-kPredictionViewHeight+5);
+    CGRect tableViewFrame = CGRectMake(0, 0, [[self view] frame].size.width, [[self view] frame].size.height);
     UITableView *newTableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStyleGrouped];
     [self setTableView:newTableView];
-    [[self view] addSubview:newTableView];
     
-    // Create predictions view
-    // Start view off screen (above) so we can animate it moving down later
-    predictionsView = [[PredictionsView alloc] initWithFrame:CGRectMake(0, -kPredictionViewHeight, [[self view] frame].size.width, kPredictionViewHeight)];
-    [predictionsView setRoute:route];
-    [predictionsView setStop:stop];
-    [predictionsView beginContinuousPredictionsUpdates];
-    [[self view] addSubview:predictionsView];
+    // Set view
+    [self setView:newTableView];
+    [newTableView release];
     
     // Add a timer to fire to update the table when the next stop time expires
     [self addUpdateNextStopTimeTimer];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    // Animate sliding prediction view down
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.25];
-
-    [predictionsView setFrame:CGRectMake(0, 0, [[self view] frame].size.width, kPredictionViewHeight)];
-    	
-	[UIView commitAnimations];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -125,7 +96,7 @@ CGFloat kPredictionViewHeight = 50.0;
 }
 
 #pragma mark -
-#pragma mark UITableView methods
+#pragma mark UITableView Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
@@ -318,7 +289,7 @@ CGFloat kPredictionViewHeight = 50.0;
 }
 
 #pragma mark -
-#pragma mark Instance methods
+#pragma mark Instance Methods
 
 - (void) updateStopTimes
 {

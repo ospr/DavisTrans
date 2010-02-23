@@ -18,7 +18,6 @@ typedef enum _StopViewSectionIndex {
 
 @class Stop;
 @class Route;
-@class PredictionsView;
 
 @interface StopViewController : TableViewController {
     Route *route;
@@ -34,10 +33,7 @@ typedef enum _StopViewSectionIndex {
     
     // Timers
     NSTimer *expiredStopTimeTimer;
-    
-    // Subviews
-    PredictionsView *predictionsView;
-	
+    	
 	id<StopViewControllerDelegate> delegate;
 }
 

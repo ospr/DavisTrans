@@ -15,6 +15,7 @@
 @class Route;
 @class Stop;
 @class RouteMapViewController;
+@class PredictionsView;
 
 @interface StopSegmentedViewController : SegmentedViewController <StopViewControllerDelegate, DatePickerControllerDelegate> {
     Route *route;
@@ -22,6 +23,8 @@
     
     StopViewController *stopViewController;
     RouteMapViewController *routeMapViewController;
+    
+    PredictionsView *predictionsView;
 }
 
 @property (nonatomic, retain) Route *route;

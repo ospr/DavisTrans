@@ -7,9 +7,10 @@ High
 • Create new CreditView with credits.
 • Favorites/Recent stop section in RouteView
 • Verify that phone numbers are correct by calling them ;)
-• HUD to display currently selected pattern for mapView
 • Fix bug where if a time expires while displayed in the StopView, the time isn't hidden when hide expire times is pressed.
 • Expired times don't correctly update after 12am??
+• Change "No more scheduled arrivals at this time" to "No more scheduled stops at this time"
+• PredictionsView needs to act like a button and go dark when pressed.
 
 Lower
 =====
@@ -20,7 +21,6 @@ Lower
 • Fix (hide) tile loading bug
 • Show prediction times in accessory popup view when user taps a stop
 • Don't remove pins when changing patterns, instead just update pin images
-• Clean up bus pulse circles
 • Make pin for selected stops also "hidden" when necessary
 
 Secondary
@@ -104,3 +104,4 @@ Done
 • Map span should include all stop pins
 • Use pins instead of route coordinates to derive map span (should speed things up too)
 • Sometimes cancel button in choose pattern sheet doesn't work??
+• Clean up bus pulse circles

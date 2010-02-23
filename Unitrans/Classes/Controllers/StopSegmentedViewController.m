@@ -15,6 +15,9 @@
 #import "ExtendedViewController.h"
 #import "DetailOverlayView.h"
 #import "DatePickerController.h"
+#import "PredictionsView.h"
+
+CGFloat kPredictionViewHeight = 50.0;
 
 @implementation StopSegmentedViewController
 
@@ -40,6 +43,8 @@
     [stopViewController release];
     [routeMapViewController release];
     
+    [predictionsView release];
+    
     [super dealloc];
 }
 
@@ -56,6 +61,36 @@
     // Set navbar title view
     [[self navigationItem] setTitleView:detailOverlayView];
     [detailOverlayView release];
+    
+    // Create tableBackground image view to fill in space behind prediction view
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TableBackground.png"]];
+    [imageView setFrame:CGRectMake(0, 0, [[self view] frame].size.width, kPredictionViewHeight)];
+    [[self view] addSubview:imageView];
+    [imageView release];    
+    
+    // Create predictions view
+    // Start view off screen (above) so we can animate it moving down later
+    predictionsView = [[PredictionsView alloc] initWithFrame:CGRectMake(0, -kPredictionViewHeight, [[self view] frame].size.width, kPredictionViewHeight)];
+    [predictionsView setRoute:route];
+    [predictionsView setStop:stop];
+    [predictionsView beginContinuousPredictionsUpdates];
+    [[self view] addSubview:predictionsView];
+    
+    // Resize contentView to fit between predictionView and toolbar
+    [contentView setFrame:CGRectMake(0, kPredictionViewHeight, [[self view] frame].size.width, [[self view] frame].size.height-kPredictionViewHeight)];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Animate sliding prediction view down
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.25];
+    
+    [predictionsView setFrame:CGRectMake(0, 0, [[self view] frame].size.width, kPredictionViewHeight)];
+    
+	[UIView commitAnimations];
 }
 
 - (ExtendedViewController *)viewControllerForSelectedSegmentIndex:(NSInteger)index
