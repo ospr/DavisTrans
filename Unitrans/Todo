@@ -9,7 +9,6 @@ High
 • Verify that phone numbers are correct by calling them ;)
 • Fix bug where if a time expires while displayed in the StopView, the time isn't hidden when hide expire times is pressed.
 • Expired times don't correctly update after 12am??
-• Change "No more scheduled arrivals at this time" to "No more scheduled stops at this time"
 • PredictionsView needs to act like a button and go dark when pressed.
 
 Lower
@@ -105,3 +104,4 @@ Done
 • Use pins instead of route coordinates to derive map span (should speed things up too)
 • Sometimes cancel button in choose pattern sheet doesn't work??
 • Clean up bus pulse circles
+• Change "No more scheduled arrivals at this time" to "No more scheduled stops at this time"

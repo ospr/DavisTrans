@@ -201,7 +201,7 @@
 		}
         else if ([self shouldShowNoMoreScheduledArrivals])
         {
-            [[cell textLabel] setText:@"No more scheduled arrivals at this time."];
+            [[cell textLabel] setText:@"No more scheduled stops at this time."];
         }
 		else
         {
