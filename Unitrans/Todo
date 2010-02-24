@@ -25,7 +25,6 @@ V 1.0
 • Fix (hide) tile loading bug (Kip)
 • Rename TestDB.sqlite to a more suitable name (Kip)
 • Verify that phone numbers are correct by calling them ;)
-• After selecting a stop in a MapView, navigating back to that MapView causes the view to flip back to the schedule. (Kip)
 • Update viewDidUnload for view controllers. (Ken)
 • Fix slow map transition. (Kip)
 • Remove (Inbound) (Outbound) from H Line patterns names (Kip)
@@ -124,3 +123,4 @@ Done
 • PredictionsView needs to act like a button and go dark when pressed.
 • Add the StopCode to the StopView (Kip)
 • Stop annotations show stop sequence number in title (Kip)
+• After selecting a stop in a MapView, navigating back to that MapView causes the view to flip back to the schedule. (Kip)
