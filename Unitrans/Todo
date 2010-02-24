@@ -12,8 +12,8 @@ V 1.0
     - Button to add/remove from favorites in StopView
 • CreditsView
 • Max/Min dates for date picker (Ken)
-• Add the StopCode to the StopView (Kip)
-• Stop annotations show stop sequence number in title (Kip)
+• Some sort of indicator in action sheet to show which route is currently chosen (Kip)
+• Animate DefaultStop pin in ViewDidAppear (Kip)
 
 --- Bugs ---
 • W Line not deselecting.
@@ -28,6 +28,8 @@ V 1.0
 • After selecting a stop in a MapView, navigating back to that MapView causes the view to flip back to the schedule. (Kip)
 • Update viewDidUnload for view controllers. (Ken)
 • Fix slow map transition. (Kip)
+• Remove (Inbound) (Outbound) from H Line patterns names (Kip)
+• Cancel operations oso we don't get weird error alerts. (Kip)
 
 High
 ======
@@ -35,7 +37,7 @@ High
 Lower
 =====
 • PredictionTimes for selected stop in RouteMapView
-• Derive whether a stopTime is at the beginning of a trip or not, if so then specify that that time is a departure and the rest are arrival stop times
+• Create separate arrival/Departure stops for the Silo (like the MU)
 • Show prediction times in accessory popup view when user taps a stop
 • Don't remove pins when changing patterns, instead just update pin images
 • Make pin for selected stops also "hidden" when necessary
@@ -120,3 +122,5 @@ Done
 • Clean up bus pulse circles
 • Change "No more scheduled arrivals at this time" to "No more scheduled stops at this time"
 • PredictionsView needs to act like a button and go dark when pressed.
+• Add the StopCode to the StopView (Kip)
+• Stop annotations show stop sequence number in title (Kip)

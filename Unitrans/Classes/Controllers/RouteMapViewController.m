@@ -133,10 +133,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 {    
     [super viewDidAppear:animated];
     
-    // If stop has been set, select it
-    if (stop)
-        [mapView selectAnnotation:stop animated:YES];
-    
     [self beginContinuousBusUpdates];
 }
 
@@ -165,35 +161,41 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 
 - (MKAnnotationView *)mapView:(MKMapView *)mv viewForAnnotation:(id <MKAnnotation>)annotation
 {        
+    // If we are displaying the map for a specific stop then add a special stop pin for it
     if (stop && [stop isEqual:annotation]) 
     {
+        Stop *stopAnnotation = annotation;
         MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"DefaultStop"];
         
         if (!pinAnnotationView) {
-            pinAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"DefaultStop"] autorelease];
+            pinAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:stopAnnotation reuseIdentifier:@"DefaultStop"] autorelease];
             [pinAnnotationView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
             [pinAnnotationView setCanShowCallout:YES];
             [pinAnnotationView setPinColor:MKPinAnnotationColorPurple];
         }
         
-        [pinAnnotationView setAnnotation:annotation];
+        [stopAnnotation setSequence:[[routePattern trip] sequenceForStop:stopAnnotation]];
+        [pinAnnotationView setAnnotation:stopAnnotation];
         
         return pinAnnotationView;
     }
     else if ([annotation isKindOfClass:[Stop class]]) 
     {        
+        Stop *stopAnnotation = annotation;
+        
         // If Stop is in current route pattern list of stops add a regular pin
-        if ([[[routePattern trip] stops] containsObject:annotation])
+        if ([[[routePattern trip] stops] containsObject:stopAnnotation])
         {   
             MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Stop"];
             
             if (!pinAnnotationView) {
-                pinAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Stop"] autorelease];
+                pinAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:stopAnnotation reuseIdentifier:@"Stop"] autorelease];
                 [pinAnnotationView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
                 [pinAnnotationView setCanShowCallout:YES];
             }
             
-            [pinAnnotationView setAnnotation:annotation];
+            [stopAnnotation setSequence:[[routePattern trip] sequenceForStop:stopAnnotation]];
+            [pinAnnotationView setAnnotation:stopAnnotation];
             
             return pinAnnotationView;
         }
@@ -202,7 +204,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
             MKAnnotationView *pinAnnotationView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"HiddenStop"];
             
             if (!pinAnnotationView) {
-                pinAnnotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"HiddenStop"] autorelease];
+                pinAnnotationView = [[[MKAnnotationView alloc] initWithAnnotation:stopAnnotation reuseIdentifier:@"HiddenStop"] autorelease];
                 [pinAnnotationView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
                 [pinAnnotationView setCanShowCallout:YES];
                 [pinAnnotationView setImage:[UIImage imageNamed:@"HiddenStop.png"]];
@@ -210,7 +212,8 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
                 [pinAnnotationView setCalloutOffset:CGPointMake(-8, 1)];
             }
             
-            [pinAnnotationView setAnnotation:annotation];
+            [stopAnnotation setSequence:[[routePattern trip] sequenceForStop:stopAnnotation]];
+            [pinAnnotationView setAnnotation:stopAnnotation];
             
             return pinAnnotationView;
         }
@@ -225,7 +228,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
         
 		// Rotate the bus arrow direction
 		[[busAnnotationView busArrowImageView] setTransform:[Transform rotateByDegrees:[busInfoAnnotation heading]]];
-		 
+        
         [busAnnotationView setAnnotation:busInfoAnnotation];
         
         return busAnnotationView;

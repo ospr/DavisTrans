@@ -12,6 +12,7 @@
 @class Route;
 @class Shape;
 @class StopTime;
+@class Stop;
 
 @interface Trip :  NSManagedObject  
 {
@@ -27,6 +28,7 @@
 @property (nonatomic, readonly) NSSet *stops;
 
 - (BOOL)hasServiceOnDate:(NSDate *)date;
+- (NSNumber *)sequenceForStop:(Stop *)stop;
 
 @end
 

@@ -12,6 +12,7 @@
 #import "Route.h"
 #import "Shape.h"
 #import "StopTime.h"
+#import "Stop.h"
 
 @implementation Trip 
 
@@ -32,6 +33,17 @@
 - (NSSet *)stops
 {
     return [[self stopTimes] valueForKey:@"stop"];
+}
+
+- (NSNumber *)sequenceForStop:(Stop *)stop
+{
+    for (StopTime *stopTime in [self stopTimes])
+    {
+        if ([[stopTime stop] isEqual:stop])
+            return [stopTime sequence];
+    }
+    
+    return [NSNumber numberWithInteger:-1];
 }
 
 @end

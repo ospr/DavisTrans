@@ -31,6 +31,7 @@ typedef enum _StopHeadingType {
     @interface Stop :  NSManagedObject
 #endif
 {
+    NSNumber *sequence;
 }
 
 @property (nonatomic, retain) NSNumber * code;
@@ -40,11 +41,13 @@ typedef enum _StopHeadingType {
 @property (nonatomic, retain) NSNumber * heading;
 @property (nonatomic, retain) NSString * stopDescription;
 @property (nonatomic, retain) NSSet* stopTimes;
+@property (nonatomic, retain) NSNumber *sequence;
 #if USING_MAP_KIT
     @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 #endif
 
 - (NSArray *)allStopTimesWithRoute:(Route *)route onDate:(NSDate *)date;
+- (NSNumber *)stopID;
 - (NSString *)headingString;
 
 @end

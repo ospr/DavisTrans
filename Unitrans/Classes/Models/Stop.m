@@ -21,6 +21,7 @@
 @dynamic heading;
 @dynamic stopDescription;
 @dynamic stopTimes;
+@synthesize sequence;
 
 #if USING_MAP_KIT
     @dynamic coordinate;
@@ -38,6 +39,12 @@
     }
     
     return [NSArray arrayWithArray:routeStopTimes];
+}
+
+- (NSNumber *)stopID
+{
+    // Subtract 22000 from the stop code to get the stop ID
+    return [NSNumber numberWithInteger:[[self code] integerValue] - 22000];
 }
 
 - (NSString *)headingString
@@ -64,12 +71,12 @@
 
 - (NSString *)title
 {
-    return [self name];
+    return [NSString stringWithFormat:@"%@. %@", [self sequence], [self name]];
 }
 
 - (NSString *)subtitle
 {
-    return [self headingString];
+    return [NSString stringWithFormat:@"#%@ %@", [self stopID], [self headingString]];
 }
 
 @end
