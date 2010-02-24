@@ -9,7 +9,8 @@ High
 • Verify that phone numbers are correct by calling them ;)
 • Fix bug where if a time expires while displayed in the StopView, the time isn't hidden when hide expire times is pressed.
 • Expired times don't correctly update after 12am??
-• PredictionsView needs to act like a button and go dark when pressed.
+• Update viewDidUnload for view controllers.
+• Zoom not occuring correctly after switch to mapview
 
 Lower
 =====
@@ -105,3 +106,4 @@ Done
 • Sometimes cancel button in choose pattern sheet doesn't work??
 • Clean up bus pulse circles
 • Change "No more scheduled arrivals at this time" to "No more scheduled stops at this time"
+• PredictionsView needs to act like a button and go dark when pressed.

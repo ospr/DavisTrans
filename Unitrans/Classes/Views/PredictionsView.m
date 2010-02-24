@@ -27,33 +27,29 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     
     self = [super initWithFrame:frame];
     
-    if (self) {
-        [self setOpaque:NO];
-        
+    if (self) {        
         // Init predictions to an empty array
         predictions = [[NSArray alloc] init];
         
-        // Create image background view
+        // Create non-highlighted background image
         UIImage *backgroundImage = [[UIImage imageNamed:@"RedButton.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
-        backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        [backgroundImageView setImage:backgroundImage];
-        [self addSubview:backgroundImageView];
-        
-        // Set up prediction label
-        predictionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(kPredictionLabelPadding, kPredictionLabelPadding, frame.size.width - kPredictionLabelPadding*2.0, frame.size.height - kPredictionLabelPadding*2.0)];
-        [predictionsLabel setTextAlignment:UITextAlignmentCenter];
-        [predictionsLabel setBackgroundColor:[UIColor clearColor]];
-        [predictionsLabel setTextColor:[UIColor whiteColor]];
-        [predictionsLabel setFont:[UIFont boldSystemFontOfSize:20]];
-        [predictionsLabel setShadowColor:[UIColor blackColor]];
-        [predictionsLabel setShadowOffset:CGSizeMake(0, 1)];
-        [predictionsLabel setAdjustsFontSizeToFitWidth:YES];
-        [self addSubview:predictionsLabel];
+        [self setBackgroundImage:backgroundImage forState:UIControlStateNormal];
         
         // Set up loading indicator
         loadingIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         [loadingIndicatorView setCenter:CGPointMake(frame.size.width - [loadingIndicatorView frame].size.width/2.0 - kLoadingIndicatorPadding , frame.size.height/2.0)];
         [self addSubview:loadingIndicatorView];
+        
+        // Set up prediction label
+        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [[self titleLabel] setFont:[UIFont boldSystemFontOfSize:20]];
+        [[self titleLabel] setShadowOffset:CGSizeMake(0, 1)];
+        [[self titleLabel] setAdjustsFontSizeToFitWidth:YES];
+        [self setTitleEdgeInsets:UIEdgeInsetsMake(-shadowOffset, kPredictionLabelPadding, 0, kPredictionLabelPadding)];
+        
+        // Handle touches inside to update predictions
+        [self addTarget:self action:@selector(updatePredictions) forControlEvents:UIControlEventTouchUpInside];
         
         // Update prediction text
         [self updatePredictionText];
@@ -70,9 +66,6 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     
     [predictions release];
     [predictionOperation release];
-    
-    [predictionsLabel release];
-    [loadingIndicatorView release];
     
     [super dealloc];
 }
@@ -133,8 +126,8 @@ CGFloat kLoadingIndicatorPadding = 5.0;
         predictionText = [NSString stringWithFormat:@"%@ minutes", [predictions componentsJoinedByString:@", "]];
     else
         predictionText = @"No predictions at this time."; 
-    
-    [predictionsLabel setText:predictionText];
+        
+    [self setTitle:predictionText forState:UIControlStateNormal];
 }
 
 #pragma mark -
@@ -180,20 +173,11 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 }
 
 #pragma mark -
-#pragma mark UIResponder Touch Event Methods
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"Touches ended");
-    
-    [self updatePredictions];
-}
-
-#pragma mark -
 #pragma mark Custom Accessor Methods
 
 - (void)setFrame:(CGRect)frame
 {
+    // Add shadowOffset values to frame to accommodate for shadow
     CGRect superFrame = frame;
     superFrame.size.height += shadowOffset;
     
@@ -203,7 +187,7 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 #pragma mark -
 #pragma mark Draw Methods
 
-- (void)drawRect:(CGRect)rect
+/*- (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
@@ -218,6 +202,6 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     CGContextFillRect(context, boundsOffset);
     
     CGContextRestoreGState(context);
-}
+}*/
 
 @end

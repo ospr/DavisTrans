@@ -12,7 +12,7 @@
 @class Route;
 @class Stop;
 
-@interface PredictionsView : UIView <PredictionOperationDelegate> {
+@interface PredictionsView : UIButton <PredictionOperationDelegate> {
     NSArray *predictions;
     PredictionOperation *predictionOperation;
     NSTimer *predictionTimer;
@@ -23,8 +23,6 @@
     Route *route;
     Stop *stop;
     
-    UILabel *predictionsLabel;
-    UIImageView *backgroundImageView;
     UIActivityIndicatorView *loadingIndicatorView;
     
     CGFloat shadowOffset;
