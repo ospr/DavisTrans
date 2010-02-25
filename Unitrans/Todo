@@ -14,10 +14,9 @@ V 1.0
 • Max/Min dates for date picker (Ken)
 
 --- Bugs ---
-• W Line not deselecting.
+• W Line not deselecting (perhaps the animation of the toolbar off the screen does something?).
 • Fix bug where if a time expires while displayed in the StopView, the time isn't hidden when hide expire times is pressed. (Ken)
 • Expired times don't correctly update to non-expired after 12am. (Ken)
-• Too Zoomed in: Routes C, F, G, J, L, M (Kip)
 • Too Zoomed out: Route A (Kip)
 • Change white route colors to black (Kip)
 • Fix (hide) tile loading bug (Kip)
@@ -25,8 +24,9 @@ V 1.0
 • Verify that phone numbers are correct by calling them ;)
 • Fix slow map transition. (Kip)
 • Remove (Inbound) (Outbound) from H Line patterns names (Kip)
-• Cancel operations oso we don't get weird error alerts. (Kip)
+• Cancel operations so we don't get weird error alerts. (Kip)
 • A Line's default pattern should be "Day" and not "First Trip" (Kip)
+• Set tablecell containing "No more scheduled stops at this time." to un-selectable. (Kip)
 
 High
 ======
@@ -125,3 +125,4 @@ Done
 • Animate DefaultStop pin in ViewDidAppear (Kip)
 • Some sort of indicator in action sheet to show which route is currently chosen -> CheckMark! (Kip)
 • Update viewDidUnload for view controllers. (Ken)
+• Too Zoomed in: Routes C, F, G, J, L, M (Kip)
