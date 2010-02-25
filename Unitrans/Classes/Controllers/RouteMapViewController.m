@@ -35,6 +35,8 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 @synthesize busInformationOperation;
 @synthesize busAnnotations;
 @synthesize stopAnnotations;
+@synthesize routeAnnotation;
+@synthesize routeAnnotationView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -91,6 +93,19 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
                                                                      action:@selector(zoomFitAction:)];
     [[self navigationItem] setLeftBarButtonItem:zoomFitButton];
     [zoomFitButton release];
+}
+
+- (void)viewDidUnload 
+{
+	[super viewDidUnload];
+	[self setRoute:nil];
+	[self setStop:nil];
+	[self setRoutePattern:nil];
+	[self setBusInformationOperation:nil];
+	[self setBusAnnotations:nil];
+	[self setStopAnnotations:nil];
+	[self setRouteAnnotation:nil];
+	[self setRouteAnnotationView:nil];
 }
 
 - (void)loadMapView
@@ -156,12 +171,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 {
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-}
-
-- (void)viewDidUnload 
-{
-	// Release any retained subviews of the main view.
-	[routeAnnotationView release];
 }
 
 # pragma mark -

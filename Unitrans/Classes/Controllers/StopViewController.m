@@ -83,16 +83,22 @@
     [self addUpdateNextStopTimeTimer];
 }
 
+- (void)viewDidUnload 
+{
+	[super viewDidUnload];
+	[self setRoute:nil];
+	[self setStop:nil];
+	[self setActiveStopTimes:nil];
+	[self setAllStopTimes:nil];
+	[self setCurrentStopTimes:nil];
+	[self setSelectedDate:nil];
+}
+
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
 }
 
 #pragma mark -

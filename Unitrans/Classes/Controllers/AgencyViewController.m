@@ -34,7 +34,8 @@
 #pragma mark -
 #pragma mark UIViewController methods
 
-- (void)viewDidLoad {
+- (void)viewDidLoad 
+{
     [super viewDidLoad];
     
     // Retrieve and set agency
@@ -61,6 +62,13 @@
     NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"shortName" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
     NSArray *sortedRoutes = [[[unitransAgency routes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     [self setRoutes:sortedRoutes];
+}
+
+- (void)viewDidUnload 
+{
+	[super viewDidUnload];
+	[self setAgency:nil];
+	[self setRoutes:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -91,11 +99,6 @@
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
 }
 
 

@@ -44,6 +44,8 @@
 @property (nonatomic, retain) BusInformationOperation *busInformationOperation;
 @property (nonatomic, retain) NSArray *busAnnotations;
 @property (nonatomic, retain) NSArray *stopAnnotations;
+@property (nonatomic, retain) CSRouteAnnotation *routeAnnotation;
+@property (nonatomic, retain) CSRouteView *routeAnnotationView;
 
 - (void)loadMapView;
 

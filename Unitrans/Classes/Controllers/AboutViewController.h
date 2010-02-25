@@ -22,6 +22,8 @@
 }  
 
 @property (nonatomic, retain) Agency *agency;
+@property (nonatomic, retain) NSArray *aboutItems;
+@property (nonatomic, retain) NSMutableArray *sections;
 @property (nonatomic, assign) id<AboutViewControllerDelegate> delegate;
 
 @end

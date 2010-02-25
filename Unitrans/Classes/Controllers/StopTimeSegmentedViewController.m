@@ -18,6 +18,7 @@
 
 @synthesize route;
 @synthesize stopTime;
+@synthesize stopTimeViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil 
 {
@@ -53,6 +54,14 @@
     // Set navbar title view
     [[self navigationItem] setTitleView:detailOverlayView];
     [detailOverlayView release];
+}
+
+- (void)viewDidUnload 
+{
+	[super viewDidUnload];
+	[self setRoute:nil];
+	[self setStopTime:nil];
+	[self setStopTimeViewController:nil];
 }
 
 - (ExtendedViewController *)viewControllerForSelectedSegmentIndex:(NSInteger)index

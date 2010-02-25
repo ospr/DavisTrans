@@ -29,6 +29,8 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
 @implementation AboutViewController
 
 @synthesize agency;
+@synthesize aboutItems;
+@synthesize sections;
 @synthesize delegate;
 
 #pragma mark -
@@ -117,16 +119,19 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
     aboutItems = [[NSArray alloc] initWithObjects:unitrans, tipsy, uniride, moreInfo, nil];
 }
 
+- (void)viewDidUnload 
+{
+	[super viewDidUnload];
+	[self setAgency:nil];
+	[self setAboutItems:nil];
+	[self setSections:nil];
+}
+
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
 }
 
 #pragma mark -

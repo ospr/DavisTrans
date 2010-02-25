@@ -29,5 +29,8 @@
 
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) Stop *stop;
+@property (nonatomic, retain) StopViewController *stopViewController;
+@property (nonatomic, retain) RouteMapViewController *routeMapViewController;
+@property (nonatomic, retain) PredictionsView *predictionsView;
 
 @end

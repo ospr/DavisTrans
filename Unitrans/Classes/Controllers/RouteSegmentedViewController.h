@@ -21,5 +21,7 @@
 }
 
 @property (nonatomic, retain) Route *route;
+@property (nonatomic, retain) RouteViewController *routeViewController;
+@property (nonatomic, retain) RouteMapViewController *routeMapViewController;
 
 @end

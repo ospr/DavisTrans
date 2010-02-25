@@ -23,6 +23,9 @@ CGFloat kPredictionViewHeight = 50.0;
 
 @synthesize route;
 @synthesize stop;
+@synthesize stopViewController;
+@synthesize routeMapViewController;
+@synthesize predictionsView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil 
 {
@@ -78,6 +81,16 @@ CGFloat kPredictionViewHeight = 50.0;
     
     // Resize contentView to fit between predictionView and toolbar
     [contentView setFrame:CGRectMake(0, kPredictionViewHeight, [[self view] frame].size.width, [[self view] frame].size.height-kPredictionViewHeight)];
+}
+
+- (void)viewDidUnload 
+{
+	[super viewDidUnload];
+	[self setRoute:nil];
+	[self setStop:nil];
+	[self setStopViewController:nil];
+	[self setRouteMapViewController:nil];
+	[self setPredictionsView:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated

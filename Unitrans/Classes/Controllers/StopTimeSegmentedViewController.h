@@ -22,5 +22,6 @@
 
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) StopTime *stopTime;
+@property (nonatomic, retain) StopTimeViewController *stopTimeViewController;
 
 @end

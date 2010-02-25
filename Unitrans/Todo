@@ -23,7 +23,6 @@ V 1.0
 • Fix (hide) tile loading bug (Kip)
 • Rename TestDB.sqlite to a more suitable name (Kip)
 • Verify that phone numbers are correct by calling them ;)
-• Update viewDidUnload for view controllers. (Ken)
 • Fix slow map transition. (Kip)
 • Remove (Inbound) (Outbound) from H Line patterns names (Kip)
 • Cancel operations oso we don't get weird error alerts. (Kip)
@@ -125,3 +124,4 @@ Done
 • After selecting a stop in a MapView, navigating back to that MapView causes the view to flip back to the schedule. (Kip)
 • Animate DefaultStop pin in ViewDidAppear (Kip)
 • Some sort of indicator in action sheet to show which route is currently chosen -> CheckMark! (Kip)
+• Update viewDidUnload for view controllers. (Ken)

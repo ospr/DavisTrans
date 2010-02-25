@@ -17,7 +17,8 @@
 @implementation RouteSegmentedViewController
 
 @synthesize route;
-
+@synthesize routeViewController;
+@synthesize routeMapViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil 
 {
@@ -53,6 +54,14 @@
     // Set navbar title view
     [[self navigationItem] setTitleView:detailOverlayView];
     [detailOverlayView release];
+}
+
+- (void)viewDidUnload 
+{
+	[super viewDidUnload];
+	[self setRoute:nil];
+	[self setRouteViewController:nil];
+	[self setRouteMapViewController:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
