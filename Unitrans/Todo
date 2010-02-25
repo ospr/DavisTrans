@@ -12,8 +12,6 @@ V 1.0
     - Button to add/remove from favorites in StopView
 • CreditsView
 • Max/Min dates for date picker (Ken)
-• Some sort of indicator in action sheet to show which route is currently chosen (Kip)
-• Animate DefaultStop pin in ViewDidAppear (Kip)
 
 --- Bugs ---
 • W Line not deselecting.
@@ -29,6 +27,7 @@ V 1.0
 • Fix slow map transition. (Kip)
 • Remove (Inbound) (Outbound) from H Line patterns names (Kip)
 • Cancel operations oso we don't get weird error alerts. (Kip)
+• A Line's default pattern should be "Day" and not "First Trip" (Kip)
 
 High
 ======
@@ -124,3 +123,5 @@ Done
 • Add the StopCode to the StopView (Kip)
 • Stop annotations show stop sequence number in title (Kip)
 • After selecting a stop in a MapView, navigating back to that MapView causes the view to flip back to the schedule. (Kip)
+• Animate DefaultStop pin in ViewDidAppear (Kip)
+• Some sort of indicator in action sheet to show which route is currently chosen -> CheckMark! (Kip)

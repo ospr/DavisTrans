@@ -124,6 +124,10 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    // Remove annotation so we can animate it after the view appears
+    if (stop)
+        [mapView removeAnnotation:stop];
         
     // Reset errorShown when view appears again, so the user is warned about the error
     errorShown = NO;
@@ -132,6 +136,10 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 - (void)viewDidAppear:(BOOL)animated
 {    
     [super viewDidAppear:animated];
+    
+    // Animate pin drop by adding the stop as an annotation
+    if (stop)
+        [mapView addAnnotation:stop];
     
     [self beginContinuousBusUpdates];
 }
@@ -172,6 +180,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
             [pinAnnotationView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
             [pinAnnotationView setCanShowCallout:YES];
             [pinAnnotationView setPinColor:MKPinAnnotationColorPurple];
+            [pinAnnotationView setAnimatesDrop:YES];
         }
         
         [stopAnnotation setSequence:[[routePattern trip] sequenceForStop:stopAnnotation]];
@@ -521,8 +530,13 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [patternSheet setDelegate:self];
     
     // Add pattern names to actionSheet
-    for (NSString *patternName in [[route orderedRoutePatterns] valueForKey:@"name"])
-        [patternSheet addButtonWithTitle:patternName];
+    for (NSString *patternName in [[route orderedRoutePatterns] valueForKey:@"name"]) {
+        // Add a check mark to the selected route pattern
+        if ([patternName isEqualToString:[routePattern name]])
+            [patternSheet addButtonWithTitle:[NSString stringWithFormat:@"✔ %@", patternName]];
+        else
+            [patternSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", patternName]];
+    }
 
     // Add Cancel button
     [patternSheet addButtonWithTitle:@"Cancel"];
