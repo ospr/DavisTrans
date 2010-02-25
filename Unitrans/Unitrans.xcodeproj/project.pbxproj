@@ -11,6 +11,8 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		3731BB02113737E100FFF600 /* ORouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 3731BB01113737E100FFF600 /* ORouteIcon_43.png */; };
+		3731BB0F11373AE600FFF600 /* ORouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 3731BB0E11373AE600FFF600 /* ORouteToolbarIcon_43.png */; };
 		373EEF0910CA40F6007CFD39 /* AnimationImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EEF0810CA40F6007CFD39 /* AnimationImageView.m */; };
 		373EF0A510CC8AFE007CFD39 /* ConcurrentOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0A410CC8AFE007CFD39 /* ConcurrentOperation.m */; };
 		373EF0AC10CC9047007CFD39 /* PredictionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0AB10CC9047007CFD39 /* PredictionOperation.m */; };
@@ -136,6 +138,8 @@
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Unitrans_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Unitrans_Prefix.pch; path = ../../Unitrans_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3731BB01113737E100FFF600 /* ORouteIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ORouteIcon_43.png; sourceTree = "<group>"; };
+		3731BB0E11373AE600FFF600 /* ORouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ORouteToolbarIcon_43.png; sourceTree = "<group>"; };
 		373EEF0710CA40F6007CFD39 /* AnimationImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationImageView.h; sourceTree = "<group>"; };
 		373EEF0810CA40F6007CFD39 /* AnimationImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationImageView.m; sourceTree = "<group>"; };
 		373EF0A310CC8AFE007CFD39 /* ConcurrentOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConcurrentOperation.h; sourceTree = "<group>"; };
@@ -427,6 +431,7 @@
 				376FD60711017C43004CC2AF /* LRouteToolbarIcon_43.png */,
 				376FD60811017C43004CC2AF /* MRouteToolbarIcon_43.png */,
 				376FD60911017C43004CC2AF /* NRouteToolbarIcon_43.png */,
+				3731BB0E11373AE600FFF600 /* ORouteToolbarIcon_43.png */,
 				376FD60A11017C43004CC2AF /* PRouteToolbarIcon_43.png */,
 				376FD60B11017C43004CC2AF /* QRouteToolbarIcon_43.png */,
 				376FD60C11017C43004CC2AF /* RouteToolbarIcon.opacity */,
@@ -587,6 +592,7 @@
 				7CE69E6810C243890002DE93 /* LRouteIcon_43.png */,
 				7CE69E6910C243890002DE93 /* MRouteIcon_43.png */,
 				7CE69E6A10C243890002DE93 /* NRouteIcon_43.png */,
+				3731BB01113737E100FFF600 /* ORouteIcon_43.png */,
 				7CE69E6B10C243890002DE93 /* PRouteIcon_43.png */,
 				7CE69E6C10C243890002DE93 /* QRouteIcon_43.png */,
 				7CE69E6E10C243890002DE93 /* SRouteIcon_43.png */,
@@ -731,6 +737,8 @@
 				37D926A51127DCC5000349A7 /* 92.png in Resources */,
 				37D926A61127DCC5000349A7 /* 96.png in Resources */,
 				37D926A71127DCC5000349A7 /* RedCircle.opacity in Resources */,
+				3731BB02113737E100FFF600 /* ORouteIcon_43.png in Resources */,
+				3731BB0F11373AE600FFF600 /* ORouteToolbarIcon_43.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
