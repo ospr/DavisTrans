@@ -5,7 +5,6 @@ Priority
 V 1.0
 ======
 --- Features ---
-• Update GTFS for Spring Quarter (Kip)
 • Favorites (Ken)
     - Section in AgencyView
     - Section in RouteView
@@ -14,6 +13,7 @@ V 1.0
 • Max/Min dates for date picker (Ken)
 
 --- Bugs ---
+• Add check and error message when schedule is out of date (removed for testing purposes b/c it's annoying!)
 • W Line not deselecting (perhaps the animation of the toolbar off the screen does something?).
 • Fix bug where if a time expires while displayed in the StopView, the time isn't hidden when hide expire times is pressed. (Ken)
 • Expired times don't correctly update to non-expired after 12am. (Ken)
@@ -126,3 +126,4 @@ Done
 • Some sort of indicator in action sheet to show which route is currently chosen -> CheckMark! (Kip)
 • Update viewDidUnload for view controllers. (Ken)
 • Too Zoomed in: Routes C, F, G, J, L, M (Kip)
+• Update GTFS for Spring Quarter (Kip)

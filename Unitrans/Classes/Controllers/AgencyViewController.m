@@ -84,14 +84,15 @@
     [super viewDidAppear:animated];
     
     // Check to make sure that transit data is up to date, if not alert user!
-    if (![agency transitDataUpToDate]) {
+    // TODO: add this back in before we release app!
+    /*if (![agency transitDataUpToDate]) {
         NSString *reason = @"Your schedule data is out of date.";
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Schedule Data" message:reason
                                                        delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];	
         [alert release];
-    }
+    }*/
 }
 
 - (void)didReceiveMemoryWarning {

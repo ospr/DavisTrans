@@ -18,6 +18,10 @@
 #import "StopTime.h"
 #import "Trip.h"
 
+NSString *kUnitransSchedulePrefix = @"UnitransSchedule";
+NSString *kUnitransScheduleDate = @"20100329"; // Corresponds to the schedule data date. Should be updated for new schedules.
+NSString *kUnitransScheduleFileType = @"sqlite";
+
 @implementation DatabaseManager
 
 #pragma mark -
@@ -571,8 +575,9 @@ static DatabaseManager *sharedDatabaseManager = nil;
     if (persistentStoreCoordinator != nil)
         return persistentStoreCoordinator;
 	
-    //NSURL *storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"TestDB9.sqlite"]];
-	NSURL *storeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"TestDB" ofType:@"sqlite"]];
+    //NSURL *storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"TestDB10.sqlite"]];
+    NSString *resourcePath = [NSString stringWithFormat:@"%@_%@", kUnitransSchedulePrefix, kUnitransScheduleDate];
+	NSURL *storeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:resourcePath ofType:kUnitransScheduleFileType]];
     
     NSLog(@"store url = %@", storeUrl);
     
