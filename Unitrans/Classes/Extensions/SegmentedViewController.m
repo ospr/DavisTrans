@@ -174,10 +174,6 @@
     NSDictionary *context = [[NSDictionary dictionaryWithObjectsAndKeys:fromViewCtl, @"FromViewController",
                                                                         toViewCtl,   @"ToViewController", nil] retain]; 
     
-    // Move to will start animation method?
-    [fromViewCtl viewWillDisappear:YES];
-    [toViewCtl viewWillAppear:YES];
-    
     // Determine animation
     UIViewAnimationTransition transition = [toViewCtl segmentTransition];
     
@@ -194,6 +190,10 @@
     [self setMainView:[toViewCtl view]];
 	
 	[UIView commitAnimations];
+    
+    // Move to will start animation method?
+    [fromViewCtl viewWillDisappear:YES];
+    [toViewCtl viewWillAppear:YES];
 }
                                                   
 - (void)animateViewTransitionDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context

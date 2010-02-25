@@ -131,14 +131,14 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     
     // Set stopAnnotations to all stops in route
     [self setStopAnnotations:[[route allStops] allObjects]];
-    
-    // Tell map to zoom to show entire route
-    [self zoomFitAnimated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    // Tell map to zoom to show entire route
+    [self zoomFitAnimated:NO];
     
     // Remove annotation so we can animate it after the view appears
     if (stop)
@@ -355,9 +355,15 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 			minLon = coordinate.longitude; 
 	}
     
+    // Add a little padding to ensure the map is zoomed out enough
+    maxLat += 0.001;
+    minLat -= 0.001;
+    maxLon += 0.001;
+    minLon -= 0.001;
+    
 	region.span.latitudeDelta = (maxLat + 90) - (minLat + 90);
 	region.span.longitudeDelta = (maxLon + 180) - (minLon + 180);
-	
+    
 	// the center point is the average of the max and mins
 	region.center.latitude = minLat + region.span.latitudeDelta / 2;
 	region.center.longitude = minLon + region.span.longitudeDelta / 2;
@@ -366,7 +372,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 }
 
 - (void)zoomFitAnimated:(BOOL)animated
-{
+{    
     [mapView setRegion:[self defaultStopRegion] animated:animated];
 }
 
