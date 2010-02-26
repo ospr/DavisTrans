@@ -47,6 +47,12 @@
     }
     [self setAgency:unitransAgency];
     
+    // Create table view and set as view
+    UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [self setTableView:newTableView];
+    [self setView:newTableView];
+    [newTableView release];
+    
     // Add Unitrans image as title
     UIImageView *titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"UnitransTitle.png"]] autorelease];
     [[self navigationItem] setTitleView:titleView];
@@ -120,7 +126,7 @@
     
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [[self tableView] dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
         

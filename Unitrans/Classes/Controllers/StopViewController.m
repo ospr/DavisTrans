@@ -175,6 +175,7 @@
         {
             [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
             [cell setBackgroundColor:[UIColor extraLightGrayColor]];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
         else if ([cellIdentifier isEqualToString:@"StopTimes"])
         {

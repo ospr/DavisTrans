@@ -13,7 +13,6 @@ V 1.0
 • Max/Min dates for date picker (Ken)
 
 --- Bugs ---
-• W Line not deselecting (perhaps the animation of the toolbar off the screen does something?).
 • Fix bug where if a time expires while displayed in the StopView, the time isn't hidden when hide expire times is pressed. (Ken)
 • Expired times don't correctly update to non-expired after 12am. (Ken)
 • Too Zoomed out: Route A (Kip)
@@ -24,7 +23,6 @@ V 1.0
 • Remove (Inbound) (Outbound) from H Line patterns names (Kip)
 • Cancel operations so we don't get weird error alerts. (Kip)
 • A Line's default pattern should be "Day" and not "First Trip" (Kip)
-• Set tablecell containing "No more scheduled stops at this time." to un-selectable. (Kip)
 • Add check and error message when schedule is out of date (removed for testing purposes b/c it's annoying!)
 
 High
@@ -127,3 +125,7 @@ Done
 • Too Zoomed in: Routes C, F, G, J, L, M (Kip)
 • Update GTFS for Spring Quarter (Kip)
 • Rename TestDB.sqlite to a more suitable name (Kip)
+• W Line not deselecting (perhaps the animation of the toolbar off the screen does something? Yes the tableView is resized and 
+  the deselect is called in viewWillAppear: in UITableViewController so for some reason the cell is not deselected (bug in UIKit??)
+  The same bug can be reproduced if you move the deselect in TableViewController from ViewDidAppear to viewWillAppear).
+• Set tablecell containing "No more scheduled stops at this time." to un-selectable. (Kip)

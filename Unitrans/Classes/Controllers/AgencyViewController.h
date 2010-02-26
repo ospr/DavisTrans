@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "TableViewController.h"
 #import "AboutViewController.h"
 
 @class Agency;
 
-@interface AgencyViewController : UITableViewController <AboutViewControllerDelegate> {
+@interface AgencyViewController : TableViewController <AboutViewControllerDelegate> {
     Agency *agency;
 	NSArray *routes;
 }
