@@ -71,6 +71,9 @@
 
 - (NSString *)title
 {
+    if ([[self sequence] integerValue] == -1)
+        return [self name];
+    
     return [NSString stringWithFormat:@"%@. %@", [self sequence], [self name]];
 }
 

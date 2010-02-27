@@ -323,8 +323,8 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 
 - (void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error
 {
-    // Load alert message with error
-    if (!errorShown) {
+    // Load alert message with error (only if error is not null)
+    if (!errorShown && error) {
         NSString *reason = @"There was an error while loading the map. Make sure you are connected to the internet.";
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Map Loading Error" message:reason
@@ -431,8 +431,9 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 
 - (void)updateBusLocations
 {    
-    // Get all buses for the current route
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    // Get all buses for the current route
     [self setBusInformationOperation:[[[BusInformationOperation alloc] initWithRouteName:[route shortName]] autorelease]];
     [busInformationOperation setDelegate:self];
     [busInformationOperation start];

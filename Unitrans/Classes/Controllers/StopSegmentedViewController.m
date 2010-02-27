@@ -46,6 +46,9 @@ CGFloat kPredictionViewHeight = 50.0;
     [stopViewController release];
     [routeMapViewController release];
     
+    // End continuous updates if they are still running
+    if ([predictionsView isRunningContinuousPredictionUpdates])
+        [predictionsView endContinuousPredictionsUpdates];
     [predictionsView release];
     
     [super dealloc];

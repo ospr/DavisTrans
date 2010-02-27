@@ -20,6 +20,7 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 @synthesize predictionOperation;
 @synthesize route;
 @synthesize stop;
+@synthesize isRunningContinuousPredictionUpdates = runningContinuousPredictionUpdates;
 
 - (id)initWithFrame:(CGRect)frame 
 {
@@ -61,7 +62,7 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 - (void)dealloc
 {
     // End continuous updates if still running
-    if (predictionsContinuousUpdatesRunning)
+    if (runningContinuousPredictionUpdates)
         [self endContinuousPredictionsUpdates];
     
     [predictions release];
@@ -75,12 +76,12 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 
 - (void)beginContinuousPredictionsUpdates
 {
-    predictionsContinuousUpdatesRunning = YES;
+    [self setIsRunningContinuousPredictionUpdates:YES];
     
     [self updatePredictions];
     
     // If we are still updating after the first update, start a timer to updated every 20 seconds
-    if (predictionsContinuousUpdatesRunning)
+    if (runningContinuousPredictionUpdates)
         predictionTimer = [[NSTimer scheduledTimerWithTimeInterval:20.0
                                                             target:self
                                                           selector:@selector(updatePredictions) 
@@ -90,7 +91,7 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 
 - (void)endContinuousPredictionsUpdates
 {
-    predictionsContinuousUpdatesRunning = NO;
+    [self setIsRunningContinuousPredictionUpdates:NO];
     
     [self setPredictionOperation:nil];
     
@@ -105,6 +106,9 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     [loadingIndicatorView startAnimating];
     loading = YES;
     
+    if ([predictionOperation isExecuting])
+        [predictionOperation cancel];
+
     [self setPredictionOperation:[[[PredictionOperation alloc] initWithRouteName:[route shortName] stopTag:[[stop code] stringValue]] autorelease]];
     [predictionOperation setDelegate:self];
     [predictionOperation start];
@@ -154,8 +158,8 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     [loadingIndicatorView stopAnimating];
     loading = NO;
     
-    [self endContinuousPredictionsUpdates];
-    
+    NSLog(@"PredictionOperation failed due to error: %@, %@", error, [error userInfo]);
+        
     [self setPredictions:nil];
     [self updatePredictionText];
 }

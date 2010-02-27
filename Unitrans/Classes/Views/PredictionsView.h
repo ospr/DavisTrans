@@ -18,7 +18,7 @@
     NSTimer *predictionTimer;
     
     BOOL loading;
-    BOOL predictionsContinuousUpdatesRunning;
+    BOOL runningContinuousPredictionUpdates;
     
     Route *route;
     Stop *stop;
@@ -32,6 +32,7 @@
 @property (nonatomic, retain) PredictionOperation *predictionOperation;
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) Stop *stop;
+@property (nonatomic, assign) BOOL isRunningContinuousPredictionUpdates;
 
 - (void)beginContinuousPredictionsUpdates;
 - (void)endContinuousPredictionsUpdates;

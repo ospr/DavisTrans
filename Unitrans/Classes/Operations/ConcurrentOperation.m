@@ -43,20 +43,24 @@
     
     // If the operation is not canceled or used, begin executing the task.
     [self willChangeValueForKey:@"isExecuting"];
-    [NSThread detachNewThreadSelector:@selector(run) toTarget:self withObject:nil];
     executing = YES;
     [self didChangeValueForKey:@"isExecuting"];
+
+    // Start run method on a separate thread
+    [NSThread detachNewThreadSelector:@selector(run) toTarget:self withObject:nil];
 }
 
 - (void)run
 {    
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
-    @try {
+    @try {       
         [self main];
         
         [self completeOperation];
-        [self performSelectorOnMainThread:@selector(didFinishOperation) withObject:nil waitUntilDone:NO];
+        
+        if (![self isCancelled])
+            [self performSelectorOnMainThread:@selector(didFinishOperation) withObject:nil waitUntilDone:NO];
     }
     @catch(NSException *exception) {
         NSLog(@"Exception caught while executing %@. Exception: %@", self, exception);
