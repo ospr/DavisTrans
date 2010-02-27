@@ -30,6 +30,7 @@
     NSArray *stopAnnotations;
     CSRouteAnnotation *routeAnnotation;
     
+    BOOL mapViewIsLoaded;
     BOOL busContinuousUpdatesRunning;
     BOOL errorShown;
     

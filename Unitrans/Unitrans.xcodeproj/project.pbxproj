@@ -105,7 +105,6 @@
 		7CE69E7E10C243890002DE93 /* NRouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E6A10C243890002DE93 /* NRouteIcon_43.png */; };
 		7CE69E7F10C243890002DE93 /* PRouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E6B10C243890002DE93 /* PRouteIcon_43.png */; };
 		7CE69E8010C243890002DE93 /* QRouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E6C10C243890002DE93 /* QRouteIcon_43.png */; };
-		7CE69E8110C243890002DE93 /* RouteIcon.opacity in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E6D10C243890002DE93 /* RouteIcon.opacity */; };
 		7CE69E8210C243890002DE93 /* SRouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E6E10C243890002DE93 /* SRouteIcon_43.png */; };
 		7CE69E8310C243890002DE93 /* TRouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E6F10C243890002DE93 /* TRouteIcon_43.png */; };
 		7CE69E8410C243890002DE93 /* URouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CE69E7010C243890002DE93 /* URouteIcon_43.png */; };
@@ -119,7 +118,6 @@
 		C90525F110D9AB3D00B1B7F1 /* BusArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C90525F010D9AB3D00B1B7F1 /* BusArrow.png */; };
 		C91476C510AA47B20014E49F /* NSDate_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C91476C410AA47B20014E49F /* NSDate_Extensions.m */; };
 		C923170910A790C100A1BB6C /* RealTimeBusInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C923170810A790C100A1BB6C /* RealTimeBusInfo.m */; };
-		C974345110A9F4D50072C7B6 /* Todo in Resources */ = {isa = PBXBuildFile; fileRef = C974345010A9F4D50072C7B6 /* Todo */; };
 		C98B1ECA10C63CCC00F26386 /* DatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = C98B1EC910C63CCC00F26386 /* DatePickerController.m */; };
 		C98B1F0510C6611500F26386 /* DatePickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C98B1F0410C6611500F26386 /* DatePickerController.xib */; };
 		C98E582110D70EFE00B08808 /* Transform.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E582010D70EFE00B08808 /* Transform.m */; };
@@ -662,7 +660,6 @@
 			files = (
 				7C7A510410A1153600B396C9 /* UnitransSchedule_20100329.sqlite in Resources */,
 				C993E18C10A206E800B0F44D /* MainWindow.xib in Resources */,
-				C974345110A9F4D50072C7B6 /* Todo in Resources */,
 				7CE69E7210C243890002DE93 /* ARouteIcon_43.png in Resources */,
 				7CE69E7310C243890002DE93 /* BRouteIcon_43.png in Resources */,
 				7CE69E7410C243890002DE93 /* CRouteIcon_43.png in Resources */,
@@ -678,7 +675,6 @@
 				7CE69E7E10C243890002DE93 /* NRouteIcon_43.png in Resources */,
 				7CE69E7F10C243890002DE93 /* PRouteIcon_43.png in Resources */,
 				7CE69E8010C243890002DE93 /* QRouteIcon_43.png in Resources */,
-				7CE69E8110C243890002DE93 /* RouteIcon.opacity in Resources */,
 				7CE69E8210C243890002DE93 /* SRouteIcon_43.png in Resources */,
 				7CE69E8310C243890002DE93 /* TRouteIcon_43.png in Resources */,
 				7CE69E8410C243890002DE93 /* URouteIcon_43.png in Resources */,

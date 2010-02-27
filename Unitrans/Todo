@@ -24,6 +24,9 @@ V 1.0
 • Cancel operations so we don't get weird error alerts. (Kip)
 • A Line's default pattern should be "Day" and not "First Trip" (Kip)
 • Add check and error message when schedule is out of date (removed for testing purposes b/c it's annoying!)
+• Better error handling when internet not working (try with moobilenet when not logged in...)
+• Remove -1 from stops that aren't in the current route pattern. (Kip)
+• When there's an error updating predictions, don't just stop them, keep trying... (Kip)
 
 High
 ======
