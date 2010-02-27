@@ -75,8 +75,16 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 {
     [super viewDidLoad];
     
-    // Load mapView
-    [self loadMapView];
+    // Create mapView
+    mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, [[self view] frame].size.width, [[self view] frame].size.height)];
+    [mapView setDelegate:self];
+    [self setView:mapView];
+    
+    // Reset loaded after a new view is created
+    mapViewIsLoaded = NO;
+    
+    // Set stopAnnotations to all stops in route
+    [self setStopAnnotations:[[route allStops] allObjects]];
     
     // Create patterns button
     UIBarButtonItem *showPatternsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Network.png"]
@@ -98,6 +106,8 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 - (void)viewDidUnload 
 {
 	[super viewDidUnload];
+    
+    [self setMapView:nil];
 	[self setRoute:nil];
 	[self setStop:nil];
 	[self setRoutePattern:nil];
@@ -110,11 +120,8 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 
 - (void)loadMapView
 {
-    // Create mapView
-    mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, [[self view] frame].size.width, [[self view] frame].size.height)];
-    [mapView setDelegate:self];
+    // Show user location
     [mapView setShowsUserLocation:YES];
-    [self setView:mapView];
     
     // Create route annotation to hold the points, and add to mapView
     routeAnnotation = [[CSRouteAnnotation alloc] init];
@@ -128,9 +135,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     // Update map with default route pattern
     RoutePattern *defaultRoutePattern = [[route orderedRoutePatterns] objectAtIndex:0];
     [self updateMapWithRoutePattern:defaultRoutePattern];
-    
-    // Set stopAnnotations to all stops in route
-    [self setStopAnnotations:[[route allStops] allObjects]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -152,10 +156,17 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 {    
     [super viewDidAppear:animated];
     
+    // Load map annotations and show user after the view has appeared
+    if (!mapViewIsLoaded) {
+        [self loadMapView];
+        mapViewIsLoaded = YES;
+    }
+    
     // Animate pin drop by adding the stop as an annotation
     if (stop)
-        [mapView addAnnotation:stop];
+        [mapView performSelector:@selector(addAnnotation:) withObject:stop afterDelay:0.20];
     
+    // Begin updating bus locations
     [self beginContinuousBusUpdates];
 }
 
@@ -163,6 +174,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 {
     [super viewDidDisappear:animated];
     
+    // End bus updates when view disappears
     if (busContinuousUpdatesRunning)
         [self endContinuousBusUpdates];
 }
