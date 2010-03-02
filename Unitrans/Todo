@@ -17,12 +17,10 @@ V 1.0
 • Expired times don't correctly update to non-expired after 12am. (Ken)
 • Change white route colors to black (Kip)
 • Verify that phone numbers are correct by calling them ;)
-• Remove (Inbound) (Outbound) from H Line patterns names (Kip)
-• A Line's default pattern should be "Day" and not "First Trip" (Kip)
 • Add check and error message when schedule is out of date (removed for testing purposes b/c it's annoying!)
 • Better error handling when internet not working (try with moobilenet when not logged in...)
 • Better error handling for devices without internet (iPod Touch)
-• Don't have multiple error messages pop up when there is an error loading data (it's annoying!)
+• Don't have multiple error messages pop up when there is an error loading data (it's annoying! eg Map load error and bus laod error when not connected to internet)
 • Cancel operations so we don't get weird error alerts (see below). (Kip)
 • Use OperationQs for bus/prediction updates to cancel them all when view is moved off screen so random alert windows don't pop up.
 
@@ -31,6 +29,7 @@ High
 
 Lower
 =====
+• Remove primaryTrips from code
 • PredictionTimes for selected stop in RouteMapView
 • Create separate arrival/Departure stops for the Silo (like the MU)
 • Show prediction times in accessory popup view when user taps a stop
@@ -134,3 +133,5 @@ Done
 • Fix (hide) tile loading bug (only show's error when error != nil) (Kip)
 • When there's an error updating predictions, don't just stop them, keep trying... (Kip)
 • Remove -1 from stops that aren't in the current route pattern. (Kip)
+• A Line's default pattern should be "Day" and not "First Trip" (Kip)
+• Remove (Inbound) (Outbound) from H Line patterns names (Kip)
