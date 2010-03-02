@@ -13,7 +13,6 @@ V 1.0
 • Max/Min dates for date picker (Ken)
 
 --- Bugs ---
-• Fix bug where if a time expires while displayed in the StopView, the time isn't hidden when hide expire times is pressed. (Ken)
 • Expired times don't correctly update to non-expired after 12am. (Ken)
 • Change white route colors to black (Kip)
 • Verify that phone numbers are correct by calling them ;)
@@ -135,3 +134,4 @@ Done
 • Remove -1 from stops that aren't in the current route pattern. (Kip)
 • A Line's default pattern should be "Day" and not "First Trip" (Kip)
 • Remove (Inbound) (Outbound) from H Line patterns names (Kip)
+• Fix bug where if a time expires while displayed in the StopView, the time isn't hidden when hide expire times is pressed. (Ken)

@@ -47,6 +47,7 @@ typedef enum _StopViewSectionIndex {
 @property (nonatomic, retain) id<StopViewControllerDelegate> delegate;
 
 - (void) updateStopTimes;
+- (void) filterExpiredStopTimes;
 - (void) addUpdateNextStopTimeTimer;
 
 - (NSString *)selectedDateString;

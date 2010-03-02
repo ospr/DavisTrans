@@ -114,12 +114,13 @@
 {
     if(section == SectionIndexSelectedDate)
 		return 1;
-	else if (section == SectionIndexStopTimes) {
+	else if (section == SectionIndexStopTimes) 
+	{
         if ([self shouldShowNoMoreScheduledArrivals])
             return 1 + 1; // 1 for the show/hide expired times and 1 for "no more buses" cell
         else 
             return [activeStopTimes count] + 1; // +1 for show/hide expired times cell
-    }
+	}
     else
         return 0;
 }
@@ -238,13 +239,9 @@
 	{
 		if ([indexPath row] == 0) 
 		{
-			if (showExpiredStopTimes) 
-				[self setActiveStopTimes:currentStopTimes];
-			else
-				[self setActiveStopTimes:allStopTimes];
-            
+			[self filterExpiredStopTimes];
 			[self setShowExpiredStopTimes:!showExpiredStopTimes];
-			[[self tableView] reloadData];
+			//[[self tableView] reloadData];
 		}
 		else if ([self shouldShowNoMoreScheduledArrivals])
 		{
@@ -305,7 +302,11 @@
     NSArray *sortedStopTimes = [[stop allStopTimesWithRoute:route onDate:selectedDate] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopTimeSortDescriptor]];
 	[stopTimeSortDescriptor release];
     [self setAllStopTimes:sortedStopTimes];
+	[self filterExpiredStopTimes];
+}
 
+- (void) filterExpiredStopTimes
+{
 	// Filter out expired times
 	NSInteger index = 0;
 	
