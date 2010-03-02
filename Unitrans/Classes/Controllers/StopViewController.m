@@ -239,9 +239,10 @@
 	{
 		if ([indexPath row] == 0) 
 		{
-			[self filterExpiredStopTimes];
 			[self setShowExpiredStopTimes:!showExpiredStopTimes];
-			//[[self tableView] reloadData];
+			[self filterExpiredStopTimes];
+			[self updateActiveStopTimes];
+			[[self tableView] reloadData];
 		}
 		else if ([self shouldShowNoMoreScheduledArrivals])
 		{
@@ -303,6 +304,7 @@
 	[stopTimeSortDescriptor release];
     [self setAllStopTimes:sortedStopTimes];
 	[self filterExpiredStopTimes];
+	[self updateActiveStopTimes];
 }
 
 - (void) filterExpiredStopTimes
@@ -323,13 +325,6 @@
 	
 	NSRange range = NSMakeRange(index, [allStopTimes count] - index);
 	[self setCurrentStopTimes:[allStopTimes objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range]]];	
-	
-	// Update activeStopTimes
-	if (showExpiredStopTimes)
-		[self setActiveStopTimes:allStopTimes];
-	else 
-		[self setActiveStopTimes:currentStopTimes];
-	[tableView reloadData];
 }
 
 - (void) addUpdateNextStopTimeTimer
@@ -358,6 +353,14 @@
     [expiredStopTimeTimer release]; // Release previous timer
     expiredStopTimeTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:0 target:self selector:@selector(nextStopTimeDidFire:) userInfo:nil repeats:NO];
     [[NSRunLoop currentRunLoop] addTimer:expiredStopTimeTimer forMode:NSDefaultRunLoopMode];
+}
+
+- (void) updateActiveStopTimes
+{
+	if (showExpiredStopTimes)
+		[self setActiveStopTimes:allStopTimes];
+	else 
+		[self setActiveStopTimes:currentStopTimes];
 }
 
 - (void) nextStopTimeDidFire:(NSTimer *)timer
