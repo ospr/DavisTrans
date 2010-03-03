@@ -20,6 +20,7 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 @synthesize predictionOperation;
 @synthesize route;
 @synthesize stop;
+@synthesize predictionLoadError;
 @synthesize isRunningContinuousPredictionUpdates = runningContinuousPredictionUpdates;
 
 - (id)initWithFrame:(CGRect)frame 
@@ -67,6 +68,12 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     
     [predictions release];
     [predictionOperation release];
+    
+    [route release];
+    [stop release];
+    [predictionLoadError release];
+    
+    [loadingIndicatorView release];
     
     [super dealloc];
 }
@@ -122,8 +129,12 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     
     if(loading && (!predictions || [predictions count] == 0))
         predictionText = @"Updating Predictions...";
-    else if (!predictions)
-        predictionText = @"Error gathering predictions.";
+    else if (!predictions) {
+        if ([[predictionLoadError domain] isEqualToString:NSURLErrorDomain])
+            predictionText = @"No Internet connection.";
+        else 
+            predictionText = @"Error gathering predictions.";
+    }
     else if ([predictions count] == 1 && [[predictions objectAtIndex:0] isEqual:@"Now"])
         predictionText = @"Now";
     else if ([predictions count] > 0)
@@ -143,6 +154,9 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     [loadingIndicatorView stopAnimating];
     loading = NO;
     
+    // Reset error
+    [self setPredictionLoadError:nil];
+    
     // If the first time is 0 convert it to "Now"
     NSMutableArray *mutableNewPredictions = [NSMutableArray arrayWithArray:newPredictions];
     if ([newPredictions count] > 0 && [[newPredictions objectAtIndex:0] isEqualToNumber:[NSNumber numberWithInteger:0]])
@@ -158,6 +172,7 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     [loadingIndicatorView stopAnimating];
     loading = NO;
     
+    [self setPredictionLoadError:error];
     NSLog(@"PredictionOperation failed due to error: %@, %@", error, [error userInfo]);
         
     [self setPredictions:nil];

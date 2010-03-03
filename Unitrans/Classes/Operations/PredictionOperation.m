@@ -101,8 +101,22 @@
 
 - (void) parseXMLAtURLString:(NSString *)theURLString
 {
+    NSError *error;
 	NSURL *url = [NSURL URLWithString:theURLString];
-	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    
+    // Send synchronous request to retrieve data so we can determine if an error occurs b/c no internet
+    NSURLRequest *predictionRequest = [NSURLRequest requestWithURL:url];
+    NSData *predictionData = [NSURLConnection sendSynchronousRequest:predictionRequest 
+                                                   returningResponse:nil 
+                                                               error:&error];
+    
+    if (!predictionData) {
+        NSLog(@"Error gathering prediction data from NSURLConnection: %@ %@", error, [error userInfo]);
+        [self setParseError:error];
+        return;
+    }
+    
+	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:predictionData];
 	[xmlParser setDelegate:self];
 	[xmlParser parse];
 	[xmlParser release];

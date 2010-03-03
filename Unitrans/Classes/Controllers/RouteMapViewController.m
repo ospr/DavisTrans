@@ -323,22 +323,13 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 
 - (void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    
     // Load alert message with error (only if error is not null)
-    if (!errorShown && error) {
-        NSString *reason = @"There was an error while loading the map. Make sure you are connected to the internet.";
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Map Loading Error" message:reason
-                                                       delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];	
-        [alert release];
-                
-        // Show error only once!
-        errorShown = YES;
-    }
+    if (error)
+        [self showError:error];
     
     NSLog(@"Error loading map: %@ %@", error, [error userInfo]);
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 #pragma mark -
@@ -441,20 +432,13 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 
 - (void)updateBusAnnotations:(NSArray *)newBusAnnotations
 {
-    // If busInfos is nil there was an error
-    if (!newBusAnnotations) {
-        [self endContinuousBusUpdates];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Update Bus Location Error" message:@"There was an error while updating bus locations. Make sure you are connected to the internet." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
-        [alertView release];
-    }
     // If there were no buses, slow the update
-    else if ([newBusAnnotations count] == 0 && busUpdateInterval != kBusUpdateLongInterval) {
+    if (newBusAnnotations && [newBusAnnotations count] == 0 && busUpdateInterval != kBusUpdateLongInterval) {
         busUpdateInterval = kBusUpdateLongInterval;
         [self startNewBusUpdateTimer];
     }
     // If there are buses, update more quickly
-    else if ([newBusAnnotations count] && busUpdateInterval != kBusUpdateShortInterval) {
+    else if (newBusAnnotations && [newBusAnnotations count] && busUpdateInterval != kBusUpdateShortInterval) {
         busUpdateInterval = kBusUpdateShortInterval;
         [self startNewBusUpdateTimer];
     }
@@ -484,6 +468,10 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 - (void)busInformation:(BusInformationOperation *)busInformationOperation didFailWithError:(NSError *)error
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    
+    // End bus updates if there was an error
+    [self endContinuousBusUpdates];
+    [self showError:error];
     
     [self updateBusAnnotations:nil];
 }
@@ -573,6 +561,38 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     // Show actionSheet
     [patternSheet showFromToolbar:[[self navigationController] toolbar]];
     [patternSheet release];
+}
+
+#pragma mark -
+#pragma mark Error Handling Methods
+
+- (void)showError:(NSError *)error
+{
+    NSString *errorTitle = nil;
+    NSString *errorMessage = nil;
+    
+    // Don't show multiple errors
+    if (errorShown)
+        return;
+    
+    errorShown = YES;
+    
+    if ([[error domain] isEqualToString:NSURLErrorDomain]) {
+        errorTitle = @"No Internet Connection";
+        errorMessage = @"It appears your device has no Internet connection. You will not be able to update map data or see bus locations.";
+    }
+    else {
+        errorTitle = @"Error Loading Data";
+        errorMessage = @"There was an unexpected error while loading data. You may not be able to update map data or see bus locations.";
+    }
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:errorTitle
+                                                        message:errorMessage
+                                                       delegate:self 
+                                              cancelButtonTitle:@"OK" 
+                                              otherButtonTitles:nil];
+    [alertView show];
+    [alertView release];
 }
 
 @end

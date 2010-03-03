@@ -22,6 +22,7 @@
     
     Route *route;
     Stop *stop;
+    NSError *predictionLoadError;
     
     UIActivityIndicatorView *loadingIndicatorView;
     
@@ -32,6 +33,7 @@
 @property (nonatomic, retain) PredictionOperation *predictionOperation;
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) Stop *stop;
+@property (nonatomic, retain) NSError *predictionLoadError;
 @property (nonatomic, assign) BOOL isRunningContinuousPredictionUpdates;
 
 - (void)beginContinuousPredictionsUpdates;

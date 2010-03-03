@@ -67,8 +67,22 @@
 
 - (void) retrieveBusInformation
 {
+    NSError *error;
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=0&r=%@", routeName]];
-	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    
+    // Send synchronous request to retrieve data so we can determine if an error occurs b/c no internet
+    NSURLRequest *busInformationRequest = [NSURLRequest requestWithURL:url];
+    NSData *busInformationData = [NSURLConnection sendSynchronousRequest:busInformationRequest 
+                                                       returningResponse:nil 
+                                                                   error:&error];
+    
+    if (!busInformationData) {
+        NSLog(@"Error gathering prediction data from NSURLConnection: %@ %@", error, [error userInfo]);
+        [self setParseError:error];
+        return;
+    }
+    
+	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:busInformationData];
 	[xmlParser setDelegate:self];
 	[xmlParser parse];
 	[xmlParser release];

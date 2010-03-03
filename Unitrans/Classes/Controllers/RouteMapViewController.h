@@ -56,4 +56,6 @@
 - (void)updateBusLocations;
 - (void)updateMapWithRoutePattern:(RoutePattern *)newRoutePattern;
 
+- (void)showError:(NSError *)error;
+
 @end
