@@ -20,13 +20,14 @@ V 1.0
 • Better error handling when internet not working (try with moobilenet when not logged in...)
 • Cancel operations so we don't get weird error alerts (see below). (Kip)
 • Use OperationQs for bus/prediction updates to cancel them all when view is moved off screen so random alert windows don't pop up.
-• PredictionView not being released b/c stupid NSTimer.
+• PredictionView not being released b/c stupid NSTimer (or is this wide spread?? it seems like none of the dealloc methods are being called).
 
 High
 ======
 
 Lower
 =====
+• Animate insertion/removal of expired times?
 • Remove primaryTrips from code
 • PredictionTimes for selected stop in RouteMapView
 • Create separate arrival/Departure stops for the Silo (like the MU)

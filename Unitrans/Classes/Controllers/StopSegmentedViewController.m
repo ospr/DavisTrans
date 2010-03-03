@@ -79,7 +79,6 @@ CGFloat kPredictionViewHeight = 50.0;
     predictionsView = [[PredictionsView alloc] initWithFrame:CGRectMake(0, -kPredictionViewHeight, [[self view] frame].size.width, kPredictionViewHeight)];
     [predictionsView setRoute:route];
     [predictionsView setStop:stop];
-    [predictionsView beginContinuousPredictionsUpdates];
     [[self view] addSubview:predictionsView];
     
     // Resize contentView to fit between predictionView and toolbar
@@ -96,6 +95,14 @@ CGFloat kPredictionViewHeight = 50.0;
 	[self setPredictionsView:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // Start loading predictions
+    [predictionsView beginContinuousPredictionsUpdates];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -107,6 +114,14 @@ CGFloat kPredictionViewHeight = 50.0;
     [predictionsView setFrame:CGRectMake(0, 0, [[self view] frame].size.width, kPredictionViewHeight)];
     
 	[UIView commitAnimations];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    // Stop updating predictions
+    [predictionsView endContinuousPredictionsUpdates];
 }
 
 - (ExtendedViewController *)viewControllerForSelectedSegmentIndex:(NSInteger)index
