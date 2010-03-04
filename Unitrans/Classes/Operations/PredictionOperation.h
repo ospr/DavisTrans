@@ -31,7 +31,7 @@
 @property (nonatomic, retain) NSString *stopId;
 @property (nonatomic, retain) NSMutableArray *predictionTimes;
 @property (nonatomic, retain) NSError *parseError;
-@property (nonatomic, retain) id<PredictionOperationDelegate> delegate;
+@property (nonatomic, assign) id<PredictionOperationDelegate> delegate;
 
 - (id) initWithRouteName:(NSString *)newRouteName stopTag:(NSString *)newStopTag;
 

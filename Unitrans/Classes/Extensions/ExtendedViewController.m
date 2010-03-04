@@ -14,13 +14,6 @@
 @synthesize segmentedViewController;
 @synthesize segmentTransition;
 
-- (void)dealloc 
-{
-    [segmentedViewController release];
-    
-    [super dealloc];
-}
-
 - (UINavigationController *)navigationController
 {
     // If there is a segmentedViewController return its nav controller,

@@ -56,6 +56,7 @@
 {
     // If no error, call bus information delegate method,
     // otherwise call error method
+    // TODO: need to cancel operation otherwise if delegate deallocs
     if (!parseError)
         [delegate busInformation:self didFinishWithBusInformation:busInformation];
     else

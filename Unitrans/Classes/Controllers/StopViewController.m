@@ -50,10 +50,6 @@
 	[allStopTimes release];
 	[currentStopTimes release];
     [selectedDate release];
-
-    // Invalidate current expiredStopTimeTimer and release it
-    [expiredStopTimeTimer invalidate];
-    [expiredStopTimeTimer release];
     
     [super dealloc];
 }
@@ -92,6 +88,18 @@
 	[self setAllStopTimes:nil];
 	[self setCurrentStopTimes:nil];
 	[self setSelectedDate:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    // If the view is no longer on the stack: invalidate current expiredStopTimeTimer and release it
+    if(![self navigationController]) {
+        [expiredStopTimeTimer invalidate];
+        [expiredStopTimeTimer release];
+        expiredStopTimeTimer = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

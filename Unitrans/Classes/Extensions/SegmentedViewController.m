@@ -33,6 +33,8 @@
 
 - (void)dealloc 
 {
+    [selectedViewController release];
+    
     [contentView release];
     [segmentedControl release];
     [segmentedButtonItem release];

@@ -17,7 +17,7 @@
 	// route view which added this as a subview. 
 	CSRouteView* _routeView;
 }
-@property (nonatomic, retain) CSRouteView* routeView;
+@property (nonatomic, assign) CSRouteView* routeView;
 @end
 
 @implementation CSRouteViewInternal
@@ -86,12 +86,6 @@
 	return self;
 }
 
--(void) dealloc
-{
-	self.routeView = nil;
-	
-	[super dealloc];
-}
 @end
 
 @implementation CSRouteView
@@ -117,8 +111,7 @@
 
 -(void) setMapView:(MKMapView*) mapView
 {
-	[_mapView release];
-	_mapView = [mapView retain];
+    _mapView = mapView;
 	
 	[self regionChanged];
 }
@@ -145,7 +138,6 @@
 
 - (void)dealloc 
 {
-	[_mapView release];
 	[_internalRouteView release];
 	
     [super dealloc];

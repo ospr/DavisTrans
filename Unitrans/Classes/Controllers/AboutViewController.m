@@ -30,7 +30,6 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
 
 @synthesize agency;
 @synthesize aboutItems;
-@synthesize sections;
 @synthesize delegate;
 
 #pragma mark -
@@ -124,7 +123,6 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
 	[super viewDidUnload];
 	[self setAgency:nil];
 	[self setAboutItems:nil];
-	[self setSections:nil];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -44,7 +44,7 @@ typedef enum _StopViewSectionIndex {
 @property (nonatomic, retain) NSArray *currentStopTimes;
 @property (nonatomic, retain) NSDate *selectedDate;
 @property (nonatomic, assign) BOOL showExpiredStopTimes;
-@property (nonatomic, retain) id<StopViewControllerDelegate> delegate;
+@property (nonatomic, assign) id<StopViewControllerDelegate> delegate;
 
 - (void) updateStopTimes;
 - (void) filterExpiredStopTimes;

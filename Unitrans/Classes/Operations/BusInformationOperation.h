@@ -25,7 +25,7 @@
 @property (nonatomic, retain) NSString *routeName;
 @property (nonatomic, retain) NSString *currentElement;
 @property (nonatomic, retain) NSError *parseError;
-@property (nonatomic, retain) id<BusInformationOperationDelegate> delegate;
+@property (nonatomic, assign) id<BusInformationOperationDelegate> delegate;
 
 - (id) initWithRouteName:(NSString *)newRouteName;
 

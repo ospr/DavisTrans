@@ -26,7 +26,7 @@
 -(void) regionChanged;
 
 
-@property (nonatomic, retain) MKMapView* mapView;
+@property (nonatomic, assign) MKMapView* mapView;
 
 
 @end

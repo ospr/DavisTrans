@@ -20,7 +20,7 @@
 
 @property (nonatomic, retain) NSDate *initialDate;
 @property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
-@property (nonatomic, retain) id<DatePickerControllerDelegate> delegate;
+@property (nonatomic, assign) id<DatePickerControllerDelegate> delegate;
 
 - (IBAction) cancel:(id)sender;
 - (IBAction) done:(id)sender;
