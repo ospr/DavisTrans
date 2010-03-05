@@ -17,7 +17,6 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 @implementation PredictionsView
 
 @synthesize predictions;
-@synthesize predictionOperation;
 @synthesize route;
 @synthesize stop;
 @synthesize predictionLoadError;
@@ -30,6 +29,9 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     self = [super initWithFrame:frame];
     
     if (self) {        
+        // Create operation queue to handle the prediction operations
+        operationQueue = [[NSOperationQueue alloc] init];
+        
         // Init predictions to an empty array
         predictions = [[NSArray alloc] init];
         
@@ -67,7 +69,7 @@ CGFloat kLoadingIndicatorPadding = 5.0;
         [self endContinuousPredictionsUpdates];
     
     [predictions release];
-    [predictionOperation release];
+    [operationQueue release];
     
     [route release];
     [stop release];
@@ -98,13 +100,14 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 
 - (void)endContinuousPredictionsUpdates
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self setIsRunningContinuousPredictionUpdates:NO];
-    
-    [self setPredictionOperation:nil];
-    
+            
     [predictionTimer invalidate];
     [predictionTimer release];
     predictionTimer = nil;
+    
+    [operationQueue cancelAllOperations];
 }
 
 - (void)updatePredictions
@@ -112,13 +115,12 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [loadingIndicatorView startAnimating];
     loading = YES;
-    
-    if ([predictionOperation isExecuting])
-        [predictionOperation cancel];
 
-    [self setPredictionOperation:[[[PredictionOperation alloc] initWithRouteName:[route shortName] stopTag:[[stop code] stringValue]] autorelease]];
+    PredictionOperation *predictionOperation = [[PredictionOperation alloc] initWithRouteName:[route shortName] stopTag:[[stop code] stringValue]];
     [predictionOperation setDelegate:self];
-    [predictionOperation start];
+    
+    [operationQueue addOperation:predictionOperation];
+    [predictionOperation release];
     
     [self updatePredictionText];
 }
@@ -150,9 +152,12 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 
 - (void)predictionOperation:(PredictionOperation *)predictionOperation didFinishWithPredictions:(NSArray *)newPredictions
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    [loadingIndicatorView stopAnimating];
-    loading = NO;
+    // Stop activity indicator if there are no more operations running
+    if ([[operationQueue operations] count] == 0) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [loadingIndicatorView stopAnimating];
+        loading = NO;
+    }
     
     // Reset error
     [self setPredictionLoadError:nil];
@@ -168,9 +173,12 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 
 - (void)predictionOperation:(PredictionOperation *)predictionOperation didFailWithError:(NSError *)error
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    [loadingIndicatorView stopAnimating];
-    loading = NO;
+    // Stop activity indicator if there are no more operations running
+    if ([[operationQueue operations] count] == 0) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [loadingIndicatorView stopAnimating];
+        loading = NO;
+    }
     
     [self setPredictionLoadError:error];
     NSLog(@"PredictionOperation failed due to error: %@, %@", error, [error userInfo]);

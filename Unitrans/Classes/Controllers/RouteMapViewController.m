@@ -32,7 +32,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 @synthesize route;
 @synthesize stop;
 @synthesize routePattern;
-@synthesize busInformationOperation;
 @synthesize busAnnotations;
 @synthesize stopAnnotations;
 @synthesize routeAnnotation;
@@ -43,6 +42,8 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     
     if (self) {
+        operationQueue = [[NSOperationQueue alloc] init];
+        
         busUpdateInterval = kBusUpdateShortInterval;
         [self setSegmentTransition:UIViewAnimationTransitionFlipFromRight];
     }
@@ -60,7 +61,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [stop release];
     [routePattern release];
     
-    [busInformationOperation release];
+    [operationQueue release];
     [busAnnotations release];
     [stopAnnotations release];
     [routeAnnotation release];
@@ -111,7 +112,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 	[self setRoute:nil];
 	[self setStop:nil];
 	[self setRoutePattern:nil];
-	[self setBusInformationOperation:nil];
 	[self setBusAnnotations:nil];
 	[self setStopAnnotations:nil];
 	[self setRouteAnnotation:nil];
@@ -408,11 +408,14 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 
 - (void)endContinuousBusUpdates
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     busContinuousUpdatesRunning = NO;
-    
+        
     [busTimer invalidate];
     [busTimer release];
     busTimer = nil;
+    
+    [operationQueue cancelAllOperations];
     
     if (busAnnotations)
         [mapView removeAnnotations:busAnnotations];
@@ -425,9 +428,11 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     // Get all buses for the current route
-    [self setBusInformationOperation:[[[BusInformationOperation alloc] initWithRouteName:[route shortName]] autorelease]];
+    BusInformationOperation *busInformationOperation = [[BusInformationOperation alloc] initWithRouteName:[route shortName]];
     [busInformationOperation setDelegate:self];
-    [busInformationOperation start];
+    
+    [operationQueue addOperation:busInformationOperation];
+    [busInformationOperation release];
 }
 
 - (void)updateBusAnnotations:(NSArray *)newBusAnnotations
@@ -460,14 +465,20 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 
 - (void)busInformation:(BusInformationOperation *)busInformationOperation didFinishWithBusInformation:(NSArray *)busInformation
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    // Stop activity indicator if there are no more operations running
+    if ([[operationQueue operations] count] == 0) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }
 
     [self updateBusAnnotations:busInformation];
 }
 
 - (void)busInformation:(BusInformationOperation *)busInformationOperation didFailWithError:(NSError *)error
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    // Stop activity indicator if there are no more operations running
+    if ([[operationQueue operations] count] == 0) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }
     
     // End bus updates if there was an error
     [self endContinuousBusUpdates];

@@ -14,7 +14,7 @@
 
 @interface PredictionsView : UIButton <PredictionOperationDelegate> {
     NSArray *predictions;
-    PredictionOperation *predictionOperation;
+    NSOperationQueue *operationQueue;
     NSTimer *predictionTimer;
     
     BOOL loading;
@@ -30,7 +30,6 @@
 }
 
 @property (nonatomic, retain) NSArray *predictions;
-@property (nonatomic, retain) PredictionOperation *predictionOperation;
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) Stop *stop;
 @property (nonatomic, retain) NSError *predictionLoadError;

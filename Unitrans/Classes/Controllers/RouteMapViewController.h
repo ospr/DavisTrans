@@ -23,7 +23,7 @@
     Stop *stop;
     RoutePattern *routePattern;
     
-    BusInformationOperation *busInformationOperation;
+    NSOperationQueue *operationQueue;
     NSTimer *busTimer;
     NSTimeInterval busUpdateInterval;
     NSArray *busAnnotations;
@@ -42,7 +42,6 @@
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) Stop *stop;
 @property (nonatomic, retain) RoutePattern *routePattern;
-@property (nonatomic, retain) BusInformationOperation *busInformationOperation;
 @property (nonatomic, retain) NSArray *busAnnotations;
 @property (nonatomic, retain) NSArray *stopAnnotations;
 @property (nonatomic, retain) CSRouteAnnotation *routeAnnotation;
