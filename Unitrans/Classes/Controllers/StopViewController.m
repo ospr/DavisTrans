@@ -242,6 +242,7 @@
 	if([indexPath section] == SectionIndexSelectedDate)
 	{
 		[delegate stopViewController:self showDatePickerWithDate:selectedDate];
+		[[self tableView] setAllowsSelection:NO];
 	}
 	else if([indexPath section] == SectionIndexStopTimes)
 	{
@@ -378,6 +379,22 @@
     
     // Add the next stop time timer
     [self addUpdateNextStopTimeTimer];
+}
+
+- (void) dateChangedTo:(NSDate *)newDate
+{
+	if(newDate)
+	{
+		[self setSelectedDate:newDate];
+		[self updateStopTimes];
+	}
+	
+	[[self tableView] setAllowsSelection:YES];
+	
+	// Deslect date table cell
+	NSUInteger dateIndexPath[] = {0, 0};
+	[[self tableView] deselectRowAtIndexPath:[NSIndexPath indexPathWithIndexes:dateIndexPath length:2] animated:YES];
+	[[self tableView] reloadData];
 }
 
 @end

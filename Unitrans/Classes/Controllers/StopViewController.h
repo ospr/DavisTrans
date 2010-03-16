@@ -50,6 +50,7 @@ typedef enum _StopViewSectionIndex {
 - (void) filterExpiredStopTimes;
 - (void) addUpdateNextStopTimeTimer;
 - (void) updateActiveStopTimes;
+- (void) dateChangedTo:(NSDate *)newDate;
 
 - (NSString *)selectedDateString;
 - (BOOL)shouldShowNoMoreScheduledArrivals;

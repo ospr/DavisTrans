@@ -14,7 +14,6 @@
 #import "RouteMapViewController.h"
 #import "ExtendedViewController.h"
 #import "DetailOverlayView.h"
-#import "DatePickerController.h"
 #import "PredictionsView.h"
 
 CGFloat kPredictionViewHeight = 50.0;
@@ -26,6 +25,10 @@ CGFloat kPredictionViewHeight = 50.0;
 @synthesize stopViewController;
 @synthesize routeMapViewController;
 @synthesize predictionsView;
+@synthesize datePicker;
+@synthesize datePickerDone;
+@synthesize datePickerCancel;
+@synthesize backButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil 
 {
@@ -50,6 +53,10 @@ CGFloat kPredictionViewHeight = 50.0;
     if ([predictionsView isRunningContinuousPredictionUpdates])
         [predictionsView endContinuousPredictionsUpdates];
     [predictionsView release];
+	
+	[datePicker release];
+	[datePickerDone release];
+	[datePickerCancel release];
     
     [super dealloc];
 }
@@ -83,6 +90,21 @@ CGFloat kPredictionViewHeight = 50.0;
     
     // Resize contentView to fit between predictionView and toolbar
     [contentView setFrame:CGRectMake(0, kPredictionViewHeight, [[self view] frame].size.width, [[self view] frame].size.height-kPredictionViewHeight)];
+	
+	// Init datepicker and its navigation buttons
+	datePicker = [[UIDatePicker alloc] init];
+	[datePicker setDatePickerMode:UIDatePickerModeDate];
+	
+	CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+	CGSize datePickerSize = [datePicker sizeThatFits:CGSizeZero];
+	CGRect startRect = CGRectMake(0.0,
+								  screenRect.origin.y + screenRect.size.height,
+								  datePickerSize.width, 
+								  datePickerSize.height);
+	[datePicker setFrame:startRect];
+	
+	datePickerDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(datePickerDone:)];
+	datePickerCancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(datePickerCancel:)];
 }
 
 - (void)viewDidUnload 
@@ -93,6 +115,9 @@ CGFloat kPredictionViewHeight = 50.0;
 	[self setStopViewController:nil];
 	[self setRouteMapViewController:nil];
 	[self setPredictionsView:nil];
+	[self setDatePicker:nil];
+	[self setDatePickerDone:nil];
+	[self setDatePickerCancel:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -123,6 +148,9 @@ CGFloat kPredictionViewHeight = 50.0;
     // Stop updating predictions
     [predictionsView endContinuousPredictionsUpdates];
 }
+
+#pragma mark -
+#pragma mark Instance methods
 
 - (ExtendedViewController *)viewControllerForSelectedSegmentIndex:(NSInteger)index
 {    
@@ -157,29 +185,82 @@ CGFloat kPredictionViewHeight = 50.0;
     return viewController;
 }
 
+- (void)slideDownDidStop
+{
+	// the date picker has finished sliding downwards, so remove it
+	[datePicker removeFromSuperview];
+}
+
+#pragma mark -
+#pragma mark IBAction methods
+
+- (void) dismissDatePicker
+{
+	CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+	CGRect endFrame = [datePicker frame];
+	endFrame.origin.y = screenRect.origin.y + screenRect.size.height;
+	
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.3];
+	
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(slideDownDidStop)];
+	
+	[datePicker setFrame:endFrame];
+	
+	[UIView commitAnimations];
+	
+	// Restore navigation buttons
+	[[self navigationItem] setRightBarButtonItem:nil];
+	[[self navigationItem] setLeftBarButtonItem:backButton];
+	
+	[[self navigationController] setToolbarHidden:NO];
+}
+
+- (IBAction) datePickerDone:(id)sender
+{
+	[self dismissDatePicker];
+	[stopViewController dateChangedTo:[datePicker date]];
+}
+
+- (IBAction) datePickerCancel:(id)sender
+{
+	[self dismissDatePicker];
+	[stopViewController dateChangedTo:nil];
+}
+
 #pragma mark -
 #pragma mark StopViewController Delegate
 
 - (void) stopViewController:(StopViewController *)stopviewController showDatePickerWithDate:(NSDate *)date
 {
-	DatePickerController *datePickerController = [[[DatePickerController alloc] initWithNibName:@"DatePickerController" bundle:nil] autorelease];
-	[datePickerController setDelegate:self];
-	[datePickerController setInitialDate:date];
-	[[self navigationController] presentModalViewController:datePickerController animated:YES];
-}
-
-#pragma mark -
-#pragma mark DatePickerControllerDelegate methods
-
-- (void) datePickerController:(DatePickerController *)datePickerController dateChangedTo:(NSDate *)newDate
-{
-	if(newDate)
-	{
-		[stopViewController setSelectedDate:newDate];
-		[stopViewController updateStopTimes];
-	}
+	[datePicker setDate:date];
 	
-	[self dismissModalViewControllerAnimated:YES];
+	[[self navigationController] setToolbarHidden:YES];
+	[[self view] addSubview:datePicker];
+	
+	CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+	CGSize datePickerSize = [datePicker sizeThatFits:CGSizeZero];
+	// compute the end frame
+	CGRect pickerRect = CGRectMake(0.0,
+								   screenRect.size.height - (datePickerSize.height + 40.0),
+								   datePickerSize.width,
+								   datePickerSize.height);
+	// start the slide up animation
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.3];
+	
+	// we need to perform some post operations after the animation is complete
+	[UIView setAnimationDelegate:self];
+	
+	[datePicker setFrame:pickerRect];
+	
+	[UIView commitAnimations];
+	
+	// Save back button
+	[self setBackButton:[[self navigationItem] leftBarButtonItem]];
+	[[self navigationItem] setLeftBarButtonItem:datePickerCancel];
+	[[self navigationItem] setRightBarButtonItem:datePickerDone];
 }
 
 @end
