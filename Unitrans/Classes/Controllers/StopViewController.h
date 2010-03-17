@@ -33,6 +33,7 @@ typedef enum _StopViewSectionIndex {
     
     // Timers
     NSTimer *expiredStopTimeTimer;
+    NSTimer *nextDayTimer;
     	
 	id<StopViewControllerDelegate> delegate;
 }
@@ -44,16 +45,26 @@ typedef enum _StopViewSectionIndex {
 @property (nonatomic, retain) NSArray *currentStopTimes;
 @property (nonatomic, retain) NSDate *selectedDate;
 @property (nonatomic, assign) BOOL showExpiredStopTimes;
-@property (nonatomic, assign) id<StopViewControllerDelegate> delegate;
+@property (nonatomic, retain) id<StopViewControllerDelegate> delegate;
 
-- (void) updateStopTimes;
-- (void) filterExpiredStopTimes;
-- (void) addUpdateNextStopTimeTimer;
-- (void) updateActiveStopTimes;
-- (void) dateChangedTo:(NSDate *)newDate;
+- (void)updateStopTimes;
+- (void)toggleExpiredStopTimes;
+- (void)filterExpiredStopTimes;
+- (void)startNextDayTimer;
+- (void)stopNextDayTimer;
+- (void)startExpiredStopTimeTimer;
+- (void)stopExpiredStopTimeTimer;
+- (void)updateActiveStopTimes;
 
 - (NSString *)selectedDateString;
-- (BOOL)shouldShowNoMoreScheduledArrivals;
+- (BOOL)shouldShowNoMoreScheduledStops;
+- (BOOL)noScheduledService;
+- (BOOL)shouldShowNoMoreScheduledStops;
+
+- (void)changeScheduleDateTo:(NSDate *)newSelectedDate;
+- (void)chooseNewScheduleDateDidEndWithDate:(NSDate *)newDate;
+- (void)chooseNewScheduleDate;
+
 
 @end
 

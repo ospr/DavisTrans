@@ -50,6 +50,10 @@
 	[allStopTimes release];
 	[currentStopTimes release];
     [selectedDate release];
+
+    // Invalidate current expiredStopTimeTimer and release it
+    [expiredStopTimeTimer invalidate];
+    [expiredStopTimeTimer release];
     
     [super dealloc];
 }
@@ -62,9 +66,7 @@
     [super viewDidLoad];
 
     [self setTitle:@"Stop Times"];
-	[self setSelectedDate:[[NSDate date] beginningOfDay]]; 
 	[self setShowExpiredStopTimes:NO];
-    [self updateStopTimes];
     
     // Create table view
     CGRect tableViewFrame = CGRectMake(0, 0, [[self view] frame].size.width, [[self view] frame].size.height);
@@ -75,8 +77,8 @@
     [self setView:newTableView];
     [newTableView release];
     
-    // Add a timer to fire to update the table when the next stop time expires
-    [self addUpdateNextStopTimeTimer];
+    // Set default date (Today)
+    [self changeScheduleDateTo:[[NSDate date] beginningOfDay]];
 }
 
 - (void)viewDidUnload 
@@ -88,18 +90,6 @@
 	[self setAllStopTimes:nil];
 	[self setCurrentStopTimes:nil];
 	[self setSelectedDate:nil];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    // If the view is no longer on the stack: invalidate current expiredStopTimeTimer and release it
-    if(![self navigationController]) {
-        [expiredStopTimeTimer invalidate];
-        [expiredStopTimeTimer release];
-        expiredStopTimeTimer = nil;
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -124,7 +114,7 @@
 		return 1;
 	else if (section == SectionIndexStopTimes) 
 	{
-        if ([self shouldShowNoMoreScheduledArrivals])
+        if ([self shouldShowNoMoreScheduledStops])
             return 1 + 1; // 1 for the show/hide expired times and 1 for "no more buses" cell
         else 
             return [activeStopTimes count] + 1; // +1 for show/hide expired times cell
@@ -152,9 +142,13 @@
     switch ([indexPath section]) {
         case SectionIndexSelectedDate: cellIdentifier = @"SelectedDate"; break;
         case SectionIndexStopTimes:    
-            if ([indexPath row] == 0)
-                cellIdentifier = @"ExpiredCell";
-            else if ([self shouldShowNoMoreScheduledArrivals])
+            if ([indexPath row] == 0) {
+                if ([self noScheduledService])
+                    cellIdentifier = @"NoService";
+                else
+                    cellIdentifier = @"ExpiredCell";
+            }
+            else if ([self shouldShowNoMoreScheduledStops])
                 cellIdentifier = @"NoBuses";
             else
                 cellIdentifier = @"StopTimes";
@@ -179,6 +173,14 @@
             [[cell textLabel] setTextAlignment:UITextAlignmentLeft];
             [[cell textLabel] setTextColor:[UIColor blueColor]];
             [cell setAccessoryType:UITableViewCellAccessoryNone];
+        }
+        else if ([cellIdentifier isEqualToString:@"NoService"])
+        {
+            [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:14]];
+            [[cell textLabel] setTextAlignment:UITextAlignmentLeft];
+            [[cell textLabel] setTextColor:[UIColor blueColor]];
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
         else if ([cellIdentifier isEqualToString:@"NoBuses"])
         {
@@ -208,14 +210,14 @@
 	{
 		if ([indexPath row] == 0) 
 		{
-            if ([allStopTimes count] == 0)
+            if ([self noScheduledService])
                 [[cell textLabel] setText:@"No scheduled bus service."];
 			else if (showExpiredStopTimes) 
 				[[cell textLabel] setText:@"Hide expired times..."];
 			else 
 				[[cell textLabel] setText:@"Show expired times..."];
 		}
-        else if ([self shouldShowNoMoreScheduledArrivals])
+        else if ([self shouldShowNoMoreScheduledStops])
         {
             [[cell textLabel] setText:@"No more scheduled stops at this time."];
         }
@@ -236,26 +238,17 @@
 	}
 }
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	if([indexPath section] == SectionIndexSelectedDate)
 	{
-		[delegate stopViewController:self showDatePickerWithDate:selectedDate];
-		[[self tableView] setAllowsSelection:NO];
+        [self chooseNewScheduleDate];
 	}
 	else if([indexPath section] == SectionIndexStopTimes)
 	{
 		if ([indexPath row] == 0) 
 		{
-			[self setShowExpiredStopTimes:!showExpiredStopTimes];
-			[self filterExpiredStopTimes];
-			[self updateActiveStopTimes];
-			[[self tableView] reloadData];
-		}
-		else if ([self shouldShowNoMoreScheduledArrivals])
-		{
-			[[self tableView] deselectRowAtIndexPath:indexPath animated:YES];
+            [self toggleExpiredStopTimes];
 		}
 		else
 		{
@@ -264,10 +257,25 @@
             [stopTimeSegmentedViewController setRoute:route];
 			[stopTimeSegmentedViewController setStopTime:stopTime];
             
-			[self.navigationController pushViewController:stopTimeSegmentedViewController animated:YES];
+			[[self navigationController] pushViewController:stopTimeSegmentedViewController animated:YES];
 			[stopTimeSegmentedViewController release];
 		}
 	}
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([indexPath section] == SectionIndexStopTimes) 
+    {
+        // Don't allow the no more service to be selected
+        if ([indexPath row] == 0 && [self noScheduledService])
+            return nil;
+        // Don't allow the no more scheduled stops to be selected
+        else if ([indexPath row] == 1 && [self shouldShowNoMoreScheduledStops])
+            return nil;
+    }
+    
+    return indexPath;
 }
 
 - (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -297,15 +305,116 @@
     return [selectedDateFormatter stringFromDate:selectedDate];
 }
 
-- (BOOL)shouldShowNoMoreScheduledArrivals
+- (BOOL)shouldShowNoMoreScheduledStops
 {
-    return !showExpiredStopTimes && [currentStopTimes count] == 0 && [allStopTimes count] != 0;
+    // TODO: test 10:22 in Stop expiring and reloading correctly
+    return !showExpiredStopTimes && [activeStopTimes count] == 0 && ![self noScheduledService];
+}
+
+- (BOOL)noScheduledService
+{
+    return ([allStopTimes count] == 0);
+}
+
+#pragma mark -
+#pragma mark NextDay Timer Methods
+
+- (void)startNextDayTimer
+{
+    // Stop previous nextDayTimer
+    [self stopNextDayTimer];
+    
+    // Get 12AM tomorrow's date
+    NSDate *nextDay = [NSDate beginningOfTomorrow];
+    
+    // Set timer to fire at new day
+    nextDayTimer = [[NSTimer alloc] initWithFireDate:nextDay interval:0 target:self selector:@selector(nextDayTimerDidFire:) userInfo:nil repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:nextDayTimer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)stopNextDayTimer
+{
+    [nextDayTimer invalidate];
+    [nextDayTimer release];
+    nextDayTimer = nil;
+}
+
+- (void)nextDayTimerDidFire:(NSTimer *)timer
+{
+    // Filter all stop times to remove "expired" status
+    [self filterExpiredStopTimes];
+    
+    // Index path for schedule's selected date
+    NSIndexPath *dateIndexPath = [NSIndexPath indexPathForRow:0 inSection:SectionIndexSelectedDate];
+    
+    // Reload date cell to reflect date change
+    [[self tableView] reloadRowsAtIndexPaths:[NSArray arrayWithObject:dateIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    // Start next day and expired stopTime timer
+    [self startNextDayTimer];
+    [self startExpiredStopTimeTimer];
+}
+
+#pragma mark -
+#pragma mark ExpiredStopTime Timer Methods
+
+- (void) startExpiredStopTimeTimer
+{
+    NSDate *now = [NSDate date];
+    NSDate *referenceDate = [NSDate beginningOfToday];
+    NSDate *arrivalDate;
+    NSDate *nextExpiredDate = nil;
+    
+    // Stop previous expired timer
+    [self stopExpiredStopTimeTimer];
+    
+    // Loop through all stop times and find the first time that is later than now
+    for (StopTime *stopTime in activeStopTimes) {
+        NSUInteger seconds = [[stopTime arrivalTime] unsignedIntegerValue];
+        arrivalDate = [[[NSDate alloc] initWithTimeInterval:seconds sinceDate:referenceDate] autorelease];
+        
+        if([arrivalDate laterDate:now] == arrivalDate) {
+            nextExpiredDate = arrivalDate;
+            break;
+        }
+    }
+    
+    // If there is no next expired date today, then don't start a new timer
+    // We start the expired timer again in nextDayTimerDidFire:
+    if (!nextExpiredDate)
+        return;
+    
+    // Add a timer to fire at fireDate
+    expiredStopTimeTimer = [[NSTimer alloc] initWithFireDate:nextExpiredDate interval:0 target:self selector:@selector(nextExpiredStopTimeDidFire:) userInfo:nil repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:expiredStopTimeTimer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)stopExpiredStopTimeTimer
+{
+    [expiredStopTimeTimer invalidate];
+    [expiredStopTimeTimer release];
+    expiredStopTimeTimer = nil;
+}
+
+- (void)nextExpiredStopTimeDidFire:(NSTimer *)timer
+{
+    [self filterExpiredStopTimes];
+    
+    // Get index of cell to animated to expired
+    NSInteger cellIndex = [activeStopTimes count] - [currentStopTimes count] - 1;
+    
+    // Reload table to update the greyed out stop times (+1 for the show/hide cell)
+    // TODO 3.2: change animationTop to animationMiddle
+    [[self tableView] reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:cellIndex+1 inSection:SectionIndexStopTimes]] withRowAnimation:UITableViewRowAnimationTop];
+    
+    // Start the next expired stop time timer
+    [self startExpiredStopTimeTimer];
 }
 
 #pragma mark -
 #pragma mark Instance Methods
 
-- (void) updateStopTimes
+- (void)updateStopTimes
 {
     // Get StopTimes based on route and date and sort
     NSSortDescriptor *stopTimeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"arrivalTime" ascending:YES];
@@ -316,8 +425,65 @@
 	[self updateActiveStopTimes];
 }
 
-- (void) filterExpiredStopTimes
+- (void)toggleExpiredStopTimes
 {
+    BOOL wasShowingNoMoreScheduledArrivals = [self shouldShowNoMoreScheduledStops];
+    
+    [self setShowExpiredStopTimes:!showExpiredStopTimes];
+            
+    // Insert stop times (show expired times)
+    if (showExpiredStopTimes) {
+        // Number of rows to insert
+        NSUInteger insertionCount = [allStopTimes count] - [activeStopTimes count];
+        
+        NSMutableArray *insertIndexPaths = [NSMutableArray array];
+        for (int i = 0; i < insertionCount ; i++)
+            [insertIndexPaths addObject:[NSIndexPath indexPathForRow:i+1 inSection:SectionIndexStopTimes]]; // +1 for show/hide cell
+        
+        [self filterExpiredStopTimes];
+        [self updateActiveStopTimes];
+        
+        // Begin animation block
+        [[self tableView] beginUpdates];
+            // If all stopTimes have expired, then delete the "No more stop times" cell
+            if (wasShowingNoMoreScheduledArrivals)
+                [[self tableView] deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:SectionIndexStopTimes]] withRowAnimation:UITableViewRowAnimationTop];
+            [[self tableView] insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationTop];
+        
+
+        [[self tableView] reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:SectionIndexStopTimes]] withRowAnimation:UITableViewRowAnimationNone];
+        [[self tableView] deselectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:SectionIndexStopTimes] animated:YES];
+        
+        [[self tableView] endUpdates];
+    }
+    // Remove stop times (hide expired times)
+    else {
+        // Number of rows to delete
+        NSUInteger deletionCount = [allStopTimes count] - [currentStopTimes count];
+        
+        NSMutableArray *insertIndexPaths = [NSMutableArray array];
+        for (int i = 0; i < deletionCount ; i++)
+            [insertIndexPaths addObject:[NSIndexPath indexPathForRow:i+1 inSection:SectionIndexStopTimes]]; // +1 for show/hide cell
+        
+        [self filterExpiredStopTimes];
+        [self updateActiveStopTimes];
+        
+        // Begin animation block
+        [[self tableView] beginUpdates];
+            [[self tableView] deleteRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationTop];
+            // If all stopTimes have expired, then insert the "No more stop times" cell
+            if ([self shouldShowNoMoreScheduledStops])
+                [[self tableView] insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:SectionIndexStopTimes]] withRowAnimation:UITableViewRowAnimationTop];
+        
+        
+            [[self tableView] reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:SectionIndexStopTimes]] withRowAnimation:UITableViewRowAnimationNone];
+        [[self tableView] deselectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:SectionIndexStopTimes] animated:YES];
+        [[self tableView] endUpdates];
+    }
+}
+
+- (void) filterExpiredStopTimes
+{    
 	// Filter out expired times
 	NSInteger index = 0;
 	
@@ -336,34 +502,6 @@
 	[self setCurrentStopTimes:[allStopTimes objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range]]];	
 }
 
-- (void) addUpdateNextStopTimeTimer
-{
-    NSDate *now = [NSDate date];
-    NSDate *referenceDate = [NSDate beginningOfToday];
-    NSDate *arrivalDate;
-    NSDate *fireDate = nil;
-    
-    // Loop through all stop times and find the first time that is later than now
-    for (StopTime *stopTime in activeStopTimes) {
-        NSUInteger seconds = [[stopTime arrivalTime] unsignedIntegerValue];
-        arrivalDate = [[[NSDate alloc] initWithTimeInterval:seconds sinceDate:referenceDate] autorelease];
-        
-        if([arrivalDate laterDate:now] == arrivalDate) {
-            fireDate = arrivalDate;
-            break;
-        }
-    }
-    
-    // If there was no arrivalDate later than now, we fire and update at 12am
-    if (!fireDate)
-        fireDate = [referenceDate addTimeInterval:24*60*60];
-    
-    // Add a timer to fire at fireDate
-    [expiredStopTimeTimer release]; // Release previous timer
-    expiredStopTimeTimer = [[NSTimer alloc] initWithFireDate:fireDate interval:0 target:self selector:@selector(nextStopTimeDidFire:) userInfo:nil repeats:NO];
-    [[NSRunLoop currentRunLoop] addTimer:expiredStopTimeTimer forMode:NSDefaultRunLoopMode];
-}
-
 - (void) updateActiveStopTimes
 {
 	if (showExpiredStopTimes)
@@ -372,30 +510,57 @@
 		[self setActiveStopTimes:currentStopTimes];
 }
 
-- (void) nextStopTimeDidFire:(NSTimer *)timer
+#pragma mark -
+#pragma mark Change Schedule Date Methods
+
+- (void)changeScheduleDateTo:(NSDate *)newSelectedDate
 {
-    // Reload table to update the greyed out stop times
-    [[self tableView] reloadData];
+    NSDate *todayBeginning = [NSDate beginningOfToday];
+    NSDate *tomorrowBeginning = [NSDate beginningOfTomorrow];
+    NSDate *newSelectedDateBeginning = [newSelectedDate beginningOfDay];
     
-    // Add the next stop time timer
-    [self addUpdateNextStopTimeTimer];
+    [self setSelectedDate:newSelectedDateBeginning];
+    [self updateStopTimes];
+    
+    // If new date is today or tomorrow, add a 12am timer (if today, the date will change to full date, if tomorrow, the date will change to Today)
+    // Else invalidate 12am timer if there is one already (yesterday will stay full date, and dates after tomorrow will stay full dates)
+    if ([newSelectedDateBeginning isEqualToDate:todayBeginning] || [newSelectedDateBeginning isEqualToDate:tomorrowBeginning])
+    {
+        [self startNextDayTimer];
+    }
+    else
+    {
+        [self stopNextDayTimer];
+    }
+    
+    // If new date is today, add nextStopTime timer (we want to animate changes to the table only when the date is today)
+    // Else invalidate current nextStopTime timer
+    if ([newSelectedDateBeginning isEqualToDate:todayBeginning])
+    {
+        [self startExpiredStopTimeTimer];
+    }
+    else
+    {
+        [self stopExpiredStopTimeTimer];
+    }
+    
+    [[self tableView] reloadData];
 }
 
-- (void) dateChangedTo:(NSDate *)newDate
+- (void)chooseNewScheduleDateDidEndWithDate:(NSDate *)newDate
 {
 	if(newDate)
 	{
-		[self setSelectedDate:newDate];
-		[self updateStopTimes];
+		[self changeScheduleDateTo:newDate];
 	}
 	
 	[[self tableView] setAllowsSelection:YES];
-	
-	// Deslect date table cell
-	NSUInteger dateIndexPath[] = {0, 0};
-	[[self tableView] deselectRowAtIndexPath:[NSIndexPath indexPathWithIndexes:dateIndexPath length:2] animated:YES];
-	[[self tableView] reloadData];
+}
+
+- (void)chooseNewScheduleDate
+{
+    [delegate stopViewController:self showDatePickerWithDate:selectedDate];
+    [[self tableView] setAllowsSelection:NO];
 }
 
 @end
-

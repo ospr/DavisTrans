@@ -18,6 +18,10 @@ V 1.0
 • Verify that phone numbers are correct by calling them ;)
 • Add check and error message when schedule is out of date (removed for testing purposes b/c it's annoying!)
 • Better error handling when internet not working (try with moobilenet when not logged in...)
+• Stop updates when app goes idle (lock screen is enabled, or screen goes to sleep) (Kip)
+• Don't show rightCalloutAccessoryView for the annotation for the current stop. (Kip)
+• MKDotBounceAnimation bug
+• Invalidate stopTimeEpiredTimer when view is popped off the nav controller in StopViewController
 
 High
 ======
@@ -137,3 +141,5 @@ Done
 • PredictionView not being released b/c stupid NSTimer (or is this wide spread?? it seems like none of the dealloc methods are being called).
 • Cancel operations so we don't get weird error alerts (see below). (Kip)
 • Use OperationQs for bus/prediction updates to cancel them all when view is moved off screen so random alert windows don't pop up (and to address crash issues!!).
+• Date not changing?
+• Selecting no stops scheduled crashes

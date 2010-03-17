@@ -782,7 +782,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ken Zheng (3C28KG49NA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kip Nicol (9A7ZZQAP7A)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -791,7 +791,6 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Unitrans-Info.plist";
 				PRODUCT_NAME = Unitrans;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4C92ABA6-8516-479B-80BB-27868999F295";
 			};
 			name = Debug;
 		};
@@ -812,12 +811,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ken Zheng (3C28KG49NA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kip Nicol (9A7ZZQAP7A)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4C92ABA6-8516-479B-80BB-27868999F295";
 				SDKROOT = iphoneos3.1.2;
 			};
 			name = Debug;

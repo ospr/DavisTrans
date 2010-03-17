@@ -211,8 +211,8 @@ CGFloat kPredictionViewHeight = 50.0;
 	[UIView commitAnimations];
 	
 	// Restore navigation buttons
-	[[self navigationItem] setRightBarButtonItem:nil];
-	[[self navigationItem] setLeftBarButtonItem:backButton];
+	[[self navigationItem] setRightBarButtonItem:nil animated:YES];
+	[[self navigationItem] setLeftBarButtonItem:backButton animated:YES];
 	
 	[[self navigationController] setToolbarHidden:NO];
 }
@@ -220,13 +220,14 @@ CGFloat kPredictionViewHeight = 50.0;
 - (IBAction) datePickerDone:(id)sender
 {
 	[self dismissDatePicker];
-	[stopViewController dateChangedTo:[datePicker date]];
+    
+    [stopViewController chooseNewScheduleDateDidEndWithDate:[datePicker date]];
 }
 
 - (IBAction) datePickerCancel:(id)sender
 {
 	[self dismissDatePicker];
-	[stopViewController dateChangedTo:nil];
+    [stopViewController chooseNewScheduleDateDidEndWithDate:nil];
 }
 
 #pragma mark -
@@ -259,8 +260,8 @@ CGFloat kPredictionViewHeight = 50.0;
 	
 	// Save back button
 	[self setBackButton:[[self navigationItem] leftBarButtonItem]];
-	[[self navigationItem] setLeftBarButtonItem:datePickerCancel];
-	[[self navigationItem] setRightBarButtonItem:datePickerDone];
+	[[self navigationItem] setLeftBarButtonItem:datePickerCancel animated:YES];
+	[[self navigationItem] setRightBarButtonItem:datePickerDone animated:YES];
 }
 
 @end
