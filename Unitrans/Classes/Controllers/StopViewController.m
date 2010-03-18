@@ -555,6 +555,11 @@
 	}
 	
 	[[self tableView] setAllowsSelection:YES];
+	
+	// Deselect date table cell
+	NSUInteger dateCellIndexPath[] = {0, 0};
+	[[self tableView] deselectRowAtIndexPath:[NSIndexPath indexPathWithIndexes:dateCellIndexPath length:2] animated:YES];
+	[[self tableView] reloadData];
 }
 
 - (void)chooseNewScheduleDate
