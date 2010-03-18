@@ -15,6 +15,7 @@
 #import "ExtendedViewController.h"
 #import "DetailOverlayView.h"
 #import "PredictionsView.h"
+#import "Calendar.h"
 
 CGFloat kPredictionViewHeight = 50.0;
 
@@ -94,6 +95,9 @@ CGFloat kPredictionViewHeight = 50.0;
 	// Init datepicker and its navigation buttons
 	datePicker = [[UIDatePicker alloc] init];
 	[datePicker setDatePickerMode:UIDatePickerModeDate];
+	
+	[datePicker setMinimumDate:[(Calendar *)[[[route trips] anyObject] calendar] startDate]];
+	[datePicker setMaximumDate:[(Calendar *)[[[route trips] anyObject] calendar] endDate]];
 	
 	CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
 	CGSize datePickerSize = [datePicker sizeThatFits:CGSizeZero];
