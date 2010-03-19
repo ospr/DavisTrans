@@ -52,9 +52,8 @@
 	[currentStopTimes release];
     [selectedDate release];
 
-    // Invalidate current expiredStopTimeTimer and release it
-    [expiredStopTimeTimer invalidate];
     [expiredStopTimeTimer release];
+    [nextDayTimer release];
     
     [super dealloc];
 }

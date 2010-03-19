@@ -142,7 +142,8 @@ Done
 • Use OperationQs for bus/prediction updates to cancel them all when view is moved off screen so random alert windows don't pop up (and to address crash issues!!).
 • Date not changing?
 • Selecting no stops scheduled crashes
-• Max/Min dates for date picker (Ken)• Don't show rightCalloutAccessoryView for the annotation for the current stop. (Kip)
+• Max/Min dates for date picker (Ken)
+• Don't show rightCalloutAccessoryView for the annotation for the current stop. (Kip)
 • Invalidate stopTimeEpiredTimer when view is popped off the nav controller in StopViewController
 • If one time left and it's one minute, then say minute and not minutes.
 • Expired times don't correctly update to non-expired after 12am. (Ken)
