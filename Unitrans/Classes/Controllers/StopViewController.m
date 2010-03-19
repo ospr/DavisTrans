@@ -82,6 +82,16 @@
     [self changeScheduleDateTo:[[NSDate date] beginningOfDay]];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    if (![self navigationController]) {
+        [self stopNextDayTimer];
+        [self stopExpiredStopTimeTimer];
+    }
+}
+
 - (void)viewDidUnload 
 {
 	[super viewDidUnload];

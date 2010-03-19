@@ -12,19 +12,15 @@ V 1.0
 • CreditsView
 
 --- Bugs ---
-• Expired times don't correctly update to non-expired after 12am. (Ken)
 • Change white route colors to black (Kip)
 • Verify that phone numbers are correct by calling them ;)
 • Add check and error message when schedule is out of date (removed for testing purposes b/c it's annoying!)
 • Better error handling when internet not working (try with moobilenet when not logged in...)
 • Stop updates when app goes idle (lock screen is enabled, or screen goes to sleep) (Kip)
-• Don't show rightCalloutAccessoryView for the annotation for the current stop. (Kip)
+• Have all StopViewControllers reload their tables (to update expired cells) when the app becomes active again.
 • MKDotBounceAnimation bug
-• Invalidate stopTimeEpiredTimer when view is popped off the nav controller in StopViewController
-• If one time left and it's one minute, then say minute and not minutes.
 • Speed up bus radar pulse?
 • When showing datepicker, detail view should truncate labels.
-• Have all StopViewControllers reload their tables (to update expired cells) when the app becomes active again.
 
 High
 ======
@@ -146,4 +142,7 @@ Done
 • Use OperationQs for bus/prediction updates to cancel them all when view is moved off screen so random alert windows don't pop up (and to address crash issues!!).
 • Date not changing?
 • Selecting no stops scheduled crashes
-• Max/Min dates for date picker (Ken)
+• Max/Min dates for date picker (Ken)• Don't show rightCalloutAccessoryView for the annotation for the current stop. (Kip)
+• Invalidate stopTimeEpiredTimer when view is popped off the nav controller in StopViewController
+• If one time left and it's one minute, then say minute and not minutes.
+• Expired times don't correctly update to non-expired after 12am. (Ken)

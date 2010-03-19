@@ -198,7 +198,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
         
         if (!pinAnnotationView) {
             pinAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:stopAnnotation reuseIdentifier:@"DefaultStop"] autorelease];
-            [pinAnnotationView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
             [pinAnnotationView setCanShowCallout:YES];
             [pinAnnotationView setPinColor:MKPinAnnotationColorPurple];
             [pinAnnotationView setAnimatesDrop:YES];

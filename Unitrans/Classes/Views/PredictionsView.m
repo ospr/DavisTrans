@@ -137,8 +137,10 @@ CGFloat kLoadingIndicatorPadding = 5.0;
         else 
             predictionText = @"Error gathering predictions.";
     }
-    else if ([predictions count] == 1 && [[predictions objectAtIndex:0] isEqual:@"Now"])
+    else if ([predictions count] == 1  && [[predictions objectAtIndex:0] isEqual:@"Now"])
         predictionText = @"Now";
+    else if ([predictions count] == 1 && [[predictions objectAtIndex:0] isEqual:[NSNumber numberWithInteger:1]])
+        predictionText = @"1 minute";
     else if ([predictions count] > 0)
         predictionText = [NSString stringWithFormat:@"%@ minutes", [predictions componentsJoinedByString:@", "]];
     else
