@@ -21,6 +21,10 @@ V 1.0
 • Don't show rightCalloutAccessoryView for the annotation for the current stop. (Kip)
 • MKDotBounceAnimation bug
 • Invalidate stopTimeEpiredTimer when view is popped off the nav controller in StopViewController
+• If one time left and it's one minute, then say minute and not minutes.
+• Speed up bus radar pulse?
+• When showing datepicker, detail view should truncate labels.
+• Have all StopViewControllers reload their tables (to update expired cells) when the app becomes active again.
 
 High
 ======
