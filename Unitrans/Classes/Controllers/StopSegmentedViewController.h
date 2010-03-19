@@ -14,6 +14,7 @@
 @class Route;
 @class Stop;
 @class RouteMapViewController;
+@class DetailOverlayView;
 @class PredictionsView;
 
 @interface StopSegmentedViewController : SegmentedViewController <StopViewControllerDelegate> {
@@ -23,6 +24,7 @@
     StopViewController *stopViewController;
     RouteMapViewController *routeMapViewController;
     
+    DetailOverlayView *detailOverlayView;
     PredictionsView *predictionsView;
 	
 	UIDatePicker *datePicker;
@@ -35,6 +37,7 @@
 @property (nonatomic, retain) Stop *stop;
 @property (nonatomic, retain) StopViewController *stopViewController;
 @property (nonatomic, retain) RouteMapViewController *routeMapViewController;
+@property (nonatomic, retain) DetailOverlayView *detailOverlayView;
 @property (nonatomic, retain) PredictionsView *predictionsView;
 @property (nonatomic, retain) UIDatePicker *datePicker;
 @property (nonatomic, retain) UIBarButtonItem *datePickerDone;
@@ -42,6 +45,9 @@
 @property (nonatomic, assign) UIBarButtonItem *backButton;
 
 - (void) dismissDatePicker;
+
+- (void)showPredictionViewWithAnimation;
+- (void)hidePredictionViewWithAnimation;
 
 @end
 

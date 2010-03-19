@@ -26,6 +26,7 @@ CGFloat kPredictionViewHeight = 50.0;
 @synthesize stopViewController;
 @synthesize routeMapViewController;
 @synthesize predictionsView;
+@synthesize detailOverlayView;
 @synthesize datePicker;
 @synthesize datePickerDone;
 @synthesize datePickerCancel;
@@ -54,6 +55,7 @@ CGFloat kPredictionViewHeight = 50.0;
     if ([predictionsView isRunningContinuousPredictionUpdates])
         [predictionsView endContinuousPredictionsUpdates];
     [predictionsView release];
+    [detailOverlayView release];
 	
 	[datePicker release];
 	[datePickerDone release];
@@ -67,14 +69,11 @@ CGFloat kPredictionViewHeight = 50.0;
     [super viewDidLoad];
     
     // Create detail overlay view
-    DetailOverlayView *detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, 255, 40)];
+    detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, 255, 40)];
     [[detailOverlayView textLabel] setText:[stop name]];
     [[detailOverlayView detailTextLabel] setText:[NSString stringWithFormat:@"#%@ %@", [stop stopID], [stop headingString]]];
     [[detailOverlayView imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteToolbarIcon_43.png", [route shortName]]]];
-    
-    // Set navbar title view
     [[self navigationItem] setTitleView:detailOverlayView];
-    [detailOverlayView release];
     
     // Create tableBackground image view to fill in space behind prediction view
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TableBackground.png"]];
@@ -95,6 +94,7 @@ CGFloat kPredictionViewHeight = 50.0;
 	// Init datepicker and its navigation buttons
 	datePicker = [[UIDatePicker alloc] init];
 	[datePicker setDatePickerMode:UIDatePickerModeDate];
+    [datePicker addTarget:self action:@selector(datePickerValueDidChange) forControlEvents:UIControlEventValueChanged];
 	
 	[datePicker setMinimumDate:[(Calendar *)[[[route trips] anyObject] calendar] startDate]];
 	[datePicker setMaximumDate:[(Calendar *)[[[route trips] anyObject] calendar] endDate]];
@@ -118,6 +118,7 @@ CGFloat kPredictionViewHeight = 50.0;
 	[self setStop:nil];
 	[self setStopViewController:nil];
 	[self setRouteMapViewController:nil];
+    [self setDetailOverlayView:nil];
 	[self setPredictionsView:nil];
 	[self setDatePicker:nil];
 	[self setDatePickerDone:nil];
@@ -137,12 +138,7 @@ CGFloat kPredictionViewHeight = 50.0;
     [super viewDidAppear:animated];
     
     // Animate sliding prediction view down
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.25];
-    
-    [predictionsView setFrame:CGRectMake(0, 0, [[self view] frame].size.width, kPredictionViewHeight)];
-    
-	[UIView commitAnimations];
+	[self showPredictionViewWithAnimation];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -154,7 +150,7 @@ CGFloat kPredictionViewHeight = 50.0;
 }
 
 #pragma mark -
-#pragma mark Instance methods
+#pragma mark SegmentedViewController Methods
 
 - (ExtendedViewController *)viewControllerForSelectedSegmentIndex:(NSInteger)index
 {    
@@ -189,14 +185,31 @@ CGFloat kPredictionViewHeight = 50.0;
     return viewController;
 }
 
-- (void)slideDownDidStop
+#pragma mark -
+#pragma mark PredictionsView Methods
+
+- (void)showPredictionViewWithAnimation
 {
-	// the date picker has finished sliding downwards, so remove it
-	[datePicker removeFromSuperview];
+    [UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.25];
+    
+    [predictionsView setFrame:CGRectMake(0, 0, [[self view] frame].size.width, kPredictionViewHeight)];
+    
+	[UIView commitAnimations];
+}
+
+- (void)hidePredictionViewWithAnimation
+{
+    [UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.25];
+    
+    [predictionsView setFrame:CGRectMake(0, -kPredictionViewHeight, [[self view] frame].size.width, kPredictionViewHeight)];
+    
+	[UIView commitAnimations];
 }
 
 #pragma mark -
-#pragma mark IBAction methods
+#pragma mark DatePicker Methods
 
 - (void) dismissDatePicker
 {
@@ -217,21 +230,42 @@ CGFloat kPredictionViewHeight = 50.0;
 	// Restore navigation buttons
 	[[self navigationItem] setRightBarButtonItem:nil animated:YES];
 	[[self navigationItem] setLeftBarButtonItem:backButton animated:YES];
-	
+    
 	[[self navigationController] setToolbarHidden:NO];
+}
+
+- (void)slideDownDidStop
+{
+	// the date picker has finished sliding downwards, so remove it
+	[datePicker removeFromSuperview];
+}
+
+- (void)endDatePickerWithDate:(NSDate *)date
+{
+    [self dismissDatePicker];
+    [self showPredictionViewWithAnimation];
+    [stopViewController chooseNewScheduleDateDidEndWithDate:date];
 }
 
 - (IBAction) datePickerDone:(id)sender
 {
-	[self dismissDatePicker];
-    
-    [stopViewController chooseNewScheduleDateDidEndWithDate:[datePicker date]];
+	[self endDatePickerWithDate:[datePicker date]];
 }
 
 - (IBAction) datePickerCancel:(id)sender
 {
-	[self dismissDatePicker];
-    [stopViewController chooseNewScheduleDateDidEndWithDate:nil];
+    [self endDatePickerWithDate:nil];
+}
+
+- (void) dismissDatePickerWithDate:(NSDate *)date
+{
+    [self endDatePickerWithDate:date];
+}
+
+- (void)datePickerValueDidChange
+{
+    // Let the stopViewController know that the date changed so it can update accordingly
+    [stopViewController datePickerValueDidChangeWithDate:[datePicker date]];
 }
 
 #pragma mark -
@@ -254,14 +288,17 @@ CGFloat kPredictionViewHeight = 50.0;
 	// start the slide up animation
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.3];
-	
+    
+    // Hide predictionView to remove clutter
+    [self hidePredictionViewWithAnimation];
+    	
 	// we need to perform some post operations after the animation is complete
 	[UIView setAnimationDelegate:self];
 	
 	[datePicker setFrame:pickerRect];
 	
 	[UIView commitAnimations];
-	
+    
 	// Save back button
 	[self setBackButton:[[self navigationItem] leftBarButtonItem]];
 	[[self navigationItem] setLeftBarButtonItem:datePickerCancel animated:YES];

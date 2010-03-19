@@ -28,8 +28,10 @@ typedef enum _StopViewSectionIndex {
 	NSArray *currentStopTimes;	// contains only the stop times which aren't expired
 	
 	NSDate *selectedDate;
+    NSDate *temporaryDate;
 
 	BOOL showExpiredStopTimes;
+    BOOL chooseNewScheduleDateMode;
     
     // Timers
     NSTimer *expiredStopTimeTimer;
@@ -44,9 +46,11 @@ typedef enum _StopViewSectionIndex {
 @property (nonatomic, retain) NSArray *allStopTimes;
 @property (nonatomic, retain) NSArray *currentStopTimes;
 @property (nonatomic, retain) NSDate *selectedDate;
+@property (nonatomic, retain) NSDate *temporaryDate;
 @property (nonatomic, assign) BOOL showExpiredStopTimes;
 @property (nonatomic, retain) id<StopViewControllerDelegate> delegate;
 
+- (void)sortStopTimes;
 - (void)updateStopTimes;
 - (void)toggleExpiredStopTimes;
 - (void)filterExpiredStopTimes;
@@ -56,7 +60,7 @@ typedef enum _StopViewSectionIndex {
 - (void)stopExpiredStopTimeTimer;
 - (void)updateActiveStopTimes;
 
-- (NSString *)selectedDateString;
+- (NSString *)stringForDate:(NSDate *)date;
 - (BOOL)shouldShowNoMoreScheduledStops;
 - (BOOL)noScheduledService;
 - (BOOL)shouldShowNoMoreScheduledStops;
@@ -64,7 +68,7 @@ typedef enum _StopViewSectionIndex {
 - (void)changeScheduleDateTo:(NSDate *)newSelectedDate;
 - (void)chooseNewScheduleDateDidEndWithDate:(NSDate *)newDate;
 - (void)chooseNewScheduleDate;
-
+- (void)datePickerValueDidChangeWithDate:(NSDate *)newDate;
 
 @end
 
@@ -72,5 +76,6 @@ typedef enum _StopViewSectionIndex {
 @protocol StopViewControllerDelegate <NSObject>
 @required
 - (void) stopViewController:(StopViewController *)stopviewController showDatePickerWithDate:(NSDate *)date;
+- (void) dismissDatePickerWithDate:(NSDate *)date;
 @end
 
