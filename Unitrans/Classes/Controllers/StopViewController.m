@@ -38,6 +38,12 @@
     
     if (self) {
         [self setSegmentTransition:UIViewAnimationTransitionFlipFromLeft];
+        
+        // Observe when the application becomes active, so we can update the expired times
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(applicationDidBecomeActive:) 
+                                                     name:UIApplicationDidBecomeActiveNotification
+                                                   object:nil];
     }
     
     return self;
@@ -45,6 +51,8 @@
 
 - (void)dealloc 
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [route release];
     [stop release];
 	[activeStopTimes release];
@@ -107,6 +115,14 @@
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    // Filter and reload table data when application becomes active
+    // so that if device went to sleep we can update the expired times here
+    [self filterExpiredStopTimes];
+    [[self tableView] reloadData];
 }
 
 #pragma mark -
@@ -241,15 +257,13 @@
 		else
         {
 			StopTime *stopTime = [activeStopTimes objectAtIndex:[indexPath row]-1]; // -1 for show/hide expired times cell
-			NSDate *arrivalDate = [[NSDate alloc] initWithTimeInterval:[[stopTime arrivalTime] unsignedIntegerValue] sinceDate:[selectedDate beginningOfDay]];
 			
             // Cells with expired times are colored grey, non-expired cells are colored white
-			if([arrivalDate earlierDate:[NSDate date]] == arrivalDate)
-				[cell setBackgroundColor:[UIColor extraLightGrayColor]];
-			else
+            if ([currentStopTimes containsObject:stopTime])
 				[cell setBackgroundColor:[UIColor whiteColor]];
+			else
+				[cell setBackgroundColor:[UIColor extraLightGrayColor]];
 			
-			[arrivalDate release];
 			[[cell textLabel] setText:[stopTime arrivalTimeString]];
 		}
 	}
@@ -429,7 +443,7 @@
         
         // Reload table to update the greyed out stop times (+1 for the show/hide cell)
         // TODO 3.2: change animationTop to animationMiddle
-        [[self tableView] reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:cellIndex+1 inSection:SectionIndexStopTimes]] withRowAnimation:UITableViewRowAnimationTop];
+        [[self tableView] reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:cellIndex+1 inSection:SectionIndexStopTimes]] withRowAnimation:UITableViewRowAnimationBottom];
     }    
     
     // Start the next expired stop time timer
@@ -437,7 +451,15 @@
 }
 
 #pragma mark -
-#pragma mark Instance Methods
+#pragma mark Updating StopTimes Methods
+
+- (void)updateStopTimes
+{
+    // Sort stopTimes, filter expired stopTimes, update active stopTimes
+    [self sortStopTimes];
+	[self filterExpiredStopTimes];
+	[self updateActiveStopTimes];
+}
 
 - (void)sortStopTimes
 {
@@ -447,12 +469,32 @@
     [self setAllStopTimes:sortedStopTimes];
 }
 
-- (void)updateStopTimes
+- (void)filterExpiredStopTimes
+{    
+	// Filter out expired times
+	NSInteger index = 0;
+	
+	for (index = 0; index < [allStopTimes count]; index++) 
+	{
+		NSDate *arrivalDate = [[NSDate alloc] initWithTimeInterval:[[[allStopTimes objectAtIndex:index] arrivalTime] unsignedIntValue] sinceDate:[selectedDate beginningOfDay]];
+		if([arrivalDate earlierDate:[NSDate date]] != arrivalDate)
+		{
+			[arrivalDate release];
+			break;
+		}
+		[arrivalDate release];
+	}
+	
+	NSRange range = NSMakeRange(index, [allStopTimes count] - index);
+	[self setCurrentStopTimes:[allStopTimes objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range]]];	
+}
+
+- (void)updateActiveStopTimes
 {
-    // Sort stopTimes, filter expired stopTimes, update active stopTimes
-    [self sortStopTimes];
-	[self filterExpiredStopTimes];
-	[self updateActiveStopTimes];
+	if (showExpiredStopTimes)
+		[self setActiveStopTimes:allStopTimes];
+	else 
+		[self setActiveStopTimes:currentStopTimes];
 }
 
 - (void)toggleExpiredStopTimes
@@ -510,34 +552,6 @@
         [[self tableView] deselectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:SectionIndexStopTimes] animated:YES];
         [[self tableView] endUpdates];
     }
-}
-
-- (void) filterExpiredStopTimes
-{    
-	// Filter out expired times
-	NSInteger index = 0;
-	
-	for (index = 0; index < [allStopTimes count]; index++) 
-	{
-		NSDate *arrivalDate = [[NSDate alloc] initWithTimeInterval:[[[allStopTimes objectAtIndex:index] arrivalTime] unsignedIntValue] sinceDate:[selectedDate beginningOfDay]];
-		if([arrivalDate earlierDate:[NSDate date]] != arrivalDate)
-		{
-			[arrivalDate release];
-			break;
-		}
-		[arrivalDate release];
-	}
-	
-	NSRange range = NSMakeRange(index, [allStopTimes count] - index);
-	[self setCurrentStopTimes:[allStopTimes objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range]]];	
-}
-
-- (void) updateActiveStopTimes
-{
-	if (showExpiredStopTimes)
-		[self setActiveStopTimes:allStopTimes];
-	else 
-		[self setActiveStopTimes:currentStopTimes];
 }
 
 #pragma mark -

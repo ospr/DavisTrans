@@ -16,8 +16,6 @@ V 1.0
 • Verify that phone numbers are correct by calling them ;)
 • Add check and error message when schedule is out of date (removed for testing purposes b/c it's annoying!)
 • Better error handling when internet not working (try with moobilenet when not logged in...)
-• Stop updates when app goes idle (lock screen is enabled, or screen goes to sleep) (Kip)
-• Have all StopViewControllers reload their tables (to update expired cells) when the app becomes active again.
 • MKDotBounceAnimation bug
 • When showing datepicker, detail view should truncate labels.
 
@@ -26,9 +24,7 @@ High
 
 Lower
 =====
-• Animate insertion/removal of expired times?
 • Remove primaryTrips from code
-• PredictionTimes for selected stop in RouteMapView
 • Create separate arrival/Departure stops for the Silo (like the MU)
 • Show prediction times in accessory popup view when user taps a stop
 • Don't remove pins when changing patterns, instead just update pin images
@@ -147,3 +143,5 @@ Done
 • If one time left and it's one minute, then say minute and not minutes.
 • Expired times don't correctly update to non-expired after 12am. (Ken)
 • Speed up bus radar pulse?
+• Have all StopViewControllers reload their tables (to update expired cells) when the app becomes active again.
+• Animate insertion/removal of expired times?
