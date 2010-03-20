@@ -19,7 +19,6 @@ V 1.0
 • Stop updates when app goes idle (lock screen is enabled, or screen goes to sleep) (Kip)
 • Have all StopViewControllers reload their tables (to update expired cells) when the app becomes active again.
 • MKDotBounceAnimation bug
-• Speed up bus radar pulse?
 • When showing datepicker, detail view should truncate labels.
 
 High
@@ -147,3 +146,4 @@ Done
 • Invalidate stopTimeEpiredTimer when view is popped off the nav controller in StopViewController
 • If one time left and it's one minute, then say minute and not minutes.
 • Expired times don't correctly update to non-expired after 12am. (Ken)
+• Speed up bus radar pulse?

@@ -35,7 +35,7 @@
         }
         
         imageView = [[AnimationImageView alloc] initWithStaticImage:busImage animationImages:animationImages];
-        [imageView setAnimationDuration:1];
+        [imageView setAnimationDuration:0.75];
         [imageView setAnimationDelay:0.0]; // No delay needed since we create a new annotationview everytime we update the bus location
         [imageView startAnimating];
         [self addSubview:imageView];
