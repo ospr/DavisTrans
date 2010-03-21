@@ -17,6 +17,9 @@
 
 @synthesize route;
 @synthesize stops;
+@synthesize filteredStops;
+@synthesize searchBar;
+@synthesize searchDisplayController;
 
 #pragma mark -
 #pragma mark Init Methods
@@ -35,6 +38,9 @@
 - (void)dealloc {
     [route release];
     [stops release];
+    
+    [searchBar release];
+    [searchDisplayController release];
     
     [super dealloc];
 }
@@ -57,10 +63,51 @@
     // Create table view
     UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     [self setTableView:newTableView];
+    
+    // Create search bar
+    CGRect searchBarFrame = CGRectMake(0, 0, [[self tableView] frame].size.width, 40);
+    searchBar = [[UISearchBar alloc] initWithFrame:searchBarFrame];
+    [searchBar setTintColor:[UIColor colorWithRed:(173/255.0) green:(85/255.0) blue:(85/255.0) alpha:1.0]];
+    [searchBar setPlaceholder:@"Search Stops"];
+    [searchBar setDelegate:self];
+    [[self tableView] setTableHeaderView:searchBar];
+    
+    // Create search display controller
+    searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+    [searchDisplayController setDelegate:self];
+    [searchDisplayController setSearchResultsDelegate:self];
+    [searchDisplayController setSearchResultsDataSource:self];
 
     // Set view
     [self setView:tableView];
     [newTableView release];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // Scroll to first row to hide the search bar
+    [[self tableView] setContentOffset:CGPointMake(0, [[[self tableView] tableHeaderView] frame].size.height)];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    // Hide search display if view is currently active
+    if ([searchDisplayController isActive]) {
+        [searchDisplayController setActive:NO animated:animated];
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    // Scroll to first row to hide search bar (required b/c for some reason 
+    // viewWillAppear does not correctly hide search bar when changing segments)
+    [[self tableView] setContentOffset:CGPointMake(0, [[[self tableView] tableHeaderView] frame].size.height)];
 }
 
 - (void)viewDidUnload 
@@ -68,6 +115,8 @@
 	[super viewDidUnload];
 	[self setRoute:nil];
 	[self setStops:nil];
+    [self setSearchBar:nil];
+    [self setSearchDisplayController:nil];
 }
 
 - (void)didReceiveMemoryWarning 
@@ -83,13 +132,19 @@
 #pragma mark UITableView methods
 
 // Customize the number of rows in the table view.
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
+- (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section 
 {
-	return [stops count];
+    if (tv == [searchDisplayController searchResultsTableView])
+        return [filteredStops count];
+        
+    return [stops count];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (NSString *)tableView:(UITableView *)tv titleForHeaderInSection:(NSInteger)section
 {
+    if (tv == [searchDisplayController searchResultsTableView])
+        return @"Filtered Stops";
+    
     return @"Stops";
 }
 
@@ -110,9 +165,14 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tv willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Stop *stop = [stops objectAtIndex:[indexPath row]];
+    Stop *stop = nil;
+    
+    if (tv == [searchDisplayController searchResultsTableView])
+        stop = [filteredStops objectAtIndex:[indexPath row]];
+    else
+        stop = [stops objectAtIndex:[indexPath row]];
     
     // Set stop name and heading
 	[[cell textLabel] setText:[stop name]];
@@ -120,9 +180,14 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
+- (void)tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	Stop *selectedStop = [stops objectAtIndex:[indexPath row]];
+	Stop *selectedStop = nil;
+    
+    if (tv == [searchDisplayController searchResultsTableView])
+        selectedStop = [filteredStops objectAtIndex:[indexPath row]];
+    else
+        selectedStop = [stops objectAtIndex:[indexPath row]];
     
     // Create new StopViewController
     StopSegmentedViewController *stopSegmentedViewController = [[StopSegmentedViewController alloc] init];
@@ -132,6 +197,10 @@
     // Push StopViewController onto nav stack
 	[[self navigationController] pushViewController:stopSegmentedViewController animated:YES];
 	[stopSegmentedViewController release];
+    
+    // Hide search bar if user selected a stop from the filtered table
+    if (tv == [searchDisplayController searchResultsTableView])
+        [searchDisplayController setActive:NO];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -139,5 +208,31 @@
 	return 35.0;
 }
 
-@end
+#pragma mark -
+#pragma mark UISearchBarDelegate Methods
 
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    // Here we intelligently filter the stops based on the search text:
+    // Break searchText up into components separated by space, then create an AND compound predicate
+    // such that each subpredicate checks to see if the stop's name contains the given component
+    NSArray *components = [searchText componentsSeparatedByString:@" "];
+    NSMutableArray *subPredicates = [NSMutableArray array];
+    
+    for (NSString *component in components)
+    {
+        // Skip empty componenets (multiple string values)
+        if ([component length] == 0) continue;
+        
+        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@", @"name", component];
+        [subPredicates addObject:filterPredicate];
+    }
+    
+    NSPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
+    
+    [self setFilteredStops:[stops filteredArrayUsingPredicate:compoundPredicate]];
+    
+    [[searchDisplayController searchResultsTableView] reloadData];
+}
+
+@end

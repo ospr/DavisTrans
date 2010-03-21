@@ -18,6 +18,8 @@ V 1.0
 • Better error handling when internet not working (try with moobilenet when not logged in...)
 • MKDotBounceAnimation bug
 • When showing datepicker, detail view should truncate labels.
+• Don't zoom to fit map view everytime it appears (so if user moves the map, and then switches segments and comes back to map, map is in same position)
+• Zoom button should include user's location if available.
 
 High
 ======
