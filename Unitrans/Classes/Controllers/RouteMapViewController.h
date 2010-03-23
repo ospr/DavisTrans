@@ -49,7 +49,7 @@
 
 - (void)loadMapView;
 
-- (void)zoomFitAnimated:(BOOL)animated;
+- (void)zoomFitAnimated:(BOOL)animated includeUserLocation:(BOOL)userLocation;
 - (void)beginContinuousBusUpdates;
 - (void)endContinuousBusUpdates;
 - (void)updateBusLocations;

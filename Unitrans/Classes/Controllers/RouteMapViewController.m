@@ -142,7 +142,8 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [super viewWillAppear:animated];
     
     // Tell map to zoom to show entire route
-    [self zoomFitAnimated:NO];
+    if (!mapViewIsLoaded)
+        [self zoomFitAnimated:NO includeUserLocation:NO];
     
     // Remove annotation so we can animate it after the view appears
     if (stop)
@@ -164,7 +165,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     
     // Animate pin drop by adding the stop as an annotation
     if (stop)
-        [mapView performSelector:@selector(addAnnotation:) withObject:stop afterDelay:0.20];
+        [mapView performSelector:@selector(addAnnotation:) withObject:stop afterDelay:0.50];
     
     // Begin updating bus locations
     [self beginContinuousBusUpdates];
@@ -334,7 +335,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 #pragma mark -
 #pragma mark Map Region Methods
 
-- (MKCoordinateRegion)defaultStopRegion
+- (MKCoordinateRegion)regionForLocations:(NSArray *)locations
 {
     MKCoordinateRegion region;
 	
@@ -343,9 +344,9 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 	double maxLon = -181;
 	double minLon =  181;
 	
-	for(Stop *stopAnnotation in [self stopAnnotations])
+	for(CLLocation *location in locations)
 	{
-		CLLocationCoordinate2D coordinate = [stopAnnotation coordinate];
+		CLLocationCoordinate2D coordinate = [location coordinate];
 		
 		if(coordinate.latitude > maxLat)
 			maxLat = coordinate.latitude;
@@ -373,9 +374,32 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     return region;
 }
 
-- (void)zoomFitAnimated:(BOOL)animated
+- (MKCoordinateRegion)defaultStopRegionWithUserLocation:(BOOL)withUserLocation
+{
+    NSMutableArray *locations = [NSMutableArray array];
+    
+    // If we are determining region using user location add it
+    if (withUserLocation) {
+        CLLocation *userLocation  = [[mapView userLocation] location];
+        
+        if (userLocation)
+            [locations addObject:userLocation];
+    }
+    
+	// Add locations for all the stops as well
+	for(Stop *stopAnnotation in [self stopAnnotations])
+	{
+        CLLocation *stopLocation = [[CLLocation alloc] initWithLatitude:[stopAnnotation coordinate].latitude longitude:[stopAnnotation coordinate].longitude];
+		[locations addObject:stopLocation];
+        [stopLocation release];
+	}
+    
+    return [self regionForLocations:locations];
+}
+
+- (void)zoomFitAnimated:(BOOL)animated includeUserLocation:(BOOL)userLocation
 {    
-    [mapView setRegion:[self defaultStopRegion] animated:animated];
+    [mapView setRegion:[self defaultStopRegionWithUserLocation:userLocation] animated:animated];
 }
 
 # pragma mark -
@@ -537,7 +561,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     
     // Update map with new route pattern
     [self updateMapWithRoutePattern:selectedRoutePattern];
-    [self zoomFitAnimated:YES];
+    [self zoomFitAnimated:YES includeUserLocation:NO];
 }
 
 #pragma mark -
@@ -545,7 +569,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 
 - (IBAction)zoomFitAction:(id)sender
 {
-    [self zoomFitAnimated:YES];
+    [self zoomFitAnimated:YES includeUserLocation:YES];
 }
 
 - (IBAction)showPatternsAction:(id)sender
