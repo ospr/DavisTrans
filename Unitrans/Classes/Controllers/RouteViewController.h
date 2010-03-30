@@ -16,6 +16,7 @@
     
 	NSArray *stops;
     NSArray *filteredStops;
+	NSMutableArray *favoriteStops; // mutable because it needs to be updated with StopView
         
     UISearchDisplayController *searchDisplayController;
     UISearchBar *searchBar;
@@ -24,6 +25,7 @@
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) NSArray *stops;
 @property (nonatomic, retain) NSArray *filteredStops;
+@property (nonatomic, retain) NSMutableArray *favoriteStops;
 @property (nonatomic, retain) UISearchBar *searchBar;
 @property (nonatomic, retain) UISearchDisplayController *searchDisplayController;
 

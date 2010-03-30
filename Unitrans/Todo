@@ -18,6 +18,7 @@ V 1.0
 • Better error handling when internet not working (try with moobilenet when not logged in...)
 • MKDotBounceAnimation bug
 • When showing datepicker, detail view should truncate labels.
+• Returning to RouteView does not save tableView location
 
 High
 ======

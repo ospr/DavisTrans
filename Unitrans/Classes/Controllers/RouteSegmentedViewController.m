@@ -19,6 +19,7 @@
 @synthesize route;
 @synthesize routeViewController;
 @synthesize routeMapViewController;
+@synthesize favoriteStops;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil 
 {
@@ -37,6 +38,8 @@
     
     [routeViewController release];
     [routeMapViewController release];
+	
+	[favoriteStops release];
     
     [super dealloc];
 }
@@ -62,6 +65,7 @@
 	[self setRoute:nil];
 	[self setRouteViewController:nil];
 	[self setRouteMapViewController:nil];
+	[self setFavoriteStops:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -84,6 +88,7 @@
         if (!routeViewController) {
             routeViewController = [[RouteViewController alloc] init];
             [routeViewController setRoute:route];
+			[routeViewController setFavoriteStops:[[NSMutableArray alloc] initWithArray:favoriteStops]];
         }
         
         viewController = routeViewController;

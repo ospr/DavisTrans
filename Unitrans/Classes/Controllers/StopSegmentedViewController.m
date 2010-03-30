@@ -31,6 +31,7 @@ CGFloat kPredictionViewHeight = 50.0;
 @synthesize datePickerDone;
 @synthesize datePickerCancel;
 @synthesize backButton;
+@synthesize isFavorite;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil 
 {
@@ -67,6 +68,8 @@ CGFloat kPredictionViewHeight = 50.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	[[self navigationController] setToolbarHidden:NO animated: YES];
     
     // Create detail overlay view
     detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, 255, 40)];
@@ -166,6 +169,7 @@ CGFloat kPredictionViewHeight = 50.0;
 			[stopViewController setDelegate:self];
             [stopViewController setRoute:route];
             [stopViewController setStop:stop];
+			[stopViewController setIsFavorite:isFavorite];
         }
         
         viewController = stopViewController;

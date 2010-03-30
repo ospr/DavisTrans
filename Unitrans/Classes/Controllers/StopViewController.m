@@ -25,6 +25,7 @@
 @synthesize allStopTimes;
 @synthesize currentStopTimes;
 @synthesize showExpiredStopTimes;
+@synthesize isFavorite;
 @synthesize selectedDate;
 @synthesize temporaryDate;
 @synthesize delegate;
@@ -87,6 +88,16 @@
     
     // Set default date (Today)
     [self changeScheduleDateTo:[[NSDate date] beginningOfDay]];
+	
+	UIBarButtonItem *favoritesButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Location.png"] 
+																		style:UIBarButtonItemStylePlain 
+																	   target:self 
+																	   action:@selector(favoritesButtonPressed:)];
+	if(isFavorite)
+		[favoritesButton setImage:[UIImage imageNamed:@"Network.png"]];
+	
+	[[self navigationItem] setRightBarButtonItem:favoritesButton];
+	[favoritesButton release];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -630,6 +641,20 @@
     // Set temporary date and reload date cell
     [self setTemporaryDate:newDate];
     [[self tableView] reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:SectionIndexSelectedDate]] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (IBAction)favoritesButtonPressed:(id)sender
+{
+	[self setIsFavorite:!isFavorite];
+	if(isFavorite)
+		[[[self navigationItem] rightBarButtonItem] setImage:[UIImage imageNamed:@"Network.png"]];
+	else
+		[[[self navigationItem] rightBarButtonItem] setImage:[UIImage imageNamed:@"Location.png"]];
+	
+	NSDictionary *stopInfo = [NSDictionary dictionaryWithObjectsAndKeys:route, @"route", stop, @"stop", [NSNumber numberWithBool:[self isFavorite]], @"isFavorite", nil];
+	
+	// Notify AgencyView of favorites change
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"FavoritesChanged" object:self userInfo: stopInfo];
 }
 
 @end

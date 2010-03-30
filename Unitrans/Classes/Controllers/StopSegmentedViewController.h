@@ -31,6 +31,8 @@
 	UIBarButtonItem *datePickerDone;
 	UIBarButtonItem *datePickerCancel;
 	UIBarButtonItem *backButton;
+	
+	BOOL isFavorite;
 }
 
 @property (nonatomic, retain) Route *route;
@@ -43,6 +45,7 @@
 @property (nonatomic, retain) UIBarButtonItem *datePickerDone;
 @property (nonatomic, retain) UIBarButtonItem *datePickerCancel;
 @property (nonatomic, assign) UIBarButtonItem *backButton;
+@property (nonatomic, assign) BOOL isFavorite;
 
 - (void) dismissDatePicker;
 

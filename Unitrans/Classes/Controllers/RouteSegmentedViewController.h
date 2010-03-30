@@ -18,10 +18,13 @@
     
     RouteViewController *routeViewController;
     RouteMapViewController *routeMapViewController;
+	
+	NSArray *favoriteStops;
 }
 
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) RouteViewController *routeViewController;
 @property (nonatomic, retain) RouteMapViewController *routeMapViewController;
+@property (nonatomic, retain) NSArray *favoriteStops;
 
 @end

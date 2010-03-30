@@ -12,14 +12,17 @@
 #import "Route.h"
 #import "DatabaseManager.h"
 #import "UnitransAppDelegate.h"
+#import "Stop.h"
 
 #import "RouteSegmentedViewController.h"
 #import "SegmentedViewController.h"
+#import "StopSegmentedViewController.h"
 
 @implementation AgencyViewController
 
 @synthesize agency;
 @synthesize routes;
+@synthesize favorites;
 
 # pragma mark -
 # pragma mark Memory management
@@ -27,6 +30,8 @@
 - (void)dealloc {
     [agency release];
     [routes release];
+	[favorites release];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [super dealloc];
 }
@@ -68,6 +73,12 @@
     NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"shortName" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
     NSArray *sortedRoutes = [[[unitransAgency routes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     [self setRoutes:sortedRoutes];
+	
+	favorites = [[NSMutableArray alloc] init];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(favoritesChanged:)
+												 name:@"FavoritesChanged" object:nil];
 }
 
 - (void)viewDidUnload 
@@ -75,6 +86,7 @@
 	[super viewDidUnload];
 	[self setAgency:nil];
 	[self setRoutes:nil];
+	[self setFavorites:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -113,12 +125,33 @@
 #pragma mark UITableView methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
+}
+
+- (NSString *)tableView:(UITableView *)tv titleForHeaderInSection:(NSInteger)section
+{
+	switch (section) {
+		case SectionIndexFavorites:
+			return @"Favorites";
+		case SectionIndexRoutes:
+			return @"Routes";
+		default:
+			NSLog(@"Invalid section number: %d", section);
+			return @"Invalid section.";
+	}
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [routes count];
+	switch (section) {
+		case SectionIndexFavorites:
+			return [favorites count];	
+		case SectionIndexRoutes:
+			return [routes count];
+		default:
+			NSLog(@"Invalid section number: %d", section);
+			return 0;
+	}
 }
 
 
@@ -139,27 +172,97 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Route *route = [routes objectAtIndex:[indexPath row]];
-    
-    // Set route name and description
-    NSString *mainLabel = [NSString stringWithFormat:@"%@ Line",  [route shortName]];
-    NSString *detailLabel = [route longName];
+	Route *route = nil;
+	Stop *stop = nil;
+	NSString *mainLabel = nil;
+	NSString *detailLabel = nil;
+	switch ([indexPath section]) {
+		case SectionIndexFavorites:
+			route = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"route"];
+			stop = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"stop"];
+			mainLabel = [NSString stringWithFormat:@"%@ Line",  [route shortName]];
+			detailLabel = [NSString stringWithFormat:@"%@ %@",  [stop name], [stop headingString]];
+			break;
+		case SectionIndexRoutes:
+			route = [routes objectAtIndex:[indexPath row]];
+			// Set route name and description
+			mainLabel = [NSString stringWithFormat:@"%@ Line",  [route shortName]];
+			detailLabel = [route longName];
+			break;
+		default:
+			NSLog(@"Invalid section number: %d", [indexPath section]);
+			break;
+	}
+	
 	[[cell textLabel] setText:mainLabel];
-    [[cell detailTextLabel] setText:detailLabel];
-    
-    // Set route icon
-    [[cell imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
+	[[cell detailTextLabel] setText:detailLabel];
+	// Set route icon
+	[[cell imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
-{    
-    Route *selectedRoute = [routes objectAtIndex:[indexPath row]];
-    
-    RouteSegmentedViewController *routeSegmentedViewController = [[RouteSegmentedViewController alloc] init];
-    [routeSegmentedViewController setRoute:selectedRoute];
-    
-    [[self navigationController] pushViewController:routeSegmentedViewController animated:YES];
-    [routeSegmentedViewController release];
+{   
+	switch ([indexPath section]) {
+		case SectionIndexFavorites:
+		{
+			Route *route = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"route"];
+			Stop *stop = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"stop"];
+			// Create new StopViewController
+			StopSegmentedViewController *stopSegmentedViewController = [[StopSegmentedViewController alloc] init];
+			[stopSegmentedViewController setStop:stop];
+			[stopSegmentedViewController setRoute:route];
+			[stopSegmentedViewController setIsFavorite:YES];
+			
+			// Push StopViewController onto nav stack
+			[[self navigationController] pushViewController:stopSegmentedViewController animated:YES];
+			[stopSegmentedViewController release];
+			break;
+		}
+		case SectionIndexRoutes:
+		{
+			Route *selectedRoute = [routes objectAtIndex:[indexPath row]];
+			
+			RouteSegmentedViewController *routeSegmentedViewController = [[RouteSegmentedViewController alloc] init];
+			[routeSegmentedViewController setRoute:selectedRoute];
+			[routeSegmentedViewController setFavoriteStops:[self allFavoriteStopsForRoute:selectedRoute]];
+			
+			[[self navigationController] pushViewController:routeSegmentedViewController animated:YES];
+			[routeSegmentedViewController release];
+			break;
+		}
+		default:
+			break;
+	}
+}
+
+#pragma mark -
+#pragma mark Favorites methods
+
+- (void)addFavoriteStop:(NSDictionary *)stopInfo
+{
+	if(![favorites containsObject:stopInfo])
+		[favorites addObject:stopInfo];
+	else
+		NSLog(@"Failed to add favorite stop with name: %@ for route: %@.", [[stopInfo valueForKey:@"stop"] name], [[stopInfo valueForKey:@"route"] shortName]);
+}
+
+- (void)removeFavoriteStop:(NSDictionary *)stopInfo
+{
+	if([favorites containsObject:stopInfo])
+		[favorites removeObject:stopInfo];
+	else
+		NSLog(@"Failed to remove favorite stop with name: %@ for route: %@.", [[stopInfo valueForKey:@"stop"] name], [[stopInfo valueForKey:@"route"] shortName]);
+}
+
+- (NSArray *)allFavoriteStopsForRoute:(Route *)route
+{
+	NSMutableArray *stopsForRoute = [[[NSMutableArray alloc] init] autorelease];
+	
+	for(NSDictionary *dict in favorites)
+		if([[[dict valueForKey:@"route"] shortName] isEqual:[route shortName]])
+			[stopsForRoute addObject:[dict valueForKey:@"stop"]];
+	
+	return [NSArray arrayWithArray:stopsForRoute];
 }
 
 #pragma mark -
@@ -183,6 +286,24 @@
 - (void)aboutViewControllerDidFinish:(AboutViewController *)aboutViewController
 {
     [self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark -
+#pragma mark Notifications
+
+- (void)favoritesChanged:(NSNotification *)notification
+{	
+	NSDictionary *stopInfo = [NSDictionary dictionaryWithObjectsAndKeys:[[notification userInfo] valueForKey:@"route"], @"route",
+							  [[notification userInfo] valueForKey:@"stop"], @"stop", nil];
+	
+	if([[[notification userInfo] valueForKey:@"isFavorite"] boolValue])
+		[self addFavoriteStop:stopInfo];
+	else
+		[self removeFavoriteStop:stopInfo];
+	
+	// Sort the favorite stops by route, stop name, and stop heading
+	
+	[[self tableView] reloadData];
 }
 
 @end
