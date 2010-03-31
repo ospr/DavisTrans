@@ -302,6 +302,10 @@
 		[self removeFavoriteStop:stopInfo];
 	
 	// Sort the favorite stops by route, stop name, and stop heading
+	NSSortDescriptor *stopsSortDescriptor1 = [[[NSSortDescriptor alloc] initWithKey:@"route" ascending:YES] autorelease];
+	NSSortDescriptor *stopsSortDescriptor2 = [[[NSSortDescriptor alloc] initWithKey:@"stop" ascending:YES] autorelease];
+	NSArray *sortedFavoriteStops = [favorites sortedArrayUsingDescriptors:[NSArray arrayWithObjects:stopsSortDescriptor1, stopsSortDescriptor2, nil]];
+	[self setFavorites:[NSMutableArray arrayWithArray:sortedFavoriteStops]];
 	
 	[[self tableView] reloadData];
 }

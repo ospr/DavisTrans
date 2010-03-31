@@ -59,6 +59,13 @@
     return @"";
 }
 
+- (NSComparisonResult)compare:(Stop *)otherStop
+{
+	NSString *stopString1 = [NSString stringWithFormat:@"%@ %@", [self name], [self headingString]];
+	NSString *stopString2 = [NSString stringWithFormat:@"%@ %@", [otherStop name], [otherStop headingString]];
+	return [stopString1 compare:stopString2];
+}
+
 #if USING_MAP_KIT
 - (CLLocationCoordinate2D)coordinate
 {

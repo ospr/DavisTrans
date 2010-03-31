@@ -56,6 +56,11 @@
     return orderedRoutePatterns;
 }
 
+- (NSComparisonResult)compare:(id)otherRoute
+{
+	return [[self shortName] compare:[otherRoute shortName]];
+}
+
 - (void)setOrderedRoutePatterns:(NSArray *)newOrderedRoutePatterns
 {
     [newOrderedRoutePatterns retain];

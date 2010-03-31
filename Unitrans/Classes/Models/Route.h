@@ -31,6 +31,7 @@
 
 - (NSSet *)allStops;
 - (NSArray *)orderedRoutePatterns;
+- (NSComparisonResult)compare:(Route *)otherRoute;
 
 @end
 
