@@ -14,11 +14,9 @@ V 1.0
 --- Bugs ---
 • Change white route colors to black (Kip)
 • Verify that phone numbers are correct by calling them ;)
-• Add check and error message when schedule is out of date (removed for testing purposes b/c it's annoying!)
 • Better error handling when internet not working (try with moobilenet when not logged in...)
 • MKDotBounceAnimation bug
 • When showing datepicker, detail view should truncate labels.
-• Returning to RouteView does not save tableView location
 
 High
 ======
@@ -145,5 +143,8 @@ Done
 • Expired times don't correctly update to non-expired after 12am. (Ken)
 • Speed up bus radar pulse?
 • Have all StopViewControllers reload their tables (to update expired cells) when the app becomes active again.
-• Animate insertion/removal of expired times?• Zoom button should include user's location if available.
+• Animate insertion/removal of expired times?
+• Zoom button should include user's location if available.
 • Don't zoom to fit map view everytime it appears (so if user moves the map, and then switches segments and comes back to map, map is in same position)
+• Add check and error message when schedule is out of date (removed for testing purposes b/c it's annoying!)
+• Returning to RouteView does not save tableView location
