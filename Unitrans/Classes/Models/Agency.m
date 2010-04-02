@@ -22,7 +22,7 @@
 {
     // Pick a random calendar since all of them have the same end/start dates
     // And determine if the current date falls within the range or not
-    Calendar *calendar = (Calendar *)[[[[self routes] anyObject] primaryTrip] calendar];
+    Calendar *calendar = (Calendar *)[[[[[self routes] anyObject] trips] anyObject] calendar];
     
     return [calendar validServiceOnDate:[NSDate date]];
 }

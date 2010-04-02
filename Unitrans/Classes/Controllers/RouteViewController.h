@@ -20,6 +20,8 @@
         
     UISearchDisplayController *searchDisplayController;
     UISearchBar *searchBar;
+    
+    BOOL hasAppeared;
 }
 
 @property (nonatomic, retain) Route *route;

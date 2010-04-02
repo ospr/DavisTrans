@@ -80,11 +80,12 @@
     [searchDisplayController setDelegate:self];
     [searchDisplayController setSearchResultsDelegate:self];
     [searchDisplayController setSearchResultsDataSource:self];
-
+    
     // Set view
     [self setView:tableView];
     [newTableView release];
-	
+    
+    // Observe for when favorites change
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(favoritesChanged:)
 												 name:@"FavoritesChanged" object:nil];
@@ -94,8 +95,11 @@
 {
     [super viewWillAppear:animated];
     
-    // Scroll to first row to hide the search bar
-    [[self tableView] setContentOffset:CGPointMake(0, [[[self tableView] tableHeaderView] frame].size.height)];
+    // Scroll to first row to hide the search bar    
+    if (!hasAppeared) {
+        hasAppeared = YES;
+        [[self tableView] setContentOffset:CGPointMake(0, [[[self tableView] tableHeaderView] frame].size.height)];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -106,15 +110,6 @@
     if ([searchDisplayController isActive]) {
         [searchDisplayController setActive:NO animated:animated];
     }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    // Scroll to first row to hide search bar (required b/c for some reason 
-    // viewWillAppear does not correctly hide search bar when changing segments)
-    [[self tableView] setContentOffset:CGPointMake(0, [[[self tableView] tableHeaderView] frame].size.height)];
 }
 
 - (void)viewDidUnload 

@@ -33,6 +33,9 @@ CGFloat kPredictionViewHeight = 50.0;
 @synthesize backButton;
 @synthesize isFavorite;
 
+CGFloat kDetailedOverlayViewHeight = 40.0;
+CGFloat kDetailedOverlayViewWidth = 255.0;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil 
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -72,7 +75,7 @@ CGFloat kPredictionViewHeight = 50.0;
 	[[self navigationController] setToolbarHidden:NO animated: YES];
     
     // Create detail overlay view
-    detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, 255, 40)];
+    detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, kDetailedOverlayViewWidth, kDetailedOverlayViewHeight)];
     [[detailOverlayView textLabel] setText:[stop name]];
     [[detailOverlayView detailTextLabel] setText:[NSString stringWithFormat:@"#%@ %@", [stop stopID], [stop headingString]]];
     [[detailOverlayView imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteToolbarIcon_43.png", [route shortName]]]];
@@ -215,6 +218,40 @@ CGFloat kPredictionViewHeight = 50.0;
 #pragma mark -
 #pragma mark DatePicker Methods
 
+- (void) stopViewController:(StopViewController *)stopviewController showDatePickerWithDate:(NSDate *)date
+{
+	[datePicker setDate:date];
+	
+	[[self navigationController] setToolbarHidden:YES];
+	[[self view] addSubview:datePicker];
+	
+	CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+	CGSize datePickerSize = [datePicker sizeThatFits:CGSizeZero];
+	// compute the end frame
+	CGRect pickerRect = CGRectMake(0.0,
+								   screenRect.size.height - (datePickerSize.height + 40.0),
+								   datePickerSize.width,
+								   datePickerSize.height);
+	// start the slide up animation
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.3];
+    
+    // Hide predictionView to remove clutter
+    [self hidePredictionViewWithAnimation];
+    
+	// we need to perform some post operations after the animation is complete
+	[UIView setAnimationDelegate:self];
+	
+	[datePicker setFrame:pickerRect];
+	
+	[UIView commitAnimations];
+    
+	// Save back button
+	[self setBackButton:[[self navigationItem] leftBarButtonItem]];
+	[[self navigationItem] setLeftBarButtonItem:datePickerCancel animated:YES];
+	[[self navigationItem] setRightBarButtonItem:datePickerDone animated:YES];
+}
+
 - (void) dismissDatePicker
 {
 	CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
@@ -234,6 +271,9 @@ CGFloat kPredictionViewHeight = 50.0;
 	// Restore navigation buttons
 	[[self navigationItem] setRightBarButtonItem:nil animated:YES];
 	[[self navigationItem] setLeftBarButtonItem:backButton animated:YES];
+    
+    // Resize overlay view to fit in navbar
+    [detailOverlayView setFrame:CGRectMake(0, 0, kDetailedOverlayViewWidth, kDetailedOverlayViewHeight)];
     
 	[[self navigationController] setToolbarHidden:NO];
 }
@@ -270,43 +310,6 @@ CGFloat kPredictionViewHeight = 50.0;
 {
     // Let the stopViewController know that the date changed so it can update accordingly
     [stopViewController datePickerValueDidChangeWithDate:[datePicker date]];
-}
-
-#pragma mark -
-#pragma mark StopViewController Delegate
-
-- (void) stopViewController:(StopViewController *)stopviewController showDatePickerWithDate:(NSDate *)date
-{
-	[datePicker setDate:date];
-	
-	[[self navigationController] setToolbarHidden:YES];
-	[[self view] addSubview:datePicker];
-	
-	CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
-	CGSize datePickerSize = [datePicker sizeThatFits:CGSizeZero];
-	// compute the end frame
-	CGRect pickerRect = CGRectMake(0.0,
-								   screenRect.size.height - (datePickerSize.height + 40.0),
-								   datePickerSize.width,
-								   datePickerSize.height);
-	// start the slide up animation
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.3];
-    
-    // Hide predictionView to remove clutter
-    [self hidePredictionViewWithAnimation];
-    	
-	// we need to perform some post operations after the animation is complete
-	[UIView setAnimationDelegate:self];
-	
-	[datePicker setFrame:pickerRect];
-	
-	[UIView commitAnimations];
-    
-	// Save back button
-	[self setBackButton:[[self navigationItem] leftBarButtonItem]];
-	[[self navigationItem] setLeftBarButtonItem:datePickerCancel animated:YES];
-	[[self navigationItem] setRightBarButtonItem:datePickerDone animated:YES];
 }
 
 @end
