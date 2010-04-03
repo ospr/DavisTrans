@@ -89,12 +89,12 @@
     // Set default date (Today)
     [self changeScheduleDateTo:[[NSDate date] beginningOfDay]];
 	
-	UIBarButtonItem *favoritesButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Location.png"] 
-																		style:UIBarButtonItemStylePlain 
+	UIBarButtonItem *favoritesButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"FavoriteStarNoFill.png"] 
+																		style:UIBarButtonItemStyleBordered 
 																	   target:self 
 																	   action:@selector(favoritesButtonPressed:)];
 	if(isFavorite)
-		[favoritesButton setImage:[UIImage imageNamed:@"Network.png"]];
+		[favoritesButton setImage:[UIImage imageNamed:@"FavoriteStarFilled.png"]];
 	
 	[[self navigationItem] setRightBarButtonItem:favoritesButton];
 	[favoritesButton release];
@@ -643,13 +643,36 @@
     [[self tableView] reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:SectionIndexSelectedDate]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+#pragma mark -
+#pragma mark Favorites Methods
+
 - (IBAction)favoritesButtonPressed:(id)sender
 {
-	[self setIsFavorite:!isFavorite];
+    NSString *title = isFavorite ? @"Remove from Favorites?" : @"Add to Favorites?";
+    NSString *otherButton = isFavorite ? @"Remove" : @"Add";
+    
+    UIActionSheet *favoriteSheet = [[UIActionSheet alloc] initWithTitle:title
+                                                               delegate:self 
+                                                      cancelButtonTitle:@"Cancel"
+                                                 destructiveButtonTitle:nil
+                                                      otherButtonTitles:otherButton, nil];
+    
+    [favoriteSheet showFromToolbar:[[self navigationController] toolbar]];
+    [favoriteSheet release];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    // Ignore cancels
+    if (buttonIndex == [actionSheet cancelButtonIndex])
+        return;
+    
+    [self setIsFavorite:!isFavorite];
+    
 	if(isFavorite)
-		[[[self navigationItem] rightBarButtonItem] setImage:[UIImage imageNamed:@"Network.png"]];
+		[[[self navigationItem] rightBarButtonItem] setImage:[UIImage imageNamed:@"FavoriteStarFilled.png"]];
 	else
-		[[[self navigationItem] rightBarButtonItem] setImage:[UIImage imageNamed:@"Location.png"]];
+		[[[self navigationItem] rightBarButtonItem] setImage:[UIImage imageNamed:@"FavoriteStarNoFill.png"]];
 	
 	NSDictionary *stopInfo = [NSDictionary dictionaryWithObjectsAndKeys:route, @"route", stop, @"stop", [NSNumber numberWithBool:[self isFavorite]], @"isFavorite", nil];
 	

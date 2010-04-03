@@ -19,7 +19,7 @@ typedef enum _StopViewSectionIndex {
 @class Stop;
 @class Route;
 
-@interface StopViewController : TableViewController {
+@interface StopViewController : TableViewController <UIActionSheetDelegate> {
     Route *route;
     Stop *stop;
 	
