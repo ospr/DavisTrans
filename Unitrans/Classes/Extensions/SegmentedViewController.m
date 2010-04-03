@@ -173,6 +173,9 @@
 
 - (void)animateViewTransitionFromViewController:(ExtendedViewController *)fromViewCtl toViewController:(ExtendedViewController *)toViewCtl
 {    
+    // Disable interaction with the navbar so the user can't hit the back button while in transition
+    [[[self navigationController] navigationBar] setUserInteractionEnabled:NO];
+    
     NSDictionary *context = [[NSDictionary dictionaryWithObjectsAndKeys:fromViewCtl, @"FromViewController",
                                                                         toViewCtl,   @"ToViewController", nil] retain]; 
     
@@ -209,6 +212,9 @@
     [toViewCtl viewDidAppear:YES];
     
     [contextDictionary release];
+    
+    // Re-enable navbar interaction
+    [[[self navigationController] navigationBar] setUserInteractionEnabled:YES];
 }
 
 #pragma mark -

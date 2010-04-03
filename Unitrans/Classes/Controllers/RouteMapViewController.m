@@ -66,7 +66,12 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [stopAnnotations release];
     [routeAnnotation release];
     
-    [mapView release];
+    // Perform special clean-up for mapView to avoid crashes from MKDotBounceAnimation
+    // See http://omegadelta.net/2009/11/02/mkdotbounceanimation-animationdidstop-bug/
+    [mapView setDelegate:nil];
+    [mapView setShowsUserLocation:NO];
+    [mapView performSelector:@selector(release) withObject:nil afterDelay:4.0];
+    
     [routeAnnotationView release];
     
     [super dealloc];
@@ -144,10 +149,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     // Tell map to zoom to show entire route
     if (!mapViewIsLoaded)
         [self zoomFitAnimated:NO includeUserLocation:NO];
-    
-    // Remove annotation so we can animate it after the view appears
-    if (stop)
-        [mapView removeAnnotation:stop];
         
     // Reset errorShown when view appears again, so the user is warned about the error
     errorShown = NO;
@@ -162,11 +163,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
         [self loadMapView];
         mapViewIsLoaded = YES;
     }
-    
-    // Animate pin drop by adding the stop as an annotation
-    if (stop)
-        [mapView performSelector:@selector(addAnnotation:) withObject:stop afterDelay:0.50];
-    
+
     // Begin updating bus locations
     [self beginContinuousBusUpdates];
 }
