@@ -18,6 +18,7 @@ typedef enum _AgencyViewSectionIndex {
 
 @class Agency;
 @class Route;
+@class Stop;
 
 @interface AgencyViewController : TableViewController <AboutViewControllerDelegate> {
     Agency *agency;
@@ -32,5 +33,12 @@ typedef enum _AgencyViewSectionIndex {
 - (void)addFavoriteStop:(NSDictionary *)stopInfo;
 - (void)removeFavoriteStop:(NSDictionary *)stopInfo;
 - (NSArray *)allFavoriteStopsForRoute:(Route *)route;
+
+- (NSString *)pathForFavoritesData;
+- (void)saveFavoritesData;
+- (void)loadFavoritesData;
+
+- (Route *)routeObjectForShortName:(NSString *)shortName;
+- (Stop *)stopObjectForRoute:(Route *)route withStopCode:(NSNumber *)stopCode;
 
 @end

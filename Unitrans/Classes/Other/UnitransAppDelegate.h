@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AgencyViewController.h"
 
 void criticalLoadingErrorAlert();
 
 @interface UnitransAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	UINavigationController *navigationController;
+	
+	IBOutlet AgencyViewController *agencyViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

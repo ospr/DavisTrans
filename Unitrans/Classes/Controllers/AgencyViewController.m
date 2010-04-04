@@ -10,9 +10,9 @@
 #import "RouteViewController.h"
 #import "Agency.h"
 #import "Route.h"
+#import "Stop.h"
 #import "DatabaseManager.h"
 #import "UnitransAppDelegate.h"
-#import "Stop.h"
 
 #import "RouteSegmentedViewController.h"
 #import "SegmentedViewController.h"
@@ -79,6 +79,9 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(favoritesChanged:)
 												 name:@"FavoritesChanged" object:nil];
+	
+	[self loadFavoritesData];
+	[tableView reloadData];
 }
 
 - (void)viewDidUnload 
@@ -262,6 +265,89 @@
 			[stopsForRoute addObject:[dict valueForKey:@"stop"]];
 	
 	return [NSArray arrayWithArray:stopsForRoute];
+}
+
+- (NSString *)pathForFavoritesData
+{
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsDirectory = [paths objectAtIndex:0];
+	NSString *folderPath = [NSString stringWithFormat:@"%@/Unitrans/", documentsDirectory];
+	
+	// Check if save path exists
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	if (![fileManager fileExistsAtPath:folderPath]) 
+		[fileManager createDirectoryAtPath:folderPath attributes:nil];
+	
+	NSString *filename = @"Favorites.data";
+	
+	return [folderPath stringByAppendingPathComponent:filename];
+}
+
+- (void)saveFavoritesData
+{
+	NSMutableArray *favoritesSaveData = [[NSMutableArray alloc] init];
+	
+	// Save only the route shortName and stop codes
+	for(NSDictionary *dict in favorites)
+	{
+		NSArray *keys = [NSArray arrayWithObjects:@"routeShortName", @"stopCode", nil];
+		NSArray *objects = [NSArray arrayWithObjects:[[dict valueForKey:@"route"] shortName], [[dict valueForKey:@"stop"] code], nil];
+		[favoritesSaveData addObject:[NSDictionary dictionaryWithObjects:objects forKeys:keys]];
+	}
+	
+	NSString *path = [self pathForFavoritesData];
+	
+	if ([NSKeyedArchiver archiveRootObject:[NSArray arrayWithArray:favoritesSaveData] toFile:path])
+		NSLog(@"Saved favorites data at: %@", path);
+	else
+		NSLog(@"Failed to save favorites data at: %@", path);
+	
+	[favoritesSaveData release];
+}
+
+- (void)loadFavoritesData
+{
+	NSString *path = [self pathForFavoritesData];
+	NSArray *favoritesSaveData = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+	
+	// Find and store appropriate route and stop objects for route shortName and stopCode
+	for(NSDictionary *dict in favoritesSaveData)
+	{
+		Route *route = [self routeObjectForShortName:[dict valueForKey:@"routeShortName"]];
+		Stop *stop = [self stopObjectForRoute:route withStopCode:[dict valueForKey:@"stopCode"]];
+		
+		if(route && stop)
+		{
+			NSArray *keys = [NSArray arrayWithObjects:@"route", @"stop", nil];
+			NSArray *objects = [NSArray arrayWithObjects:route, stop, nil];
+			[favorites addObject:[NSDictionary dictionaryWithObjects:objects forKeys:keys]];
+		}
+		else
+			continue;
+	}
+}
+
+- (Route *)routeObjectForShortName:(NSString *)shortName
+{
+	for(Route *route in routes)
+		if([[route shortName] isEqual:shortName])
+			return route;
+	return nil;
+}
+
+- (Stop *)stopObjectForRoute:(Route *)route withStopCode:(NSNumber *)stopCode
+{
+	if (!route) {
+		NSLog(@"stopObjectForRoute: route is nil.");
+		return nil;
+	}
+	
+	NSArray *allStopsForRoute = [[route allStops] allObjects];
+	
+	for(Stop *stop in allStopsForRoute)
+		if([[stop code] isEqual:stopCode])
+			return stop;
+	return nil;
 }
 
 #pragma mark -
