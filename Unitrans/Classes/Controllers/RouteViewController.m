@@ -177,8 +177,11 @@
     else
         stop = [stops objectAtIndex:[indexPath row]];
     
-    // Set stop name and heading
-	[[cell textLabel] setText:[stop name]];
+    // Set stop name and heading (Add a star if the stop is a favorite)
+    if ([favoriteStops containsObject:stop])
+        [[cell textLabel] setText:[NSString stringWithFormat:@"★ %@", [stop name]]];
+    else
+        [[cell textLabel] setText:[stop name]];
     [[cell detailTextLabel] setText:[stop headingString]];
 }
 
