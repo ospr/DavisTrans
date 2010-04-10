@@ -30,6 +30,7 @@ typedef enum _AgencyViewSectionIndex {
 @property (nonatomic, retain) NSArray *routes;
 @property (nonatomic, retain) NSMutableArray *favorites;
 
+- (BOOL)favoritesSectionVisible;
 - (void)addFavoriteStop:(NSDictionary *)stopInfo;
 - (void)removeFavoriteStop:(NSDictionary *)stopInfo;
 - (NSArray *)allFavoriteStopsForRoute:(Route *)route;

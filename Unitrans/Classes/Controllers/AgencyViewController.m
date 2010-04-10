@@ -126,120 +126,126 @@
 #pragma mark -
 #pragma mark UITableView methods
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
+{
+    return [self favoritesSectionVisible] ? 2 : 1;
 }
 
 - (NSString *)tableView:(UITableView *)tv titleForHeaderInSection:(NSInteger)section
 {
-	switch (section) {
-		case SectionIndexFavorites:
-			return @"Favorites";
-		case SectionIndexRoutes:
-			return @"Routes";
-		default:
-			NSLog(@"Invalid section number: %d", section);
-			return @"Invalid section.";
-	}
+    if (section == SectionIndexFavorites && [self favoritesSectionVisible])
+        return @"Favorites";
+    else
+        return @"Routes";
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	switch (section) {
-		case SectionIndexFavorites:
-			return [favorites count];	
-		case SectionIndexRoutes:
-			return [routes count];
-		default:
-			NSLog(@"Invalid section number: %d", section);
-			return 0;
-	}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
+{
+    if (section == SectionIndexFavorites && [self favoritesSectionVisible])
+        return [favorites count];
+    else
+        return [routes count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = nil;
+    
+    if ([indexPath section] == SectionIndexFavorites && [self favoritesSectionVisible])
+        CellIdentifier = @"Favorites";
+    else
+        CellIdentifier = @"Routes";
     
     UITableViewCell *cell = [[self tableView] dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     if (!cell) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
         
-        [[cell detailTextLabel] setFont:[UIFont boldSystemFontOfSize:10]];
-        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        if ([CellIdentifier isEqualToString:@"Favorites"]) {
+            [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
+            [[cell detailTextLabel] setFont:[UIFont boldSystemFontOfSize:10]];
+            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        }
+        else if ([CellIdentifier isEqualToString:@"Routes"]) {
+            [[cell detailTextLabel] setFont:[UIFont boldSystemFontOfSize:10]];
+            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        }
     }
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	Route *route = nil;
-	Stop *stop = nil;
-	NSString *mainLabel = nil;
-	NSString *detailLabel = nil;
-	switch ([indexPath section]) {
-		case SectionIndexFavorites:
-			route = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"route"];
-			stop = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"stop"];
-			mainLabel = [NSString stringWithFormat:@"%@ Line",  [route shortName]];
-			detailLabel = [NSString stringWithFormat:@"%@ %@",  [stop name], [stop headingString]];
-			break;
-		case SectionIndexRoutes:
-			route = [routes objectAtIndex:[indexPath row]];
-			// Set route name and description
-			mainLabel = [NSString stringWithFormat:@"%@ Line",  [route shortName]];
-			detailLabel = [route longName];
-			break;
-		default:
-			NSLog(@"Invalid section number: %d", [indexPath section]);
-			break;
-	}
-	
-	[[cell textLabel] setText:mainLabel];
-	[[cell detailTextLabel] setText:detailLabel];
-	// Set route icon
-	[[cell imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
+{    
+    if ([indexPath section] == SectionIndexFavorites && [self favoritesSectionVisible]) 
+    {
+        Route *route = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"route"];
+        Stop *stop = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"stop"];
+        
+        [[cell textLabel] setText:[stop name]];
+        [[cell detailTextLabel] setText:[NSString stringWithFormat:@"#%@ %@", [stop stopID], [stop headingString]]];
+        [[cell imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
+    }
+    else 
+    {
+        Route *route = [routes objectAtIndex:[indexPath row]];
+        
+        // Set route name and description
+        [[cell textLabel] setText:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
+        [[cell detailTextLabel] setText:[route longName]];
+        [[cell imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {   
-	switch ([indexPath section]) {
-		case SectionIndexFavorites:
-		{
-			Route *route = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"route"];
-			Stop *stop = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"stop"];
-			// Create new StopViewController
-			StopSegmentedViewController *stopSegmentedViewController = [[StopSegmentedViewController alloc] init];
-			[stopSegmentedViewController setStop:stop];
-			[stopSegmentedViewController setRoute:route];
-			[stopSegmentedViewController setIsFavorite:YES];
-			
-			// Push StopViewController onto nav stack
-			[[self navigationController] pushViewController:stopSegmentedViewController animated:YES];
-			[stopSegmentedViewController release];
-			break;
-		}
-		case SectionIndexRoutes:
-		{
-			Route *selectedRoute = [routes objectAtIndex:[indexPath row]];
-			
-			RouteSegmentedViewController *routeSegmentedViewController = [[RouteSegmentedViewController alloc] init];
-			[routeSegmentedViewController setRoute:selectedRoute];
-			[routeSegmentedViewController setFavoriteStops:[self allFavoriteStopsForRoute:selectedRoute]];
-			
-			[[self navigationController] pushViewController:routeSegmentedViewController animated:YES];
-			[routeSegmentedViewController release];
-			break;
-		}
-		default:
-			break;
-	}
+    if ([indexPath section] == SectionIndexFavorites && [self favoritesSectionVisible])
+    {
+        Route *route = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"route"];
+        Stop *stop = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"stop"];
+       
+        // Create new StopViewController
+        StopSegmentedViewController *stopSegmentedViewController = [[StopSegmentedViewController alloc] init];
+        [stopSegmentedViewController setStop:stop];
+        [stopSegmentedViewController setRoute:route];
+        [stopSegmentedViewController setIsFavorite:YES];
+        
+        // Push StopViewController onto nav stack
+        [[self navigationController] pushViewController:stopSegmentedViewController animated:YES];
+        [stopSegmentedViewController release];
+    }
+    else 
+    {
+        Route *selectedRoute = [routes objectAtIndex:[indexPath row]];
+        
+        RouteSegmentedViewController *routeSegmentedViewController = [[RouteSegmentedViewController alloc] init];
+        [routeSegmentedViewController setRoute:selectedRoute];
+        [routeSegmentedViewController setFavoriteStops:[self allFavoriteStopsForRoute:selectedRoute]];
+        
+        [[self navigationController] pushViewController:routeSegmentedViewController animated:YES];
+        [routeSegmentedViewController release];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if([indexPath section] == SectionIndexFavorites && [self favoritesSectionVisible])
+		return 35.0;
+	else
+		return [[self tableView] rowHeight];
 }
 
 #pragma mark -
 #pragma mark Favorites methods
 
+- (BOOL)favoritesSectionVisible
+{
+    return [favorites count] != 0 ? YES : NO;
+}
+        
+        
 - (void)addFavoriteStop:(NSDictionary *)stopInfo
 {
 	if(![favorites containsObject:stopInfo])
