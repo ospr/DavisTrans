@@ -88,7 +88,7 @@
         if (!routeViewController) {
             routeViewController = [[RouteViewController alloc] init];
             [routeViewController setRoute:route];
-			[routeViewController setFavoriteStops:[[NSMutableArray alloc] initWithArray:favoriteStops]];
+			[routeViewController setFavoriteStops:[NSMutableArray arrayWithArray:favoriteStops]];
         }
         
         viewController = routeViewController;
