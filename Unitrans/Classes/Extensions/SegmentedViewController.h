@@ -17,6 +17,7 @@
     UISegmentedControl *segmentedControl;
     UIBarButtonItem *segmentedButtonItem;
     UIBarButtonItem *flexibleSpaceItem;
+    UIBarButtonItem *fixedSpaceItem;
     
     NSArray *segmentItems;
     

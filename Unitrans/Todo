@@ -10,12 +10,12 @@ V 1.0
     - Section in RouteView
     - Button to add/remove from favorites in StopView
 • CreditsView
+• Double-Decker bus icons
 
 --- Bugs ---
 • Change white route colors to black (Kip)
 • Verify that phone numbers are correct by calling them ;)
 • Better error handling when internet not working (try with moobilenet when not logged in...)
-• MKDotBounceAnimation bug
 • When showing datepicker, detail view should truncate labels.
 
 High
@@ -23,6 +23,7 @@ High
 
 Lower
 =====
+• Intelligent picking of current pattern
 • Remove primaryTrips from code
 • Create separate arrival/Departure stops for the Silo (like the MU)
 • Show prediction times in accessory popup view when user taps a stop
@@ -148,3 +149,4 @@ Done
 • Don't zoom to fit map view everytime it appears (so if user moves the map, and then switches segments and comes back to map, map is in same position)
 • Add check and error message when schedule is out of date (removed for testing purposes b/c it's annoying!)
 • Returning to RouteView does not save tableView location
+• MKDotBounceAnimation bug

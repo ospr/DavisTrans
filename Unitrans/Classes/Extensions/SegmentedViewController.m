@@ -10,6 +10,14 @@
 
 #import "ExtendedViewController.h"
 
+// Below are constants to define the width of the UIBarButtonItems in the 
+// segmented toolbar. We have to do this to center the segmented control
+// when there is a single right or left bar button item. We can set the
+// fixedSpace, opposite of the single UIBarButtonItem, to a fixed width
+// to offset the width from the single UIBarButtonItem. Apparently we also
+// have to increase the width of the fixed space width.
+#define kSegmentedBarButtonWidth    40.0
+#define kSegmentedFixedSpaceWidth  (kSegmentedBarButtonWidth + 3.0)
 
 @implementation SegmentedViewController
 
@@ -39,6 +47,7 @@
     [segmentedControl release];
     [segmentedButtonItem release];
     [flexibleSpaceItem release];
+    [fixedSpaceItem release];
     
     [segmentItems release];
     
@@ -62,8 +71,10 @@
     segmentedButtonItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
     [segmentedButtonItem setWidth:(segmentWidth * [segmentItems count])];
     
-    // Create a flexible space item to use in the toolbar
+    // Create a flexible and fixed space item to use in the toolbar
     flexibleSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    fixedSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    [fixedSpaceItem setWidth:kSegmentedFixedSpaceWidth];
     
     // Create a content view to hold views for animation
     contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[self view] frame].size.width, [[self view] frame].size.height)];
@@ -145,16 +156,19 @@
     UIView *selectedView = [newSelectedViewController view];
     
     // Get the buttonItems from the viewController
-    UINavigationItem *navigationItem = [newSelectedViewController navigationItem];
-    UIBarButtonItem *rightBarButtonItem = [navigationItem rightBarButtonItem];
-    UIBarButtonItem *leftBarButtonItem = [navigationItem leftBarButtonItem];
+    UIBarButtonItem *rightBarButtonItem = [newSelectedViewController rightSegmentedBarButtonItem];
+    UIBarButtonItem *leftBarButtonItem = [newSelectedViewController leftSegmentedBarButtonItem];
+    
+    // Set the width to a constant value so we can center the segmented control
+    [rightBarButtonItem setWidth:kSegmentedBarButtonWidth];
+    [leftBarButtonItem setWidth:kSegmentedBarButtonWidth];
         
     // If there is no corresponding button item,
     // replace it with a flexible item
     if (!rightBarButtonItem)
-        rightBarButtonItem = flexibleSpaceItem;
+        rightBarButtonItem = fixedSpaceItem;
     if (!leftBarButtonItem)
-        leftBarButtonItem = flexibleSpaceItem;
+        leftBarButtonItem = fixedSpaceItem;
         
     // Create an array of toolbar items and set them
     NSArray *toolbarItems = [NSArray arrayWithObjects:leftBarButtonItem, flexibleSpaceItem, segmentedButtonItem, flexibleSpaceItem, rightBarButtonItem, nil];

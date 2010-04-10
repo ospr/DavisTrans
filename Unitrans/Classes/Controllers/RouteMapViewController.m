@@ -97,7 +97,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
                                                                            style:UIBarButtonItemStyleBordered
                                                                           target:self
                                                                           action:@selector(showPatternsAction:)];
-    [[self navigationItem] setRightBarButtonItem:showPatternsButton];
+    [self setRightSegmentedBarButtonItem:showPatternsButton];
     [showPatternsButton release];
     
     // Create zoomFit button
@@ -105,7 +105,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
                                                                       style:UIBarButtonItemStyleBordered 
                                                                      target:self 
                                                                      action:@selector(zoomFitAction:)];
-    [[self navigationItem] setLeftBarButtonItem:zoomFitButton];
+    [self setLeftSegmentedBarButtonItem:zoomFitButton];
     [zoomFitButton release];
 }
 

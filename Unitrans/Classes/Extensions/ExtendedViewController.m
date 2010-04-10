@@ -13,6 +13,16 @@
 
 @synthesize segmentedViewController;
 @synthesize segmentTransition;
+@synthesize leftSegmentedBarButtonItem;
+@synthesize rightSegmentedBarButtonItem;
+
+- (void)dealloc
+{
+    [leftSegmentedBarButtonItem release];
+    [rightSegmentedBarButtonItem release];
+    
+    [super dealloc];
+}
 
 - (UINavigationController *)navigationController
 {

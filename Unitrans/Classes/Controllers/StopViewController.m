@@ -89,6 +89,7 @@
     // Set default date (Today)
     [self changeScheduleDateTo:[[NSDate date] beginningOfDay]];
 	
+    // Create favorites button
 	UIBarButtonItem *favoritesButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"FavoriteStarNoFill.png"] 
 																		style:UIBarButtonItemStyleBordered 
 																	   target:self 
@@ -96,7 +97,7 @@
 	if(isFavorite)
 		[favoritesButton setImage:[UIImage imageNamed:@"FavoriteStarFilled.png"]];
 	
-	[[self navigationItem] setRightBarButtonItem:favoritesButton];
+	[self setRightSegmentedBarButtonItem:favoritesButton];
 	[favoritesButton release];
 }
 
@@ -670,9 +671,9 @@
     [self setIsFavorite:!isFavorite];
     
 	if(isFavorite)
-		[[[self navigationItem] rightBarButtonItem] setImage:[UIImage imageNamed:@"FavoriteStarFilled.png"]];
+		[[self rightSegmentedBarButtonItem] setImage:[UIImage imageNamed:@"FavoriteStarFilled.png"]];
 	else
-		[[[self navigationItem] rightBarButtonItem] setImage:[UIImage imageNamed:@"FavoriteStarNoFill.png"]];
+		[[self rightSegmentedBarButtonItem] setImage:[UIImage imageNamed:@"FavoriteStarNoFill.png"]];
 	
 	NSDictionary *stopInfo = [NSDictionary dictionaryWithObjectsAndKeys:route, @"route", stop, @"stop", [NSNumber numberWithBool:[self isFavorite]], @"isFavorite", nil];
 	

@@ -13,9 +13,15 @@
 @interface ExtendedViewController : UIViewController {
     SegmentedViewController *segmentedViewController;
     UIViewAnimationTransition segmentTransition;
+    
+    UIBarButtonItem *leftSegmentedBarButtonItem;
+    UIBarButtonItem *rightSegmentedBarButtonItem;
 }
 
 @property (nonatomic, assign) SegmentedViewController *segmentedViewController;
 @property (nonatomic, assign) UIViewAnimationTransition segmentTransition;
+@property (nonatomic, retain) UIBarButtonItem *leftSegmentedBarButtonItem;
+@property (nonatomic, retain) UIBarButtonItem *rightSegmentedBarButtonItem;
+
 
 @end
