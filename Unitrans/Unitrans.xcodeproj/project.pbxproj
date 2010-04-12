@@ -13,6 +13,8 @@
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		3731BB02113737E100FFF600 /* ORouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 3731BB01113737E100FFF600 /* ORouteIcon_43.png */; };
 		3731BB0F11373AE600FFF600 /* ORouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 3731BB0E11373AE600FFF600 /* ORouteToolbarIcon_43.png */; };
+		373319981172579F004A0303 /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 373319961172579F004A0303 /* CreditsViewController.m */; };
+		373319991172579F004A0303 /* CreditsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 373319971172579F004A0303 /* CreditsViewController.xib */; };
 		373EEF0910CA40F6007CFD39 /* AnimationImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EEF0810CA40F6007CFD39 /* AnimationImageView.m */; };
 		373EF0A510CC8AFE007CFD39 /* ConcurrentOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0A410CC8AFE007CFD39 /* ConcurrentOperation.m */; };
 		373EF0AC10CC9047007CFD39 /* PredictionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0AB10CC9047007CFD39 /* PredictionOperation.m */; };
@@ -139,6 +141,9 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3731BB01113737E100FFF600 /* ORouteIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ORouteIcon_43.png; sourceTree = "<group>"; };
 		3731BB0E11373AE600FFF600 /* ORouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ORouteToolbarIcon_43.png; sourceTree = "<group>"; };
+		373319951172579F004A0303 /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
+		373319961172579F004A0303 /* CreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsViewController.m; sourceTree = "<group>"; };
+		373319971172579F004A0303 /* CreditsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreditsViewController.xib; sourceTree = "<group>"; };
 		373EEF0710CA40F6007CFD39 /* AnimationImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationImageView.h; sourceTree = "<group>"; };
 		373EEF0810CA40F6007CFD39 /* AnimationImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationImageView.m; sourceTree = "<group>"; };
 		373EF0A310CC8AFE007CFD39 /* ConcurrentOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConcurrentOperation.h; sourceTree = "<group>"; };
@@ -549,6 +554,8 @@
 				7CE6EFE810A7B512009BF91A /* RouteMapViewController.m */,
 				7CD986F110AA68BE00116483 /* AboutViewController.h */,
 				7CD986F210AA68BE00116483 /* AboutViewController.m */,
+				373319951172579F004A0303 /* CreditsViewController.h */,
+				373319961172579F004A0303 /* CreditsViewController.m */,
 				37C2CCC710E715A40001E1AF /* RouteSegmentedViewController.h */,
 				37C2CCC810E715A40001E1AF /* RouteSegmentedViewController.m */,
 				37C2CE5F10E7FD790001E1AF /* StopSegmentedViewController.h */,
@@ -576,6 +583,7 @@
 			isa = PBXGroup;
 			children = (
 				C993E18B10A206E800B0F44D /* MainWindow.xib */,
+				373319971172579F004A0303 /* CreditsViewController.xib */,
 			);
 			path = NIBs;
 			sourceTree = "<group>";
@@ -744,6 +752,7 @@
 				3783B7E31167D4BE008CBB60 /* FavoriteStar.opacity in Resources */,
 				3783B7E41167D4BE008CBB60 /* FavoriteStarFilled.png in Resources */,
 				3783B7E51167D4BE008CBB60 /* FavoriteStarNoFill.png in Resources */,
+				373319991172579F004A0303 /* CreditsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -792,6 +801,7 @@
 				37C2CF3A10E8914D0001E1AF /* ExtendedViewController.m in Sources */,
 				37C2D00B10E95F6F0001E1AF /* StopTimeSegmentedViewController.m in Sources */,
 				377854DA11223596008E0886 /* PredictionsView.m in Sources */,
+				373319981172579F004A0303 /* CreditsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

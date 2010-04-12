@@ -7,6 +7,7 @@
 //
 
 #import "AboutViewController.h"
+#import "CreditsViewController.h"
 #import "DatabaseManager.h"
 #import "Agency.h"
 
@@ -56,7 +57,7 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
     [super viewDidLoad];
     
     // Set title
-    [self setTitle:@"Contacts"];
+    [self setTitle:@"Info"];
     
     // Add done button
     UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
@@ -107,7 +108,7 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
                                     nil];
     
     NSDictionary *about = [NSDictionary dictionaryWithObjectsAndKeys:
-                           @"About", kMainTextKey,
+                           @"Credits", kMainTextKey,
                            nil];
     
     NSArray *unitrans = [NSArray arrayWithObjects:unitransPhone, unitransWebsite, unitransEmail, nil];
@@ -203,7 +204,10 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
     
     if ([indexPath section] == 3)
     {
-        // Show about view
+        CreditsViewController *creditsViewController = [[CreditsViewController alloc] init];
+        
+        [[self navigationController] pushViewController:creditsViewController animated:YES];
+        [creditsViewController release];
     }
     else
     {
