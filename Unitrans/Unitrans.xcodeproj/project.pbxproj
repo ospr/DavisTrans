@@ -43,6 +43,7 @@
 		3783B7E31167D4BE008CBB60 /* FavoriteStar.opacity in Resources */ = {isa = PBXBuildFile; fileRef = 3783B7DF1167D4BE008CBB60 /* FavoriteStar.opacity */; };
 		3783B7E41167D4BE008CBB60 /* FavoriteStarFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 3783B7E01167D4BE008CBB60 /* FavoriteStarFilled.png */; };
 		3783B7E51167D4BE008CBB60 /* FavoriteStarNoFill.png in Resources */ = {isa = PBXBuildFile; fileRef = 3783B7E11167D4BE008CBB60 /* FavoriteStarNoFill.png */; };
+		3788E5461172EC9E00AD86AC /* FavoritesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3788E5451172EC9E00AD86AC /* FavoritesController.m */; };
 		3795472510C7A13E005A2D93 /* BusAnimationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */; };
 		37BAFE4C1120FB0500077C65 /* HiddenStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BAFE4B1120FB0500077C65 /* HiddenStop.png */; };
 		37C127A210CC9DB6007604BB /* BusInformationOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C127A110CC9DB6007604BB /* BusInformationOperation.m */; };
@@ -176,6 +177,8 @@
 		3783B7DF1167D4BE008CBB60 /* FavoriteStar.opacity */ = {isa = PBXFileReference; lastKnownFileType = file; path = FavoriteStar.opacity; sourceTree = "<group>"; };
 		3783B7E01167D4BE008CBB60 /* FavoriteStarFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FavoriteStarFilled.png; sourceTree = "<group>"; };
 		3783B7E11167D4BE008CBB60 /* FavoriteStarNoFill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FavoriteStarNoFill.png; sourceTree = "<group>"; };
+		3788E5441172EC9E00AD86AC /* FavoritesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesController.h; sourceTree = "<group>"; };
+		3788E5451172EC9E00AD86AC /* FavoritesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesController.m; sourceTree = "<group>"; };
 		3795472310C7A13E005A2D93 /* BusAnimationAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusAnimationAnnotationView.h; sourceTree = "<group>"; };
 		3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusAnimationAnnotationView.m; sourceTree = "<group>"; };
 		37BAFE4B1120FB0500077C65 /* HiddenStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HiddenStop.png; sourceTree = "<group>"; };
@@ -506,6 +509,8 @@
 				37C2CB7E10E3F54B0001E1AF /* SegmentedViewController.m */,
 				37C2CF3810E8914D0001E1AF /* ExtendedViewController.h */,
 				37C2CF3910E8914D0001E1AF /* ExtendedViewController.m */,
+				3788E5441172EC9E00AD86AC /* FavoritesController.h */,
+				3788E5451172EC9E00AD86AC /* FavoritesController.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -802,6 +807,7 @@
 				37C2D00B10E95F6F0001E1AF /* StopTimeSegmentedViewController.m in Sources */,
 				377854DA11223596008E0886 /* PredictionsView.m in Sources */,
 				373319981172579F004A0303 /* CreditsViewController.m in Sources */,
+				3788E5461172EC9E00AD86AC /* FavoritesController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

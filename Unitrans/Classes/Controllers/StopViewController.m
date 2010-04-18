@@ -9,6 +9,7 @@
 #import "StopViewController.h"
 #import "StopTimeSegmentedViewController.h"
 #import "RouteMapViewController.h"
+#import "FavoritesController.h"
 #import "Stop.h"
 #import "StopTime.h"
 #import "Route.h"
@@ -25,7 +26,7 @@
 @synthesize allStopTimes;
 @synthesize currentStopTimes;
 @synthesize showExpiredStopTimes;
-@synthesize isFavorite;
+@dynamic isFavorite;
 @synthesize selectedDate;
 @synthesize temporaryDate;
 @synthesize delegate;
@@ -45,6 +46,11 @@
                                                  selector:@selector(applicationDidBecomeActive:) 
                                                      name:UIApplicationDidBecomeActiveNotification
                                                    object:nil];
+        
+        // Get notifications when favorites change so we can reload the table
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(favoritesChanged:)
+                                                     name:@"FavoritesChanged" object:nil];
     }
     
     return self;
@@ -94,11 +100,18 @@
 																		style:UIBarButtonItemStyleBordered 
 																	   target:self 
 																	   action:@selector(favoritesButtonPressed:)];
-	if(isFavorite)
+	if([self isFavorite])
 		[favoritesButton setImage:[UIImage imageNamed:@"FavoriteStarFilled.png"]];
 	
 	[self setRightSegmentedBarButtonItem:favoritesButton];
 	[favoritesButton release];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self updateFavoritesButton];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -647,10 +660,23 @@
 #pragma mark -
 #pragma mark Favorites Methods
 
+- (BOOL)isFavorite
+{
+    return [[FavoritesController sharedFavorites] isFavoriteStop:stop forRoute:route];
+}
+
+- (void)updateFavoritesButton
+{
+    if([self isFavorite])
+        [[self rightSegmentedBarButtonItem] setImage:[UIImage imageNamed:@"FavoriteStarFilled.png"]];
+	else
+        [[self rightSegmentedBarButtonItem] setImage:[UIImage imageNamed:@"FavoriteStarNoFill.png"]];
+}
+
 - (IBAction)favoritesButtonPressed:(id)sender
 {
-    NSString *title = isFavorite ? @"Remove from Favorites?" : @"Add to Favorites?";
-    NSString *otherButton = isFavorite ? @"Remove" : @"Add";
+    NSString *title = [self isFavorite] ? @"Remove from Favorites?" : @"Add to Favorites?";
+    NSString *otherButton = [self isFavorite] ? @"Remove" : @"Add";
     
     UIActionSheet *favoriteSheet = [[UIActionSheet alloc] initWithTitle:title
                                                                delegate:self 
@@ -668,17 +694,17 @@
     if (buttonIndex == [actionSheet cancelButtonIndex])
         return;
     
-    [self setIsFavorite:!isFavorite];
-    
-	if(isFavorite)
-		[[self rightSegmentedBarButtonItem] setImage:[UIImage imageNamed:@"FavoriteStarFilled.png"]];
+    if([self isFavorite])
+        [[FavoritesController sharedFavorites] removeFavoriteStop:stop forRoute:route];
 	else
-		[[self rightSegmentedBarButtonItem] setImage:[UIImage imageNamed:@"FavoriteStarNoFill.png"]];
-	
-	NSDictionary *stopInfo = [NSDictionary dictionaryWithObjectsAndKeys:route, @"route", stop, @"stop", [NSNumber numberWithBool:[self isFavorite]], @"isFavorite", nil];
-	
-	// Notify AgencyView of favorites change
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"FavoritesChanged" object:self userInfo: stopInfo];
+        [[FavoritesController sharedFavorites] addFavoriteStop:stop forRoute:route];
+        
+    [self updateFavoritesButton];
+}
+
+- (void)favoritesChanged:(NSNotification *)notification
+{    
+    [self updateFavoritesButton];
 }
 
 @end

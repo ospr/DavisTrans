@@ -85,7 +85,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+        
     // Select first segment if there are segments to select and one hasn't already been selected
     if ([[self segmentItems] count] != 0 && !selectedViewController)
         [segmentedControl setSelectedSegmentIndex:0];

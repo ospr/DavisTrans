@@ -8,6 +8,7 @@
 
 #import "RouteViewController.h"
 #import "StopSegmentedViewController.h"
+#import "FavoritesController.h"
 #import "RouteMapViewController.h"
 #import "DetailOverlayView.h"
 #import "Route.h"
@@ -18,7 +19,6 @@
 @synthesize route;
 @synthesize stops;
 @synthesize filteredStops;
-@synthesize favoriteStops;
 @synthesize searchBar;
 @synthesize searchDisplayController;
 
@@ -39,7 +39,6 @@
 - (void)dealloc {
     [route release];
     [stops release];
-	[favoriteStops release];
     
     [searchBar release];
     [searchDisplayController release];
@@ -117,7 +116,6 @@
 	[super viewDidUnload];
 	[self setRoute:nil];
 	[self setStops:nil];
-	[self setFavoriteStops:nil];
     [self setSearchBar:nil];
     [self setSearchDisplayController:nil];
 }
@@ -178,7 +176,7 @@
         stop = [stops objectAtIndex:[indexPath row]];
     
     // Set stop name and heading (Add a star if the stop is a favorite)
-    if ([favoriteStops containsObject:stop])
+    if ([[FavoritesController sharedFavorites] isFavoriteStop:stop forRoute:route])
         [[cell textLabel] setText:[NSString stringWithFormat:@"★ %@", [stop name]]];
     else
         [[cell textLabel] setText:[stop name]];
@@ -199,11 +197,6 @@
     StopSegmentedViewController *stopSegmentedViewController = [[StopSegmentedViewController alloc] init];
 	[stopSegmentedViewController setStop:selectedStop];
 	[stopSegmentedViewController setRoute:route];
-	
-	if([favoriteStops containsObject:selectedStop])
-		[stopSegmentedViewController setIsFavorite:YES];
-	else
-		[stopSegmentedViewController setIsFavorite:NO];
     
     // Push StopViewController onto nav stack
 	[[self navigationController] pushViewController:stopSegmentedViewController animated:YES];
@@ -247,42 +240,10 @@
 }
 
 #pragma mark -
-#pragma mark Favorites methods
-
-- (void)addFavoriteStop:(NSDictionary *)stopInfo
-{
-	if(![favoriteStops containsObject:[stopInfo valueForKey:@"stop"]])
-		[favoriteStops addObject:[stopInfo valueForKey:@"stop"]];
-	else
-		NSLog(@"Failed to add favorite stop with name: %@ for route: %@.", [[stopInfo valueForKey:@"stop"] name], [[stopInfo valueForKey:@"route"] shortName]);
-}
-
-- (void)removeFavoriteStop:(NSDictionary *)stopInfo
-{
-	if([favoriteStops containsObject:[stopInfo valueForKey:@"stop"]])
-		[favoriteStops removeObject:[stopInfo valueForKey:@"stop"]];
-	else
-		NSLog(@"Failed to remove favorite stop with name: %@ for route: %@.", [[stopInfo valueForKey:@"stop"] name], [[stopInfo valueForKey:@"route"] shortName]);	
-}
-
-#pragma mark -
 #pragma mark Notifications
 
 - (void)favoritesChanged:(NSNotification *)notification
 {	
-	NSDictionary *stopInfo = [NSDictionary dictionaryWithObjectsAndKeys:[[notification userInfo] valueForKey:@"route"], @"route",
-							  [[notification userInfo] valueForKey:@"stop"], @"stop", nil];
-	
-	if(![[[stopInfo valueForKey:@"route"] shortName] isEqual:[route shortName]])
-	{
-		NSLog(@"RouteView route: %@ mismatched with favorite route: %@.", [route shortName], [[stopInfo valueForKey:@"route"] shortName]);
-		return; 
-	}
-	
-	if([[[notification userInfo] valueForKey:@"isFavorite"] boolValue])
-		[self addFavoriteStop:stopInfo];
-	else
-		[self removeFavoriteStop:stopInfo];
 	[[self tableView] reloadData];
 }
 

@@ -23,23 +23,14 @@ typedef enum _AgencyViewSectionIndex {
 @interface AgencyViewController : TableViewController <AboutViewControllerDelegate> {
     Agency *agency;
 	NSArray *routes;
-	NSMutableArray *favorites;
+    
+    NSArray *favorites;
 }
 
 @property (nonatomic, retain) Agency *agency;
 @property (nonatomic, retain) NSArray *routes;
-@property (nonatomic, retain) NSMutableArray *favorites;
+@property (nonatomic, retain) NSArray *favorites;
 
 - (BOOL)favoritesSectionVisible;
-- (void)addFavoriteStop:(NSDictionary *)stopInfo;
-- (void)removeFavoriteStop:(NSDictionary *)stopInfo;
-- (NSArray *)allFavoriteStopsForRoute:(Route *)route;
-
-- (NSString *)pathForFavoritesData;
-- (void)saveFavoritesData;
-- (void)loadFavoritesData;
-
-- (Route *)routeObjectForShortName:(NSString *)shortName;
-- (Stop *)stopObjectForRoute:(Route *)route withStopCode:(NSNumber *)stopCode;
 
 @end

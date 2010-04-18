@@ -33,11 +33,6 @@ void criticalLoadingErrorAlert()
 	[window makeKeyAndVisible];
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-	[agencyViewController saveFavoritesData];
-}
-
 /*
 // Optional UITabBarControllerDelegate method
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {

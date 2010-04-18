@@ -172,7 +172,6 @@ CGFloat kDetailedOverlayViewWidth = 255.0;
 			[stopViewController setDelegate:self];
             [stopViewController setRoute:route];
             [stopViewController setStop:stop];
-			[stopViewController setIsFavorite:isFavorite];
         }
         
         viewController = stopViewController;

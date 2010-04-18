@@ -32,7 +32,6 @@ typedef enum _StopViewSectionIndex {
 
 	BOOL showExpiredStopTimes;
     BOOL chooseNewScheduleDateMode;
-	BOOL isFavorite;
     
     // Timers
     NSTimer *expiredStopTimeTimer;
@@ -49,7 +48,7 @@ typedef enum _StopViewSectionIndex {
 @property (nonatomic, retain) NSDate *selectedDate;
 @property (nonatomic, retain) NSDate *temporaryDate;
 @property (nonatomic, assign) BOOL showExpiredStopTimes;
-@property (nonatomic, assign) BOOL isFavorite;
+@property (nonatomic, readonly) BOOL isFavorite;
 @property (nonatomic, assign) id<StopViewControllerDelegate> delegate;
 
 - (void)sortStopTimes;
@@ -61,6 +60,7 @@ typedef enum _StopViewSectionIndex {
 - (void)startExpiredStopTimeTimer;
 - (void)stopExpiredStopTimeTimer;
 - (void)updateActiveStopTimes;
+- (void)updateFavoritesButton;
 
 - (NSString *)stringForDate:(NSDate *)date;
 - (BOOL)shouldShowNoMoreScheduledStops;
