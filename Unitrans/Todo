@@ -2,24 +2,24 @@
 Priority
 ========
 
-V 1.0
+V 1.1
 ======
 --- Features ---
-• Favorites (Ken)
-    - Section in AgencyView
-    - Section in RouteView
-    - Button to add/remove from favorites in StopView
-• CreditsView
+
+High
+======
+• When generating new schedule data, Calendar endDate should use NSDateExtension's endOfDay to store the end of the date as the endDate.
 • Double-Decker bus icons
 
 --- Bugs ---
+• StopViewController does some weird checking against Today in chooseNewScheduleDateDidEndWithDate:. Shouldn't we just 
+    check if the original date isn't the selected date??
+
 • Change white route colors to black (Kip)
 • Verify that phone numbers are correct by calling them ;)
 • Better error handling when internet not working (try with moobilenet when not logged in...)
 • When showing datepicker, detail view should truncate labels.
 
-High
-======
 
 Lower
 =====
@@ -150,3 +150,15 @@ Done
 • Add check and error message when schedule is out of date (removed for testing purposes b/c it's annoying!)
 • Returning to RouteView does not save tableView location
 • MKDotBounceAnimation bug
+• Favorites (Ken)
+    - Section in AgencyView
+    - Section in RouteView
+    - Button to add/remove from favorites in StopView
+• CreditsView
+• Update favorites to handle new services
+• Make sure end of dates work for schedules
+• When user is looking at schedule view and not currently using the schedule should pick the closest possible date
+    in the selected service as the default date.
+• Post service title on schedule view.
+• Update with Finals and Summer 1 services
+• Update UI to handle new services

@@ -97,7 +97,7 @@ static FavoritesController *sharedFavorites = nil;
 	if(![favorites containsObject:stopInfo])
 		[favorites addObject:stopInfo];
 	else
-		NSLog(@"Failed to add favorite stop with name: %@ for route: %@.", [[stopInfo valueForKey:@"stop"] name], [[stopInfo valueForKey:@"route"] shortName]);
+		NSLog(@"Failed to add favorite stop with name: %@ for route: %@.", [[stopInfo valueForKey:@"stop"] shortName], [[stopInfo valueForKey:@"route"] shortName]);
     
     [self sortFavorites];
     
@@ -113,7 +113,7 @@ static FavoritesController *sharedFavorites = nil;
 	if([favorites containsObject:stopInfo])
 		[favorites removeObject:stopInfo];
 	else
-		NSLog(@"Failed to remove favorite stop with name: %@ for route: %@.", [[stopInfo valueForKey:@"stop"] name], [[stopInfo valueForKey:@"route"] shortName]);
+		NSLog(@"Failed to remove favorite stop with name: %@ for route: %@.", [[stopInfo valueForKey:@"stop"] shortName], [[stopInfo valueForKey:@"route"] shortName]);
     
     [self saveFavoritesData];
     
@@ -171,6 +171,9 @@ static FavoritesController *sharedFavorites = nil;
 
 - (void)loadFavoritesDataWithRoutes:(NSArray *)routes
 {
+    // Remove all old favorites
+    [favorites removeAllObjects];
+    
 	NSString *path = [self pathForFavoritesData];
 	NSArray *favoritesSaveData = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
 	

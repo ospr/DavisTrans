@@ -17,12 +17,15 @@
 #import "Stop.h"
 #import "StopTime.h"
 #import "Trip.h"
+#import "Service.h"
 
 NSString *kUnitransSchedulePrefix = @"UnitransSchedule";
 NSString *kUnitransScheduleDate = @"20100329"; // Corresponds to the schedule data date. Should be updated for new schedules.
 NSString *kUnitransScheduleFileType = @"sqlite";
 
 @implementation DatabaseManager
+
+@synthesize currentService;
 
 #pragma mark -
 #pragma mark Singleton Methods
@@ -70,11 +73,25 @@ static DatabaseManager *sharedDatabaseManager = nil;
 #pragma mark -
 #pragma mark Memory management
 
+/*- (id)init
+{
+    self = [super init];
+    
+    if (self) {
+        // Set default service to the first service
+        [self setCurrentService:[[self allServices] objectAtIndex:0]];
+    }
+    
+    return self;
+}*/
+
 - (void)dealloc 
 {	
     [managedObjectContext release];
     [managedObjectModel release];
     [persistentStoreCoordinator release];
+    
+    [currentService release];
     
 	[super dealloc];
 }
@@ -102,6 +119,61 @@ static DatabaseManager *sharedDatabaseManager = nil;
     // Return Unitrans agency
     return [agencyArray lastObject];
 }
+
+#pragma mark -
+#pragma mark Service Methods
+
+/*- (Service *)defaultService
+{
+    NSArray *services = [self allServices];
+    
+    for (Service *service in services)
+        if 
+}*/
+
+- (NSArray *)allServices
+{
+    // Hardcode these for now until a better way is determined
+    // IDEA: Move these to a service entity in each GTFS schedule and access them thru there
+    Service *spring = [[[Service alloc] init] autorelease];
+    [spring setShortName:@"Spring"];
+    [spring setLongName:@"Spring"];
+    [spring setResourceName:@"UnitransSchedule_20100329"];
+    [spring setResourceKind:@"sqlite"];
+                       
+    Service *finals = [[[Service alloc] init] autorelease];
+    [finals setShortName:@"Finals"];
+    [finals setLongName:@"Spring Finals"];
+    [finals setResourceName:@"UnitransSchedule_20100604"];
+    [finals setResourceKind:@"sqlite"];
+    
+    Service *summer = [[[Service alloc] init] autorelease];
+    [summer setShortName:@"Summer1"];
+    [summer setLongName:@"Summer 1"];
+    [summer setResourceName:@"UnitransSchedule_20100611"];
+    [summer setResourceKind:@"sqlite"];
+    
+    // Return the sorted array of services
+    return [NSArray arrayWithObjects:spring, finals, summer, nil];
+}
+
+- (void)useService:(Service *)newService
+{
+    // If new service is the same as the old, then don't update
+    if ([newService isEqual:currentService])
+        return;
+    
+    // Set to new service
+    [self setCurrentService:newService];
+    
+    // Release all core data stack and set to nil
+    [managedObjectModel release]; managedObjectModel = nil;
+    [managedObjectContext release]; managedObjectContext = nil;
+    [persistentStoreCoordinator release]; persistentStoreCoordinator = nil;
+}
+
+#pragma mark -
+#pragma mark Create Database Methods
 
 - (BOOL)createDatabaseFromGoogleTransitFeed:(NSString *)feedDirectory
 {
@@ -576,8 +648,9 @@ static DatabaseManager *sharedDatabaseManager = nil;
         return persistentStoreCoordinator;
 	
     //NSURL *storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"TestDB10.sqlite"]];
-    NSString *resourcePath = [NSString stringWithFormat:@"%@_%@", kUnitransSchedulePrefix, kUnitransScheduleDate];
-	NSURL *storeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:resourcePath ofType:kUnitransScheduleFileType]];
+    //NSString *resourcePath = [NSString stringWithFormat:@"%@_%@", kUnitransSchedulePrefix, kUnitransScheduleDate];
+    NSString *serviceStorePath = [[NSBundle mainBundle] pathForResource:[currentService resourceName] ofType:[currentService resourceKind]];
+    NSURL *storeUrl = [NSURL fileURLWithPath:serviceStorePath];
     
     NSLog(@"store url = %@", storeUrl);
     

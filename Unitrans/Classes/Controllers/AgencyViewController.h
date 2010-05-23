@@ -20,17 +20,23 @@ typedef enum _AgencyViewSectionIndex {
 @class Route;
 @class Stop;
 
-@interface AgencyViewController : TableViewController <AboutViewControllerDelegate> {
+@interface AgencyViewController : TableViewController <AboutViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
     Agency *agency;
 	NSArray *routes;
     
     NSArray *favorites;
+    
+    BOOL outOfDate;
+    
+    UIBarButtonItem *serviceButtonItem;
 }
 
 @property (nonatomic, retain) Agency *agency;
 @property (nonatomic, retain) NSArray *routes;
 @property (nonatomic, retain) NSArray *favorites;
 
+- (void)serviceChanged;
 - (BOOL)favoritesSectionVisible;
+- (void)showWelcomeMessage;
 
 @end

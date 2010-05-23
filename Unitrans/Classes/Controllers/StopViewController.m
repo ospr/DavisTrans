@@ -13,8 +13,11 @@
 #import "Stop.h"
 #import "StopTime.h"
 #import "Route.h"
+#import "Calendar.h"
 #import "NSDate_Extensions.h"
 #import "UIColor_Extensions.h"
+
+#import "DatabaseManager.h"
 
 //CGFloat kPredictionViewHeight = 50.0;
 
@@ -92,17 +95,28 @@
     [self setView:newTableView];
     [newTableView release];
     
-    // Set default date (Today)
-    [self changeScheduleDateTo:[[NSDate date] beginningOfDay]];
+    // Set default date (date closest to Today in current service)
+    NSDate *defaultDate = [NSDate beginningOfToday];
+    if ([[(Calendar *)[[[route trips] anyObject] calendar] startDate] earlierDate:defaultDate] == defaultDate)
+    {
+        defaultDate = [(Calendar *)[[[route trips] anyObject] calendar] startDate];
+    }    
+    else if ([[(Calendar *)[[[route trips] anyObject] calendar] endDate] laterDate:defaultDate] == defaultDate) 
+    {
+        defaultDate = [(Calendar *)[[[route trips] anyObject] calendar] endDate];
+    }   
+    [self changeScheduleDateTo:defaultDate];
 	
     // Create favorites button
 	UIBarButtonItem *favoritesButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"FavoriteStarNoFill.png"] 
 																		style:UIBarButtonItemStyleBordered 
 																	   target:self 
 																	   action:@selector(favoritesButtonPressed:)];
+    // If stop is a favorite, then set to filled star
 	if([self isFavorite])
 		[favoritesButton setImage:[UIImage imageNamed:@"FavoriteStarFilled.png"]];
 	
+    // Add favorites button
 	[self setRightSegmentedBarButtonItem:favoritesButton];
 	[favoritesButton release];
 }
@@ -180,6 +194,12 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    // HACK: Using DataBaseMan here to get the current service name
+	if(section == SectionIndexSelectedDate)
+    {
+        NSString *serviceName = [[[DatabaseManager sharedDatabaseManager] currentService] longName];
+        return [NSString stringWithFormat:@"Schedule Date for %@", serviceName];
+    }
 	if(section == SectionIndexSelectedDate)
 		return @"Schedule Date";
 	else if (section == SectionIndexStopTimes)

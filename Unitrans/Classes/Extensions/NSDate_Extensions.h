@@ -14,7 +14,8 @@
 + (NSDate *)beginningOfToday;
 + (NSDate *)beginningOfTomorrow;
 
-- (NSDate *) beginningOfDay;
-- (NSDate *)tomorrow;
+- (NSDate *)beginningOfDay;
+- (NSDate *)nextDay;
+- (NSDate *)endOfDay;
 
 @end

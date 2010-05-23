@@ -46,3 +46,9 @@
 
 @end
 
+@interface Calendar (CoreDataGeneratedPrimitiveAccessors)
+
+- (NSDate *)primitiveEndDate;
+
+@end
+

@@ -10,7 +10,9 @@
 
 
 @interface CreditsViewController : UIViewController {
-
+    UITextView *creditsTextView;
 }
+
+@property (nonatomic, retain) IBOutlet UITextView *creditsTextView;
 
 @end

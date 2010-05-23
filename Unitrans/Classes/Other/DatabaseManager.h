@@ -21,11 +21,14 @@ typedef enum _ProcessStep {
 } ProcessStep;
 
 @class Agency;
+@class Service;
 
 @interface DatabaseManager : NSObject {
     NSManagedObjectModel *managedObjectModel;
     NSManagedObjectContext *managedObjectContext;	    
     NSPersistentStoreCoordinator *persistentStoreCoordinator;
+    
+    Service *currentService;
     
     NSMutableDictionary *agencies;
     NSMutableDictionary *calendars;
@@ -40,10 +43,14 @@ typedef enum _ProcessStep {
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, retain) Service *currentService;
 
 + (DatabaseManager *)sharedDatabaseManager;
 
 - (Agency *)retrieveUnitransAgency:(NSError **)error;
+
+- (NSArray *)allServices;
+- (void)useService:(Service *)newService;
 
 - (BOOL)createDatabaseFromGoogleTransitFeed:(NSString *)feedDirectory;
 - (id)insertNewObjectForEntityForName:(NSString *)entityName;

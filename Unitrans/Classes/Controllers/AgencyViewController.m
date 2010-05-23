@@ -18,6 +18,7 @@
 #import "SegmentedViewController.h"
 #import "StopSegmentedViewController.h"
 #import "FavoritesController.h"
+#import "CreditsViewController.h"
 
 @implementation AgencyViewController
 
@@ -32,6 +33,9 @@
     [agency release];
     [routes release];
 	[favorites release];
+    
+    [serviceButtonItem release];
+    
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [super dealloc];
@@ -43,15 +47,6 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-    
-    // Retrieve and set agency
-    NSError *error;
-    Agency *unitransAgency = [[DatabaseManager sharedDatabaseManager] retrieveUnitransAgency:&error];
-    if (!unitransAgency) {
-        criticalLoadingErrorAlert();
-        return;
-    }
-    [self setAgency:unitransAgency];
     
     // Create table view and set as view
     UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -70,19 +65,32 @@
     [[self navigationItem] setRightBarButtonItem:infoButtonItem];
     [infoButtonItem release];
     
-    // Get agency routes and sort by alphabetical order
-    NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"shortName" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
-    NSArray *sortedRoutes = [[[unitransAgency routes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-    [self setRoutes:sortedRoutes];
+    // Add service button
+    serviceButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(changeServiceAction:)];
+    [[self navigationItem] setLeftBarButtonItem:serviceButtonItem];
 		
     // Get notifications when favorites change so we can reload the table
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(favoritesChanged:)
 												 name:@"FavoritesChanged" object:nil];
 	
-    // Load favorites
-	[[FavoritesController sharedFavorites] loadFavoritesDataWithRoutes:routes];
-    [self setFavorites:[[FavoritesController sharedFavorites] favorites]];
+    // Determine default service
+    NSArray *allServices = [[DatabaseManager sharedDatabaseManager] allServices];
+    for (Service *service in allServices)
+    {
+        [[DatabaseManager sharedDatabaseManager] useService:service];
+        Agency *serviceAgency = [[DatabaseManager sharedDatabaseManager] retrieveUnitransAgency:nil];
+        if ([serviceAgency transitDataUpToDate]) {
+            break;
+        }
+    }
+    
+    // Setup default service
+    [self serviceChanged];
+    
+    // Determine if schedule is out of date
+    if (![agency transitDataUpToDate])
+        outOfDate = YES;
 }
 
 - (void)viewDidUnload 
@@ -91,6 +99,8 @@
 	[self setAgency:nil];
 	[self setRoutes:nil];
 	[self setFavorites:nil];
+    [serviceButtonItem release]; serviceButtonItem = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -105,14 +115,20 @@
 {
     [super viewDidAppear:animated];
     
-    // Check to make sure that transit data is up to date, if not alert user!
-    if (![agency transitDataUpToDate]) {
-        NSString *reason = @"Your schedule data is out of date.";
+    // If schedule not up to date, alert user!
+    if (outOfDate) {
+        NSString *reason = @"Your Unitrans schedule data is out of date. Please check the App Store to download a current version.";
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Schedule Data" message:reason
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Old Schedule Data" message:reason
                                                        delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];	
         [alert release];
+    }
+    
+    // Show welcome message first time app is launched
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"FirstLaunch"] == NO) {
+        [self showWelcomeMessage];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstLaunch"];
     }
 }
 
@@ -238,6 +254,85 @@
 }
 
 #pragma mark -
+#pragma mark Service Methods
+
+- (void)changeServiceAction:(id)sender
+{
+    // Get services from database
+    NSArray *services = [[DatabaseManager sharedDatabaseManager] allServices];
+    Service *currentService = [[DatabaseManager sharedDatabaseManager] currentService];
+    
+    // Set up actionSheet for services
+    UIActionSheet *serviceSheet = [[UIActionSheet alloc] init];
+    [serviceSheet setTitle:@"Choose Service"];
+    [serviceSheet setDelegate:self];
+    
+    // Add pattern names to actionSheet
+    for (Service *service in services) {
+        // Add a check mark to the selected route pattern
+        if ([service isEqual:currentService])
+            [serviceSheet addButtonWithTitle:[NSString stringWithFormat:@"✔ %@", [service longName]]];
+        else
+            [serviceSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", [service longName]]];
+    }
+    
+    // Add Cancel button
+    [serviceSheet addButtonWithTitle:@"Cancel"];
+    [serviceSheet setCancelButtonIndex:([serviceSheet numberOfButtons] - 1)];
+    
+    // Show actionSheet
+    [serviceSheet showInView:[self view]];
+    [serviceSheet release];
+}
+
+- (void)serviceChanged
+{
+    // Load agency
+    NSError *error;
+    Agency *unitransAgency = [[DatabaseManager sharedDatabaseManager] retrieveUnitransAgency:&error];
+    if (!unitransAgency) {
+        criticalLoadingErrorAlert();
+        return;
+    }
+    [self setAgency:unitransAgency];
+    
+    // Set new service name
+    Service *currentService = [[DatabaseManager sharedDatabaseManager] currentService];
+    [serviceButtonItem setTitle:[currentService shortName]];
+    
+    // Get agency routes and sort by alphabetical order
+    NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"shortName" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
+    NSArray *sortedRoutes = [[[unitransAgency routes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    [self setRoutes:sortedRoutes];
+    
+    // Update favorites (this will hide any favorites which aren't valid for the selected service)
+    [[FavoritesController sharedFavorites] loadFavoritesDataWithRoutes:routes];
+    [self setFavorites:[[FavoritesController sharedFavorites] favorites]];
+    
+    // Update table
+    [[self tableView] reloadData];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    // Ignore cancels
+    if (buttonIndex == [actionSheet cancelButtonIndex])
+        return;
+    
+    // Get selected service
+    NSArray *services = [[DatabaseManager sharedDatabaseManager] allServices];
+    Service *currentService = [[DatabaseManager sharedDatabaseManager] currentService];
+    Service *selectedService = [services objectAtIndex:buttonIndex];
+    
+    // Update database and UI with new service
+    if (![selectedService isEqual:currentService]) {
+        [[DatabaseManager sharedDatabaseManager] useService:selectedService];
+        [self serviceChanged];
+    }
+}
+
+
+#pragma mark -
 #pragma mark Favorites methods
 
 - (BOOL)favoritesSectionVisible
@@ -246,7 +341,7 @@
 }
         
 #pragma mark -
-#pragma mark Action Methods
+#pragma mark About Methods
 
 - (IBAction)showAboutViewAction:(id)sender
 {
@@ -275,6 +370,57 @@
 {	
 	[[self tableView] reloadData];
 }
+
+#pragma mark -
+#pragma mark Credit Methods
+
+- (void)showCreditViewAction
+{
+    // Push about view onto nav stack
+    AboutViewController *aboutViewController = [[AboutViewController alloc] init];
+    [aboutViewController setAgency:agency];
+    [aboutViewController setDelegate:self];
+    
+    UINavigationController *infoNavigationController = [[UINavigationController alloc] initWithRootViewController:aboutViewController];
+    [[infoNavigationController navigationBar] setTintColor:[[[self navigationController] navigationBar] tintColor]];
+    
+    [[self navigationController] presentModalViewController:infoNavigationController animated:YES];
+    
+    // Push credit view onto nav stack
+    CreditsViewController *creditsViewController = [[CreditsViewController alloc] init];
+    
+    [[aboutViewController navigationController] pushViewController:creditsViewController animated:YES];
+    
+    [aboutViewController release];
+    [infoNavigationController release];
+    [creditsViewController release];
+}
+
+#pragma mark -
+#pragma mark Welcome Methods
+
+- (void)showWelcomeMessage
+{
+    NSString *message = @"Welcome to DavisTrans, the future official Unitrans iPhone Application! "
+    @"Bringing you this application are two UC Davis students. "
+    @"We hope that you find this app as useful and convenient as we have. " 
+    @"Feel free to contact Unitrans if you have questions or comments. Enjoy :)";
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"DavisTrans" message:message 
+                                                   delegate:self cancelButtonTitle:@"OK" 
+                                          otherButtonTitles:@"View Credits", nil];
+    [alert show];
+    [alert release];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    // Show credits if view credits button is pressed
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"View Credits"]) {
+        [self showCreditViewAction];
+    }
+}
+
 
 @end
 

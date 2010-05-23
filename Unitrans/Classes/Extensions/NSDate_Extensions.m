@@ -18,10 +18,10 @@
 
 + (NSDate *)beginningOfTomorrow
 {
-    return [[[NSDate date] tomorrow] beginningOfDay];
+    return [[[NSDate date] nextDay] beginningOfDay];
 }
 
-- (NSDate *) beginningOfDay
+- (NSDate *)beginningOfDay
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
 	
@@ -31,9 +31,14 @@
     return [calendar dateFromComponents:comp];
 }
 
-- (NSDate *)tomorrow
+- (NSDate *)nextDay
 {
     return [self addTimeInterval:24*60*60];
+}
+
+- (NSDate *)endOfDay
+{
+    return [[[self nextDay] beginningOfDay] addTimeInterval:-1];
 }
 
 @end

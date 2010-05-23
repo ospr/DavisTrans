@@ -11,6 +11,8 @@
 #import "CalendarDate.h"
 #import "Trip.h"
 
+#import "NSDate_Extensions.h"
+
 @implementation Calendar 
 
 @dynamic tuesday;
@@ -72,4 +74,14 @@
     return YES;
 }
 
+- (NSDate *)endDate 
+{
+    NSDate * dateValue;
+    
+    [self willAccessValueForKey:@"endDate"];
+    dateValue = [[self primitiveEndDate] endOfDay];
+    [self didAccessValueForKey:@"endDate"];
+    
+    return dateValue;
+}
 @end

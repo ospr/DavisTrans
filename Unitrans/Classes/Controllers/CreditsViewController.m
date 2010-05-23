@@ -11,6 +11,22 @@
 
 @implementation CreditsViewController
 
+@synthesize creditsTextView;
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [[self navigationItem] setTitle:@"Credits"];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [creditsTextView flashScrollIndicators];
+}
+
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
