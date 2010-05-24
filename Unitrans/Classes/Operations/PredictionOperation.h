@@ -14,7 +14,7 @@
 
 @protocol PredictionOperationDelegate;
 
-@interface PredictionOperation : ConcurrentOperation {
+@interface PredictionOperation : ConcurrentOperation <NSXMLParserDelegate> {
 	NSString *stopTag;
 	NSString *routeName;
 	NSString *stopId;

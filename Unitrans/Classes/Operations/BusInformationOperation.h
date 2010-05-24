@@ -11,7 +11,7 @@
 
 @protocol BusInformationOperationDelegate;
 
-@interface BusInformationOperation : ConcurrentOperation {
+@interface BusInformationOperation : ConcurrentOperation <NSXMLParserDelegate> {
     NSMutableArray *busInformation;
     NSString *routeName;
 	NSString *currentElement;

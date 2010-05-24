@@ -33,12 +33,12 @@
 
 - (NSDate *)nextDay
 {
-    return [self addTimeInterval:24*60*60];
+    return [self dateByAddingTimeInterval:24*60*60];
 }
 
 - (NSDate *)endOfDay
 {
-    return [[[self nextDay] beginningOfDay] addTimeInterval:-1];
+    return [[[self nextDay] beginningOfDay] dateByAddingTimeInterval:-1];
 }
 
 @end

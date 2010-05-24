@@ -140,7 +140,7 @@ static FavoritesController *sharedFavorites = nil;
 	// Check if save path exists
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	if (![fileManager fileExistsAtPath:folderPath]) 
-		[fileManager createDirectoryAtPath:folderPath attributes:nil];
+        [fileManager createDirectoryAtPath:folderPath withIntermediateDirectories:NO attributes:nil error:nil];
 	
 	NSString *filename = @"Favorites.data";
 	
