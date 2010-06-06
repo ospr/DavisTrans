@@ -39,6 +39,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     
     if (self) {
         operationQueue = [[NSOperationQueue alloc] init];
+        busAnnotations = [[NSMutableDictionary alloc] init];
         
         busUpdateInterval = kBusUpdateShortInterval;
         [self setSegmentTransition:UIViewAnimationTransitionFlipFromRight];
@@ -255,6 +256,22 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     return polylineView;
 }
 
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+    // This is a bit of a hack to get the view hierarchy to work in this order: BusViews, StopViews
+    
+    // Get the superview for the annotation views
+    UIView *annotationSuperView = [[views lastObject] superview];
+    
+    // Iterate through subviews and find the RealTimeBusInfo annotations
+    // move them to the front
+    for (UIView *view in [annotationSuperView subviews])
+    {   
+        if ([view isMemberOfClass:[MKAnnotationView class]] && [[(MKAnnotationView*)view annotation] isKindOfClass:[RealTimeBusInfo class]])
+            [[view superview] insertSubview:view atIndex:0];
+    }
+}
+
 - (void)mapView:(MKMapView *)mv annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {    
     if ([[view annotation] isKindOfClass:[Stop class]])
@@ -403,7 +420,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [operationQueue cancelAllOperations];
     
     if (busAnnotations)
-        [mapView removeAnnotations:busAnnotations];
+        [mapView removeAnnotations:[busAnnotations allValues]];
     
     [self setBusAnnotations:nil];
 }
@@ -433,13 +450,55 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
         [self startNewBusUpdateTimer];
     }
     
-    // Remove buses if they exsisted before
-    if (busAnnotations)
-        [mapView removeAnnotations:busAnnotations];
+    // HACK: iPhone 4.0 sucks at updating annotation views quickly so there's
+    //       a visible delay if we just remove all of the annotations and add
+    //       them like we were doing before. So here we intelligently update them.
     
-    // Add new bus annotations
-    [mapView addAnnotations:newBusAnnotations];
-    [self setBusAnnotations:newBusAnnotations];
+    // Turn newBus array into a dictionary for easier processing
+    NSDictionary *newBuses = [NSDictionary dictionaryWithObjects:newBusAnnotations forKeys:[newBusAnnotations valueForKey:@"vehicleID"]];
+    
+    // Iterate through all of the new bus vehicleIDs
+    for (NSString *vehicleID in newBuses)
+    {
+        RealTimeBusInfo *oldBus = [busAnnotations objectForKey:vehicleID];
+        RealTimeBusInfo *newBus = [newBuses objectForKey:vehicleID];
+        
+        // If the bus already exists then update it
+        if (oldBus)
+        {
+            // If the bus hasn't moved, then run re-animate the bus
+            if ([oldBus lon] == [newBus lon] && [oldBus lat] == [newBus lat])
+            {
+                BusAnimationAnnotationView *busView = (BusAnimationAnnotationView *)[mapView viewForAnnotation:oldBus];
+                [busView animate];
+            }
+            // Otherwise we update the old bus location
+            else 
+            {
+                [mapView removeAnnotation:oldBus];
+                [mapView addAnnotation:newBus];
+                [busAnnotations setObject:newBus forKey:vehicleID];
+            }
+        }
+        // Otherwise this is a new bus and we need to add it
+        else {
+            [mapView addAnnotation:newBus];
+            [busAnnotations setObject:newBus forKey:vehicleID];
+        }
+    }
+    
+    // Iterate through all the old bus vehicleIDs
+    for (NSString *vehicleID in busAnnotations)
+    {   
+        RealTimeBusInfo *oldBus = [busAnnotations objectForKey:vehicleID];
+        
+        // If the bus no longer exsists then remove it
+        if (![newBuses objectForKey:vehicleID])
+        {
+            [mapView removeAnnotation:oldBus];
+            [busAnnotations removeObjectForKey:vehicleID];
+        }
+    }
     
     // Redraw map
     [mapView setNeedsDisplay];

@@ -48,6 +48,11 @@
     return self;
 }
 
+- (void)animate
+{
+    [imageView startAnimating];
+}
+
 - (void)dealloc
 {
 	[busArrowImageView release];

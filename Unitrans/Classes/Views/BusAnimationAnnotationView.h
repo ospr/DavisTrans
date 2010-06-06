@@ -19,4 +19,6 @@
 @property (nonatomic, retain) AnimationImageView *imageView;
 @property (nonatomic, retain) UIImageView *busArrowImageView;
 
+- (void)animate;
+
 @end
