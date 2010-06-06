@@ -2,13 +2,12 @@
 Priority
 ========
 
-V 1.1
+V 1.2
 ======
 --- Features ---
 
 High
 ======
-• When generating new schedule data, Calendar endDate should use NSDateExtension's endOfDay to store the end of the date as the endDate.
 • Double-Decker bus icons
 
 --- Bugs ---
@@ -162,3 +161,5 @@ Done
 • Post service title on schedule view.
 • Update with Finals and Summer 1 services
 • Update UI to handle new services
+• When generating new schedule data, Calendar endDate should use NSDateExtension's endOfDay to store the end of the date as the endDate.
+• Use MapKit's new overlay support instead of the custom classes.

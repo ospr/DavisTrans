@@ -15,8 +15,6 @@
 #import "Shape.h"
 #import "Trip.h"
 
-#import "CSRouteView.h"
-#import "CSRouteAnnotation.h"
 #import "BusAnimationAnnotationView.h"
 #import "AnimationImageView.h"
 
@@ -34,8 +32,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 @synthesize routePattern;
 @synthesize busAnnotations;
 @synthesize stopAnnotations;
-@synthesize routeAnnotation;
-@synthesize routeAnnotationView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,16 +60,13 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [operationQueue release];
     [busAnnotations release];
     [stopAnnotations release];
-    [routeAnnotation release];
     
     // Perform special clean-up for mapView to avoid crashes from MKDotBounceAnimation
     // See http://omegadelta.net/2009/11/02/mkdotbounceanimation-animationdidstop-bug/
     [mapView setDelegate:nil];
     [mapView setShowsUserLocation:NO];
     [mapView performSelector:@selector(release) withObject:nil afterDelay:4.0];
-    
-    [routeAnnotationView release];
-    
+        
     [super dealloc];
 }
 
@@ -119,8 +112,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 	[self setRoutePattern:nil];
 	[self setBusAnnotations:nil];
 	[self setStopAnnotations:nil];
-	[self setRouteAnnotation:nil];
-	[self setRouteAnnotationView:nil];
 }
 
 - (void)loadMapView
@@ -128,18 +119,9 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     // Show user location
     [mapView setShowsUserLocation:YES];
     
-    // Create route annotation to hold the points, and add to mapView
-    routeAnnotation = [[CSRouteAnnotation alloc] init];
-    [routeAnnotation setLineColor:[UIColor colorFromHexadecimal:[[route color] integerValue] alpha:0.65]];
-    
-    // Create route annotation view
-    routeAnnotationView = [[CSRouteView alloc] initWithAnnotation:routeAnnotation reuseIdentifier:@"Route"];
-    [routeAnnotationView setFrame:CGRectMake(0, 0, [mapView frame].size.width, [mapView frame].size.height)];
-    [routeAnnotationView setMapView:mapView];
-    
     // Update map with default route pattern
     RoutePattern *defaultRoutePattern = [[route orderedRoutePatterns] objectAtIndex:0];
-    [self updateMapWithRoutePattern:defaultRoutePattern];
+    [self updateMapWithRoutePattern:defaultRoutePattern];    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -260,12 +242,19 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
         
         return busAnnotationView;
     }
-    else if ([annotation isKindOfClass:[CSRouteAnnotation class]])
-    {
-        return routeAnnotationView;
-    }
     
     return nil;
+}
+
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
+{
+    
+    
+    MKPolylineView *polylineView = [[[MKPolylineView alloc] initWithPolyline:overlay] autorelease];
+    [polylineView setStrokeColor:[UIColor colorFromHexadecimal:[[route color] integerValue] alpha:0.65]];
+    [polylineView setLineWidth:4.0];
+        
+    return polylineView;
 }
 
 - (void)mapView:(MKMapView *)mv annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
@@ -283,28 +272,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
         // Push StopViewController onto nav stack
 		[[self navigationController] pushViewController:stopSegmentedViewController animated:YES];
 		[stopSegmentedViewController release];
-    }
-}
-
-- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
-{
-    // This is a bit of a hack to get the view hierarchy to work in this order: RouteView, BusViews, StopViews
-    
-    // Get the superview for the annotation views
-    UIView *annotationSuperView = [[views lastObject] superview];
-    
-    // Get the index of the routeview and move it to the bottom if it's not already
-    NSUInteger routeViewIndex = [[annotationSuperView subviews] indexOfObject:routeAnnotationView];
-    if (routeViewIndex != NSNotFound && routeViewIndex != 0) {
-        [[routeAnnotationView superview] sendSubviewToBack:routeAnnotationView];
-    }
-    
-    // Iterate through subviews and find the RealTimeBusInfo annotations
-    // move them to just above the routeview
-    for (UIView *view in [annotationSuperView subviews])
-    {   
-        if ([view isMemberOfClass:[MKAnnotationView class]] && [[(MKAnnotationView*)view annotation] isKindOfClass:[RealTimeBusInfo class]])
-            [[view superview] insertSubview:view aboveSubview:routeAnnotationView];
     }
 }
 
@@ -517,31 +484,36 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
         return;
     
     [self setRoutePattern:newRoutePattern];
-    
+        
     // Get trip
-    Trip *trip = [newRoutePattern trip];
+    Trip *trip = [routePattern trip];
     
     // Sort shapes by sequence number
     NSSortDescriptor *shapesSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"pointSequence" ascending:YES] autorelease];
     NSArray *sortedShapes = [[[trip shapes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:shapesSortDescriptor]];
     
     // Iterate through shapes and add their locations to the array
-    NSMutableArray *points = [NSMutableArray array];
-    for (Shape *shape in sortedShapes) 
+    NSUInteger pointsCount = [sortedShapes count];
+    CLLocationCoordinate2D *points = malloc(sizeof(CLLocationCoordinate2D) * pointsCount);
+    for (int i = 0; i < pointsCount; i++)
     {
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:[[shape pointLatitude] doubleValue] longitude:[[shape pointLongitude] doubleValue]];
-        [points addObject:location];
-        [location release];
+        Shape *shape = [sortedShapes objectAtIndex:i];
+        
+        CLLocationCoordinate2D location;
+        location.latitude = [[shape pointLatitude] doubleValue];
+        location.longitude = [[shape pointLongitude] doubleValue];
+        points[i] = location;
     }
-    
-    // Update points in routeAnnotation
-    [routeAnnotation setPoints:points];
-    [mapView removeAnnotation:routeAnnotation];
-    [mapView addAnnotation:routeAnnotation];
+
+    // Update route path overlay
+    [mapView removeOverlays:[mapView overlays]];
+    [mapView addOverlay:[MKPolyline polylineWithCoordinates:points count:pointsCount]];
     
     // Update stopAnnotations
     [mapView removeAnnotations:stopAnnotations];
-    [mapView addAnnotations:[[route allStops] allObjects]];    
+    [mapView addAnnotations:[[route allStops] allObjects]];
+    
+    free(points);
 }
 
 #pragma mark -

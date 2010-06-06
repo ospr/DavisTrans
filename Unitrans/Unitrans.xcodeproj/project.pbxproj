@@ -82,8 +82,6 @@
 		37D926A61127DCC5000349A7 /* 96.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D926911127DCC5000349A7 /* 96.png */; };
 		37D926A71127DCC5000349A7 /* RedCircle.opacity in Resources */ = {isa = PBXBuildFile; fileRef = 37D926921127DCC5000349A7 /* RedCircle.opacity */; };
 		37E9F7571187F66E008B562A /* BusShineIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 37E9F7561187F66E008B562A /* BusShineIcon.png */; };
-		7C25BFEC10A7DA4D00AAD086 /* CSRouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */; };
-		7C25BFEF10A7DA8300AAD086 /* CSRouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25BFEE10A7DA8300AAD086 /* CSRouteAnnotation.m */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
 		7C25C28010A8CD7300AAD086 /* UIColor_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */; };
 		7C7A510410A1153600B396C9 /* UnitransSchedule_20100329.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 7C7A510310A1153600B396C9 /* UnitransSchedule_20100329.sqlite */; };
@@ -230,10 +228,6 @@
 		37D926911127DCC5000349A7 /* 96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 96.png; sourceTree = "<group>"; };
 		37D926921127DCC5000349A7 /* RedCircle.opacity */ = {isa = PBXFileReference; lastKnownFileType = file; path = RedCircle.opacity; sourceTree = "<group>"; };
 		37E9F7561187F66E008B562A /* BusShineIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BusShineIcon.png; sourceTree = "<group>"; };
-		7C25BFEA10A7DA4D00AAD086 /* CSRouteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRouteView.h; sourceTree = "<group>"; };
-		7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRouteView.m; sourceTree = "<group>"; };
-		7C25BFED10A7DA8300AAD086 /* CSRouteAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRouteAnnotation.h; sourceTree = "<group>"; };
-		7C25BFEE10A7DA8300AAD086 /* CSRouteAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRouteAnnotation.m; sourceTree = "<group>"; };
 		7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7C25C27E10A8CD7300AAD086 /* UIColor_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColor_Extensions.h; sourceTree = "<group>"; };
 		7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColor_Extensions.m; sourceTree = "<group>"; };
@@ -550,8 +544,6 @@
 				7CC4D06510978EBF00F2BB67 /* StopTime.m */,
 				7CC4D06810978EBF00F2BB67 /* Trip.h */,
 				7CC4D06910978EBF00F2BB67 /* Trip.m */,
-				7C25BFED10A7DA8300AAD086 /* CSRouteAnnotation.h */,
-				7C25BFEE10A7DA8300AAD086 /* CSRouteAnnotation.m */,
 				C923170710A790C100A1BB6C /* RealTimeBusInfo.h */,
 				C923170810A790C100A1BB6C /* RealTimeBusInfo.m */,
 			);
@@ -638,8 +630,6 @@
 		7CE6F04510A7C8B0009BF91A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7C25BFEA10A7DA4D00AAD086 /* CSRouteView.h */,
-				7C25BFEB10A7DA4D00AAD086 /* CSRouteView.m */,
 				7CE69EFA10C2FA850002DE93 /* DetailOverlayView.h */,
 				7CE69EFB10C2FA850002DE93 /* DetailOverlayView.m */,
 				3795472310C7A13E005A2D93 /* BusAnimationAnnotationView.h */,
@@ -802,8 +792,6 @@
 				C993E17C10A206A300B0F44D /* UnitransAppDelegate.m in Sources */,
 				C9AB0A5F10A3627400B75C4B /* StopTimeViewController.m in Sources */,
 				7CE6EFE910A7B512009BF91A /* RouteMapViewController.m in Sources */,
-				7C25BFEC10A7DA4D00AAD086 /* CSRouteView.m in Sources */,
-				7C25BFEF10A7DA8300AAD086 /* CSRouteAnnotation.m in Sources */,
 				C923170910A790C100A1BB6C /* RealTimeBusInfo.m in Sources */,
 				7C25C28010A8CD7300AAD086 /* UIColor_Extensions.m in Sources */,
 				C91476C510AA47B20014E49F /* NSDate_Extensions.m in Sources */,

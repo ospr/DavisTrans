@@ -15,8 +15,6 @@
 @class Route;
 @class Stop;
 @class RoutePattern;
-@class CSRouteView;
-@class CSRouteAnnotation;
 
 @interface RouteMapViewController : ExtendedViewController <MKMapViewDelegate, BusInformationOperationDelegate, UIActionSheetDelegate> {
     Route *route;
@@ -28,14 +26,12 @@
     NSTimeInterval busUpdateInterval;
     NSArray *busAnnotations;
     NSArray *stopAnnotations;
-    CSRouteAnnotation *routeAnnotation;
     
     BOOL mapViewIsLoaded;
     BOOL busContinuousUpdatesRunning;
     BOOL errorShown;
     
     MKMapView *mapView;
-    CSRouteView *routeAnnotationView;
 }
 
 @property (nonatomic, retain) MKMapView *mapView;
@@ -44,8 +40,6 @@
 @property (nonatomic, retain) RoutePattern *routePattern;
 @property (nonatomic, retain) NSArray *busAnnotations;
 @property (nonatomic, retain) NSArray *stopAnnotations;
-@property (nonatomic, retain) CSRouteAnnotation *routeAnnotation;
-@property (nonatomic, retain) CSRouteView *routeAnnotationView;
 
 - (void)loadMapView;
 
