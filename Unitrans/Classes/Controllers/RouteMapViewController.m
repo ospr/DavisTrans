@@ -248,8 +248,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
 {
-    
-    
     MKPolylineView *polylineView = [[[MKPolylineView alloc] initWithPolyline:overlay] autorelease];
     [polylineView setStrokeColor:[UIColor colorFromHexadecimal:[[route color] integerValue] alpha:0.65]];
     [polylineView setLineWidth:4.0];
