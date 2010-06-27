@@ -49,7 +49,6 @@
 		37BAFE4C1120FB0500077C65 /* HiddenStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BAFE4B1120FB0500077C65 /* HiddenStop.png */; };
 		37BBD9F011A63F6B00E96779 /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BBD9EF11A63F6B00E96779 /* Service.m */; };
 		37C127A210CC9DB6007604BB /* BusInformationOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C127A110CC9DB6007604BB /* BusInformationOperation.m */; };
-		37C1DA8F11A3A1C400273099 /* UnitransSchedule_20100604.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 37C1DA8E11A3A1C400273099 /* UnitransSchedule_20100604.sqlite */; };
 		37C2C57D10E003EE0001E1AF /* RoutePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2C57C10E003EE0001E1AF /* RoutePattern.m */; };
 		37C2CB7F10E3F54B0001E1AF /* SegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2CB7E10E3F54B0001E1AF /* SegmentedViewController.m */; };
 		37C2CCC910E715A40001E1AF /* RouteSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2CCC810E715A40001E1AF /* RouteSegmentedViewController.m */; };
@@ -84,7 +83,6 @@
 		37E9F7571187F66E008B562A /* BusShineIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 37E9F7561187F66E008B562A /* BusShineIcon.png */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
 		7C25C28010A8CD7300AAD086 /* UIColor_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */; };
-		7C7A510410A1153600B396C9 /* UnitransSchedule_20100329.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 7C7A510310A1153600B396C9 /* UnitransSchedule_20100329.sqlite */; };
 		7CC4CFC01096784F00F2BB67 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CC4CFBF1096784F00F2BB67 /* CoreData.framework */; };
 		7CC4CFE31096795200F2BB67 /* TransitModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */; };
 		7CC4D06A10978EBF00F2BB67 /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4D05B10978EBF00F2BB67 /* Stop.m */; };
@@ -189,7 +187,6 @@
 		37BBD9EF11A63F6B00E96779 /* Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Service.m; sourceTree = "<group>"; };
 		37C127A010CC9DB6007604BB /* BusInformationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusInformationOperation.h; sourceTree = "<group>"; };
 		37C127A110CC9DB6007604BB /* BusInformationOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusInformationOperation.m; sourceTree = "<group>"; };
-		37C1DA8E11A3A1C400273099 /* UnitransSchedule_20100604.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20100604.sqlite; sourceTree = "<group>"; };
 		37C2C57B10E003EE0001E1AF /* RoutePattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutePattern.h; sourceTree = "<group>"; };
 		37C2C57C10E003EE0001E1AF /* RoutePattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutePattern.m; sourceTree = "<group>"; };
 		37C2CB7D10E3F54B0001E1AF /* SegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentedViewController.h; sourceTree = "<group>"; };
@@ -231,7 +228,6 @@
 		7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7C25C27E10A8CD7300AAD086 /* UIColor_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColor_Extensions.h; sourceTree = "<group>"; };
 		7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColor_Extensions.m; sourceTree = "<group>"; };
-		7C7A510310A1153600B396C9 /* UnitransSchedule_20100329.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20100329.sqlite; sourceTree = "<group>"; };
 		7CC4CFBF1096784F00F2BB67 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = TransitModel.xcdatamodel; sourceTree = "<group>"; };
 		7CC4D05A10978EBF00F2BB67 /* Stop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stop.h; sourceTree = "<group>"; };
@@ -368,8 +364,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7C7A510310A1153600B396C9 /* UnitransSchedule_20100329.sqlite */,
-				37C1DA8E11A3A1C400273099 /* UnitransSchedule_20100604.sqlite */,
 				37615BE411C2C47F00A5D7EB /* UnitransSchedule_20100611.sqlite */,
 				7CC4D0AD1097930600F2BB67 /* NIBs */,
 				7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */,
@@ -684,7 +678,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C7A510410A1153600B396C9 /* UnitransSchedule_20100329.sqlite in Resources */,
 				C993E18C10A206E800B0F44D /* MainWindow.xib in Resources */,
 				7CE69E7210C243890002DE93 /* ARouteIcon_43.png in Resources */,
 				7CE69E7310C243890002DE93 /* BRouteIcon_43.png in Resources */,
@@ -763,7 +756,6 @@
 				373319991172579F004A0303 /* CreditsViewController.xib in Resources */,
 				37E9F7571187F66E008B562A /* BusShineIcon.png in Resources */,
 				C9C1F8EE118943FA005978B3 /* Icon.png in Resources */,
-				37C1DA8F11A3A1C400273099 /* UnitransSchedule_20100604.sqlite in Resources */,
 				37615BE511C2C47F00A5D7EB /* UnitransSchedule_20100611.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

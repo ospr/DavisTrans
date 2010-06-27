@@ -135,18 +135,6 @@ static DatabaseManager *sharedDatabaseManager = nil;
 {
     // Hardcode these for now until a better way is determined
     // IDEA: Move these to a service entity in each GTFS schedule and access them thru there
-    Service *spring = [[[Service alloc] init] autorelease];
-    [spring setShortName:@"Spring"];
-    [spring setLongName:@"Spring"];
-    [spring setResourceName:@"UnitransSchedule_20100329"];
-    [spring setResourceKind:@"sqlite"];
-                       
-    Service *finals = [[[Service alloc] init] autorelease];
-    [finals setShortName:@"Finals"];
-    [finals setLongName:@"Spring Finals"];
-    [finals setResourceName:@"UnitransSchedule_20100604"];
-    [finals setResourceKind:@"sqlite"];
-    
     Service *summer = [[[Service alloc] init] autorelease];
     [summer setShortName:@"Summer1"];
     [summer setLongName:@"Summer 1"];
@@ -154,7 +142,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     [summer setResourceKind:@"sqlite"];
     
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:spring, finals, summer, nil];
+    return [NSArray arrayWithObjects:summer, nil];
 }
 
 - (void)useService:(Service *)newService
