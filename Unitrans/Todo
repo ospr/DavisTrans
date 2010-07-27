@@ -2,32 +2,45 @@
 Priority
 ========
 
-V 1.2
+V 2.0
 ======
---- Features ---
+--- Main Features ---
+• Over-the-air auto Updates (kip)
+• Prediction times in favorites (ken)
+• Set alarms? (ken)
+• Global search (kip)
+• Nearby Stops (kip/ken)
+• Intelligent picking of current pattern (ken)
 
-High
-======
-• Double-Decker bus icons
+--- Secondary Features ---
+• Double-Decker bus icons (ken)
+• Slide bus icon views along map view (maybe even have it follow the path of the route?) (kip)
+• Path width of route needs to be bigger for iphone 4 (kip)
+• Make pin for selected stops also "hidden" when necessary (kip)
+
+--- Graphic Updates ---
+• New bus icons (one for each bus type)
+• New main icon
+• New splash screen?
+• Hi-res images for iphone 4
+
+--- Nice to Have ---
+• Show prediction times in accessory popup view when user taps a stop
+• Create separate arrival/Departure stops for the Silo (like the MU)
+• Don't remove pins when changing patterns, instead just update pin images
+• Show if buses are late or on time or early
+  - In StopTimes view we can show this with a simple left aligned image
+  - In mapview we can show this by color coding the buses?
+• Some sort of indicator to show the direction of the route on the map
 
 --- Bugs ---
+• When flipping to mapview, iOS4 trims the view on us.
 • StopViewController does some weird checking against Today in chooseNewScheduleDateDidEndWithDate:. Shouldn't we just 
     check if the original date isn't the selected date??
-
+• Remove primaryTrips from code
 • Change white route colors to black (Kip)
-• Verify that phone numbers are correct by calling them ;)
 • Better error handling when internet not working (try with moobilenet when not logged in...)
 • When showing datepicker, detail view should truncate labels.
-
-
-Lower
-=====
-• Intelligent picking of current pattern
-• Remove primaryTrips from code
-• Create separate arrival/Departure stops for the Silo (like the MU)
-• Show prediction times in accessory popup view when user taps a stop
-• Don't remove pins when changing patterns, instead just update pin images
-• Make pin for selected stops also "hidden" when necessary
 
 Secondary
 =========
@@ -35,11 +48,7 @@ Secondary
 • At a given stop for a given route also show other arrival times for other routes.
 • SMS Alerts
 • Find nearest stops and distances to other stops
-• Show if buses are late or on time or early
-  - In StopTimes view we can show this with a simple left aligned image
-  - In mapview we can show this by color coding the buses?
 • Animate buses
-• Some sort of indicator to show the direction of the route on the map
 • Shake to go to home view (routes view)?
 
 Done
