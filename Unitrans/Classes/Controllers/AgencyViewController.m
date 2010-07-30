@@ -11,6 +11,7 @@
 #import "Agency.h"
 #import "Route.h"
 #import "Stop.h"
+#import "Service.h"
 #import "DatabaseManager.h"
 #import "UnitransAppDelegate.h"
 
@@ -75,21 +76,31 @@
 												 name:@"FavoritesChanged" object:nil];
 	
     // Determine default service
+    NSDate *currentDate = [NSDate date];
     NSArray *allServices = [[DatabaseManager sharedDatabaseManager] allServices];
+    Service *currentService = nil;
     for (Service *service in allServices)
     {
-        [[DatabaseManager sharedDatabaseManager] useService:service];
+        /*[[DatabaseManager sharedDatabaseManager] useService:service];
         Agency *serviceAgency = [[DatabaseManager sharedDatabaseManager] retrieveUnitransAgency:nil];
         if ([serviceAgency transitDataUpToDate]) {
             break;
+        }*/
+        currentService = service;
+        if ([service validServiceOnDate:currentDate]) {
+            break;
         }
     }
+    [[DatabaseManager sharedDatabaseManager] useService:currentService];
+    //Agency *serviceAgency = [[DatabaseManager sharedDatabaseManager] retrieveUnitransAgency:nil];
     
     // Setup default service
     [self serviceChanged];
     
     // Determine if schedule is out of date
-    if (![agency transitDataUpToDate])
+    /*if (![agency transitDataUpToDate])
+        outOfDate = YES;*/
+    if (![currentService validServiceOnDate:currentDate])
         outOfDate = YES;
 }
 

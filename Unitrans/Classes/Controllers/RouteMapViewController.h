@@ -24,7 +24,7 @@
     NSOperationQueue *operationQueue;
     NSTimer *busTimer;
     NSTimeInterval busUpdateInterval;
-    NSMutableDictionary *busAnnotations;
+    NSDictionary *busAnnotations;
     NSArray *stopAnnotations;
     
     BOOL mapViewIsLoaded;

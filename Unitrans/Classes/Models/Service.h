@@ -21,4 +21,6 @@
 @property (nonatomic, copy) NSString *resourceName;
 @property (nonatomic, copy) NSString *resourceKind;
 
+- (BOOL)validServiceOnDate:(NSDate *)date;
+
 @end

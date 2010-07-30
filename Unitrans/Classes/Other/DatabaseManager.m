@@ -141,8 +141,14 @@ static DatabaseManager *sharedDatabaseManager = nil;
     [summer setResourceName:@"UnitransSchedule_20100611"];
     [summer setResourceKind:@"sqlite"];
     
+    Service *summer2 = [[[Service alloc] init] autorelease];
+    [summer2 setShortName:@"Summer2"];
+    [summer2 setLongName:@"Summer 2"];
+    [summer2 setResourceName:@"UnitransSchedule_20100802"];
+    [summer2 setResourceKind:@"sqlite"];
+    
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:summer, nil];
+    return [NSArray arrayWithObjects:summer, summer2, nil];
 }
 
 - (void)useService:(Service *)newService

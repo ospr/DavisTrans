@@ -477,13 +477,12 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
             {
                 [mapView removeAnnotation:oldBus];
                 [mapView addAnnotation:newBus];
-                [busAnnotations setObject:newBus forKey:vehicleID];
             }
         }
         // Otherwise this is a new bus and we need to add it
-        else {
+        else 
+        {
             [mapView addAnnotation:newBus];
-            [busAnnotations setObject:newBus forKey:vehicleID];
         }
     }
     
@@ -494,11 +493,11 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
         
         // If the bus no longer exsists then remove it
         if (![newBuses objectForKey:vehicleID])
-        {
             [mapView removeAnnotation:oldBus];
-            [busAnnotations removeObjectForKey:vehicleID];
-        }
     }
+    
+    // Update bus anotations
+    [self setBusAnnotations:newBuses];
     
     // Redraw map
     [mapView setNeedsDisplay];
