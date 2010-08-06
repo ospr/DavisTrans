@@ -21,22 +21,34 @@
 #import "FavoritesController.h"
 #import "CreditsViewController.h"
 
+NSUInteger MaxConcurrentOperationCount = 3;
+
 @implementation AgencyViewController
 
 @synthesize agency;
 @synthesize routes;
 @synthesize favorites;
+@synthesize favoritePredictions;
+@synthesize isRunningContinuousPredictionUpdates = runningContinuousPredictionUpdates;
 
 # pragma mark -
 # pragma mark Memory management
 
 - (void)dealloc {
+	
+	// End continuous updates if still running
+	if (runningContinuousPredictionUpdates) {
+		[self endContinuousPredictionUpdates];
+	}
+	
     [agency release];
     [routes release];
 	[favorites release];
+	[favoritePredictions release];
+	[operationQueue release];
     
     [serviceButtonItem release];
-    
+	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [super dealloc];
@@ -96,7 +108,14 @@
     
     // Setup default service
     [self serviceChanged];
-    
+	
+	// Create array to hold favorite predictions
+	favoritePredictions = [[NSMutableArray alloc] init];
+	
+	// Create opeartion queue to handle favorite prediction operations
+	operationQueue = [[NSOperationQueue alloc] init];
+	[operationQueue setMaxConcurrentOperationCount:MaxConcurrentOperationCount];
+	
     // Determine if schedule is out of date
     /*if (![agency transitDataUpToDate])
         outOfDate = YES;*/
@@ -110,6 +129,7 @@
 	[self setAgency:nil];
 	[self setRoutes:nil];
 	[self setFavorites:nil];
+	[self setFavoritePredictions:nil];
     [serviceButtonItem release]; serviceButtonItem = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -120,6 +140,23 @@
     
     // Hide navigation controller
     [[self navigationController] setToolbarHidden:YES animated:animated];
+	
+	// Initialize favorite predictions array
+	if ([favoritePredictions count]) {
+		[favoritePredictions removeAllObjects];
+	}
+	
+	for(NSDictionary *favorite in favorites)
+	{
+		NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:4];
+		[dictionary setObject:[[favorite valueForKey:@"route"] shortName] forKey:@"routeName"];
+		[dictionary setObject:[(NSNumber *)[[favorite valueForKey:@"stop"] code] stringValue] forKey:@"stopCode"];
+		[dictionary setObject:@"Loading..." forKey:@"predictions"];
+		[dictionary setObject:[NSNumber numberWithBool:NO] forKey:@"isUpdating"];
+		[favoritePredictions addObject:dictionary];
+	}
+	
+	[self beginContinuousPredictionUpdates];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -141,6 +178,14 @@
         [self showWelcomeMessage];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstLaunch"];
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+	
+	// Stop updating predictions
+	[self endContinuousPredictionUpdates];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -213,7 +258,7 @@
         Stop *stop = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"stop"];
         
         [[cell textLabel] setText:[stop name]];
-        [[cell detailTextLabel] setText:[NSString stringWithFormat:@"#%@ %@", [stop stopID], [stop headingString]]];
+        [[cell detailTextLabel] setText:[NSString stringWithFormat:@"#%@ %@ - %@", [stop stopID], [stop headingString], [[favoritePredictions objectAtIndex:[indexPath row]] valueForKey:@"predictions"]]];
         [[cell imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
     }
     else 
@@ -350,6 +395,52 @@
 {
     return [favorites count] != 0 ? YES : NO;
 }
+
+- (void)updatePredictions
+{
+	for(NSMutableDictionary *favorite in favoritePredictions)
+	{
+		if (![[favorite valueForKey:@"isUpdating"] boolValue]) {
+			PredictionOperation *predictionOperation = [[PredictionOperation alloc] initWithRouteName:[favorite valueForKey:@"routeName"]
+																							  stopTag:[favorite valueForKey:@"stopCode"]];
+			[predictionOperation setDelegate:self];
+			[operationQueue addOperation:predictionOperation];
+			[favorite setObject:[NSNumber numberWithBool:YES] forKey:@"isUpdating"];
+			[predictionOperation release];
+			
+			if (![[UIApplication sharedApplication] isNetworkActivityIndicatorVisible]) {
+				[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+			}
+		}
+	}
+}
+
+- (void)beginContinuousPredictionUpdates
+{
+	[self setIsRunningContinuousPredictionUpdates:YES];
+	
+	[self updatePredictions];
+	
+	// if we are still updating after the first update, start a timer to update every 20 seconds
+	if (runningContinuousPredictionUpdates) {
+		predictionTimer = [[NSTimer scheduledTimerWithTimeInterval:20.0 
+															target:self 
+														  selector:@selector(updatePredictions) 
+														  userInfo:nil 
+														   repeats:YES] retain];
+	}
+}
+
+- (void)endContinuousPredictionUpdates
+{
+	[self setIsRunningContinuousPredictionUpdates:NO];
+	
+	[predictionTimer invalidate];
+	[predictionTimer release];
+	predictionTimer = nil;
+	
+	[operationQueue cancelAllOperations];
+}
         
 #pragma mark -
 #pragma mark About Methods
@@ -430,6 +521,50 @@
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"View Credits"]) {
         [self showCreditViewAction];
     }
+}
+
+#pragma mark -
+#pragma mark PredictionOperation Delegate Methods
+
+- (void)predictionOperation:(PredictionOperation *)predictionOperation didFinishWithPredictions:(NSArray *)newPredictions
+{	
+	/*
+	// If the first time is 0 convert it to "Now"
+	NSMutableArray *mutableNewPredictions = [NSMutableArray arrayWithArray:newPredictions];
+    if ([newPredictions count] > 0 && [[newPredictions objectAtIndex:0] isEqualToNumber:[NSNumber numberWithInteger:0]])
+        [mutableNewPredictions replaceObjectAtIndex:0 withObject:@"Now"];
+	*/
+	
+	// Stop activity indicator if there are no more operations running
+    if ([[operationQueue operations] count] == 0) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }
+	 
+	NSString *routeName = [predictionOperation routeName];
+	NSString *stopCode = [predictionOperation stopTag];
+	NSString *predictions;
+	
+	if ([newPredictions count]) {
+		predictions = [NSString stringWithFormat:@"%@ minutes", [newPredictions componentsJoinedByString:@", "]];
+	} else {
+		predictions = @"No predictions.";
+	}
+	
+	for(NSDictionary *favorite in favoritePredictions)
+	{
+		if ([[favorite valueForKey:@"routeName"] isEqualToString:routeName] && [[favorite valueForKey:@"stopCode"] isEqualToString:stopCode]) {
+			[favorite setValue:predictions forKey:@"predictions"];
+			[favorite setValue:[NSNumber numberWithBool:NO] forKey:@"isUpdating"];
+			break;
+		}
+	}
+	
+	[tableView reloadData];
+}
+
+- (void)predictionOperation:(PredictionOperation *)predictionOperation didFailWithError:(NSError *)error
+{
+	NSLog(@"prediction operation failed");
 }
 
 
