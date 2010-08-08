@@ -19,6 +19,7 @@
 #import "AnimationImageView.h"
 
 #import "UIColor_Extensions.h"
+#import "NSOperationQueue_Extensions.h"
 #import "Transform.h"
 
 NSTimeInterval kBusUpdateShortInterval = 4.0;
@@ -30,8 +31,8 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 @synthesize route;
 @synthesize stop;
 @synthesize routePattern;
-@synthesize busAnnotations;
 @synthesize stopAnnotations;
+@synthesize busAnnotations;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,7 +40,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     
     if (self) {
         operationQueue = [[NSOperationQueue alloc] init];
-        busAnnotations = [[NSMutableDictionary alloc] init];
         
         busUpdateInterval = kBusUpdateShortInterval;
         [self setSegmentTransition:UIViewAnimationTransitionFlipFromRight];
@@ -59,7 +59,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [routePattern release];
     
     [operationQueue release];
-    [busAnnotations release];
     [stopAnnotations release];
     
     // Perform special clean-up for mapView to avoid crashes from MKDotBounceAnimation
@@ -76,7 +75,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [super viewDidLoad];
     
     // Create mapView
-    mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, [[self view] frame].size.width, [[self view] frame].size.height)];
+    mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, [[[self segmentedViewController] contentView] frame].size.width, [[[self segmentedViewController] contentView] frame].size.height)];
     [mapView setDelegate:self];
     [self setView:mapView];
     
@@ -111,7 +110,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 	[self setRoute:nil];
 	[self setStop:nil];
 	[self setRoutePattern:nil];
-	[self setBusAnnotations:nil];
 	[self setStopAnnotations:nil];
 }
 
@@ -236,8 +234,8 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
         // animation is updated everytime the bus view updates
         BusAnimationAnnotationView *busAnnotationView = [[[BusAnimationAnnotationView alloc] initWithAnnotation:busInfoAnnotation reuseIdentifier:@"Bus"] autorelease];
         
-		// Rotate the bus arrow direction
-		[[busAnnotationView busArrowImageView] setTransform:[Transform rotateByDegrees:[busInfoAnnotation heading]]];
+        // Rotate the bus arrow direction
+        [[busAnnotationView busArrowImageView] setTransform:[Transform rotateByDegrees:[busInfoAnnotation heading]]];
         
         [busAnnotationView setAnnotation:busInfoAnnotation];
         
@@ -419,10 +417,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     
     [operationQueue cancelAllOperations];
     
-    if (busAnnotations)
-        [mapView removeAnnotations:[busAnnotations allValues]];
-    
-    [self setBusAnnotations:nil];
+    [mapView removeAnnotations:[self busAnnotations]];
 }
 
 - (void)updateBusLocations
@@ -450,34 +445,28 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
         [self startNewBusUpdateTimer];
     }
     
-    // HACK: iPhone 4.0 sucks at updating annotation views quickly so there's
-    //       a visible delay if we just remove all of the annotations and add
-    //       them like we were doing before. So here we intelligently update them.
-    
-    // Turn newBus array into a dictionary for easier processing
-    NSDictionary *newBuses = [NSDictionary dictionaryWithObjects:newBusAnnotations forKeys:[newBusAnnotations valueForKey:@"vehicleID"]];
+    // Turn bus arrays into a dictionary for easier processing
+    NSDictionary *busAnnotationsDict = [NSDictionary dictionaryWithObjects:[self busAnnotations] forKeys:[[self busAnnotations] valueForKey:@"vehicleID"]];
+    NSDictionary *newBusesDict = [NSDictionary dictionaryWithObjects:newBusAnnotations forKeys:[newBusAnnotations valueForKey:@"vehicleID"]];
     
     // Iterate through all of the new bus vehicleIDs
-    for (NSString *vehicleID in newBuses)
+    for (NSString *vehicleID in newBusesDict)
     {
-        RealTimeBusInfo *oldBus = [busAnnotations objectForKey:vehicleID];
-        RealTimeBusInfo *newBus = [newBuses objectForKey:vehicleID];
+        RealTimeBusInfo *oldBus = [busAnnotationsDict objectForKey:vehicleID];
+        RealTimeBusInfo *newBus = [newBusesDict objectForKey:vehicleID];
         
         // If the bus already exists then update it
         if (oldBus)
         {
-            // If the bus hasn't moved, then run re-animate the bus
-            if ([oldBus lon] == [newBus lon] && [oldBus lat] == [newBus lat])
-            {
-                BusAnimationAnnotationView *busView = (BusAnimationAnnotationView *)[mapView viewForAnnotation:oldBus];
-                [busView animate];
-            }
-            // Otherwise we update the old bus location
-            else 
-            {
-                [mapView removeAnnotation:oldBus];
-                [mapView addAnnotation:newBus];
-            }
+            // Update bus
+            [oldBus updateWithBusInfo:newBus];
+        
+            // Re-animate bus
+            BusAnimationAnnotationView *busView = (BusAnimationAnnotationView *)[mapView viewForAnnotation:oldBus];
+            [busView animate];
+            
+            // Rotate the bus arrow direction
+            [[busView busArrowImageView] setTransform:[Transform rotateByDegrees:[oldBus heading]]];
         }
         // Otherwise this is a new bus and we need to add it
         else 
@@ -487,17 +476,14 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     }
     
     // Iterate through all the old bus vehicleIDs
-    for (NSString *vehicleID in busAnnotations)
+    for (NSString *vehicleID in busAnnotationsDict)
     {   
-        RealTimeBusInfo *oldBus = [busAnnotations objectForKey:vehicleID];
+        RealTimeBusInfo *oldBus = [busAnnotationsDict objectForKey:vehicleID];
         
         // If the bus no longer exsists then remove it
-        if (![newBuses objectForKey:vehicleID])
+        if (![newBusesDict objectForKey:vehicleID])
             [mapView removeAnnotation:oldBus];
     }
-    
-    // Update bus anotations
-    [self setBusAnnotations:newBuses];
     
     // Redraw map
     [mapView setNeedsDisplay];
@@ -509,17 +495,18 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 - (void)busInformation:(BusInformationOperation *)busInformationOperation didFinishWithBusInformation:(NSArray *)busInformation
 {
     // Stop activity indicator if there are no more operations running
-    if ([[operationQueue operations] count] == 0) {
+    if ([operationQueue allFinished]) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }
-
+    
+    // Update bus annotations
     [self updateBusAnnotations:busInformation];
 }
 
 - (void)busInformation:(BusInformationOperation *)busInformationOperation didFailWithError:(NSError *)error
 {
     // Stop activity indicator if there are no more operations running
-    if ([[operationQueue operations] count] == 0) {
+    if ([operationQueue allFinished]) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }
     
@@ -527,6 +514,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [self endContinuousBusUpdates];
     [self showError:error];
     
+    // Clear bus annotations
     [self updateBusAnnotations:nil];
 }
 
@@ -620,6 +608,22 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     // Show actionSheet
     [patternSheet showFromToolbar:[[self navigationController] toolbar]];
     [patternSheet release];
+}
+
+#pragma mark -
+#pragma mark Custom Accessors
+
+- (NSArray *)busAnnotations
+{
+    NSMutableArray *newBusAnnotations = [NSMutableArray array];
+    
+    for (NSObject<MKAnnotation> *annotation in [mapView annotations])
+    {
+        if ([annotation isKindOfClass:[RealTimeBusInfo class]])
+            [newBusAnnotations addObject:annotation];
+    }
+    
+    return [NSArray arrayWithArray:newBusAnnotations];
 }
 
 #pragma mark -

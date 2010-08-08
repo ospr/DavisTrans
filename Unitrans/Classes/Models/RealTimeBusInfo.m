@@ -14,12 +14,10 @@
 @synthesize vehicleID;
 @synthesize routeTag;
 @synthesize dirTag;
-@synthesize lat;
-@synthesize lon;
 @synthesize secsSinceReport;
 @synthesize heading;
 @synthesize predictable;
-@dynamic coordinate;
+@synthesize coordinate;
 
 - (id) init
 {
@@ -28,8 +26,7 @@
 		[self setVehicleID:@"NIL"];
 		[self setRouteTag:@"NIL"];
 		[self setDirTag:@"NIL"];
-		[self setLat:0];
-		[self setLon:0];
+        [self setCoordinate:CLLocationCoordinate2DMake(0.0, 0.0)];
 		[self setSecsSinceReport:-1];
 		[self setHeading:0];
 		[self setPredictable:NO];
@@ -40,8 +37,8 @@
 - (id) initWithVehicleID:(NSString *)theVehicleID
 			withRouteTag:(NSString *)theRouteTag
 			  withDirTag:(NSString *)theDirTag
-				 withLat:(float)theLat
-				 withLon:(float)theLon
+				 withLat:(CLLocationDegrees)theLat
+				 withLon:(CLLocationDegrees)theLon
 	 withSecsSinceReport:(NSInteger)theSecsSinceReport
 			 withHeading:(NSInteger)theHeading
 		 withPredictable:(BOOL)thePredictable
@@ -51,8 +48,7 @@
 		[self setVehicleID:theVehicleID];
 		[self setRouteTag:theRouteTag];
 		[self setDirTag:theDirTag];
-		[self setLat:theLat];
-		[self setLon:theLon];
+        [self setCoordinate:CLLocationCoordinate2DMake(theLat, theLon)];
 		[self setSecsSinceReport:theSecsSinceReport];
 		[self setHeading:theHeading];
 		[self setPredictable:thePredictable];
@@ -60,17 +56,17 @@
 	return self;
 }
 
-- (CLLocationCoordinate2D)coordinate
+- (void)updateWithBusInfo:(RealTimeBusInfo *)bus
 {
-    CLLocationCoordinate2D coordinate;
-    coordinate.latitude = lat;
-    coordinate.longitude = lon;
-    return coordinate;
+    [self setCoordinate:[bus coordinate]];
+    [self setSecsSinceReport:[bus secsSinceReport]];
+    [self setHeading:[bus heading]];
+    [self setPredictable:[bus predictable]];
 }
 
 - (void) printInfo
 {
-	NSLog(@"id: %@, routeTag: %@, dirTag: %@, lat: %f, lon: %f, secsSinceReport: %d, heading: %d, predictable: %d.", vehicleID, routeTag, dirTag, lat, lon, secsSinceReport, heading, predictable);
+	NSLog(@"id: %@, routeTag: %@, dirTag: %@, lat: %f, lon: %f, secsSinceReport: %d, heading: %d, predictable: %d.", vehicleID, routeTag, dirTag, [self coordinate].latitude, [self coordinate].longitude, secsSinceReport, heading, predictable);
 }
 
 @end

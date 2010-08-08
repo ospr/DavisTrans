@@ -24,7 +24,6 @@
     NSOperationQueue *operationQueue;
     NSTimer *busTimer;
     NSTimeInterval busUpdateInterval;
-    NSDictionary *busAnnotations;
     NSArray *stopAnnotations;
     
     BOOL mapViewIsLoaded;
@@ -38,8 +37,8 @@
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) Stop *stop;
 @property (nonatomic, retain) RoutePattern *routePattern;
-@property (nonatomic, retain) NSDictionary *busAnnotations;
 @property (nonatomic, retain) NSArray *stopAnnotations;
+@property (nonatomic, readonly) NSArray *busAnnotations;
 
 - (void)loadMapView;
 

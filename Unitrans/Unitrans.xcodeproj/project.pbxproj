@@ -39,6 +39,7 @@
 		376FD62211017C43004CC2AF /* TRouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD60E11017C43004CC2AF /* TRouteToolbarIcon_43.png */; };
 		376FD62311017C43004CC2AF /* URouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD60F11017C43004CC2AF /* URouteToolbarIcon_43.png */; };
 		376FD62411017C43004CC2AF /* WRouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD61011017C43004CC2AF /* WRouteToolbarIcon_43.png */; };
+		3776BD8B12079C9B006F3EDD /* NSOperationQueue_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3776BD8A12079C9B006F3EDD /* NSOperationQueue_Extensions.m */; };
 		377854DA11223596008E0886 /* PredictionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 377854D911223596008E0886 /* PredictionsView.m */; };
 		377855CC11225CE8008E0886 /* RedButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 377855CB11225CE8008E0886 /* RedButton.png */; };
 		3783B7E31167D4BE008CBB60 /* FavoriteStar.opacity in Resources */ = {isa = PBXBuildFile; fileRef = 3783B7DF1167D4BE008CBB60 /* FavoriteStar.opacity */; };
@@ -173,6 +174,8 @@
 		376FD60E11017C43004CC2AF /* TRouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TRouteToolbarIcon_43.png; sourceTree = "<group>"; };
 		376FD60F11017C43004CC2AF /* URouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = URouteToolbarIcon_43.png; sourceTree = "<group>"; };
 		376FD61011017C43004CC2AF /* WRouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WRouteToolbarIcon_43.png; sourceTree = "<group>"; };
+		3776BD8912079C9B006F3EDD /* NSOperationQueue_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOperationQueue_Extensions.h; sourceTree = "<group>"; };
+		3776BD8A12079C9B006F3EDD /* NSOperationQueue_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOperationQueue_Extensions.m; sourceTree = "<group>"; };
 		377854D811223596008E0886 /* PredictionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PredictionsView.h; sourceTree = "<group>"; };
 		377854D911223596008E0886 /* PredictionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PredictionsView.m; sourceTree = "<group>"; };
 		377855CB11225CE8008E0886 /* RedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedButton.png; sourceTree = "<group>"; };
@@ -514,6 +517,8 @@
 				37C2CF3910E8914D0001E1AF /* ExtendedViewController.m */,
 				3788E5441172EC9E00AD86AC /* FavoritesController.h */,
 				3788E5451172EC9E00AD86AC /* FavoritesController.m */,
+				3776BD8912079C9B006F3EDD /* NSOperationQueue_Extensions.h */,
+				3776BD8A12079C9B006F3EDD /* NSOperationQueue_Extensions.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -810,6 +815,7 @@
 				373319981172579F004A0303 /* CreditsViewController.m in Sources */,
 				3788E5461172EC9E00AD86AC /* FavoritesController.m in Sources */,
 				37BBD9F011A63F6B00E96779 /* Service.m in Sources */,
+				3776BD8B12079C9B006F3EDD /* NSOperationQueue_Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

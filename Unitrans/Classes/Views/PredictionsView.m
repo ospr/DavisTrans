@@ -11,6 +11,8 @@
 #import "Route.h"
 #import "Stop.h"
 
+#import "NSOperationQueue_Extensions.h"
+
 CGFloat kPredictionLabelPadding = 10.0;
 CGFloat kLoadingIndicatorPadding = 5.0;
 
@@ -155,7 +157,7 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 - (void)predictionOperation:(PredictionOperation *)predictionOperation didFinishWithPredictions:(NSArray *)newPredictions
 {
     // Stop activity indicator if there are no more operations running
-    if ([[operationQueue operations] count] == 0) {
+    if ([operationQueue allFinished]) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [loadingIndicatorView stopAnimating];
         loading = NO;
@@ -176,7 +178,7 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 - (void)predictionOperation:(PredictionOperation *)predictionOperation didFailWithError:(NSError *)error
 {
     // Stop activity indicator if there are no more operations running
-    if ([[operationQueue operations] count] == 0) {
+    if ([operationQueue allFinished]) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [loadingIndicatorView stopAnimating];
         loading = NO;
