@@ -35,6 +35,8 @@
 
 - (id) initWithRouteName:(NSString *)newRouteName stopTag:(NSString *)newStopTag;
 
+- (NSString *)predictionText;
+
 - (void) retrievePredictions;
 - (void) retrieveStopIDFromRouteConfig;
 - (void) parseXMLAtURLString:(NSString *)theURLString;

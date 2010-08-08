@@ -49,6 +49,36 @@
 }
 
 #pragma mark -
+#pragma mark Convenience Methods
+
+- (NSString *)predictionText
+{        
+    // Convert all 0 times to "Now"
+    NSMutableArray *predictionStrings = [NSMutableArray array];
+    for (NSNumber *predictionTime in predictionStrings)
+    {
+        if ([predictionTime integerValue] == 0)
+            [predictionStrings addObject:@"Now"];
+        else
+            [predictionStrings addObject:[predictionTime stringValue]];
+    }
+    
+    // Create prediction text    
+    NSString *predictionText;
+
+    if ([predictionStrings count] == 1  && [[predictionStrings objectAtIndex:0] isEqual:@"Now"])
+        predictionText = @"Now";
+    else if ([predictionStrings count] == 1 && [[predictionStrings objectAtIndex:0] isEqualToString:@"1"])
+        predictionText = @"1 minute";
+    else if ([predictionStrings count] > 0)
+        predictionText = [NSString stringWithFormat:@"%@ minutes", [predictionStrings componentsJoinedByString:@", "]];
+    else
+        predictionText = @"No predictions at this time.";
+    
+    return predictionText;
+}
+
+#pragma mark -
 #pragma mark ConcurrentOperation Override Methods
 
 - (void)main

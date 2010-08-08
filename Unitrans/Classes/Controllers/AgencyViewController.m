@@ -528,14 +528,7 @@ NSUInteger MaxConcurrentOperationCount = 3;
 #pragma mark PredictionOperation Delegate Methods
 
 - (void)predictionOperation:(PredictionOperation *)predictionOperation didFinishWithPredictions:(NSArray *)newPredictions
-{	
-	/*
-	// If the first time is 0 convert it to "Now"
-	NSMutableArray *mutableNewPredictions = [NSMutableArray arrayWithArray:newPredictions];
-    if ([newPredictions count] > 0 && [[newPredictions objectAtIndex:0] isEqualToNumber:[NSNumber numberWithInteger:0]])
-        [mutableNewPredictions replaceObjectAtIndex:0 withObject:@"Now"];
-	*/
-	
+{		
 	// Stop activity indicator if there are no more operations running
     if ([operationQueue allFinished]) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -543,18 +536,13 @@ NSUInteger MaxConcurrentOperationCount = 3;
 	 
 	NSString *routeName = [predictionOperation routeName];
 	NSString *stopCode = [predictionOperation stopTag];
-	NSString *predictions;
+	NSString *predictionText = [predictionOperation predictionText];
 	
-	if ([newPredictions count]) {
-		predictions = [NSString stringWithFormat:@"%@ minutes", [newPredictions componentsJoinedByString:@", "]];
-	} else {
-		predictions = @"No predictions.";
-	}
-	
+    // Update favorites predictions
 	for(NSDictionary *favorite in favoritePredictions)
 	{
 		if ([[favorite valueForKey:@"routeName"] isEqualToString:routeName] && [[favorite valueForKey:@"stopCode"] isEqualToString:stopCode]) {
-			[favorite setValue:predictions forKey:@"predictions"];
+			[favorite setValue:predictionText forKey:@"predictions"];
 			[favorite setValue:[NSNumber numberWithBool:NO] forKey:@"isUpdating"];
 			break;
 		}

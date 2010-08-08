@@ -58,7 +58,7 @@ CGFloat kLoadingIndicatorPadding = 5.0;
         [self addTarget:self action:@selector(updatePredictions) forControlEvents:UIControlEventTouchUpInside];
         
         // Update prediction text
-        [self updatePredictionText];
+        [self updatePredictionWithText:nil];
     }
     
     return self;
@@ -124,29 +124,29 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     [operationQueue addOperation:predictionOperation];
     [predictionOperation release];
     
-    [self updatePredictionText];
+    [self updatePredictionWithText:nil];
 }
 
-- (void)updatePredictionText
+- (void)updatePredictionWithText:(NSString *)text
 {
     NSString *predictionText;
     
     if(loading && (!predictions || [predictions count] == 0))
+    {
         predictionText = @"Updating Predictions...";
-    else if (!predictions) {
+    }
+    else if (!predictions) 
+    {
         if ([[predictionLoadError domain] isEqualToString:NSURLErrorDomain])
             predictionText = @"No Internet connection.";
         else 
             predictionText = @"Error gathering predictions.";
     }
-    else if ([predictions count] == 1  && [[predictions objectAtIndex:0] isEqual:@"Now"])
-        predictionText = @"Now";
-    else if ([predictions count] == 1 && [[predictions objectAtIndex:0] isEqual:[NSNumber numberWithInteger:1]])
-        predictionText = @"1 minute";
-    else if ([predictions count] > 0)
-        predictionText = [NSString stringWithFormat:@"%@ minutes", [predictions componentsJoinedByString:@", "]];
-    else
-        predictionText = @"No predictions at this time."; 
+    else 
+    {
+        predictionText = text;
+    }
+
         
     [self setTitle:predictionText forState:UIControlStateNormal];
 }
@@ -165,14 +165,9 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     
     // Reset error
     [self setPredictionLoadError:nil];
-    
-    // If the first time is 0 convert it to "Now"
-    NSMutableArray *mutableNewPredictions = [NSMutableArray arrayWithArray:newPredictions];
-    if ([newPredictions count] > 0 && [[newPredictions objectAtIndex:0] isEqualToNumber:[NSNumber numberWithInteger:0]])
-        [mutableNewPredictions replaceObjectAtIndex:0 withObject:@"Now"];
 	
-    [self setPredictions:[NSArray arrayWithArray:mutableNewPredictions]];
-    [self updatePredictionText];
+    [self setPredictions:newPredictions];
+    [self updatePredictionWithText:[predictionOperation predictionText]];
 }
 
 - (void)predictionOperation:(PredictionOperation *)predictionOperation didFailWithError:(NSError *)error
@@ -188,7 +183,7 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     NSLog(@"PredictionOperation failed due to error: %@, %@", error, [error userInfo]);
         
     [self setPredictions:nil];
-    [self updatePredictionText];
+    [self updatePredictionWithText:nil];
 }
 
 #pragma mark -

@@ -38,7 +38,7 @@
 - (void)beginContinuousPredictionsUpdates;
 - (void)endContinuousPredictionsUpdates;
 
-- (void)updatePredictionText;
+- (void)updatePredictionWithText:(NSString *)text;
 - (void)updatePredictions;
 
 
