@@ -20,6 +20,7 @@
 #import "StopSegmentedViewController.h"
 #import "FavoritesController.h"
 #import "CreditsViewController.h"
+#import "NSOperationQueue_Extensions.h"
 
 NSUInteger MaxConcurrentOperationCount = 3;
 
@@ -536,7 +537,7 @@ NSUInteger MaxConcurrentOperationCount = 3;
 	*/
 	
 	// Stop activity indicator if there are no more operations running
-    if ([[operationQueue operations] count] == 0) {
+    if ([operationQueue allFinished]) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }
 	 
