@@ -168,6 +168,7 @@ CGFloat kLoadingIndicatorPadding = 5.0;
 	
     [self setPredictions:newPredictions];
     [self updatePredictionWithText:[predictionOperation predictionText]];
+	NSLog(@"%@", [predictionOperation predictionText]);
 }
 
 - (void)predictionOperation:(PredictionOperation *)predictionOperation didFailWithError:(NSError *)error

@@ -55,7 +55,7 @@
 {        
     // Convert all 0 times to "Now"
     NSMutableArray *predictionStrings = [NSMutableArray array];
-    for (NSNumber *predictionTime in predictionStrings)
+    for (NSNumber *predictionTime in predictionTimes)
     {
         if ([predictionTime integerValue] == 0)
             [predictionStrings addObject:@"Now"];
