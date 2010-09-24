@@ -259,7 +259,13 @@ NSUInteger MaxConcurrentOperationCount = 3;
         Stop *stop = [[favorites objectAtIndex:[indexPath row]] valueForKey:@"stop"];
         
         [[cell textLabel] setText:[stop name]];
-        [[cell detailTextLabel] setText:[NSString stringWithFormat:@"#%@ %@ - %@", [stop stopID], [stop headingString], [[favoritePredictions objectAtIndex:[indexPath row]] valueForKey:@"predictions"]]];
+		
+		if ([[[favoritePredictions objectAtIndex:[indexPath row]] valueForKey:@"predictions"] isEqual:@""]) {
+			[[cell detailTextLabel] setText:[NSString stringWithFormat:@"#%@ %@", [stop stopID], [stop headingString]]];
+		} else {
+			[[cell detailTextLabel] setText:[NSString stringWithFormat:@"#%@ %@ - %@", [stop stopID], [stop headingString], [[favoritePredictions objectAtIndex:[indexPath row]] valueForKey:@"predictions"]]];
+		}
+
         [[cell imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
     }
     else 
@@ -553,7 +559,25 @@ NSUInteger MaxConcurrentOperationCount = 3;
 
 - (void)predictionOperation:(PredictionOperation *)predictionOperation didFailWithError:(NSError *)error
 {
-	NSLog(@"prediction operation failed");
+	// Stop activity indicator if there are no more operations running
+    if ([operationQueue allFinished]) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }
+	
+	NSString *routeName = [predictionOperation routeName];
+	NSString *stopCode = [predictionOperation stopTag];
+	
+	// Update favorites predictions
+	for(NSDictionary *favorite in favoritePredictions)
+	{
+		if ([[favorite valueForKey:@"routeName"] isEqualToString:routeName] && [[favorite valueForKey:@"stopCode"] isEqualToString:stopCode]) {
+			[favorite setValue:@"" forKey:@"predictions"];
+			[favorite setValue:[NSNumber numberWithBool:NO] forKey:@"isUpdating"];
+			break;
+		}
+	}
+	
+	[tableView reloadData];
 }
 
 
