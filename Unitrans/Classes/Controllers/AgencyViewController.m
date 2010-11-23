@@ -89,23 +89,15 @@ NSUInteger MaxConcurrentOperationCount = 3;
 												 name:@"FavoritesChanged" object:nil];
 	
     // Determine default service
-    NSDate *currentDate = [NSDate date];
     NSArray *allServices = [[DatabaseManager sharedDatabaseManager] allServices];
-    Service *currentService = nil;
     for (Service *service in allServices)
     {
-        /*[[DatabaseManager sharedDatabaseManager] useService:service];
-        Agency *serviceAgency = [[DatabaseManager sharedDatabaseManager] retrieveUnitransAgency:nil];
-        if ([serviceAgency transitDataUpToDate]) {
-            break;
-        }*/
-        currentService = service;
-        if ([service validServiceOnDate:currentDate]) {
+        [[DatabaseManager sharedDatabaseManager] useService:service];
+        [self setAgency:[[DatabaseManager sharedDatabaseManager] retrieveUnitransAgency:nil]];
+        if ([agency transitDataUpToDate]) {
             break;
         }
     }
-    [[DatabaseManager sharedDatabaseManager] useService:currentService];
-    //Agency *serviceAgency = [[DatabaseManager sharedDatabaseManager] retrieveUnitransAgency:nil];
     
     // Setup default service
     [self serviceChanged];
@@ -118,9 +110,7 @@ NSUInteger MaxConcurrentOperationCount = 3;
 	[operationQueue setMaxConcurrentOperationCount:MaxConcurrentOperationCount];
 	
     // Determine if schedule is out of date
-    /*if (![agency transitDataUpToDate])
-        outOfDate = YES;*/
-    if (![currentService validServiceOnDate:currentDate])
+    if (![agency transitDataUpToDate])
         outOfDate = YES;
 }
 

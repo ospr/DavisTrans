@@ -11,6 +11,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		371192A012469A4D000C28A9 /* UnitransSchedule_20100923.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3711929F12469A4D000C28A9 /* UnitransSchedule_20100923.sqlite */; };
 		3731BB02113737E100FFF600 /* ORouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 3731BB01113737E100FFF600 /* ORouteIcon_43.png */; };
 		3731BB0F11373AE600FFF600 /* ORouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 3731BB0E11373AE600FFF600 /* ORouteToolbarIcon_43.png */; };
 		373319981172579F004A0303 /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 373319961172579F004A0303 /* CreditsViewController.m */; };
@@ -18,7 +19,6 @@
 		373EEF0910CA40F6007CFD39 /* AnimationImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EEF0810CA40F6007CFD39 /* AnimationImageView.m */; };
 		373EF0A510CC8AFE007CFD39 /* ConcurrentOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0A410CC8AFE007CFD39 /* ConcurrentOperation.m */; };
 		373EF0AC10CC9047007CFD39 /* PredictionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0AB10CC9047007CFD39 /* PredictionOperation.m */; };
-		37615BE511C2C47F00A5D7EB /* UnitransSchedule_20100611.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 37615BE411C2C47F00A5D7EB /* UnitransSchedule_20100611.sqlite */; };
 		376FD61111017C43004CC2AF /* ARouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD5FD11017C43004CC2AF /* ARouteToolbarIcon_43.png */; };
 		376FD61211017C43004CC2AF /* BRouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD5FE11017C43004CC2AF /* BRouteToolbarIcon_43.png */; };
 		376FD61311017C43004CC2AF /* CRouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD5FF11017C43004CC2AF /* CRouteToolbarIcon_43.png */; };
@@ -59,7 +59,6 @@
 		37C2CF3A10E8914D0001E1AF /* ExtendedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2CF3910E8914D0001E1AF /* ExtendedViewController.m */; };
 		37C2D00B10E95F6F0001E1AF /* StopTimeSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C2D00A10E95F6F0001E1AF /* StopTimeSegmentedViewController.m */; };
 		37C2D0B310E98CB30001E1AF /* UnitransTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C2D0B210E98CB30001E1AF /* UnitransTitle.png */; };
-		37CB076011F6A41C00A32D75 /* UnitransSchedule_20100802.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 37CB075F11F6A41C00A32D75 /* UnitransSchedule_20100802.sqlite */; };
 		37D1A0E01125F97900E753EF /* TableBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D1A0DF1125F97900E753EF /* TableBackground.png */; };
 		37D926931127DCC5000349A7 /* 100.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D9267E1127DCC5000349A7 /* 100.png */; };
 		37D926941127DCC5000349A7 /* 24.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D9267F1127DCC5000349A7 /* 24.png */; };
@@ -142,6 +141,7 @@
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Unitrans_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Unitrans_Prefix.pch; path = ../../Unitrans_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3711929F12469A4D000C28A9 /* UnitransSchedule_20100923.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20100923.sqlite; sourceTree = "<group>"; };
 		3731BB01113737E100FFF600 /* ORouteIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ORouteIcon_43.png; sourceTree = "<group>"; };
 		3731BB0E11373AE600FFF600 /* ORouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ORouteToolbarIcon_43.png; sourceTree = "<group>"; };
 		373319951172579F004A0303 /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
@@ -153,7 +153,6 @@
 		373EF0A410CC8AFE007CFD39 /* ConcurrentOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConcurrentOperation.m; sourceTree = "<group>"; };
 		373EF0AA10CC9047007CFD39 /* PredictionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PredictionOperation.h; sourceTree = "<group>"; };
 		373EF0AB10CC9047007CFD39 /* PredictionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PredictionOperation.m; sourceTree = "<group>"; };
-		37615BE411C2C47F00A5D7EB /* UnitransSchedule_20100611.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20100611.sqlite; sourceTree = "<group>"; };
 		376FD5FD11017C43004CC2AF /* ARouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ARouteToolbarIcon_43.png; sourceTree = "<group>"; };
 		376FD5FE11017C43004CC2AF /* BRouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BRouteToolbarIcon_43.png; sourceTree = "<group>"; };
 		376FD5FF11017C43004CC2AF /* CRouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CRouteToolbarIcon_43.png; sourceTree = "<group>"; };
@@ -206,7 +205,6 @@
 		37C2D00910E95F6F0001E1AF /* StopTimeSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopTimeSegmentedViewController.h; sourceTree = "<group>"; };
 		37C2D00A10E95F6F0001E1AF /* StopTimeSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTimeSegmentedViewController.m; sourceTree = "<group>"; };
 		37C2D0B210E98CB30001E1AF /* UnitransTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UnitransTitle.png; sourceTree = "<group>"; };
-		37CB075F11F6A41C00A32D75 /* UnitransSchedule_20100802.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20100802.sqlite; sourceTree = "<group>"; };
 		37D1A0DF1125F97900E753EF /* TableBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TableBackground.png; sourceTree = "<group>"; };
 		37D9267E1127DCC5000349A7 /* 100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100.png; sourceTree = "<group>"; };
 		37D9267F1127DCC5000349A7 /* 24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 24.png; sourceTree = "<group>"; };
@@ -369,8 +367,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				37615BE411C2C47F00A5D7EB /* UnitransSchedule_20100611.sqlite */,
-				37CB075F11F6A41C00A32D75 /* UnitransSchedule_20100802.sqlite */,
+				3711929F12469A4D000C28A9 /* UnitransSchedule_20100923.sqlite */,
 				7CC4D0AD1097930600F2BB67 /* NIBs */,
 				7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */,
 				8D1107310486CEB800E47090 /* Unitrans-Info.plist */,
@@ -671,7 +668,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Unitrans" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Unitrans */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -764,8 +768,7 @@
 				373319991172579F004A0303 /* CreditsViewController.xib in Resources */,
 				37E9F7571187F66E008B562A /* BusShineIcon.png in Resources */,
 				C9C1F8EE118943FA005978B3 /* Icon.png in Resources */,
-				37615BE511C2C47F00A5D7EB /* UnitransSchedule_20100611.sqlite in Resources */,
-				37CB076011F6A41C00A32D75 /* UnitransSchedule_20100802.sqlite in Resources */,
+				371192A012469A4D000C28A9 /* UnitransSchedule_20100923.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -859,7 +862,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator4.0;
+				SDKROOT = iphonesimulator4.1;
 			};
 			name = Debug;
 		};
@@ -872,7 +875,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator4.0;
+				SDKROOT = iphonesimulator4.1;
 			};
 			name = Release;
 		};

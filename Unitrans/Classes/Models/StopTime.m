@@ -11,6 +11,8 @@
 #import "Stop.h"
 #import "Trip.h"
 
+#import "NSDate_Extensions.h"
+
 @implementation StopTime 
 
 @dynamic sequence;
@@ -31,9 +33,9 @@
         [dateFormatter setDateFormat:@"h:mm a"];
     }
     if (!referenceDate)
-        referenceDate = [[dateFormatter dateFromString:@"12:00 am"] retain];
+        referenceDate = [[NSDate beginningOfToday] retain];
         
-    NSDate *dummyDate = [[[NSDate alloc] initWithTimeInterval:seconds sinceDate:referenceDate] autorelease];
+    NSDate *dummyDate = [referenceDate dateByAddingTimeInterval:seconds];
     
     return [dateFormatter stringFromDate:dummyDate];
 }
