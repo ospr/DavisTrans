@@ -837,7 +837,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kip Nicol (9A7ZZQAP7A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ken Zheng (3C28KG49NA)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -846,6 +846,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Unitrans-Info.plist";
 				PRODUCT_NAME = DavisTrans;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "90799D13-F581-4F94-9BEB-5AC0346920A0";
 			};
 			name = Debug;
 		};
@@ -870,7 +871,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator4.1;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
 		};
