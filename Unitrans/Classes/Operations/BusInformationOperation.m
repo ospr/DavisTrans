@@ -69,8 +69,9 @@
 - (void) retrieveBusInformation
 {
     NSError *error;
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=0&r=%@", routeName]];
-    
+    //NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=vehicleLocations&a=unitrans&t=0&r=%@", routeName]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=unitrans&t=0&r=%@", routeName]];
+	
     // Send synchronous request to retrieve data so we can determine if an error occurs b/c no internet
     NSURLRequest *busInformationRequest = [NSURLRequest requestWithURL:url];
     NSData *busInformationData = [NSURLConnection sendSynchronousRequest:busInformationRequest 

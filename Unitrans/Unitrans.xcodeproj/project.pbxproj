@@ -862,12 +862,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kip Nicol (9A7ZZQAP7A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ken Zheng (3C28KG49NA)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Unitrans_Prefix.pch;
 				INFOPLIST_FILE = "Unitrans-Info.plist";
 				PRODUCT_NAME = DavisTrans;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2009AAC3-FE80-48BC-97C9-61AFC5817A2A";
+				SDKROOT = iphoneos4.2;
 			};
 			name = Release;
 		};
@@ -879,7 +881,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -887,12 +889,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ken Zheng (3C28KG49NA)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator4.1;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2009AAC3-FE80-48BC-97C9-61AFC5817A2A";
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};

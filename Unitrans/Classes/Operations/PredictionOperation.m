@@ -114,7 +114,8 @@
     if (parseError)
         return;
 	
-	NSString *predictionURLstring = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=predictions&a=unitrans&stopId=%@&r=%@", stopId, routeName];
+	//NSString *predictionURLstring = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=predictions&a=unitrans&stopId=%@&r=%@", stopId, routeName];
+	NSString *predictionURLstring = [NSString stringWithFormat:@"http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=unitrans&s=%@&r=%@", stopId, routeName];
 	[self parseXMLAtURLString:predictionURLstring];
     
     // HACK: NextBus sometimes returns duplicate and out of order times, we fix that here
@@ -125,7 +126,8 @@
 
 - (void) retrieveStopIDFromRouteConfig
 {
-	NSString *routeConfigURLString = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=routeConfig&a=unitrans&r=%@", routeName];
+	//NSString *routeConfigURLString = [NSString stringWithFormat:@"http://www.nextbus.com/s/xmlFeed?command=routeConfig&a=unitrans&r=%@", routeName];
+	NSString *routeConfigURLString = [NSString stringWithFormat:@"http://webservices.nextbus.com/service/publicXMLFeed?command=routeConfig&a=unitrans&r=%@", routeName];
 	[self parseXMLAtURLString:routeConfigURLString];
 }
 
@@ -175,7 +177,7 @@ didStartElement:(NSString *)elementName
 	{
 		if([stopTag isEqualToString:[attributeDict valueForKey:@"tag"]] && ([attributeDict objectForKey:@"stopId"] != nil))
 		{
-			[self setStopId:[attributeDict valueForKey:@"stopId"]];
+			[self setStopId:[attributeDict valueForKey:@"tag"]];
             parseAborted = YES;
 			[parser abortParsing];
 		}
