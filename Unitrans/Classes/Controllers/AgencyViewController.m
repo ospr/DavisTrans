@@ -69,7 +69,7 @@ NSUInteger MaxConcurrentOperationCount = 3;
     [newTableView release];
     
     // Add Unitrans image as title
-    UIImageView *titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"UnitransTitle.png"]] autorelease];
+    UIImageView *titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DavisTransTitle.png"]] autorelease];
     [[self navigationItem] setTitleView:titleView];
 
     // Add info button

@@ -38,7 +38,7 @@ CGFloat kLoadingIndicatorPadding = 5.0;
         predictions = [[NSArray alloc] init];
         
         // Create non-highlighted background image
-        UIImage *backgroundImage = [[UIImage imageNamed:@"RedButton.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
+        UIImage *backgroundImage = [[UIImage imageNamed:@"RedDisplay.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
         [self setBackgroundImage:backgroundImage forState:UIControlStateNormal];
         
         // Set up loading indicator

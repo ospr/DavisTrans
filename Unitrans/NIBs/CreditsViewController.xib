@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1024</int>
-		<string key="IBDocument.SystemVersion">10F569</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
 		<string key="IBDocument.InterfaceBuilderVersion">804</string>
-		<string key="IBDocument.AppKitVersion">1038.29</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">123</string>
@@ -110,7 +110,7 @@ LS0tClNjb3R0IEJpZ2dhcnQKU2VyYmFuIFBvcnVtYmVzY3UKS2VuIEpveQ</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">UnitransTitle.png</string>
+							<string key="NSResourceName">DavisTransTitle.png</string>
 						</object>
 					</object>
 				</object>
@@ -208,7 +208,7 @@ LS0tClNjb3R0IEJpZ2dhcnQKU2VyYmFuIFBvcnVtYmVzY3UKS2VuIEpveQ</string>
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>CreditsViewController</string>
 					<string>UIResponder</string>
-					<string>{{424, 232}, {320, 480}}</string>
+					<string>{{463, 232}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -465,7 +465,7 @@ LS0tClNjb3R0IEJpZ2dhcnQKU2VyYmFuIFBvcnVtYmVzY3UKS2VuIEpveQ</string>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>BusShineIcon.png</string>
-				<string>UnitransTitle.png</string>
+				<string>DavisTransTitle.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
