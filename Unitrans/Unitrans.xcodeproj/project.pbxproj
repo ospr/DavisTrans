@@ -19,6 +19,7 @@
 		373EEF0910CA40F6007CFD39 /* AnimationImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EEF0810CA40F6007CFD39 /* AnimationImageView.m */; };
 		373EF0A510CC8AFE007CFD39 /* ConcurrentOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0A410CC8AFE007CFD39 /* ConcurrentOperation.m */; };
 		373EF0AC10CC9047007CFD39 /* PredictionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0AB10CC9047007CFD39 /* PredictionOperation.m */; };
+		3740DBBF133C4CD6000751F8 /* HiddenStop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3740DBBE133C4CD6000751F8 /* HiddenStop@2x.png */; };
 		376942C612CC2BD900897207 /* UnitransSchedule_20110103.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 376942C212CC2BD900897207 /* UnitransSchedule_20110103.sqlite */; };
 		376942C712CC2BD900897207 /* UnitransSchedule_20110315.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 376942C312CC2BD900897207 /* UnitransSchedule_20110315.sqlite */; };
 		376942C812CC2BD900897207 /* UnitransSchedule_20110321.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 376942C412CC2BD900897207 /* UnitransSchedule_20110321.sqlite */; };
@@ -226,6 +227,7 @@
 		373EF0A410CC8AFE007CFD39 /* ConcurrentOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConcurrentOperation.m; sourceTree = "<group>"; };
 		373EF0AA10CC9047007CFD39 /* PredictionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PredictionOperation.h; sourceTree = "<group>"; };
 		373EF0AB10CC9047007CFD39 /* PredictionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PredictionOperation.m; sourceTree = "<group>"; };
+		3740DBBE133C4CD6000751F8 /* HiddenStop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HiddenStop@2x.png"; sourceTree = "<group>"; };
 		376942C212CC2BD900897207 /* UnitransSchedule_20110103.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20110103.sqlite; sourceTree = "<group>"; };
 		376942C312CC2BD900897207 /* UnitransSchedule_20110315.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20110315.sqlite; sourceTree = "<group>"; };
 		376942C412CC2BD900897207 /* UnitransSchedule_20110321.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20110321.sqlite; sourceTree = "<group>"; };
@@ -537,6 +539,7 @@
 				37C2CE4710E7EFB60001E1AF /* Network.png */,
 				37873E911336C9B600796E45 /* Network@2x.png */,
 				37BAFE4B1120FB0500077C65 /* HiddenStop.png */,
+				3740DBBE133C4CD6000751F8 /* HiddenStop@2x.png */,
 				37D1A0DF1125F97900E753EF /* TableBackground.png */,
 				37E9F7561187F66E008B562A /* BusShineIcon.png */,
 				3783B7DD1167D4BE008CBB60 /* FavoriteStar */,
@@ -1069,6 +1072,7 @@
 				378227ED133AFCB500E9DDAB /* 88@2x.png in Resources */,
 				378227EE133AFCB500E9DDAB /* 92@2x.png in Resources */,
 				378227EF133AFCB500E9DDAB /* 96@2x.png in Resources */,
+				3740DBBF133C4CD6000751F8 /* HiddenStop@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
