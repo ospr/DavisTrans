@@ -135,38 +135,26 @@ static DatabaseManager *sharedDatabaseManager = nil;
 {
     // Hardcode these for now until a better way is determined
     // IDEA: Move these to a service entity in each GTFS schedule and access them thru there
-    Service *winterBreak = [[[Service alloc] init] autorelease];
-    [winterBreak setShortName:@"Winter Break"];
-    [winterBreak setLongName:@"Winter Break"];
-    [winterBreak setResourceName:@"UnitransSchedule_20101213"];
-    [winterBreak setResourceKind:@"sqlite"];
-    
-    Service *winter = [[[Service alloc] init] autorelease];
-    [winter setShortName:@"Winter"];
-    [winter setLongName:@"Winter '11"];
-    [winter setResourceName:@"UnitransSchedule_20110103"];
-    [winter setResourceKind:@"sqlite"];
-
-    Service *winterFinals = [[[Service alloc] init] autorelease];
-    [winterFinals setShortName:@"Finals"];
-    [winterFinals setLongName:@"Winter Finals '11"];
-    [winterFinals setResourceName:@"UnitransSchedule_20110315"];
-    [winterFinals setResourceKind:@"sqlite"];
-    
-    Service *springBreak = [[[Service alloc] init] autorelease];
-    [springBreak setShortName:@"Spring Break"];
-    [springBreak setLongName:@"Spring Break"];
-    [springBreak setResourceName:@"UnitransSchedule_20110321"];
-    [springBreak setResourceKind:@"sqlite"];
-    
     Service *spring = [[[Service alloc] init] autorelease];
     [spring setShortName:@"Spring"];
     [spring setLongName:@"Spring '11"];
     [spring setResourceName:@"UnitransSchedule_20110328"];
     [spring setResourceKind:@"sqlite"];
+
+    Service *springFinals = [[[Service alloc] init] autorelease];
+    [springFinals setShortName:@"Finals"];
+    [springFinals setLongName:@"Spring Finals '11"];
+    [springFinals setResourceName:@"UnitransSchedule_20110603"];
+    [springFinals setResourceKind:@"sqlite"];
+    
+    Service *summerBreak = [[[Service alloc] init] autorelease];
+    [summerBreak setShortName:@"Summer"];
+    [summerBreak setLongName:@"Summer Break '11"];
+    [summerBreak setResourceName:@"UnitransSchedule_20110610"];
+    [summerBreak setResourceKind:@"sqlite"];
     
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:winterBreak, winter, winterFinals, springBreak, spring, nil];
+    return [NSArray arrayWithObjects:spring, springFinals, summerBreak, nil];
 }
 
 - (void)useService:(Service *)newService
