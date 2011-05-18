@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1024</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">804</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">123</string>
@@ -42,22 +42,6 @@
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIImageView" id="738886730">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 7}, {85, 85}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MCAwIDAgMAA</bytes>
-						</object>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">BusShineIcon.png</string>
-						</object>
-					</object>
 					<object class="IBUITextView" id="58030240">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
@@ -100,7 +84,7 @@ LS0tClNjb3R0IEJpZ2dhcnQKU2VyYmFuIFBvcnVtYmVzY3UKS2VuIEpveQ</string>
 					<object class="IBUIImageView" id="750317198">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{119, 33}, {174, 34}}</string>
+						<string key="NSFrame">{{73, 36}, {174, 34}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -160,7 +144,6 @@ LS0tClNjb3R0IEJpZ2dhcnQKU2VyYmFuIFBvcnVtYmVzY3UKS2VuIEpveQ</string>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="58030240"/>
 							<reference ref="750317198"/>
-							<reference ref="738886730"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -174,11 +157,6 @@ LS0tClNjb3R0IEJpZ2dhcnQKU2VyYmFuIFBvcnVtYmVzY3UKS2VuIEpveQ</string>
 						<int key="objectID">-2</int>
 						<reference key="object" ref="975951072"/>
 						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4</int>
-						<reference key="object" ref="738886730"/>
-						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">8</int>
@@ -201,7 +179,7 @@ LS0tClNjb3R0IEJpZ2dhcnQKU2VyYmFuIFBvcnVtYmVzY3UKS2VuIEpveQ</string>
 					<string>1.IBEditorWindowLastContentRect</string>
 					<string>1.IBPluginDependency</string>
 					<string>10.IBPluginDependency</string>
-					<string>4.IBPluginDependency</string>
+					<string>10.IBViewBoundsToFrameTransform</string>
 					<string>8.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
@@ -211,7 +189,9 @@ LS0tClNjb3R0IEJpZ2dhcnQKU2VyYmFuIFBvcnVtYmVzY3UKS2VuIEpveQ</string>
 					<string>{{463, 232}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABC7gAAwoIAAA</bytes>
+					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
@@ -461,17 +441,8 @@ LS0tClNjb3R0IEJpZ2dhcnQKU2VyYmFuIFBvcnVtYmVzY3UKS2VuIEpveQ</string>
 		<string key="IBDocument.LastKnownRelativeProjectPath">../Unitrans.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<bool key="EncodedWithXMLCoder">YES</bool>
-			<object class="NSArray" key="dict.sortedKeys">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>BusShineIcon.png</string>
-				<string>DavisTransTitle.png</string>
-			</object>
-			<object class="NSMutableArray" key="dict.values">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{70, 66}</string>
-				<string>{155, 30}</string>
-			</object>
+			<string key="NS.key.0">DavisTransTitle.png</string>
+			<string key="NS.object.0">{155, 30}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">123</string>
 	</data>

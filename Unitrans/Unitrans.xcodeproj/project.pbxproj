@@ -154,7 +154,6 @@
 		37D926A51127DCC5000349A7 /* 92.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D926901127DCC5000349A7 /* 92.png */; };
 		37D926A61127DCC5000349A7 /* 96.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D926911127DCC5000349A7 /* 96.png */; };
 		37D926A71127DCC5000349A7 /* RedCircle.opacity in Resources */ = {isa = PBXBuildFile; fileRef = 37D926921127DCC5000349A7 /* RedCircle.opacity */; };
-		37E9F7571187F66E008B562A /* BusShineIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 37E9F7561187F66E008B562A /* BusShineIcon.png */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
 		7C25C28010A8CD7300AAD086 /* UIColor_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */; };
 		7CC4CFC01096784F00F2BB67 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CC4CFBF1096784F00F2BB67 /* CoreData.framework */; };
@@ -373,7 +372,6 @@
 		37D926901127DCC5000349A7 /* 92.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 92.png; sourceTree = "<group>"; };
 		37D926911127DCC5000349A7 /* 96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 96.png; sourceTree = "<group>"; };
 		37D926921127DCC5000349A7 /* RedCircle.opacity */ = {isa = PBXFileReference; lastKnownFileType = file; path = RedCircle.opacity; sourceTree = "<group>"; };
-		37E9F7561187F66E008B562A /* BusShineIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BusShineIcon.png; sourceTree = "<group>"; };
 		7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7C25C27E10A8CD7300AAD086 /* UIColor_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColor_Extensions.h; sourceTree = "<group>"; };
 		7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColor_Extensions.m; sourceTree = "<group>"; };
@@ -538,7 +536,6 @@
 				37BAFE4B1120FB0500077C65 /* HiddenStop.png */,
 				3740DBBE133C4CD6000751F8 /* HiddenStop@2x.png */,
 				37D1A0DF1125F97900E753EF /* TableBackground.png */,
-				37E9F7561187F66E008B562A /* BusShineIcon.png */,
 				3783B7DD1167D4BE008CBB60 /* FavoriteStar */,
 				373EF06510CC77FF007CFD39 /* Circles */,
 				376FD5FC11017C43004CC2AF /* RouteToolbarIcons */,
@@ -991,7 +988,6 @@
 				3783B7E41167D4BE008CBB60 /* FavoriteStarFilled.png in Resources */,
 				3783B7E51167D4BE008CBB60 /* FavoriteStarNoFill.png in Resources */,
 				373319991172579F004A0303 /* CreditsViewController.xib in Resources */,
-				37E9F7571187F66E008B562A /* BusShineIcon.png in Resources */,
 				C9C1F8EE118943FA005978B3 /* Icon.png in Resources */,
 				376942C912CC2BD900897207 /* UnitransSchedule_20110328.sqlite in Resources */,
 				37873D6D13368FB400796E45 /* FavoriteStarFilled@2x.png in Resources */,
