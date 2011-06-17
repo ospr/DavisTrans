@@ -23,7 +23,7 @@
 
 - (id) initWithRouteName:(NSString *)newRouteName
 {
-	if(self = [super init])
+	if((self = [super init]))
 	{
         [self setRouteName:newRouteName];
 		busInformation = [[NSMutableArray alloc] init];

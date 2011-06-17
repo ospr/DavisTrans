@@ -16,7 +16,7 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    if (self = [super initWithFrame:frame]) {
+    if ((self = [super initWithFrame:frame])) {
         // Only animate once so we can pause (delay) for a period of time before resetting
         [self setAnimationRepeatCount:1];
         

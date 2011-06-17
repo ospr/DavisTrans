@@ -21,7 +21,7 @@
 
 - (id) init
 {
-	if(self = [super init])
+	if((self = [super init]))
 	{
 		[self setVehicleID:@"NIL"];
 		[self setRouteTag:@"NIL"];
@@ -43,7 +43,7 @@
 			 withHeading:(NSInteger)theHeading
 		 withPredictable:(BOOL)thePredictable
 {
-	if(self = [super init])
+	if((self = [super init]))
 	{
 		[self setVehicleID:theVehicleID];
 		[self setRouteTag:theRouteTag];

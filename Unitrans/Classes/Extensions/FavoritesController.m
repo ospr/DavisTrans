@@ -155,7 +155,7 @@ static FavoritesController *sharedFavorites = nil;
 	for(NSDictionary *dict in favorites)
 	{
 		NSArray *keys = [NSArray arrayWithObjects:@"routeShortName", @"stopCode", nil];
-		NSArray *objects = [NSArray arrayWithObjects:[[dict valueForKey:@"route"] shortName], [[dict valueForKey:@"stop"] code], nil];
+		NSArray *objects = [NSArray arrayWithObjects:[[dict valueForKey:@"route"] shortName], [(Stop *)[dict valueForKey:@"stop"] code], nil];
 		[favoritesSaveData addObject:[NSDictionary dictionaryWithObjects:objects forKeys:keys]];
 	}
 	

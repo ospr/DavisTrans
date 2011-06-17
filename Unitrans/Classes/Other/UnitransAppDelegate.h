@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AgencyViewController.h"
 
-void criticalLoadingErrorAlert();
+void criticalLoadingErrorAlert(void);
 
 @interface UnitransAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;

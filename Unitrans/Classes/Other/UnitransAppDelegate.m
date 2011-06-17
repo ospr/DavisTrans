@@ -8,7 +8,7 @@
 
 #import "UnitransAppDelegate.h"
 
-void criticalLoadingErrorAlert()
+void criticalLoadingErrorAlert(void)
 {
     NSString *reason = @"There was an error while loading the Unitrans data. Try quiting the application and relaunching it. "
     "If the problem persists, try removing the application and reinstalling it.\n\n"

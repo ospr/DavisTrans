@@ -25,7 +25,7 @@
 
 - (id) initWithRouteName:(NSString *)newRouteName stopTag:(NSString *)newStopTag
 {
-	if(self = [super init])
+	if((self = [super init]))
 	{
 		[self setStopTag:newStopTag];
 		[self setRouteName:newRouteName];

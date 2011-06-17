@@ -141,7 +141,7 @@ NSUInteger MaxConcurrentOperationCount = 3;
 	{
 		NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:4];
 		[dictionary setObject:[[favorite valueForKey:@"route"] shortName] forKey:@"routeName"];
-		[dictionary setObject:[(NSNumber *)[[favorite valueForKey:@"stop"] code] stringValue] forKey:@"stopCode"];
+		[dictionary setObject:[(NSNumber *)[(Stop *)[favorite valueForKey:@"stop"] code] stringValue] forKey:@"stopCode"];
 		[dictionary setObject:@"Loading..." forKey:@"predictions"];
 		[dictionary setObject:[NSNumber numberWithBool:NO] forKey:@"isUpdating"];
 		[favoritePredictions addObject:dictionary];
