@@ -500,10 +500,10 @@ NSUInteger MaxConcurrentOperationCount = 3;
 
 - (void)showWelcomeMessage
 {
-    NSString *message = @"Welcome to DavisTrans, the future official Unitrans iPhone Application! "
+    NSString *message = @"Welcome to DavisTrans! "
     @"Bringing you this application are two UC Davis students. "
     @"We hope that you find this app as useful and convenient as we have. " 
-    @"Feel free to contact Unitrans if you have questions or comments. Enjoy :)";
+    @"Enjoy :)";
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"DavisTrans" message:message 
                                                    delegate:self cancelButtonTitle:@"OK" 

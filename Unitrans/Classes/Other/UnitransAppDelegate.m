@@ -14,7 +14,7 @@ void criticalLoadingErrorAlert(void)
     "If the problem persists, try removing the application and reinstalling it.\n\n"
     "Press the Home Button to exit the application.";
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unitrans Critical Error" message:reason
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"DavisTrans Critical Error" message:reason
                                                    delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
     [alert show];	
     [alert release];
