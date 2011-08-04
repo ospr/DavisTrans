@@ -63,7 +63,9 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if ([object isKindOfClass:[self class]] && [[object shortName] isEqualToString:shortName])
+    if ([object isKindOfClass:[self class]] && 
+        [[object shortName] isEqualToString:shortName] &&
+        [[object resourceName] isEqualToString:resourceName])
         return YES;
         
     return NO;

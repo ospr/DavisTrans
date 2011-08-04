@@ -56,7 +56,7 @@ static FavoritesController *sharedFavorites = nil;
     return NSUIntegerMax;
 }
 
-- (void)release
+- (oneway void)release
 {
     // Do nothing
 }

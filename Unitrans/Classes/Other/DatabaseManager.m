@@ -60,7 +60,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     return NSUIntegerMax;  //denotes an object that cannot be released
 }
 
-- (void)release
+- (oneway void)release
 {
     //do nothing
 }
@@ -134,27 +134,27 @@ static DatabaseManager *sharedDatabaseManager = nil;
 - (NSArray *)allServices
 {
     // Hardcode these for now until a better way is determined
-    // IDEA: Move these to a service entity in each GTFS schedule and access them thru there
-    Service *spring = [[[Service alloc] init] autorelease];
-    [spring setShortName:@"Spring"];
-    [spring setLongName:@"Spring '11"];
-    [spring setResourceName:@"UnitransSchedule_20110328"];
-    [spring setResourceKind:@"sqlite"];
+    // IDEA: Move these to a service entity in each GTFS schedule and access them thru there    
+    Service *summer = [[[Service alloc] init] autorelease];
+    [summer setShortName:@"Summer"];
+    [summer setLongName:@"Summer '11"];
+    [summer setResourceName:@"UnitransSchedule_20110801"];
+    [summer setResourceKind:@"sqlite"];
 
-    Service *springFinals = [[[Service alloc] init] autorelease];
-    [springFinals setShortName:@"Finals"];
-    [springFinals setLongName:@"Spring Finals '11"];
-    [springFinals setResourceName:@"UnitransSchedule_20110603"];
-    [springFinals setResourceKind:@"sqlite"];
+    Service *summer2 = [[[Service alloc] init] autorelease];
+    [summer2 setShortName:@"Summer"];
+    [summer2 setLongName:@"Summer '11 (with S & T)"];
+    [summer2 setResourceName:@"UnitransSchedule_20110823"];
+    [summer2 setResourceKind:@"sqlite"];
     
-    Service *summerBreak = [[[Service alloc] init] autorelease];
-    [summerBreak setShortName:@"Summer"];
-    [summerBreak setLongName:@"Summer Break '11"];
-    [summerBreak setResourceName:@"UnitransSchedule_20110610"];
-    [summerBreak setResourceKind:@"sqlite"];
+    Service *fall = [[[Service alloc] init] autorelease];
+    [fall setShortName:@"Fall"];
+    [fall setLongName:@"Fall '11"];
+    [fall setResourceName:@"UnitransSchedule_20110922"];
+    [fall setResourceKind:@"sqlite"];
     
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:spring, springFinals, summerBreak, nil];
+    return [NSArray arrayWithObjects:summer, summer2, fall, nil];
 }
 
 - (void)useService:(Service *)newService
