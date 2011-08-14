@@ -3,7 +3,7 @@
 //  Unitrans
 //
 //  Created by Kip on 5/20/10.
-//  Copyright 2010 Apple Inc. All rights reserved.
+//  Copyright 2010 All rights reserved.
 //
 
 #import "Service.h"
