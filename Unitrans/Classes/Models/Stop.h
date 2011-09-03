@@ -47,6 +47,7 @@ typedef enum _StopHeadingType {
 #endif
 
 - (NSArray *)allStopTimesWithRoute:(Route *)route onDate:(NSDate *)date;
+- (NSArray *)allDepartingStopTimesWithRoute:(Route *)route onDate:(NSDate *)date;
 - (NSNumber *)stopID;
 - (NSString *)headingString;
 - (NSComparisonResult)compare:(Stop *)otherStop;

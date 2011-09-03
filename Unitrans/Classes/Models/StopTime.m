@@ -57,6 +57,22 @@
     return [dummyDate timeIntervalSinceDate:referenceDate];
 }
 
+- (NSArray *)nextStopTimesInTrip
+{    
+    // Filter StopTimes so that only times after main StopTime's arrival time are left
+    NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"arrivalTime > %@", [self arrivalTime]];
+    
+    return [[[[self trip] stopTimes] allObjects] filteredArrayUsingPredicate:filterPredicate]; // TODO: cache this
+}
+
+- (NSArray *)previousStopTimesInTrip
+{
+    // Filter StopTimes so that only times before main StopTime's arrival time are left
+    NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"arrivalTime < %@", [self arrivalTime]];
+    
+    return [[[[self trip] stopTimes] allObjects] filteredArrayUsingPredicate:filterPredicate]; // TODO: cache this
+}
+
 - (void)setArrivalTimeFromTimeString:(NSString *)timeString
 {
     [self setArrivalTime:[NSNumber numberWithUnsignedInteger:[StopTime secondsFromTimeString:timeString]]];

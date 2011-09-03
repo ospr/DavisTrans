@@ -23,8 +23,9 @@ typedef enum _StopViewSectionIndex {
     Route *route;
     Stop *stop;
 	
+    BOOL hasScheduledStopTimesButNoDepartingStopTimes;      // whether there are any departing stops
 	NSArray *activeStopTimes;	// the stop times to display
-	NSArray *allStopTimes;		// contains all the stop times
+	NSArray *allDepartingStopTimes;		// contains all the stop times
 	NSArray *currentStopTimes;	// contains only the stop times which aren't expired
 	
 	NSDate *selectedDate;
@@ -42,8 +43,9 @@ typedef enum _StopViewSectionIndex {
 
 @property (nonatomic, retain) Route *route;
 @property (nonatomic, retain) Stop *stop;
+@property (nonatomic, assign) BOOL hasScheduledStopTimesButNoDepartingStopTimes;
 @property (nonatomic, retain) NSArray *activeStopTimes;
-@property (nonatomic, retain) NSArray *allStopTimes;
+@property (nonatomic, retain) NSArray *allDepartingStopTimes;
 @property (nonatomic, retain) NSArray *currentStopTimes;
 @property (nonatomic, retain) NSDate *selectedDate;
 @property (nonatomic, retain) NSDate *temporaryDate;
@@ -51,6 +53,7 @@ typedef enum _StopViewSectionIndex {
 @property (nonatomic, readonly) BOOL isFavorite;
 @property (nonatomic, assign) id<StopViewControllerDelegate> delegate;
 
+- (void)determineIfStopHasScheduledStopTimesButNoDepartingStopTimes;
 - (void)sortStopTimes;
 - (void)updateStopTimes;
 - (void)toggleExpiredStopTimes;

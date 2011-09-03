@@ -23,6 +23,9 @@
 @property (nonatomic, retain) Trip * trip;
 @property (nonatomic, retain) Stop * stop;
 
+- (NSArray *)nextStopTimesInTrip;
+- (NSArray *)previousStopTimesInTrip;
+
 - (void)setArrivalTimeFromTimeString:(NSString *)timeString;
 - (void)setDepartureTimeFromTimeString:(NSString *)timeString;
 

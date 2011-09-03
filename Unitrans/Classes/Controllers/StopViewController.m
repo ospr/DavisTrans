@@ -25,8 +25,9 @@
 
 @synthesize route;
 @synthesize stop;
+@synthesize hasScheduledStopTimesButNoDepartingStopTimes;
 @synthesize activeStopTimes;
-@synthesize allStopTimes;
+@synthesize allDepartingStopTimes;
 @synthesize currentStopTimes;
 @synthesize showExpiredStopTimes;
 @dynamic isFavorite;
@@ -66,7 +67,7 @@
     [route release];
     [stop release];
 	[activeStopTimes release];
-	[allStopTimes release];
+	[allDepartingStopTimes release];
 	[currentStopTimes release];
     [selectedDate release];
 
@@ -144,7 +145,7 @@
 	[self setRoute:nil];
 	[self setStop:nil];
 	[self setActiveStopTimes:nil];
-	[self setAllStopTimes:nil];
+	[self setAllDepartingStopTimes:nil];
 	[self setCurrentStopTimes:nil];
 	[self setSelectedDate:nil];
 }
@@ -288,7 +289,9 @@
 	{
 		if ([indexPath row] == 0) 
 		{
-            if ([self noScheduledService])
+            if ([self hasScheduledStopTimesButNoDepartingStopTimes])
+                [[cell textLabel] setText:@"No departing trips."];
+            else if ([self noScheduledService])
                 [[cell textLabel] setText:@"No scheduled bus service."];
 			else if (showExpiredStopTimes) 
 				[[cell textLabel] setText:@"Hide expired times..."];
@@ -386,12 +389,12 @@
 
 - (BOOL)shouldShowNoMoreScheduledStops
 {
-    return !showExpiredStopTimes && [activeStopTimes count] == 0 && ![self noScheduledService];
+    return !showExpiredStopTimes && [activeStopTimes count] == 0 && ![self noScheduledService] && ![self hasScheduledStopTimesButNoDepartingStopTimes];
 }
 
 - (BOOL)noScheduledService
 {
-    return ([allStopTimes count] == 0);
+    return (![self hasScheduledStopTimesButNoDepartingStopTimes] && ([allDepartingStopTimes count] == 0));
 }
 
 #pragma mark -
@@ -500,18 +503,32 @@
 
 - (void)updateStopTimes
 {
-    // Sort stopTimes, filter expired stopTimes, update active stopTimes
+    // Determine departing stops, sort stopTimes, filter expired stopTimes, update active stopTimes
+    [self determineIfStopHasScheduledStopTimesButNoDepartingStopTimes];
     [self sortStopTimes];
 	[self filterExpiredStopTimes];
 	[self updateActiveStopTimes];
 }
 
+- (void)determineIfStopHasScheduledStopTimesButNoDepartingStopTimes
+{
+    NSArray *allStopTimes = [stop allStopTimesWithRoute:route onDate:[self selectedDate]];
+    NSArray *departingStopTimes = [stop allDepartingStopTimesWithRoute:route onDate:[self selectedDate]];
+    
+    NSUInteger allStopTimesCount = [allStopTimes count];
+    NSUInteger allDepartingStopTimesCount = [departingStopTimes count];
+    
+    // There are no departing stop times if there are 
+    [self setHasScheduledStopTimesButNoDepartingStopTimes:((allStopTimesCount > 0) && (allDepartingStopTimesCount == 0))];
+}
+
 - (void)sortStopTimes
 {
+    // TODO: use new method for this
     NSSortDescriptor *stopTimeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"arrivalTime" ascending:YES];
-    NSArray *sortedStopTimes = [[stop allStopTimesWithRoute:route onDate:selectedDate] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopTimeSortDescriptor]];
+    NSArray *sortedStopTimes = [[stop allDepartingStopTimesWithRoute:route onDate:selectedDate] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopTimeSortDescriptor]];
 	[stopTimeSortDescriptor release];
-    [self setAllStopTimes:sortedStopTimes];
+    [self setAllDepartingStopTimes:sortedStopTimes];
 }
 
 - (void)filterExpiredStopTimes
@@ -519,9 +536,9 @@
 	// Filter out expired times
 	NSInteger index = 0;
 	
-	for (index = 0; index < [allStopTimes count]; index++) 
+	for (index = 0; index < [allDepartingStopTimes count]; index++) 
 	{
-		NSDate *arrivalDate = [[NSDate alloc] initWithTimeInterval:[[[allStopTimes objectAtIndex:index] arrivalTime] unsignedIntValue] sinceDate:[selectedDate beginningOfDay]];
+		NSDate *arrivalDate = [[NSDate alloc] initWithTimeInterval:[[[allDepartingStopTimes objectAtIndex:index] arrivalTime] unsignedIntValue] sinceDate:[selectedDate beginningOfDay]];
 		if([arrivalDate earlierDate:[NSDate date]] != arrivalDate)
 		{
 			[arrivalDate release];
@@ -530,14 +547,14 @@
 		[arrivalDate release];
 	}
 	
-	NSRange range = NSMakeRange(index, [allStopTimes count] - index);
-	[self setCurrentStopTimes:[allStopTimes objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range]]];	
+	NSRange range = NSMakeRange(index, [allDepartingStopTimes count] - index);
+	[self setCurrentStopTimes:[allDepartingStopTimes objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range]]];	
 }
 
 - (void)updateActiveStopTimes
 {
 	if (showExpiredStopTimes)
-		[self setActiveStopTimes:allStopTimes];
+		[self setActiveStopTimes:allDepartingStopTimes];
 	else 
 		[self setActiveStopTimes:currentStopTimes];
 }
@@ -551,7 +568,7 @@
     // Insert stop times (show expired times)
     if (showExpiredStopTimes) {
         // Number of rows to insert
-        NSUInteger insertionCount = [allStopTimes count] - [activeStopTimes count];
+        NSUInteger insertionCount = [allDepartingStopTimes count] - [activeStopTimes count];
         
         NSMutableArray *insertIndexPaths = [NSMutableArray array];
         for (int i = 0; i < insertionCount ; i++)
@@ -576,7 +593,7 @@
     // Remove stop times (hide expired times)
     else {
         // Number of rows to delete
-        NSUInteger deletionCount = [allStopTimes count] - [currentStopTimes count];
+        NSUInteger deletionCount = [allDepartingStopTimes count] - [currentStopTimes count];
         
         NSMutableArray *insertIndexPaths = [NSMutableArray array];
         for (int i = 0; i < deletionCount ; i++)

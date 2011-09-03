@@ -87,25 +87,24 @@
 
 - (void)updateStopTimes
 {
-    // Sort StopTimes
-    NSSortDescriptor *stopTimeSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"arrivalTime" ascending:YES] autorelease];
-    NSArray *sortedStopTimes = [[[[stopTime trip] stopTimes] allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopTimeSortDescriptor]];
-    
-    // Filter StopTimes so that only times after main StopTime's arrival time are left
-    NSPredicate *filterPredicate;
-    
+    // Filter stop times based on arrival/departure view  
+    NSArray *stopTimes = nil;
     switch ([self dataType]) {
         case kStopTimeViewDataTypeArrivalTimes: 
-            filterPredicate = [NSPredicate predicateWithFormat:@"arrivalTime > %@", [stopTime arrivalTime]]; 
+            stopTimes = [stopTime nextStopTimesInTrip];
             break;
         case kStopTimeViewDataTypeDepartureTimes: 
-            filterPredicate = [NSPredicate predicateWithFormat:@"arrivalTime < %@", [stopTime arrivalTime]]; 
+            stopTimes = [stopTime previousStopTimesInTrip];
             break;
-        default: return;
+        default:
+            break;
     }
-    
-    NSArray *filteredStopTimes = [sortedStopTimes filteredArrayUsingPredicate:filterPredicate];
-    [self setArrivalTimes:filteredStopTimes];
+
+    // Sort StopTimes
+    NSSortDescriptor *stopTimeSortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"arrivalTime" ascending:YES] autorelease];
+    NSArray *sortedStopTimes = [stopTimes sortedArrayUsingDescriptors:[NSArray arrayWithObject:stopTimeSortDescriptor]];
+
+    [self setArrivalTimes:sortedStopTimes];
 }
 
 #pragma mark -

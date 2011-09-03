@@ -34,11 +34,29 @@
     // Iterate through stopTimes and find times with given Route and date
     for (StopTime *stopTime in [self stopTimes])
     {
-        if ([[[stopTime trip] route] isEqual:route] && [[stopTime trip] hasServiceOnDate:date])
+        // TODO: cache times since we use this method a lot
+        if ([[[stopTime trip] route] isEqual:route] && 
+            [[stopTime trip] hasServiceOnDate:date])
+        {
             [routeStopTimes addObject:stopTime];
+        }   
     }
     
     return [NSArray arrayWithArray:routeStopTimes];
+}
+
+- (NSArray *)allDepartingStopTimesWithRoute:(Route *)route onDate:(NSDate *)date
+{
+    NSMutableArray *departingRouteStopTimes = [NSMutableArray array];
+    NSArray *allStopTimes = [self allStopTimesWithRoute:route onDate:date];
+    
+    for (StopTime *stopTime in allStopTimes)
+    {
+        if ([[stopTime nextStopTimesInTrip] count] > 0)
+            [departingRouteStopTimes addObject:stopTime];
+    }
+    
+    return [NSArray arrayWithArray:departingRouteStopTimes];
 }
 
 - (NSNumber *)stopID
