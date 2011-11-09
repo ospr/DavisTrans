@@ -41,6 +41,7 @@
 
 - (void)dealloc 
 {
+    [selectedViewController setSegmentedViewController:nil];
     [selectedViewController release];
     
     [contentView release];
@@ -87,8 +88,10 @@
     [super viewWillAppear:animated];
         
     // Select first segment if there are segments to select and one hasn't already been selected
-    if ([[self segmentItems] count] != 0 && !selectedViewController)
+    if ([[self segmentItems] count] != 0 && !selectedViewController) {
         [segmentedControl setSelectedSegmentIndex:0];
+        [self segmentIndexWasSelected:[segmentedControl selectedSegmentIndex]];
+    }
     
     // Forward onto selected view controller
     [selectedViewController viewWillAppear:animated];
