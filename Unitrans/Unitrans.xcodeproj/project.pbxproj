@@ -11,8 +11,6 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
-		3704AB8D13EA4E7A00FA2D2E /* UnitransSchedule_20110801.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3704AB8C13EA4E7A00FA2D2E /* UnitransSchedule_20110801.sqlite */; };
-		3704AB8F13EA51BA00FA2D2E /* UnitransSchedule_20110823.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3704AB8E13EA51BA00FA2D2E /* UnitransSchedule_20110823.sqlite */; };
 		3704AB9113EA556B00FA2D2E /* UnitransSchedule_20110922.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3704AB9013EA556B00FA2D2E /* UnitransSchedule_20110922.sqlite */; };
 		3704AB9313EA5F7100FA2D2E /* VRouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 3704AB9213EA5F7100FA2D2E /* VRouteIcon_43.png */; };
 		3704AB9513EA5F7A00FA2D2E /* VRouteIcon_43@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3704AB9413EA5F7A00FA2D2E /* VRouteIcon_43@2x.png */; };
@@ -47,6 +45,7 @@
 		376FD62411017C43004CC2AF /* WRouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD61011017C43004CC2AF /* WRouteToolbarIcon_43.png */; };
 		3776BD8B12079C9B006F3EDD /* NSOperationQueue_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3776BD8A12079C9B006F3EDD /* NSOperationQueue_Extensions.m */; };
 		377854DA11223596008E0886 /* PredictionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 377854D911223596008E0886 /* PredictionsView.m */; };
+		3780DBC6147220240085765B /* UnitransSchedule_20111204.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3780DBC5147220240085765B /* UnitransSchedule_20111204.sqlite */; };
 		378227DC133AFCB500E9DDAB /* 100@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378227C8133AFCB500E9DDAB /* 100@2x.png */; };
 		378227DD133AFCB500E9DDAB /* 24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378227C9133AFCB500E9DDAB /* 24@2x.png */; };
 		378227DE133AFCB500E9DDAB /* 28@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378227CA133AFCB500E9DDAB /* 28@2x.png */; };
@@ -213,8 +212,6 @@
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Unitrans_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Unitrans_Prefix.pch; path = ../../Unitrans_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3704AB8C13EA4E7A00FA2D2E /* UnitransSchedule_20110801.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20110801.sqlite; sourceTree = SOURCE_ROOT; };
-		3704AB8E13EA51BA00FA2D2E /* UnitransSchedule_20110823.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20110823.sqlite; sourceTree = "<group>"; };
 		3704AB9013EA556B00FA2D2E /* UnitransSchedule_20110922.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20110922.sqlite; sourceTree = "<group>"; };
 		3704AB9213EA5F7100FA2D2E /* VRouteIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VRouteIcon_43.png; sourceTree = "<group>"; };
 		3704AB9413EA5F7A00FA2D2E /* VRouteIcon_43@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VRouteIcon_43@2x.png"; sourceTree = "<group>"; };
@@ -255,6 +252,7 @@
 		3776BD8A12079C9B006F3EDD /* NSOperationQueue_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOperationQueue_Extensions.m; sourceTree = "<group>"; };
 		377854D811223596008E0886 /* PredictionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PredictionsView.h; sourceTree = "<group>"; };
 		377854D911223596008E0886 /* PredictionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PredictionsView.m; sourceTree = "<group>"; };
+		3780DBC5147220240085765B /* UnitransSchedule_20111204.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20111204.sqlite; sourceTree = "<group>"; };
 		378227C8133AFCB500E9DDAB /* 100@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100@2x.png"; sourceTree = "<group>"; };
 		378227C9133AFCB500E9DDAB /* 24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "24@2x.png"; sourceTree = "<group>"; };
 		378227CA133AFCB500E9DDAB /* 28@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "28@2x.png"; sourceTree = "<group>"; };
@@ -511,9 +509,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3704AB8C13EA4E7A00FA2D2E /* UnitransSchedule_20110801.sqlite */,
-				3704AB8E13EA51BA00FA2D2E /* UnitransSchedule_20110823.sqlite */,
 				3704AB9013EA556B00FA2D2E /* UnitransSchedule_20110922.sqlite */,
+				3780DBC5147220240085765B /* UnitransSchedule_20111204.sqlite */,
 				7CC4D0AD1097930600F2BB67 /* NIBs */,
 				7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */,
 				8D1107310486CEB800E47090 /* Unitrans-Info.plist */,
@@ -1061,13 +1058,12 @@
 				378227EF133AFCB500E9DDAB /* 96@2x.png in Resources */,
 				3740DBBF133C4CD6000751F8 /* HiddenStop@2x.png in Resources */,
 				37A29E111380D20400ADB9C8 /* Icon@2x.png in Resources */,
-				3704AB8D13EA4E7A00FA2D2E /* UnitransSchedule_20110801.sqlite in Resources */,
-				3704AB8F13EA51BA00FA2D2E /* UnitransSchedule_20110823.sqlite in Resources */,
 				3704AB9113EA556B00FA2D2E /* UnitransSchedule_20110922.sqlite in Resources */,
 				3704AB9313EA5F7100FA2D2E /* VRouteIcon_43.png in Resources */,
 				3704AB9513EA5F7A00FA2D2E /* VRouteIcon_43@2x.png in Resources */,
 				3704AB9713EA60D900FA2D2E /* VRouteToolbarIcon_43.png in Resources */,
 				3704AB9913EA60E200FA2D2E /* VRouteToolbarIcon_43@2x.png in Resources */,
+				3780DBC6147220240085765B /* UnitransSchedule_20111204.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

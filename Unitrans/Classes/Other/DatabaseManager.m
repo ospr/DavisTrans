@@ -19,9 +19,6 @@
 #import "Trip.h"
 #import "Service.h"
 
-NSString *kUnitransSchedulePrefix = @"UnitransSchedule";
-NSString *kUnitransScheduleDate = @"20100329"; // Corresponds to the schedule data date. Should be updated for new schedules.
-NSString *kUnitransScheduleFileType = @"sqlite";
 
 @implementation DatabaseManager
 
@@ -135,26 +132,20 @@ static DatabaseManager *sharedDatabaseManager = nil;
 {
     // Hardcode these for now until a better way is determined
     // IDEA: Move these to a service entity in each GTFS schedule and access them thru there    
-    Service *summer = [[[Service alloc] init] autorelease];
-    [summer setShortName:@"Summer"];
-    [summer setLongName:@"Summer '11"];
-    [summer setResourceName:@"UnitransSchedule_20110801"];
-    [summer setResourceKind:@"sqlite"];
-
-    Service *summer2 = [[[Service alloc] init] autorelease];
-    [summer2 setShortName:@"Summer"];
-    [summer2 setLongName:@"Summer '11 (with S & T)"];
-    [summer2 setResourceName:@"UnitransSchedule_20110823"];
-    [summer2 setResourceKind:@"sqlite"];
-    
     Service *fall = [[[Service alloc] init] autorelease];
     [fall setShortName:@"Fall"];
     [fall setLongName:@"Fall '11"];
     [fall setResourceName:@"UnitransSchedule_20110922"];
     [fall setResourceKind:@"sqlite"];
     
+    Service *finals = [[[Service alloc] init] autorelease];
+    [finals setShortName:@"Finals"];
+    [finals setLongName:@"Fall Finals '11"];
+    [finals setResourceName:@"UnitransSchedule_20111204"];
+    [finals setResourceKind:@"sqlite"];
+    
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:summer, summer2, fall, nil];
+    return [NSArray arrayWithObjects:fall, finals, nil];
 }
 
 - (void)useService:(Service *)newService
