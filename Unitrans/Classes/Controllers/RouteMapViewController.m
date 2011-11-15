@@ -90,6 +90,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
                                                                            style:UIBarButtonItemStyleBordered
                                                                           target:self
                                                                           action:@selector(showPatternsAction:)];
+    [showPatternsButton setAccessibilityLabel:@"Route Patterns"];
     [self setRightSegmentedBarButtonItem:showPatternsButton];
     [showPatternsButton release];
     
@@ -98,6 +99,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
                                                                       style:UIBarButtonItemStyleBordered 
                                                                      target:self 
                                                                      action:@selector(zoomFitAction:)];
+    [zoomFitButton setAccessibilityLabel:@"Zoom to fit"];
     [self setLeftSegmentedBarButtonItem:zoomFitButton];
     [zoomFitButton release];
 }

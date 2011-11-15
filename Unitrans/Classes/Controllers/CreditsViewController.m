@@ -12,12 +12,14 @@
 @implementation CreditsViewController
 
 @synthesize creditsTextView;
+@synthesize versionLabel;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     [[self navigationItem] setTitle:@"Credits"];
+    [versionLabel setText:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
 }
 
 - (void)viewDidAppear:(BOOL)animated

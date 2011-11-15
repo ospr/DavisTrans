@@ -79,6 +79,7 @@ CGFloat kDetailedOverlayViewWidth = 255.0;
     [[detailOverlayView textLabel] setText:[stop name]];
     [[detailOverlayView detailTextLabel] setText:[NSString stringWithFormat:@"#%@ %@", [stop stopID], [stop headingString]]];
     [[detailOverlayView imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteToolbarIcon_43.png", [route shortName]]]];
+    [detailOverlayView setAccessibilityLabel:[NSString stringWithFormat:@"%@ Line, %@, #%@, %@", [route shortName], [stop name], [stop stopID], [stop headingString]]];
     [[self navigationItem] setTitleView:detailOverlayView];
     
     // Create tableBackground image view to fill in space behind prediction view

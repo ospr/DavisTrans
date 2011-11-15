@@ -113,6 +113,7 @@
 																		style:UIBarButtonItemStyleBordered 
 																	   target:self 
 																	   action:@selector(favoritesButtonPressed:)];
+    [favoritesButton setAccessibilityLabel:@"Favorite"];
     // If stop is a favorite, then set to filled star
 	if([self isFavorite])
 		[favoritesButton setImage:[UIImage imageNamed:@"FavoriteStarFilled.png"]];

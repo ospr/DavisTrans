@@ -26,6 +26,7 @@
         
         // Init imageview
         imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [imageView setIsAccessibilityElement:NO];
         [self addSubview:imageView];
         
         // Init textLabel
@@ -33,6 +34,7 @@
         [textLabel setFont:[UIFont boldSystemFontOfSize:17]];
         [textLabel setTextColor:[UIColor whiteColor]];
         [textLabel setBackgroundColor:[UIColor clearColor]];
+        [textLabel setIsAccessibilityElement:NO];
         [self addSubview:textLabel];
         
         // Init detailTextLabel
@@ -40,6 +42,7 @@
         [detailTextLabel setFont:[UIFont boldSystemFontOfSize:10]];
         [detailTextLabel setTextColor:[UIColor whiteColor]];
         [detailTextLabel setBackgroundColor:[UIColor clearColor]];
+        [detailTextLabel setIsAccessibilityElement:NO];
         [self addSubview:detailTextLabel];
     }
     
@@ -110,6 +113,10 @@
     CGContextFillRect(context, boundsOffset);
     
     CGContextRestoreGState(context);
+}
+
+- (BOOL)isAccessibilityElement {
+    return YES;
 }
 
 @end

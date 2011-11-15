@@ -231,4 +231,8 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     CGContextRestoreGState(context);
 }*/
 
+- (NSString *)accessibilityHint {
+    return @"Double tap to update";
+}
+
 @end

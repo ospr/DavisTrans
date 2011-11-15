@@ -74,6 +74,7 @@ NSUInteger MaxConcurrentOperationCount = 3;
 
     // Add info button
     UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [infoButton setAccessibilityLabel:@"Info"];
     [infoButton addTarget:self action:@selector(showAboutViewAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *infoButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
     [[self navigationItem] setRightBarButtonItem:infoButtonItem];
@@ -252,11 +253,15 @@ NSUInteger MaxConcurrentOperationCount = 3;
 		
 		if ([[[favoritePredictions objectAtIndex:[indexPath row]] valueForKey:@"predictions"] isEqual:@""]) {
 			[[cell detailTextLabel] setText:[NSString stringWithFormat:@"#%@ %@", [stop stopID], [stop headingString]]];
+            [cell setAccessibilityLabel:[NSString stringWithFormat:@"%@ Line, %@, #%@, %@", [route shortName], [stop name], [stop stopID], [stop headingString]]];
 		} else {
 			[[cell detailTextLabel] setText:[NSString stringWithFormat:@"#%@ %@ - %@", [stop stopID], [stop headingString], [[favoritePredictions objectAtIndex:[indexPath row]] valueForKey:@"predictions"]]];
+            [cell setAccessibilityLabel:[NSString stringWithFormat:@"%@ Line, %@, #%@, %@, %@", [route shortName], [stop name], [stop stopID], [stop headingString], [[favoritePredictions objectAtIndex:[indexPath row]] valueForKey:@"predictions"]]];
 		}
 
         [[cell imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
+        
+        
     }
     else 
     {

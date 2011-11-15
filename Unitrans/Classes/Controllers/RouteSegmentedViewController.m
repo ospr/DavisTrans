@@ -50,6 +50,7 @@
     [[detailOverlayView textLabel] setText:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
     [[detailOverlayView detailTextLabel] setText:[route longName]];
     [[detailOverlayView imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteToolbarIcon_43.png", [route shortName]]]];
+    [detailOverlayView setAccessibilityLabel:[NSString stringWithFormat:@"%@ Line, %@", [route shortName], [route longName]]]; 
     
     // Set navbar title view
     [[self navigationItem] setTitleView:detailOverlayView];

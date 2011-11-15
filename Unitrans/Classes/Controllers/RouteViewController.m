@@ -176,10 +176,13 @@
         stop = [stops objectAtIndex:[indexPath row]];
     
     // Set stop name and heading (Add a star if the stop is a favorite)
-    if ([[FavoritesController sharedFavorites] isFavoriteStop:stop forRoute:route])
+    if ([[FavoritesController sharedFavorites] isFavoriteStop:stop forRoute:route]) {
         [[cell textLabel] setText:[NSString stringWithFormat:@"★ %@", [stop name]]];
-    else
+        [cell setAccessibilityLabel:[NSString stringWithFormat:@"Favorite, %@, %@", [stop name], [stop headingString]]];
+    }
+    else {
         [[cell textLabel] setText:[stop name]];
+    }
     [[cell detailTextLabel] setText:[stop headingString]];
 }
 
