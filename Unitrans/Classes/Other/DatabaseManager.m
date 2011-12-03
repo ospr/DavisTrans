@@ -131,21 +131,21 @@ static DatabaseManager *sharedDatabaseManager = nil;
 - (NSArray *)allServices
 {
     // Hardcode these for now until a better way is determined
-    // IDEA: Move these to a service entity in each GTFS schedule and access them thru there    
-    Service *fall = [[[Service alloc] init] autorelease];
-    [fall setShortName:@"Fall"];
-    [fall setLongName:@"Fall '11"];
-    [fall setResourceName:@"UnitransSchedule_20110922"];
-    [fall setResourceKind:@"sqlite"];
-    
+    // IDEA: Move these to a service entity in each GTFS schedule and access them thru there        
     Service *finals = [[[Service alloc] init] autorelease];
     [finals setShortName:@"Finals"];
     [finals setLongName:@"Fall Finals '11"];
     [finals setResourceName:@"UnitransSchedule_20111204"];
     [finals setResourceKind:@"sqlite"];
+
+    Service *winterBreak = [[[Service alloc] init] autorelease];
+    [winterBreak setShortName:@"Break"];
+    [winterBreak setLongName:@"Winter Break '11"];
+    [winterBreak setResourceName:@"UnitransSchedule_20111211"];
+    [winterBreak setResourceKind:@"sqlite"];
     
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:fall, finals, nil];
+    return [NSArray arrayWithObjects:finals, winterBreak, nil];
 }
 
 - (void)useService:(Service *)newService

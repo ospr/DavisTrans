@@ -11,7 +11,6 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
-		3704AB9113EA556B00FA2D2E /* UnitransSchedule_20110922.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3704AB9013EA556B00FA2D2E /* UnitransSchedule_20110922.sqlite */; };
 		3704AB9313EA5F7100FA2D2E /* VRouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 3704AB9213EA5F7100FA2D2E /* VRouteIcon_43.png */; };
 		3704AB9513EA5F7A00FA2D2E /* VRouteIcon_43@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3704AB9413EA5F7A00FA2D2E /* VRouteIcon_43@2x.png */; };
 		3704AB9713EA60D900FA2D2E /* VRouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 3704AB9613EA60D900FA2D2E /* VRouteToolbarIcon_43.png */; };
@@ -120,6 +119,7 @@
 		37873E921336C9B600796E45 /* Network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37873E911336C9B600796E45 /* Network@2x.png */; };
 		3788E5461172EC9E00AD86AC /* FavoritesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3788E5451172EC9E00AD86AC /* FavoritesController.m */; };
 		3795472510C7A13E005A2D93 /* BusAnimationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */; };
+		379AD21D148AC847009DD39B /* UnitransSchedule_20111211.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 379AD21C148AC847009DD39B /* UnitransSchedule_20111211.sqlite */; };
 		37A29E111380D20400ADB9C8 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37A29E101380D20400ADB9C8 /* Icon@2x.png */; };
 		37BAFE4C1120FB0500077C65 /* HiddenStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BAFE4B1120FB0500077C65 /* HiddenStop.png */; };
 		37BBD9F011A63F6B00E96779 /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BBD9EF11A63F6B00E96779 /* Service.m */; };
@@ -212,7 +212,6 @@
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Unitrans_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Unitrans_Prefix.pch; path = ../../Unitrans_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3704AB9013EA556B00FA2D2E /* UnitransSchedule_20110922.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20110922.sqlite; sourceTree = "<group>"; };
 		3704AB9213EA5F7100FA2D2E /* VRouteIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VRouteIcon_43.png; sourceTree = "<group>"; };
 		3704AB9413EA5F7A00FA2D2E /* VRouteIcon_43@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VRouteIcon_43@2x.png"; sourceTree = "<group>"; };
 		3704AB9613EA60D900FA2D2E /* VRouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VRouteToolbarIcon_43.png; sourceTree = "<group>"; };
@@ -329,6 +328,7 @@
 		3788E5451172EC9E00AD86AC /* FavoritesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesController.m; sourceTree = "<group>"; };
 		3795472310C7A13E005A2D93 /* BusAnimationAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusAnimationAnnotationView.h; sourceTree = "<group>"; };
 		3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusAnimationAnnotationView.m; sourceTree = "<group>"; };
+		379AD21C148AC847009DD39B /* UnitransSchedule_20111211.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20111211.sqlite; sourceTree = "<group>"; };
 		37A29E101380D20400ADB9C8 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		37BAFE4B1120FB0500077C65 /* HiddenStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HiddenStop.png; sourceTree = "<group>"; };
 		37BBD9EE11A63F6B00E96779 /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
@@ -509,8 +509,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3704AB9013EA556B00FA2D2E /* UnitransSchedule_20110922.sqlite */,
 				3780DBC5147220240085765B /* UnitransSchedule_20111204.sqlite */,
+				379AD21C148AC847009DD39B /* UnitransSchedule_20111211.sqlite */,
 				7CC4D0AD1097930600F2BB67 /* NIBs */,
 				7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */,
 				8D1107310486CEB800E47090 /* Unitrans-Info.plist */,
@@ -1058,12 +1058,12 @@
 				378227EF133AFCB500E9DDAB /* 96@2x.png in Resources */,
 				3740DBBF133C4CD6000751F8 /* HiddenStop@2x.png in Resources */,
 				37A29E111380D20400ADB9C8 /* Icon@2x.png in Resources */,
-				3704AB9113EA556B00FA2D2E /* UnitransSchedule_20110922.sqlite in Resources */,
 				3704AB9313EA5F7100FA2D2E /* VRouteIcon_43.png in Resources */,
 				3704AB9513EA5F7A00FA2D2E /* VRouteIcon_43@2x.png in Resources */,
 				3704AB9713EA60D900FA2D2E /* VRouteToolbarIcon_43.png in Resources */,
 				3704AB9913EA60E200FA2D2E /* VRouteToolbarIcon_43@2x.png in Resources */,
 				3780DBC6147220240085765B /* UnitransSchedule_20111204.sqlite in Resources */,
+				379AD21D148AC847009DD39B /* UnitransSchedule_20111211.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
