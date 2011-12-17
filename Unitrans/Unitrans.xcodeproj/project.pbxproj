@@ -509,34 +509,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				379AD21C148AC847009DD39B /* UnitransSchedule_20111211.sqlite */,
-				37A8019C149D32FC0041C8B9 /* UnitransSchedule_20120108.sqlite */,
+				37A8019E149D35970041C8B9 /* Schedules */,
 				7CC4D0AD1097930600F2BB67 /* NIBs */,
+				37A8019F149D35B40041C8B9 /* Graphics */,
 				7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */,
 				8D1107310486CEB800E47090 /* Unitrans-Info.plist */,
-				7CE69EBB10C248250002DE93 /* Default.png */,
-				37873DF71336AD8E00796E45 /* Default@2x.png */,
-				C9C1F8ED118943FA005978B3 /* Icon.png */,
-				37A29E101380D20400ADB9C8 /* Icon@2x.png */,
-				37873DC813369E1300796E45 /* DavisTransTitle.png */,
-				37873DC913369E1300796E45 /* DavisTransTitle@2x.png */,
-				7CD3E3E210C58AB20053771E /* BusTokenIcon.png */,
-				37873D801336926900796E45 /* BusTokenIcon@2x.png */,
-				C90525F010D9AB3D00B1B7F1 /* BusArrow.png */,
-				37873E531336B95000796E45 /* BusArrow@2x.png */,
-				37873E401336B29700796E45 /* RedDisaplay.png */,
-				37873E411336B29700796E45 /* RedDisplay@2x.png */,
-				37C2CEB910E881F70001E1AF /* Location.png */,
-				37873E821336C3BB00796E45 /* Location@2x.png */,
-				37C2CE4710E7EFB60001E1AF /* Network.png */,
-				37873E911336C9B600796E45 /* Network@2x.png */,
-				37BAFE4B1120FB0500077C65 /* HiddenStop.png */,
-				3740DBBE133C4CD6000751F8 /* HiddenStop@2x.png */,
-				37D1A0DF1125F97900E753EF /* TableBackground.png */,
-				3783B7DD1167D4BE008CBB60 /* FavoriteStar */,
-				373EF06510CC77FF007CFD39 /* Circles */,
-				376FD5FC11017C43004CC2AF /* RouteToolbarIcons */,
-				7CE69E5D10C243890002DE93 /* RouteIcons */,
 				C974345010A9F4D50072C7B6 /* Todo */,
 			);
 			name = Resources;
@@ -661,6 +638,45 @@
 				37873D6C13368FB400796E45 /* FavoriteStarNoFill@2x.png */,
 			);
 			path = FavoriteStar;
+			sourceTree = "<group>";
+		};
+		37A8019E149D35970041C8B9 /* Schedules */ = {
+			isa = PBXGroup;
+			children = (
+				379AD21C148AC847009DD39B /* UnitransSchedule_20111211.sqlite */,
+				37A8019C149D32FC0041C8B9 /* UnitransSchedule_20120108.sqlite */,
+			);
+			name = Schedules;
+			sourceTree = "<group>";
+		};
+		37A8019F149D35B40041C8B9 /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				7CE69EBB10C248250002DE93 /* Default.png */,
+				37873DF71336AD8E00796E45 /* Default@2x.png */,
+				C9C1F8ED118943FA005978B3 /* Icon.png */,
+				37A29E101380D20400ADB9C8 /* Icon@2x.png */,
+				37873DC813369E1300796E45 /* DavisTransTitle.png */,
+				37873DC913369E1300796E45 /* DavisTransTitle@2x.png */,
+				7CD3E3E210C58AB20053771E /* BusTokenIcon.png */,
+				37873D801336926900796E45 /* BusTokenIcon@2x.png */,
+				C90525F010D9AB3D00B1B7F1 /* BusArrow.png */,
+				37873E531336B95000796E45 /* BusArrow@2x.png */,
+				37873E401336B29700796E45 /* RedDisaplay.png */,
+				37873E411336B29700796E45 /* RedDisplay@2x.png */,
+				37C2CEB910E881F70001E1AF /* Location.png */,
+				37873E821336C3BB00796E45 /* Location@2x.png */,
+				37C2CE4710E7EFB60001E1AF /* Network.png */,
+				37873E911336C9B600796E45 /* Network@2x.png */,
+				37BAFE4B1120FB0500077C65 /* HiddenStop.png */,
+				3740DBBE133C4CD6000751F8 /* HiddenStop@2x.png */,
+				37D1A0DF1125F97900E753EF /* TableBackground.png */,
+				3783B7DD1167D4BE008CBB60 /* FavoriteStar */,
+				373EF06510CC77FF007CFD39 /* Circles */,
+				376FD5FC11017C43004CC2AF /* RouteToolbarIcons */,
+				7CE69E5D10C243890002DE93 /* RouteIcons */,
+			);
+			name = Graphics;
 			sourceTree = "<group>";
 		};
 		37D9267C1127DCC5000349A7 /* RedCircle */ = {
