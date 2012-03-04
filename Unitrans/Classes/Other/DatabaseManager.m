@@ -132,20 +132,32 @@ static DatabaseManager *sharedDatabaseManager = nil;
 {
     // Hardcode these for now until a better way is determined
     // IDEA: Move these to a service entity in each GTFS schedule and access them thru there        
-    Service *winterBreak = [[[Service alloc] init] autorelease];
-    [winterBreak setShortName:@"Break"];
-    [winterBreak setLongName:@"Winter Break '11"];
-    [winterBreak setResourceName:@"UnitransSchedule_20111211"];
-    [winterBreak setResourceKind:@"sqlite"];
-    
     Service *winter = [[[Service alloc] init] autorelease];
     [winter setShortName:@"Winter"];
     [winter setLongName:@"Winter '12"];
     [winter setResourceName:@"UnitransSchedule_20120108"];
     [winter setResourceKind:@"sqlite"];    
     
+    Service *winterFinals = [[[Service alloc] init] autorelease];
+    [winterFinals setShortName:@"Finals"];
+    [winterFinals setLongName:@"Winter Finals '12"];
+    [winterFinals setResourceName:@"UnitransSchedule_20120320"];
+    [winterFinals setResourceKind:@"sqlite"];
+
+    Service *springBreak = [[[Service alloc] init] autorelease];
+    [springBreak setShortName:@"Break"];
+    [springBreak setLongName:@"Spring Break '12"];
+    [springBreak setResourceName:@"UnitransSchedule_20120325"];
+    [springBreak setResourceKind:@"sqlite"];
+    
+    Service *spring = [[[Service alloc] init] autorelease];
+    [spring setShortName:@"Spring"];
+    [spring setLongName:@"Spring '12"];
+    [spring setResourceName:@"UnitransSchedule_20120401"];
+    [spring setResourceKind:@"sqlite"];
+    
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:winterBreak, winter, nil];
+    return [NSArray arrayWithObjects:winter, winterFinals, springBreak, spring, nil];
 }
 
 - (void)useService:(Service *)newService
