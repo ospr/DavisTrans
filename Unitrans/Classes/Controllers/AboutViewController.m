@@ -229,6 +229,9 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
             }
         }        
     }
+    
+    // TableViewController won't work because viewDidAppear is not called when app is brought back to foreground (urls)
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
