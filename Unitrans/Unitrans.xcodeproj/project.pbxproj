@@ -44,7 +44,6 @@
 		376FD62411017C43004CC2AF /* WRouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD61011017C43004CC2AF /* WRouteToolbarIcon_43.png */; };
 		3776BD8B12079C9B006F3EDD /* NSOperationQueue_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3776BD8A12079C9B006F3EDD /* NSOperationQueue_Extensions.m */; };
 		377854DA11223596008E0886 /* PredictionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 377854D911223596008E0886 /* PredictionsView.m */; };
-		377EA77D1503EC6400963C7D /* UnitransSchedule_20120401.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 377EA77A1503EC6400963C7D /* UnitransSchedule_20120401.sqlite */; };
 		378227DC133AFCB500E9DDAB /* 100@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378227C8133AFCB500E9DDAB /* 100@2x.png */; };
 		378227DD133AFCB500E9DDAB /* 24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378227C9133AFCB500E9DDAB /* 24@2x.png */; };
 		378227DE133AFCB500E9DDAB /* 28@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378227CA133AFCB500E9DDAB /* 28@2x.png */; };
@@ -119,6 +118,8 @@
 		37873E921336C9B600796E45 /* Network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37873E911336C9B600796E45 /* Network@2x.png */; };
 		3788E5461172EC9E00AD86AC /* FavoritesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3788E5451172EC9E00AD86AC /* FavoritesController.m */; };
 		3795472510C7A13E005A2D93 /* BusAnimationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */; };
+		379C97C315BB06A100F688B7 /* UnitransSchedule_20120806.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 379C97C115BB06A100F688B7 /* UnitransSchedule_20120806.sqlite */; };
+		379C97C515BB06B400F688B7 /* UnitransSchedule_20120822.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 379C97C415BB06B400F688B7 /* UnitransSchedule_20120822.sqlite */; };
 		37A29E111380D20400ADB9C8 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37A29E101380D20400ADB9C8 /* Icon@2x.png */; };
 		37BAFE4C1120FB0500077C65 /* HiddenStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BAFE4B1120FB0500077C65 /* HiddenStop.png */; };
 		37BBD9F011A63F6B00E96779 /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BBD9EF11A63F6B00E96779 /* Service.m */; };
@@ -153,7 +154,6 @@
 		37D926A51127DCC5000349A7 /* 92.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D926901127DCC5000349A7 /* 92.png */; };
 		37D926A61127DCC5000349A7 /* 96.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D926911127DCC5000349A7 /* 96.png */; };
 		37D926A71127DCC5000349A7 /* RedCircle.opacity in Resources */ = {isa = PBXBuildFile; fileRef = 37D926921127DCC5000349A7 /* RedCircle.opacity */; };
-		37E4D0B215743A4000CFA33A /* UnitransSchedule_20120608.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 37E4D0B015743A4000CFA33A /* UnitransSchedule_20120608.sqlite */; };
 		37E4D0B315743A4000CFA33A /* UnitransSchedule_20120615.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 37E4D0B115743A4000CFA33A /* UnitransSchedule_20120615.sqlite */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
 		7C25C28010A8CD7300AAD086 /* UIColor_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */; };
@@ -252,7 +252,6 @@
 		3776BD8A12079C9B006F3EDD /* NSOperationQueue_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOperationQueue_Extensions.m; sourceTree = "<group>"; };
 		377854D811223596008E0886 /* PredictionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PredictionsView.h; sourceTree = "<group>"; };
 		377854D911223596008E0886 /* PredictionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PredictionsView.m; sourceTree = "<group>"; };
-		377EA77A1503EC6400963C7D /* UnitransSchedule_20120401.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20120401.sqlite; sourceTree = "<group>"; };
 		378227C8133AFCB500E9DDAB /* 100@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100@2x.png"; sourceTree = "<group>"; };
 		378227C9133AFCB500E9DDAB /* 24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "24@2x.png"; sourceTree = "<group>"; };
 		378227CA133AFCB500E9DDAB /* 28@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "28@2x.png"; sourceTree = "<group>"; };
@@ -329,6 +328,8 @@
 		3788E5451172EC9E00AD86AC /* FavoritesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesController.m; sourceTree = "<group>"; };
 		3795472310C7A13E005A2D93 /* BusAnimationAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusAnimationAnnotationView.h; sourceTree = "<group>"; };
 		3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusAnimationAnnotationView.m; sourceTree = "<group>"; };
+		379C97C115BB06A100F688B7 /* UnitransSchedule_20120806.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20120806.sqlite; sourceTree = "<group>"; };
+		379C97C415BB06B400F688B7 /* UnitransSchedule_20120822.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20120822.sqlite; sourceTree = "<group>"; };
 		37A29E101380D20400ADB9C8 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		37BAFE4B1120FB0500077C65 /* HiddenStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HiddenStop.png; sourceTree = "<group>"; };
 		37BBD9EE11A63F6B00E96779 /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
@@ -371,7 +372,6 @@
 		37D926901127DCC5000349A7 /* 92.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 92.png; sourceTree = "<group>"; };
 		37D926911127DCC5000349A7 /* 96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 96.png; sourceTree = "<group>"; };
 		37D926921127DCC5000349A7 /* RedCircle.opacity */ = {isa = PBXFileReference; lastKnownFileType = file; path = RedCircle.opacity; sourceTree = "<group>"; };
-		37E4D0B015743A4000CFA33A /* UnitransSchedule_20120608.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20120608.sqlite; sourceTree = "<group>"; };
 		37E4D0B115743A4000CFA33A /* UnitransSchedule_20120615.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20120615.sqlite; sourceTree = "<group>"; };
 		7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7C25C27E10A8CD7300AAD086 /* UIColor_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColor_Extensions.h; sourceTree = "<group>"; };
@@ -645,9 +645,9 @@
 		37A8019E149D35970041C8B9 /* Schedules */ = {
 			isa = PBXGroup;
 			children = (
-				377EA77A1503EC6400963C7D /* UnitransSchedule_20120401.sqlite */,
-				37E4D0B015743A4000CFA33A /* UnitransSchedule_20120608.sqlite */,
 				37E4D0B115743A4000CFA33A /* UnitransSchedule_20120615.sqlite */,
+				379C97C115BB06A100F688B7 /* UnitransSchedule_20120806.sqlite */,
+				379C97C415BB06B400F688B7 /* UnitransSchedule_20120822.sqlite */,
 			);
 			name = Schedules;
 			sourceTree = "<group>";
@@ -1081,9 +1081,9 @@
 				3704AB9513EA5F7A00FA2D2E /* VRouteIcon_43@2x.png in Resources */,
 				3704AB9713EA60D900FA2D2E /* VRouteToolbarIcon_43.png in Resources */,
 				3704AB9913EA60E200FA2D2E /* VRouteToolbarIcon_43@2x.png in Resources */,
-				377EA77D1503EC6400963C7D /* UnitransSchedule_20120401.sqlite in Resources */,
-				37E4D0B215743A4000CFA33A /* UnitransSchedule_20120608.sqlite in Resources */,
 				37E4D0B315743A4000CFA33A /* UnitransSchedule_20120615.sqlite in Resources */,
+				379C97C315BB06A100F688B7 /* UnitransSchedule_20120806.sqlite in Resources */,
+				379C97C515BB06B400F688B7 /* UnitransSchedule_20120822.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

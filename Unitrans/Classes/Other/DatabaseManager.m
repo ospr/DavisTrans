@@ -132,26 +132,26 @@ static DatabaseManager *sharedDatabaseManager = nil;
 {
     // Hardcode these for now until a better way is determined
     // IDEA: Move these to a service entity in each GTFS schedule and access them thru there            
-    Service *spring = [[[Service alloc] init] autorelease];
-    [spring setShortName:@"Spring"];
-    [spring setLongName:@"Spring '12"];
-    [spring setResourceName:@"UnitransSchedule_20120401"];
-    [spring setResourceKind:@"sqlite"];
-
-    Service *springFinals = [[[Service alloc] init] autorelease];
-    [springFinals setShortName:@"Finals"];
-    [springFinals setLongName:@"Spring Finals '12"];
-    [springFinals setResourceName:@"UnitransSchedule_20120608"];
-    [springFinals setResourceKind:@"sqlite"];
-
     Service *summer1 = [[[Service alloc] init] autorelease];
     [summer1 setShortName:@"Summer1"];
     [summer1 setLongName:@"Summer1 '12"];
     [summer1 setResourceName:@"UnitransSchedule_20120615"];
     [summer1 setResourceKind:@"sqlite"];
+
+    Service *summer2 = [[[Service alloc] init] autorelease];
+    [summer2 setShortName:@"Summer2"];
+    [summer2 setLongName:@"Summer2 '12"];
+    [summer2 setResourceName:@"UnitransSchedule_20120806"];
+    [summer2 setResourceKind:@"sqlite"];
+
+    Service *summer2WithST = [[[Service alloc] init] autorelease];
+    [summer2WithST setShortName:@"Summer2"];
+    [summer2WithST setLongName:@"Summer2 '12 (with S & T)"];
+    [summer2WithST setResourceName:@"UnitransSchedule_20120822"];
+    [summer2WithST setResourceKind:@"sqlite"];
     
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:spring, springFinals, summer1, nil];
+    return [NSArray arrayWithObjects:summer1, summer2, summer2WithST, nil];
 }
 
 - (void)useService:(Service *)newService
