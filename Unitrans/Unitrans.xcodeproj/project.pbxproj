@@ -1150,8 +1150,9 @@
 				INFOPLIST_FILE = "Unitrans-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = DavisTrans;
-				PROVISIONING_PROFILE = "CDE4C9AE-E1A6-4A9B-B3B5-FCC8C7E9323B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CDE4C9AE-E1A6-4A9B-B3B5-FCC8C7E9323B";
+				PROVISIONING_PROFILE = "24CEBCFB-124E-4BAF-8887-0542390462C2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "24CEBCFB-124E-4BAF-8887-0542390462C2";
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -1159,16 +1160,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ken Zheng (3C28KG49NA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ken Zheng (3C28KG49NA)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ken Zheng";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ken Zheng";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Unitrans_Prefix.pch;
 				INFOPLIST_FILE = "Unitrans-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = DavisTrans;
-				PROVISIONING_PROFILE = "CDE4C9AE-E1A6-4A9B-B3B5-FCC8C7E9323B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2009AAC3-FE80-48BC-97C9-61AFC5817A2A";
+				PROVISIONING_PROFILE = "53BF4021-EB5B-4994-B726-E4AC1FAD799F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "53BF4021-EB5B-4994-B726-E4AC1FAD799F";
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
