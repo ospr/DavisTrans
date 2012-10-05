@@ -203,6 +203,7 @@
 		C993E18C10A206E800B0F44D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C993E18B10A206E800B0F44D /* MainWindow.xib */; };
 		C9AB0A5F10A3627400B75C4B /* StopTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AB0A5E10A3627400B75C4B /* StopTimeViewController.m */; };
 		C9C1F8EE118943FA005978B3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C1F8ED118943FA005978B3 /* Icon.png */; };
+		C9F2E204161E9471005032BA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9F2E203161E9471005032BA /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -445,6 +446,7 @@
 		C9AB0A5D10A3627400B75C4B /* StopTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopTimeViewController.h; sourceTree = "<group>"; };
 		C9AB0A5E10A3627400B75C4B /* StopTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTimeViewController.m; sourceTree = "<group>"; };
 		C9C1F8ED118943FA005978B3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		C9F2E203161E9471005032BA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -654,6 +656,7 @@
 			children = (
 				7CE69EBB10C248250002DE93 /* Default.png */,
 				37873DF71336AD8E00796E45 /* Default@2x.png */,
+				C9F2E203161E9471005032BA /* Default-568h@2x.png */,
 				C9C1F8ED118943FA005978B3 /* Icon.png */,
 				37A29E101380D20400ADB9C8 /* Icon@2x.png */,
 				37873DC813369E1300796E45 /* DavisTransTitle.png */,
@@ -1080,6 +1083,7 @@
 				3704AB9913EA60E200FA2D2E /* VRouteToolbarIcon_43@2x.png in Resources */,
 				379C97C515BB06B400F688B7 /* UnitransSchedule_20120822.sqlite in Resources */,
 				3748FCF615FBAE92003DFDC5 /* UnitransSchedule_20120927.sqlite in Resources */,
+				C9F2E204161E9471005032BA /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1151,7 +1155,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = DavisTrans;
 				PROVISIONING_PROFILE = "24CEBCFB-124E-4BAF-8887-0542390462C2";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "24CEBCFB-124E-4BAF-8887-0542390462C2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "741AD1D4-0073-48EB-900D-553125E155B3";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;

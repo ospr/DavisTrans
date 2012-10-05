@@ -583,7 +583,7 @@
             // If all stopTimes have expired, then delete the "No more stop times" cell
             if (wasShowingNoMoreScheduledArrivals)
                 [[self tableView] deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:SectionIndexStopTimes]] withRowAnimation:UITableViewRowAnimationTop];
-            [[self tableView] insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationTop];
+            [[self tableView] insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationBottom];
         
 
         [[self tableView] reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:SectionIndexStopTimes]] withRowAnimation:UITableViewRowAnimationNone];
@@ -605,7 +605,7 @@
         
         // Begin animation block
         [[self tableView] beginUpdates];
-            [[self tableView] deleteRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationTop];
+            [[self tableView] deleteRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationBottom];
             // If all stopTimes have expired, then insert the "No more stop times" cell
             if ([self shouldShowNoMoreScheduledStops])
                 [[self tableView] insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:SectionIndexStopTimes]] withRowAnimation:UITableViewRowAnimationTop];
