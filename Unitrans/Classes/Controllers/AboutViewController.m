@@ -95,6 +95,7 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
                                   [NSURL URLWithString:kTipsyWebsite], kResourceURLKey,
                                   nil];
     
+    /*
     NSDictionary *uniRidePhone = [NSDictionary dictionaryWithObjectsAndKeys:
                                   @"phone", kMainTextKey,
                                   kUniRidePhoneText, kDetailTextKey,
@@ -105,7 +106,7 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
                                     @"website", kMainTextKey,
                                     kUniRideWebsite, kDetailTextKey,
                                     [NSURL URLWithString:kUniRideWebsite], kResourceURLKey,
-                                    nil];
+                                    nil]; */
     
     NSDictionary *about = [NSDictionary dictionaryWithObjectsAndKeys:
                            @"Credits", kMainTextKey,
@@ -113,10 +114,10 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
     
     NSArray *unitrans = [NSArray arrayWithObjects:unitransPhone, unitransWebsite, unitransEmail, nil];
     NSArray *tipsy = [NSArray arrayWithObjects:tipsyPhone, tipsyWebsite, nil];
-    NSArray *uniride = [NSArray arrayWithObjects:uniRidePhone, uniRideWebsite, nil];
+    //NSArray *uniride = [NSArray arrayWithObjects:uniRidePhone, uniRideWebsite, nil];
     NSArray *moreInfo = [NSArray arrayWithObjects:about, nil];
     
-    aboutItems = [[NSArray alloc] initWithObjects:unitrans, tipsy, uniride, moreInfo, nil];
+    aboutItems = [[NSArray alloc] initWithObjects:unitrans, tipsy, moreInfo, nil];
 }
 
 - (void)viewDidUnload 
@@ -150,9 +151,9 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
         return @"Unitrans";
     if (section == 1)
         return @"Tipsy Taxi";
+    //if (section == 2)
+    //    return @"UniRide";
     if (section == 2)
-        return @"UniRide";
-    if (section == 3)
         return @"More Info";
     
     return nil;
@@ -202,7 +203,7 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
 {
     NSDictionary *item = [[aboutItems objectAtIndex:[indexPath section]] objectAtIndex:[indexPath row]];
     
-    if ([indexPath section] == 3)
+    if ([indexPath section] == 2)
     {
         CreditsViewController *creditsViewController = [[CreditsViewController alloc] init];
         

@@ -1203,7 +1203,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PROVISIONING_PROFILE = "CDE4C9AE-E1A6-4A9B-B3B5-FCC8C7E9323B";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = iphoneos5.0;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -1234,7 +1234,7 @@
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2009AAC3-FE80-48BC-97C9-61AFC5817A2A";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = iphoneos5.0;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
