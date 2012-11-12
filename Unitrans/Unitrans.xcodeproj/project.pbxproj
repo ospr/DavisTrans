@@ -24,6 +24,8 @@
 		373EF0AC10CC9047007CFD39 /* PredictionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 373EF0AB10CC9047007CFD39 /* PredictionOperation.m */; };
 		3740DBBF133C4CD6000751F8 /* HiddenStop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3740DBBE133C4CD6000751F8 /* HiddenStop@2x.png */; };
 		3748FCF615FBAE92003DFDC5 /* UnitransSchedule_20120927.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3748FCF515FBAE92003DFDC5 /* UnitransSchedule_20120927.sqlite */; };
+		376DC2A916507E1F0036186B /* UnitransSchedule_20121210.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 376DC2A716507BFE0036186B /* UnitransSchedule_20121210.sqlite */; };
+		376DC2AA16507E1F0036186B /* UnitransSchedule_20121217.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 376DC2A816507BFE0036186B /* UnitransSchedule_20121217.sqlite */; };
 		376FD61111017C43004CC2AF /* ARouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD5FD11017C43004CC2AF /* ARouteToolbarIcon_43.png */; };
 		376FD61211017C43004CC2AF /* BRouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD5FE11017C43004CC2AF /* BRouteToolbarIcon_43.png */; };
 		376FD61311017C43004CC2AF /* CRouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 376FD5FF11017C43004CC2AF /* CRouteToolbarIcon_43.png */; };
@@ -119,7 +121,6 @@
 		37873E921336C9B600796E45 /* Network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37873E911336C9B600796E45 /* Network@2x.png */; };
 		3788E5461172EC9E00AD86AC /* FavoritesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3788E5451172EC9E00AD86AC /* FavoritesController.m */; };
 		3795472510C7A13E005A2D93 /* BusAnimationAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */; };
-		379C97C515BB06B400F688B7 /* UnitransSchedule_20120822.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 379C97C415BB06B400F688B7 /* UnitransSchedule_20120822.sqlite */; };
 		37A29E111380D20400ADB9C8 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37A29E101380D20400ADB9C8 /* Icon@2x.png */; };
 		37BAFE4C1120FB0500077C65 /* HiddenStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BAFE4B1120FB0500077C65 /* HiddenStop.png */; };
 		37BBD9F011A63F6B00E96779 /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BBD9EF11A63F6B00E96779 /* Service.m */; };
@@ -230,6 +231,8 @@
 		373EF0AB10CC9047007CFD39 /* PredictionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PredictionOperation.m; sourceTree = "<group>"; };
 		3740DBBE133C4CD6000751F8 /* HiddenStop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HiddenStop@2x.png"; sourceTree = "<group>"; };
 		3748FCF515FBAE92003DFDC5 /* UnitransSchedule_20120927.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20120927.sqlite; sourceTree = "<group>"; };
+		376DC2A716507BFE0036186B /* UnitransSchedule_20121210.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20121210.sqlite; sourceTree = "<group>"; };
+		376DC2A816507BFE0036186B /* UnitransSchedule_20121217.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20121217.sqlite; sourceTree = "<group>"; };
 		376FD5FD11017C43004CC2AF /* ARouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ARouteToolbarIcon_43.png; sourceTree = "<group>"; };
 		376FD5FE11017C43004CC2AF /* BRouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BRouteToolbarIcon_43.png; sourceTree = "<group>"; };
 		376FD5FF11017C43004CC2AF /* CRouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CRouteToolbarIcon_43.png; sourceTree = "<group>"; };
@@ -329,7 +332,6 @@
 		3788E5451172EC9E00AD86AC /* FavoritesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesController.m; sourceTree = "<group>"; };
 		3795472310C7A13E005A2D93 /* BusAnimationAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusAnimationAnnotationView.h; sourceTree = "<group>"; };
 		3795472410C7A13E005A2D93 /* BusAnimationAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusAnimationAnnotationView.m; sourceTree = "<group>"; };
-		379C97C415BB06B400F688B7 /* UnitransSchedule_20120822.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20120822.sqlite; sourceTree = "<group>"; };
 		37A29E101380D20400ADB9C8 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		37BAFE4B1120FB0500077C65 /* HiddenStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HiddenStop.png; sourceTree = "<group>"; };
 		37BBD9EE11A63F6B00E96779 /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
@@ -645,8 +647,9 @@
 		37A8019E149D35970041C8B9 /* Schedules */ = {
 			isa = PBXGroup;
 			children = (
-				379C97C415BB06B400F688B7 /* UnitransSchedule_20120822.sqlite */,
 				3748FCF515FBAE92003DFDC5 /* UnitransSchedule_20120927.sqlite */,
+				376DC2A716507BFE0036186B /* UnitransSchedule_20121210.sqlite */,
+				376DC2A816507BFE0036186B /* UnitransSchedule_20121217.sqlite */,
 			);
 			name = Schedules;
 			sourceTree = "<group>";
@@ -1081,8 +1084,9 @@
 				3704AB9513EA5F7A00FA2D2E /* VRouteIcon_43@2x.png in Resources */,
 				3704AB9713EA60D900FA2D2E /* VRouteToolbarIcon_43.png in Resources */,
 				3704AB9913EA60E200FA2D2E /* VRouteToolbarIcon_43@2x.png in Resources */,
-				379C97C515BB06B400F688B7 /* UnitransSchedule_20120822.sqlite in Resources */,
 				3748FCF615FBAE92003DFDC5 /* UnitransSchedule_20120927.sqlite in Resources */,
+				376DC2A916507E1F0036186B /* UnitransSchedule_20121210.sqlite in Resources */,
+				376DC2AA16507E1F0036186B /* UnitransSchedule_20121217.sqlite in Resources */,
 				C9F2E204161E9471005032BA /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

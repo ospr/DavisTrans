@@ -37,7 +37,7 @@
                 case 1: return YES; // Service has been added
                 case 2: return NO; // Service has been dropped
                 default:
-                    NSLog(@"%@ - %@ - Error: unknown calendarDate exception type %d", self, NSStringFromSelector(_cmd), [[calendarDate exceptionType] integerValue]);
+                    NSLog(@"%@ - %@ - Error: unknown calendarDate exception type %ld", self, NSStringFromSelector(_cmd), (long)[[calendarDate exceptionType] integerValue]);
                     return NO;
             }
         }
@@ -58,7 +58,7 @@
         case 7: return [[self saturday] boolValue];
             
         default:
-            NSLog(@"%@ - %@ - Error: unknown weekday component %d", self, NSStringFromSelector(_cmd), weekday);
+            NSLog(@"%@ - %@ - Error: unknown weekday component %ld", self, NSStringFromSelector(_cmd), (long)weekday);
     }
     
     return NO;

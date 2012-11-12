@@ -132,20 +132,26 @@ static DatabaseManager *sharedDatabaseManager = nil;
 {
     // Hardcode these for now until a better way is determined
     // IDEA: Move these to a service entity in each GTFS schedule and access them thru there
-    Service *summer2WithST = [[[Service alloc] init] autorelease];
-    [summer2WithST setShortName:@"Summer2"];
-    [summer2WithST setLongName:@"Summer2 '12 (with S & T)"];
-    [summer2WithST setResourceName:@"UnitransSchedule_20120822"];
-    [summer2WithST setResourceKind:@"sqlite"];
-
     Service *fall = [[[Service alloc] init] autorelease];
     [fall setShortName:@"Fall"];
     [fall setLongName:@"Fall '12"];
     [fall setResourceName:@"UnitransSchedule_20120927"];
     [fall setResourceKind:@"sqlite"];
+
+    Service *fallFinals = [[[Service alloc] init] autorelease];
+    [fallFinals setShortName:@"Finals"];
+    [fallFinals setLongName:@"Fall Finals '12"];
+    [fallFinals setResourceName:@"UnitransSchedule_20121210"];
+    [fallFinals setResourceKind:@"sqlite"];
+
+    Service *winterBreak = [[[Service alloc] init] autorelease];
+    [winterBreak setShortName:@"Break"];
+    [winterBreak setLongName:@"Winter Break '12"];
+    [winterBreak setResourceName:@"UnitransSchedule_20121217"];
+    [winterBreak setResourceKind:@"sqlite"];
     
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:summer2WithST, fall, nil];
+    return [NSArray arrayWithObjects:fall, fallFinals, winterBreak, nil];
 }
 
 - (void)useService:(Service *)newService
