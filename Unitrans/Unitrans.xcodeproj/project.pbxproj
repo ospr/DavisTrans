@@ -155,6 +155,7 @@
 		37D926A51127DCC5000349A7 /* 92.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D926901127DCC5000349A7 /* 92.png */; };
 		37D926A61127DCC5000349A7 /* 96.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D926911127DCC5000349A7 /* 96.png */; };
 		37D926A71127DCC5000349A7 /* RedCircle.opacity in Resources */ = {isa = PBXBuildFile; fileRef = 37D926921127DCC5000349A7 /* RedCircle.opacity */; };
+		37F348CC166002E1001F1EFD /* UnitransSchedule_20130106.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 37F348CB166002E1001F1EFD /* UnitransSchedule_20130106.sqlite */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
 		7C25C28010A8CD7300AAD086 /* UIColor_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */; };
 		7CC4CFC01096784F00F2BB67 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CC4CFBF1096784F00F2BB67 /* CoreData.framework */; };
@@ -374,6 +375,7 @@
 		37D926901127DCC5000349A7 /* 92.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 92.png; sourceTree = "<group>"; };
 		37D926911127DCC5000349A7 /* 96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 96.png; sourceTree = "<group>"; };
 		37D926921127DCC5000349A7 /* RedCircle.opacity */ = {isa = PBXFileReference; lastKnownFileType = file; path = RedCircle.opacity; sourceTree = "<group>"; };
+		37F348CB166002E1001F1EFD /* UnitransSchedule_20130106.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20130106.sqlite; sourceTree = "<group>"; };
 		7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7C25C27E10A8CD7300AAD086 /* UIColor_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColor_Extensions.h; sourceTree = "<group>"; };
 		7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColor_Extensions.m; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 				3748FCF515FBAE92003DFDC5 /* UnitransSchedule_20120927.sqlite */,
 				376DC2A716507BFE0036186B /* UnitransSchedule_20121210.sqlite */,
 				376DC2A816507BFE0036186B /* UnitransSchedule_20121217.sqlite */,
+				37F348CB166002E1001F1EFD /* UnitransSchedule_20130106.sqlite */,
 			);
 			name = Schedules;
 			sourceTree = "<group>";
@@ -1088,6 +1091,7 @@
 				376DC2A916507E1F0036186B /* UnitransSchedule_20121210.sqlite in Resources */,
 				376DC2AA16507E1F0036186B /* UnitransSchedule_20121217.sqlite in Resources */,
 				C9F2E204161E9471005032BA /* Default-568h@2x.png in Resources */,
+				37F348CC166002E1001F1EFD /* UnitransSchedule_20130106.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

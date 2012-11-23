@@ -149,9 +149,15 @@ static DatabaseManager *sharedDatabaseManager = nil;
     [winterBreak setLongName:@"Winter Break '12"];
     [winterBreak setResourceName:@"UnitransSchedule_20121217"];
     [winterBreak setResourceKind:@"sqlite"];
+
+    Service *winter = [[[Service alloc] init] autorelease];
+    [winter setShortName:@"Winter"];
+    [winter setLongName:@"Winter '13"];
+    [winter setResourceName:@"UnitransSchedule_20130106"];
+    [winter setResourceKind:@"sqlite"];
     
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:fall, fallFinals, winterBreak, nil];
+    return [NSArray arrayWithObjects:fall, fallFinals, winterBreak, winter, nil];
 }
 
 - (void)useService:(Service *)newService
