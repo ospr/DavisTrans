@@ -74,6 +74,8 @@ CGFloat kDetailedOverlayViewWidth = 255.0;
 	
 	[[self navigationController] setToolbarHidden:NO animated: YES];
     
+    [[self view] setBackgroundColor:[UIColor scrollViewTexturedBackgroundColor]];
+    
     // Create detail overlay view
     detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, kDetailedOverlayViewWidth, kDetailedOverlayViewHeight)];
     [[detailOverlayView textLabel] setText:[stop name]];
@@ -82,11 +84,14 @@ CGFloat kDetailedOverlayViewWidth = 255.0;
     [detailOverlayView setAccessibilityLabel:[NSString stringWithFormat:@"%@ Line, %@, #%@, %@", [route shortName], [stop name], [stop stopID], [stop headingString]]];
     [[self navigationItem] setTitleView:detailOverlayView];
     
-    // Create tableBackground image view to fill in space behind prediction view
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TableBackground.png"]];
-    [imageView setFrame:CGRectMake(0, 0, [[self view] frame].size.width, kPredictionViewHeight)];
-    [[self view] addSubview:imageView];
-    [imageView release];    
+    // Create a fake tableview to fill in the background behind the predictionsView
+    // Note: the tableview must be the full height of the frame as the view has a slight
+    // gradient and the background becomes a darker grey than the top of the real table
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [[self view] frame].size.width, [[self view] frame].size.height)
+                                                          style:UITableViewStyleGrouped];
+    [[self view] addSubview:tableView];
+    [tableView setScrollEnabled:NO];
+    [tableView release];
     
     // Create predictions view
     // Start view off screen (above) so we can animate it moving down later
@@ -97,6 +102,7 @@ CGFloat kDetailedOverlayViewWidth = 255.0;
     
     // Resize contentView to fit between predictionView and toolbar
     [contentView setFrame:CGRectMake(0, kPredictionViewHeight, [[self view] frame].size.width, [[self view] frame].size.height-kPredictionViewHeight)];
+    [[self view] bringSubviewToFront:contentView];
 	
 	// Init datepicker and its navigation buttons
 	datePicker = [[UIDatePicker alloc] init];
