@@ -64,6 +64,8 @@
     
     // Create table view
     UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [newTableView setBackgroundColor:[UIColor clearColor]];
+    [newTableView setOpaque:NO];
     [self setTableView:newTableView];
     
     // Create search bar
@@ -157,6 +159,9 @@
     UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        
+        [cell setBackgroundView:[[UIView new] autorelease]];
+        [[cell backgroundView] setBackgroundColor:[UIColor whiteColor]];
         
         [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
         [[cell detailTextLabel] setFont:[UIFont systemFontOfSize:10]];

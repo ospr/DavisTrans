@@ -26,6 +26,7 @@
     
     DetailOverlayView *detailOverlayView;
     PredictionsView *predictionsView;
+    UITableView *fakeTableView;
 	
 	UIDatePicker *datePicker;
 	UIBarButtonItem *datePickerDone;
@@ -41,6 +42,7 @@
 @property (nonatomic, retain) RouteMapViewController *routeMapViewController;
 @property (nonatomic, retain) DetailOverlayView *detailOverlayView;
 @property (nonatomic, retain) PredictionsView *predictionsView;
+@property (nonatomic, retain) UITableView *fakeTableView;
 @property (nonatomic, retain) UIDatePicker *datePicker;
 @property (nonatomic, retain) UIBarButtonItem *datePickerDone;
 @property (nonatomic, retain) UIBarButtonItem *datePickerCancel;

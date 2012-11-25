@@ -21,6 +21,7 @@
 #import "FavoritesController.h"
 #import "CreditsViewController.h"
 #import "NSOperationQueue_Extensions.h"
+#import "UIColor_Extensions.h"
 
 NSUInteger MaxConcurrentOperationCount = 3;
 
@@ -62,10 +63,16 @@ NSUInteger MaxConcurrentOperationCount = 3;
 {
     [super viewDidLoad];
     
-    // Create table view and set as view
-    UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    // Set background
+    [[self view] setBackgroundColor:[UIColor davisTransScrollViewTexturedBackground]];
+    
+    // Create table view and add it as a subview
+    UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [self view].bounds.size.width, [self view].bounds.size.height)
+                                                             style:UITableViewStylePlain];
+    [newTableView setBackgroundColor:[UIColor clearColor]];
+    [newTableView setOpaque:NO];
     [self setTableView:newTableView];
-    [self setView:newTableView];
+    [[self view] addSubview:newTableView];
     [newTableView release];
     
     // Add Unitrans image as title
@@ -227,6 +234,9 @@ NSUInteger MaxConcurrentOperationCount = 3;
     
     if (!cell) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+
+        cell.backgroundView = [[[UIView alloc] init] autorelease];
+        cell.backgroundView.backgroundColor = [UIColor whiteColor];
         
         if ([CellIdentifier isEqualToString:@"Favorites"]) {
             [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];

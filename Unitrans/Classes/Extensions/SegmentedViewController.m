@@ -218,20 +218,25 @@
     [toViewCtl viewWillAppear:YES];
 }
                                                   
+- (void)finishAnimateViewTransitionFromViewController:(ExtendedViewController *)fromViewCtl toViewController:(ExtendedViewController *)toViewCtl
+{
+    // Notify view controllers of disappearance and appearance
+    [fromViewCtl viewDidDisappear:YES];
+    [toViewCtl viewDidAppear:YES];
+    
+    // Re-enable navbar interaction
+    [[[self navigationController] navigationBar] setUserInteractionEnabled:YES];
+}
+
 - (void)animateViewTransitionDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
     NSDictionary *contextDictionary = (NSDictionary *)context;
     ExtendedViewController *fromViewCtl = [contextDictionary objectForKey:@"FromViewController"];
     ExtendedViewController *toViewCtl = [contextDictionary objectForKey:@"ToViewController"];
     
-    // Notify view controllers of disappearance and appearance
-    [fromViewCtl viewDidDisappear:YES];
-    [toViewCtl viewDidAppear:YES];
+    [self finishAnimateViewTransitionFromViewController:fromViewCtl toViewController:toViewCtl];
     
     [contextDictionary release];
-    
-    // Re-enable navbar interaction
-    [[[self navigationController] navigationBar] setUserInteractionEnabled:YES];
 }
 
 #pragma mark -

@@ -34,6 +34,7 @@
 - (void)segmentIndexWasSelected:(NSInteger)index;
 
 - (void)animateViewTransitionFromViewController:(UIViewController *)fromViewCtl toViewController:(UIViewController *)toViewCtl;
+- (void)finishAnimateViewTransitionFromViewController:(ExtendedViewController *)fromViewCtl toViewController:(ExtendedViewController *)toViewCtl;
 
 - (void)setMainView:(UIView *)newMainView;
 

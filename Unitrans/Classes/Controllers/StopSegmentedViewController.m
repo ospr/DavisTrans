@@ -16,6 +16,7 @@
 #import "DetailOverlayView.h"
 #import "PredictionsView.h"
 #import "Calendar.h"
+#import "UIColor_Extensions.h"
 
 CGFloat kPredictionViewHeight = 50.0;
 
@@ -27,6 +28,7 @@ CGFloat kPredictionViewHeight = 50.0;
 @synthesize routeMapViewController;
 @synthesize predictionsView;
 @synthesize detailOverlayView;
+@synthesize fakeTableView;
 @synthesize datePicker;
 @synthesize datePickerDone;
 @synthesize datePickerCancel;
@@ -60,6 +62,7 @@ CGFloat kDetailedOverlayViewWidth = 255.0;
         [predictionsView endContinuousPredictionsUpdates];
     [predictionsView release];
     [detailOverlayView release];
+    [fakeTableView release];
 	
 	[datePicker release];
 	[datePickerDone release];
@@ -74,7 +77,8 @@ CGFloat kDetailedOverlayViewWidth = 255.0;
 	
 	[[self navigationController] setToolbarHidden:NO animated: YES];
     
-    [[self view] setBackgroundColor:[UIColor scrollViewTexturedBackgroundColor]];
+    // Set background
+    [[self view] setBackgroundColor:[UIColor davisTransScrollViewTexturedBackground]];
     
     // Create detail overlay view
     detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, kDetailedOverlayViewWidth, kDetailedOverlayViewHeight)];
@@ -89,6 +93,7 @@ CGFloat kDetailedOverlayViewWidth = 255.0;
     // gradient and the background becomes a darker grey than the top of the real table
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [[self view] frame].size.width, [[self view] frame].size.height)
                                                           style:UITableViewStyleGrouped];
+    [self setFakeTableView:tableView];
     [[self view] addSubview:tableView];
     [tableView setScrollEnabled:NO];
     [tableView release];
@@ -196,6 +201,21 @@ CGFloat kDetailedOverlayViewWidth = 255.0;
     }
     
     return viewController;
+}
+
+- (void)animateViewTransitionFromViewController:(ExtendedViewController *)fromViewCtl toViewController:(ExtendedViewController *)toViewCtl
+{
+    // Hide the fake table view, otherwise a sliver of it shows during the animation
+    [[self fakeTableView] setHidden:YES];
+    
+    [super animateViewTransitionFromViewController:fromViewCtl toViewController:toViewCtl];
+}
+
+- (void)finishAnimateViewTransitionFromViewController:(ExtendedViewController *)fromViewCtl toViewController:(ExtendedViewController *)toViewCtl
+{
+    [[self fakeTableView] setHidden:NO];
+    
+    [super finishAnimateViewTransitionFromViewController:fromViewCtl toViewController:toViewCtl];
 }
 
 #pragma mark -

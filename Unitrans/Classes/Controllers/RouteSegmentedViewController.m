@@ -13,6 +13,7 @@
 #import "Route.h"
 
 #import "DetailOverlayView.h"
+#import "UIColor_Extensions.h"
 
 @implementation RouteSegmentedViewController
 
@@ -44,6 +45,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Set background
+    [[self view] setBackgroundColor:[UIColor davisTransScrollViewTexturedBackground]];
         
     // Create detail overlay view
     DetailOverlayView *detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, 230, 40)];
