@@ -132,32 +132,33 @@ static DatabaseManager *sharedDatabaseManager = nil;
 {
     // Hardcode these for now until a better way is determined
     // IDEA: Move these to a service entity in each GTFS schedule and access them thru there
-    Service *fall = [[[Service alloc] init] autorelease];
-    [fall setShortName:@"Fall"];
-    [fall setLongName:@"Fall '12"];
-    [fall setResourceName:@"UnitransSchedule_20120927"];
-    [fall setResourceKind:@"sqlite"];
-
-    Service *fallFinals = [[[Service alloc] init] autorelease];
-    [fallFinals setShortName:@"Finals"];
-    [fallFinals setLongName:@"Fall Finals '12"];
-    [fallFinals setResourceName:@"UnitransSchedule_20121210"];
-    [fallFinals setResourceKind:@"sqlite"];
-
-    Service *winterBreak = [[[Service alloc] init] autorelease];
-    [winterBreak setShortName:@"Break"];
-    [winterBreak setLongName:@"Winter Break '12"];
-    [winterBreak setResourceName:@"UnitransSchedule_20121217"];
-    [winterBreak setResourceKind:@"sqlite"];
-
     Service *winter = [[[Service alloc] init] autorelease];
     [winter setShortName:@"Winter"];
     [winter setLongName:@"Winter '13"];
     [winter setResourceName:@"UnitransSchedule_20130106"];
     [winter setResourceKind:@"sqlite"];
+
+    Service *winterFinals = [[[Service alloc] init] autorelease];
+    [winterFinals setShortName:@"Finals"];
+    [winterFinals setLongName:@"Winter Finals '13"];
+    [winterFinals setResourceName:@"UnitransSchedule_20130319"];
+    [winterFinals setResourceKind:@"sqlite"];
+
+    Service *springBreak = [[[Service alloc] init] autorelease];
+    [springBreak setShortName:@"Break"];
+    [springBreak setLongName:@"Spring Break '13"];
+    [springBreak setResourceName:@"UnitransSchedule_20130324"];
+    [springBreak setResourceKind:@"sqlite"];
+
+    Service *spring = [[[Service alloc] init] autorelease];
+    [spring setShortName:@"Spring"];
+    [spring setLongName:@"Spring '13"];
+    [spring setResourceName:@"UnitransSchedule_20130331"];
+    [spring setResourceKind:@"sqlite"];
+
     
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:fall, fallFinals, winterBreak, winter, nil];
+    return [NSArray arrayWithObjects:winter, winterFinals, springBreak, spring, nil];
 }
 
 - (void)useService:(Service *)newService
