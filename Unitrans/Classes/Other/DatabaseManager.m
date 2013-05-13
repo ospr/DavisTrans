@@ -132,33 +132,26 @@ static DatabaseManager *sharedDatabaseManager = nil;
 {
     // Hardcode these for now until a better way is determined
     // IDEA: Move these to a service entity in each GTFS schedule and access them thru there
-    Service *winter = [[[Service alloc] init] autorelease];
-    [winter setShortName:@"Winter"];
-    [winter setLongName:@"Winter '13"];
-    [winter setResourceName:@"UnitransSchedule_20130106"];
-    [winter setResourceKind:@"sqlite"];
-
-    Service *winterFinals = [[[Service alloc] init] autorelease];
-    [winterFinals setShortName:@"Finals"];
-    [winterFinals setLongName:@"Winter Finals '13"];
-    [winterFinals setResourceName:@"UnitransSchedule_20130319"];
-    [winterFinals setResourceKind:@"sqlite"];
-
-    Service *springBreak = [[[Service alloc] init] autorelease];
-    [springBreak setShortName:@"Break"];
-    [springBreak setLongName:@"Spring Break '13"];
-    [springBreak setResourceName:@"UnitransSchedule_20130324"];
-    [springBreak setResourceKind:@"sqlite"];
-
     Service *spring = [[[Service alloc] init] autorelease];
     [spring setShortName:@"Spring"];
     [spring setLongName:@"Spring '13"];
     [spring setResourceName:@"UnitransSchedule_20130331"];
     [spring setResourceKind:@"sqlite"];
 
+    Service *springFinals = [[[Service alloc] init] autorelease];
+    [springFinals setShortName:@"Finals"];
+    [springFinals setLongName:@"Spring Finals '13"];
+    [springFinals setResourceName:@"UnitransSchedule_20130607"];
+    [springFinals setResourceKind:@"sqlite"];
     
+    Service *summer1 = [[[Service alloc] init] autorelease];
+    [summer1 setShortName:@"Summer"];
+    [summer1 setLongName:@"Summer1 '13"];
+    [summer1 setResourceName:@"UnitransSchedule_20130614"];
+    [summer1 setResourceKind:@"sqlite"];
+        
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:winter, winterFinals, springBreak, spring, nil];
+    return [NSArray arrayWithObjects:spring, springFinals, summer1, nil];
 }
 
 - (void)useService:(Service *)newService
