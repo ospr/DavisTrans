@@ -200,6 +200,16 @@
     
     // Determine animation
     UIViewAnimationTransition transition = [toViewCtl segmentTransition];
+
+    // Tell child vcs that they are about to change (make sure that views are loaded before)
+    [fromViewCtl view];
+    [toViewCtl view];
+    [fromViewCtl viewWillDisappear:YES];
+    [toViewCtl viewWillAppear:YES];
+    
+    // Initialize the frame outside the animation block so that the
+    // view's resizing doesn't get animated
+    [self prepareViewToBecomeMainView:toViewCtl.view];
     
     // Animate setting view property to new view
 	[UIView beginAnimations:nil context:context];
@@ -207,17 +217,13 @@
     [UIView setAnimationDidStopSelector:@selector(animateViewTransitionDidStop:finished:context:)];
 	[UIView setAnimationDuration:viewTransitionDuration];
 
+    [self setMainView:[toViewCtl view]];
+    
 	[UIView setAnimationTransition:transition
                            forView:contentView
                              cache:YES];
-      
-    [self setMainView:[toViewCtl view]];
 	
 	[UIView commitAnimations];
-    
-    // Move to will start animation method?
-    [fromViewCtl viewWillDisappear:YES];
-    [toViewCtl viewWillAppear:YES];
 }
                                                   
 - (void)finishAnimateViewTransitionFromViewController:(ExtendedViewController *)fromViewCtl toViewController:(ExtendedViewController *)toViewCtl
@@ -244,14 +250,19 @@
 #pragma mark -
 #pragma mark Custom Accessor Methods
 
+- (void)prepareViewToBecomeMainView:(UIView *)view
+{
+    [view setFrame:CGRectMake(0, 0, [contentView frame].size.width, [contentView frame].size.height)];
+    [view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
+}
+
 - (void)setMainView:(UIView *)newMainView
 {
     // Setting the mainView simply adds the "mainView" as a subview to the contentView
     // That way we can animate the segmented view swapping by animating the contentView
     
     // Resize main view to fix content view
-    [newMainView setFrame:CGRectMake(0, 0, [contentView frame].size.width, [contentView frame].size.height)];
-    newMainView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self prepareViewToBecomeMainView:newMainView];
     
     // Either set the subview if there isn't one already, or remove the subview and add the subview
     if ([[contentView subviews] count] == 0)
