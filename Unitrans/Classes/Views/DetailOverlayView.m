@@ -32,7 +32,7 @@
         // Init textLabel
         textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [textLabel setFont:[UIFont boldSystemFontOfSize:17]];
-        [textLabel setTextColor:[UIColor whiteColor]];
+        [textLabel setTextColor:[UIColor blackColor]];
         [textLabel setBackgroundColor:[UIColor clearColor]];
         [textLabel setIsAccessibilityElement:NO];
         [self addSubview:textLabel];
@@ -40,7 +40,7 @@
         // Init detailTextLabel
         detailTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [detailTextLabel setFont:[UIFont boldSystemFontOfSize:10]];
-        [detailTextLabel setTextColor:[UIColor whiteColor]];
+        [detailTextLabel setTextColor:[UIColor blackColor]];
         [detailTextLabel setBackgroundColor:[UIColor clearColor]];
         [detailTextLabel setIsAccessibilityElement:NO];
         [self addSubview:detailTextLabel];
@@ -75,44 +75,21 @@
     // Size: width = bound's width - imageView's furthest x value + padding, height = font height
     // Origin: x = imageView's furthest x value + padding, y = bottom label rests on center line
     CGRect textLabelFrame;
-    CGSize textLabelFontSize = [[textLabel text] sizeWithFont:[textLabel font]];
+    CGSize textLabelFontSize = [[textLabel text] sizeWithAttributes:@{NSFontAttributeName: [textLabel font]}];
     textLabelFrame.origin = CGPointMake(imageViewFrame.origin.x + imageViewFrame.size.width + textImagePadding, ([self bounds].size.height / 2.0) - textLabelFontSize.height);
     textLabelFrame.size = CGSizeMake([self bounds].size.width - textLabelFrame.origin.x, textLabelFontSize.height);
     [textLabel setFrame:textLabelFrame];
-    [textLabel setShadowColor:[UIColor blackColor]];
     [textLabel setAdjustsFontSizeToFitWidth:YES];
     
     // DetailTextLabelFrame
     // Size: width = width of textLabelFrame, height = font height
     // Origin: x = x origin of textLabelFrame, y = 2 points below bounds center
     CGRect detailTextLabelFrame;
-    CGSize detailTextLabelFontSize = [[detailTextLabel text] sizeWithFont:[detailTextLabel font]];
+    CGSize detailTextLabelFontSize = [[detailTextLabel text] sizeWithAttributes:@{NSFontAttributeName: [detailTextLabel font]}];
     detailTextLabelFrame.size = CGSizeMake(textLabelFrame.size.width, detailTextLabelFontSize.height);
     detailTextLabelFrame.origin = CGPointMake(textLabelFrame.origin.x, ([self bounds].size.height / 2.0) + 2.0);
     [detailTextLabel setFrame:detailTextLabelFrame];
-    [detailTextLabel setShadowColor:[UIColor blackColor]];
     [detailTextLabel setAdjustsFontSizeToFitWidth:YES];
-}
-
-- (void)drawRect:(CGRect)rect 
-{
-    // If no background color is set, don't draw anything
-    if (![self backgroundColor])
-        return;
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(context);
-    
-    CGRect bounds = [self bounds];
-    CGRect boundsOffset = CGRectOffset(bounds, 0, -shadowOffset);
-    CGSize myShadowOffset = CGSizeMake(0, -shadowOffset);
-    
-    CGContextSetShadow(context, myShadowOffset, 20);
-
-    CGContextSetFillColorWithColor(context, [[self backgroundColor] CGColor]);
-    CGContextFillRect(context, boundsOffset);
-    
-    CGContextRestoreGState(context);
 }
 
 - (BOOL)isAccessibilityElement {

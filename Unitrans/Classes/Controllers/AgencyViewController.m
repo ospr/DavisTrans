@@ -63,9 +63,6 @@ NSUInteger MaxConcurrentOperationCount = 3;
 {
     [super viewDidLoad];
     
-    // Set background
-    [[self view] setBackgroundColor:[UIColor davisTransScrollViewTexturedBackground]];
-    
     // Create table view and add it as a subview
     UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [self view].bounds.size.width, [self view].bounds.size.height)
                                                              style:UITableViewStylePlain];
@@ -76,6 +73,8 @@ NSUInteger MaxConcurrentOperationCount = 3;
     [newTableView release];
     
     // Add Unitrans image as title
+    [[self navigationItem] setTitle:@"DavisTrans"];
+    [[self navigationController] setTitle:@"DavisTrans"];
     UIImageView *titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DavisTransTitle.png"]] autorelease];
     [[self navigationItem] setTitleView:titleView];
 
@@ -164,11 +163,11 @@ NSUInteger MaxConcurrentOperationCount = 3;
     
     // If schedule not up to date, alert user!
     if (outOfDate) {
-        NSString *reason = @"Your Unitrans schedule data is out of date. Please check the App Store to download a current version.";
+        NSString *reason = @"Your Unitrans schedule data is out of date.";
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Old Schedule Data" message:reason
                                                        delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];	
+        [alert show];
         [alert release];
     }
     
@@ -466,7 +465,7 @@ NSUInteger MaxConcurrentOperationCount = 3;
     UINavigationController *infoNavigationController = [[UINavigationController alloc] initWithRootViewController:aboutViewController];
     [[infoNavigationController navigationBar] setTintColor:[[[self navigationController] navigationBar] tintColor]];
     
-    [[self navigationController] presentModalViewController:infoNavigationController animated:YES];
+    [[self navigationController] presentViewController:infoNavigationController animated:YES completion:nil];
     
     [aboutViewController release];
     [infoNavigationController release];
@@ -474,7 +473,7 @@ NSUInteger MaxConcurrentOperationCount = 3;
 
 - (void)aboutViewControllerDidFinish:(AboutViewController *)aboutViewController
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark -
@@ -498,7 +497,7 @@ NSUInteger MaxConcurrentOperationCount = 3;
     UINavigationController *infoNavigationController = [[UINavigationController alloc] initWithRootViewController:aboutViewController];
     [[infoNavigationController navigationBar] setTintColor:[[[self navigationController] navigationBar] tintColor]];
     
-    [[self navigationController] presentModalViewController:infoNavigationController animated:YES];
+    [[self navigationController] presentViewController:infoNavigationController animated:YES completion:nil];
     
     // Push credit view onto nav stack
     CreditsViewController *creditsViewController = [[CreditsViewController alloc] init];

@@ -42,15 +42,12 @@ CGFloat kLoadingIndicatorPadding = 5.0;
         [self setBackgroundImage:backgroundImage forState:UIControlStateNormal];
         
         // Set up loading indicator
-        loadingIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        loadingIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [loadingIndicatorView setCenter:CGPointMake(frame.size.width - [loadingIndicatorView frame].size.width/2.0 - kLoadingIndicatorPadding , frame.size.height/2.0)];
         [self addSubview:loadingIndicatorView];
         
         // Set up prediction label
-        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [[self titleLabel] setFont:[UIFont boldSystemFontOfSize:20]];
-        [[self titleLabel] setShadowOffset:CGSizeMake(0, 1)];
+        [[self titleLabel] setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:20.0]];
         [[self titleLabel] setAdjustsFontSizeToFitWidth:YES];
         [self setTitleEdgeInsets:UIEdgeInsetsMake(-shadowOffset, kPredictionLabelPadding, 0, kPredictionLabelPadding)];
         
@@ -209,6 +206,12 @@ CGFloat kLoadingIndicatorPadding = 5.0;
     superFrame.size.height += shadowOffset;
     
     [super setFrame:superFrame];
+}
+
+- (void)setTintColor:(UIColor *)tintColor
+{
+    [super setTintColor:tintColor];
+    [self setTitleColor:tintColor forState:UIControlStateNormal];
 }
 
 #pragma mark -

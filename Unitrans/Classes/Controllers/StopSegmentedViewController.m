@@ -18,7 +18,7 @@
 #import "Calendar.h"
 #import "UIColor_Extensions.h"
 
-CGFloat kPredictionViewHeight = 50.0;
+CGFloat kPredictionViewHeight = 40.0;
 
 @implementation StopSegmentedViewController
 
@@ -77,14 +77,14 @@ CGFloat kDetailedOverlayViewWidth = 255.0;
 	
 	[[self navigationController] setToolbarHidden:NO animated: YES];
     
-    // Set background
-    [[self view] setBackgroundColor:[UIColor davisTransScrollViewTexturedBackground]];
-    
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        
     // Create detail overlay view
     detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, kDetailedOverlayViewWidth, kDetailedOverlayViewHeight)];
     [[detailOverlayView textLabel] setText:[stop name]];
     [[detailOverlayView detailTextLabel] setText:[NSString stringWithFormat:@"#%@ %@", [stop stopID], [stop headingString]]];
-    [[detailOverlayView imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteToolbarIcon_43.png", [route shortName]]]];
+    [[detailOverlayView imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
     [detailOverlayView setAccessibilityLabel:[NSString stringWithFormat:@"%@ Line, %@, #%@, %@", [route shortName], [stop name], [stop stopID], [stop headingString]]];
     [[self navigationItem] setTitleView:detailOverlayView];
     
@@ -103,6 +103,7 @@ CGFloat kDetailedOverlayViewWidth = 255.0;
     predictionsView = [[PredictionsView alloc] initWithFrame:CGRectMake(0, -kPredictionViewHeight, [[self view] frame].size.width, kPredictionViewHeight)];
     [predictionsView setRoute:route];
     [predictionsView setStop:stop];
+    [predictionsView setTintColor:[[[self navigationController] navigationBar] tintColor]];
     [[self view] addSubview:predictionsView];
     
     // Resize contentView to fit between predictionView and toolbar

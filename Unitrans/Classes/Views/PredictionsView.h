@@ -41,5 +41,4 @@
 - (void)updatePredictionWithText:(NSString *)text;
 - (void)updatePredictions;
 
-
 @end

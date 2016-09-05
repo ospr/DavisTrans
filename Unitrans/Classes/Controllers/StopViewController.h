@@ -68,7 +68,6 @@ typedef enum _StopViewSectionIndex {
 - (NSString *)stringForDate:(NSDate *)date;
 - (BOOL)shouldShowNoMoreScheduledStops;
 - (BOOL)noScheduledService;
-- (BOOL)shouldShowNoMoreScheduledStops;
 
 - (void)changeScheduleDateTo:(NSDate *)newSelectedDate;
 - (void)chooseNewScheduleDateDidEndWithDate:(NSDate *)newDate;

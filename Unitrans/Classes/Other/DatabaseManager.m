@@ -137,21 +137,9 @@ static DatabaseManager *sharedDatabaseManager = nil;
     [spring setLongName:@"Spring '13"];
     [spring setResourceName:@"UnitransSchedule_20130331"];
     [spring setResourceKind:@"sqlite"];
-
-    Service *springFinals = [[[Service alloc] init] autorelease];
-    [springFinals setShortName:@"Finals"];
-    [springFinals setLongName:@"Spring Finals '13"];
-    [springFinals setResourceName:@"UnitransSchedule_20130607"];
-    [springFinals setResourceKind:@"sqlite"];
     
-    Service *summer1 = [[[Service alloc] init] autorelease];
-    [summer1 setShortName:@"Summer"];
-    [summer1 setLongName:@"Summer1 '13"];
-    [summer1 setResourceName:@"UnitransSchedule_20130614"];
-    [summer1 setResourceKind:@"sqlite"];
-        
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:spring, springFinals, summer1, nil];
+    return [NSArray arrayWithObjects:spring, /*springFinals, summer1,*/ nil];
 }
 
 - (void)useService:(Service *)newService

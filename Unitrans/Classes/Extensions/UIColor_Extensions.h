@@ -15,6 +15,4 @@
 
 + (UIColor *)extraLightGrayColor;
 
-+ (UIColor *)davisTransScrollViewTexturedBackground;
-
 @end

@@ -30,6 +30,7 @@ void criticalLoadingErrorAlert(void)
         
     // Add the tab bar controller's current view as a subview of the window
 	[window addSubview:navigationController.view];
+    [window setRootViewController:navigationController];
 	[window makeKeyAndVisible];
 }
 

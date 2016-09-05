@@ -241,21 +241,22 @@
         // Set up the cell
         if([cellIdentifier isEqualToString:@"SelectedDate"])
         {
-            [[cell textLabel] setTextAlignment:UITextAlignmentCenter];
+            [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
             [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:16]];
+            [[cell textLabel] setTextColor:[[[self navigationController] navigationBar] tintColor]];
         }
         else if ([cellIdentifier isEqualToString:@"ExpiredCell"])
         {
             [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:14]];
-            [[cell textLabel] setTextAlignment:UITextAlignmentLeft];
-            [[cell textLabel] setTextColor:[UIColor blueColor]];
+            [[cell textLabel] setTextAlignment:NSTextAlignmentLeft];
+            [[cell textLabel] setTextColor:[[[self navigationController] navigationBar] tintColor]];
             [cell setAccessoryType:UITableViewCellAccessoryNone];
         }
         else if ([cellIdentifier isEqualToString:@"NoService"])
         {
             [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:14]];
-            [[cell textLabel] setTextAlignment:UITextAlignmentLeft];
-            [[cell textLabel] setTextColor:[UIColor blueColor]];
+            [[cell textLabel] setTextAlignment:NSTextAlignmentLeft];
+            [[cell textLabel] setTextColor:[UIColor grayColor]];
             [cell setAccessoryType:UITableViewCellAccessoryNone];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
@@ -268,7 +269,7 @@
         else if ([cellIdentifier isEqualToString:@"StopTimes"])
         {
             [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:12]];
-            [[cell textLabel] setTextAlignment:UITextAlignmentLeft];
+            [[cell textLabel] setTextAlignment:NSTextAlignmentLeft];
             [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         }
     }

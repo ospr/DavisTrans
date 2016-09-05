@@ -54,7 +54,9 @@
 
     NSDate *dummyDate = [dateFormatter dateFromString:timeString];
     
-    return [dummyDate timeIntervalSinceDate:referenceDate];
+    NSUInteger seconds =  [dummyDate timeIntervalSinceDate:referenceDate];
+    
+    return seconds;
 }
 
 - (NSArray *)nextStopTimesInTrip

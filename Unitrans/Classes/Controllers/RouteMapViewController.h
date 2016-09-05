@@ -22,6 +22,7 @@
     RoutePattern *routePattern;
     
     NSOperationQueue *operationQueue;
+    CLLocationManager *locationManager;
     NSTimer *busTimer;
     NSTimeInterval busUpdateInterval;
     NSArray *stopAnnotations;

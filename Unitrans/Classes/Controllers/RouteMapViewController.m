@@ -39,6 +39,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     
     if (self) {
+        locationManager = [CLLocationManager new];
         operationQueue = [[NSOperationQueue alloc] init];
         
         busUpdateInterval = kBusUpdateShortInterval;
@@ -59,6 +60,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [routePattern release];
     
     [operationQueue release];
+    [locationManager release];
     [stopAnnotations release];
     
     // Perform special clean-up for mapView to avoid crashes from MKDotBounceAnimation
@@ -247,13 +249,13 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     return nil;
 }
 
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {
-    MKPolylineView *polylineView = [[[MKPolylineView alloc] initWithPolyline:overlay] autorelease];
-    [polylineView setStrokeColor:[UIColor colorFromHexadecimal:[[route color] integerValue] alpha:0.65]];
-    [polylineView setLineWidth:4.0];
-        
-    return polylineView;
+    MKPolylineRenderer *polylineRenderer = [[[MKPolylineRenderer alloc] initWithOverlay:overlay] autorelease];
+    [polylineRenderer setStrokeColor:[UIColor colorFromHexadecimal:[[route color] integerValue] alpha:0.65]];
+    [polylineRenderer setLineWidth:4.0];
+
+    return polylineRenderer;
 }
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
@@ -359,6 +361,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     
     // If we are determining region using user location add it
     if (withUserLocation) {
+        [locationManager requestWhenInUseAuthorization];
         CLLocation *userLocation  = [[mapView userLocation] location];
         
         if (userLocation)

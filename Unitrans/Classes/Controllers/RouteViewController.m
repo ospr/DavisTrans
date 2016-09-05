@@ -69,15 +69,14 @@
     [self setTableView:newTableView];
     
     // Create search bar
-    CGRect searchBarFrame = CGRectMake(0, 0, [[self tableView] frame].size.width, 40);
+    CGRect searchBarFrame = CGRectMake(0, 0, [[self tableView] frame].size.width, 44);
     searchBar = [[UISearchBar alloc] initWithFrame:searchBarFrame];
-    [searchBar setTintColor:[UIColor colorWithRed:(173/255.0) green:(85/255.0) blue:(85/255.0) alpha:1.0]];
     [searchBar setPlaceholder:@"Search Stops"];
     [searchBar setDelegate:self];
     [[self tableView] setTableHeaderView:searchBar];
     
     // Create search display controller
-    searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+    searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:[self segmentedViewController]];
     [searchDisplayController setDelegate:self];
     [searchDisplayController setSearchResultsDelegate:self];
     [searchDisplayController setSearchResultsDataSource:self];

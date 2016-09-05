@@ -26,7 +26,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     
     if (self) {
-        [self setSegmentItems:[NSArray arrayWithObjects:@"Stops", @"Map", nil]];
+        [self setSegmentItems:[NSArray arrayWithObjects:@"Map", @"Stops", nil]];
     }
     
     return self;
@@ -46,14 +46,11 @@
 {
     [super viewDidLoad];
     
-    // Set background
-    [[self view] setBackgroundColor:[UIColor davisTransScrollViewTexturedBackground]];
-        
     // Create detail overlay view
     DetailOverlayView *detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, 230, 40)];
     [[detailOverlayView textLabel] setText:[NSString stringWithFormat:@"%@ Line", [route shortName]]];
     [[detailOverlayView detailTextLabel] setText:[route longName]];
-    [[detailOverlayView imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteToolbarIcon_43.png", [route shortName]]]];
+    [[detailOverlayView imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [route shortName]]]];
     [detailOverlayView setAccessibilityLabel:[NSString stringWithFormat:@"%@ Line, %@", [route shortName], [route longName]]]; 
     
     // Set navbar title view

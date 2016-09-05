@@ -65,7 +65,6 @@
     // Create segmentedControl used to switch between views
     segmentedControl = [[UISegmentedControl alloc] initWithItems:[self segmentItems]];
     [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-    [segmentedControl setSegmentedControlStyle:UISegmentedControlStyleBar];
     [segmentedControl setTintColor:[[[self navigationController] navigationBar] tintColor]];
     
     // Create the segmented button item to add to the toolbar

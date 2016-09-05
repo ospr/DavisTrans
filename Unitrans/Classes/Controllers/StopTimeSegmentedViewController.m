@@ -46,14 +46,11 @@
 {
     [super viewDidLoad];
     
-    // Set background
-    [[self view] setBackgroundColor:[UIColor davisTransScrollViewTexturedBackground]];
-    
     // Create detail overlay view
     DetailOverlayView *detailOverlayView = [[DetailOverlayView alloc] initWithFrame:CGRectMake(0, 0, 255, 40)];
     [[detailOverlayView textLabel] setText:[NSString stringWithFormat:@"Depart - Arrive at %@", [stopTime arrivalTimeString]]];
     [[detailOverlayView detailTextLabel] setText:[NSString stringWithFormat:@"From - To: %@", [[stopTime stop] name]]];
-    [[detailOverlayView imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteToolbarIcon_43.png", [[[stopTime trip] route] shortName]]]];
+    [[detailOverlayView imageView] setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@RouteIcon_43.png", [[[stopTime trip] route] shortName]]]];
     
     // Set navbar title view
     [[self navigationItem] setTitleView:detailOverlayView];
