@@ -637,7 +637,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     NSString *serviceStorePath = [[NSBundle mainBundle] pathForResource:[currentService resourceName] ofType:[currentService resourceKind]];
     NSURL *storeUrl = [NSURL fileURLWithPath:serviceStorePath];
     
-    NSLog(@"store url = %@", storeUrl);
+//    NSLog(@"store url = %@", storeUrl);
     
     // TODO: remove this/modify before production
     //NSError *rmError;
