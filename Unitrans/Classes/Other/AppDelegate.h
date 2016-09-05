@@ -1,5 +1,5 @@
 //
-//  UnitransAppDelegate.h
+//  AppDelegate.h
 //  Unitrans
 //
 //  Created by Kip Nicol on 10/21/09.
@@ -11,7 +11,7 @@
 
 void criticalLoadingErrorAlert(void);
 
-@interface UnitransAppDelegate : NSObject <UIApplicationDelegate> {
+@interface DavisTransAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	UINavigationController *navigationController;
 	

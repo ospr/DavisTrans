@@ -200,7 +200,7 @@
 		C993E17610A2066D00B0F44D /* AgencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E16F10A2066D00B0F44D /* AgencyViewController.m */; };
 		C993E17810A2066D00B0F44D /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E17310A2066D00B0F44D /* RouteViewController.m */; };
 		C993E17910A2066D00B0F44D /* StopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E17510A2066D00B0F44D /* StopViewController.m */; };
-		C993E17C10A206A300B0F44D /* UnitransAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E17B10A206A300B0F44D /* UnitransAppDelegate.m */; };
+		C993E17C10A206A300B0F44D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E17B10A206A300B0F44D /* AppDelegate.m */; };
 		C993E18C10A206E800B0F44D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C993E18B10A206E800B0F44D /* MainWindow.xib */; };
 		C9AB0A5F10A3627400B75C4B /* StopTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AB0A5E10A3627400B75C4B /* StopTimeViewController.m */; };
 		C9C1F8EE118943FA005978B3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C1F8ED118943FA005978B3 /* Icon.png */; };
@@ -212,7 +212,7 @@
 		1D6058910D05DD3D006BFB54 /* DavisTrans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavisTrans.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		28A0AB4B0D9B1048005BE974 /* Unitrans_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Unitrans_Prefix.pch; path = ../../Unitrans_Prefix.pch; sourceTree = "<group>"; };
+		28A0AB4B0D9B1048005BE974 /* DavisTrans_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DavisTrans_Prefix.pch; path = ../../DavisTrans_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3704AB9213EA5F7100FA2D2E /* VRouteIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VRouteIcon_43.png; sourceTree = "<group>"; };
 		3704AB9413EA5F7A00FA2D2E /* VRouteIcon_43@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VRouteIcon_43@2x.png"; sourceTree = "<group>"; };
@@ -427,7 +427,7 @@
 		7CE6EFE810A7B512009BF91A /* RouteMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteMapViewController.m; sourceTree = "<group>"; };
 		7CEEFF67109F5798005EB194 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
 		7CEEFF68109F5798005EB194 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* Unitrans-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Unitrans-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* DavisTrans-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DavisTrans-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		C90525F010D9AB3D00B1B7F1 /* BusArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BusArrow.png; sourceTree = "<group>"; };
 		C91476C310AA47B20014E49F /* NSDate_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDate_Extensions.h; sourceTree = "<group>"; };
 		C91476C410AA47B20014E49F /* NSDate_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDate_Extensions.m; sourceTree = "<group>"; };
@@ -442,8 +442,8 @@
 		C993E17310A2066D00B0F44D /* RouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteViewController.m; sourceTree = "<group>"; };
 		C993E17410A2066D00B0F44D /* StopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopViewController.h; sourceTree = "<group>"; };
 		C993E17510A2066D00B0F44D /* StopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopViewController.m; sourceTree = "<group>"; };
-		C993E17A10A206A300B0F44D /* UnitransAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitransAppDelegate.h; sourceTree = "<group>"; };
-		C993E17B10A206A300B0F44D /* UnitransAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitransAppDelegate.m; sourceTree = "<group>"; };
+		C993E17A10A206A300B0F44D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C993E17B10A206A300B0F44D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C993E18B10A206E800B0F44D /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		C9AB0A5D10A3627400B75C4B /* StopTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopTimeViewController.h; sourceTree = "<group>"; };
 		C9AB0A5E10A3627400B75C4B /* StopTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTimeViewController.m; sourceTree = "<group>"; };
@@ -505,7 +505,7 @@
 			isa = PBXGroup;
 			children = (
 				29B97316FDCFA39411CA2CEA /* main.m */,
-				28A0AB4B0D9B1048005BE974 /* Unitrans_Prefix.pch */,
+				28A0AB4B0D9B1048005BE974 /* DavisTrans_Prefix.pch */,
 			);
 			path = "Other Sources";
 			sourceTree = "<group>";
@@ -517,7 +517,7 @@
 				7CC4D0AD1097930600F2BB67 /* NIBs */,
 				37A8019F149D35B40041C8B9 /* Graphics */,
 				7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */,
-				8D1107310486CEB800E47090 /* Unitrans-Info.plist */,
+				8D1107310486CEB800E47090 /* DavisTrans-Info.plist */,
 				C974345010A9F4D50072C7B6 /* Todo */,
 			);
 			name = Resources;
@@ -802,8 +802,8 @@
 		7CC4D0491097891B00F2BB67 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				C993E17A10A206A300B0F44D /* UnitransAppDelegate.h */,
-				C993E17B10A206A300B0F44D /* UnitransAppDelegate.m */,
+				C993E17A10A206A300B0F44D /* AppDelegate.h */,
+				C993E17B10A206A300B0F44D /* AppDelegate.m */,
 				7CEEFF67109F5798005EB194 /* DatabaseManager.h */,
 				7CEEFF68109F5798005EB194 /* DatabaseManager.m */,
 				C98E581F10D70EFE00B08808 /* Transform.h */,
@@ -887,9 +887,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* Unitrans */ = {
+		1D6058900D05DD3D006BFB54 /* DavisTrans */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Unitrans" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "DavisTrans" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -899,7 +899,7 @@
 			);
 			dependencies = (
 			);
-			name = Unitrans;
+			name = DavisTrans;
 			productName = Unitrans;
 			productReference = 1D6058910D05DD3D006BFB54 /* DavisTrans.app */;
 			productType = "com.apple.product-type.application";
@@ -931,7 +931,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* Unitrans */,
+				1D6058900D05DD3D006BFB54 /* DavisTrans */,
 			);
 		};
 /* End PBXProject section */
@@ -1117,7 +1117,7 @@
 				C993E17610A2066D00B0F44D /* AgencyViewController.m in Sources */,
 				C993E17810A2066D00B0F44D /* RouteViewController.m in Sources */,
 				C993E17910A2066D00B0F44D /* StopViewController.m in Sources */,
-				C993E17C10A206A300B0F44D /* UnitransAppDelegate.m in Sources */,
+				C993E17C10A206A300B0F44D /* AppDelegate.m in Sources */,
 				C9AB0A5F10A3627400B75C4B /* StopTimeViewController.m in Sources */,
 				7CE6EFE910A7B512009BF91A /* RouteMapViewController.m in Sources */,
 				C923170910A790C100A1BB6C /* RealTimeBusInfo.m in Sources */,
@@ -1159,8 +1159,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Unitrans_Prefix.pch;
-				INFOPLIST_FILE = "Unitrans-Info.plist";
+				GCC_PREFIX_HEADER = DavisTrans_Prefix.pch;
+				INFOPLIST_FILE = "DavisTrans-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kipnicol.DavisTrans;
 				PRODUCT_NAME = DavisTrans;
@@ -1178,8 +1178,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Unitrans_Prefix.pch;
-				INFOPLIST_FILE = "Unitrans-Info.plist";
+				GCC_PREFIX_HEADER = DavisTrans_Prefix.pch;
+				INFOPLIST_FILE = "DavisTrans-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kipnicol.DavisTrans;
 				PRODUCT_NAME = DavisTrans;
@@ -1221,7 +1221,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "BCC867A6-EA95-4B28-94F1-06515784B892";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -1261,7 +1261,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BCC867A6-EA95-4B28-94F1-06515784B892";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -1272,7 +1272,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Unitrans" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "DavisTrans" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,

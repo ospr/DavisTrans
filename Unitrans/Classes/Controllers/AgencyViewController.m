@@ -13,7 +13,7 @@
 #import "Stop.h"
 #import "Service.h"
 #import "DatabaseManager.h"
-#import "UnitransAppDelegate.h"
+#import "AppDelegate.h"
 
 #import "RouteSegmentedViewController.h"
 #import "SegmentedViewController.h"
