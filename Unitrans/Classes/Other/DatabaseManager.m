@@ -271,7 +271,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     
     // TODO: create error here
     if (valuesCount != headersCount) {
-        NSLog(@"Error: header count (%d) doesn not match value count (%d)", headersCount, valuesCount);
+        NSLog(@"Error: header count (%lu) doesn not match value count (%lu)", (unsigned long)headersCount, (unsigned long)valuesCount);
         NSLog(@"Headers:\n%@\n\nValues:\n%@\n", headers, values);
         return NO;
     }

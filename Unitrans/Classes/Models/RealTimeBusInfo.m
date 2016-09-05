@@ -66,7 +66,7 @@
 
 - (void) printInfo
 {
-	NSLog(@"id: %@, routeTag: %@, dirTag: %@, lat: %f, lon: %f, secsSinceReport: %d, heading: %d, predictable: %d.", vehicleID, routeTag, dirTag, [self coordinate].latitude, [self coordinate].longitude, secsSinceReport, heading, predictable);
+	NSLog(@"id: %@, routeTag: %@, dirTag: %@, lat: %f, lon: %f, secsSinceReport: %ld, heading: %ld, predictable: %d.", vehicleID, routeTag, dirTag, [self coordinate].latitude, [self coordinate].longitude, (long)secsSinceReport, (long)heading, predictable);
 }
 
 @end
