@@ -122,7 +122,7 @@ NSUInteger MaxConcurrentOperationCount = 3;
 	
     // Determine if schedule is out of date
     if (![agency transitDataUpToDate])
-        outOfDate = YES;
+        showOutOfDateNotification = YES;
 }
 
 - (void)viewDidUnload 
@@ -166,13 +166,14 @@ NSUInteger MaxConcurrentOperationCount = 3;
     [super viewDidAppear:animated];
     
     // If schedule not up to date, alert user!
-    if (outOfDate) {
+    if (showOutOfDateNotification) {
         NSString *reason = @"Your Unitrans schedule data is out of date.";
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Old Schedule Data" message:reason
                                                        delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         [alert release];
+        showOutOfDateNotification = NO;
     }
     
     // Show welcome message first time app is launched

@@ -30,7 +30,7 @@ typedef enum _AgencyViewSectionIndex {
 	NSOperationQueue *operationQueue;
 	NSTimer *predictionTimer;
     
-    BOOL outOfDate;
+    BOOL showOutOfDateNotification;
     BOOL runningContinuousPredictionUpdates;
 	
     UIBarButtonItem *serviceButtonItem;
