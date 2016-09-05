@@ -10,10 +10,12 @@
 
 
 @interface CreditsViewController : UIViewController {
+    UIImageView *logoImageView;
     UITextView *creditsTextView;
     UILabel *versionLabel;
 }
 
+@property (nonatomic, retain) IBOutlet UIImageView *logoImageView;
 @property (nonatomic, retain) IBOutlet UITextView *creditsTextView;
 @property (nonatomic, retain) IBOutlet UILabel *versionLabel;
 

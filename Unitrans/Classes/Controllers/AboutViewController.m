@@ -52,6 +52,8 @@ NSString *kTipsyWebsite = @"http://daviswiki.org/Tipsy_Taxi";
 {
     [super viewDidLoad];
     
+    [[[self navigationController] navigationBar] setTranslucent:NO];
+
     // Set title
     [self setTitle:@"Info"];
     

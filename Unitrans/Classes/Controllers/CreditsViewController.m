@@ -11,15 +11,20 @@
 
 @implementation CreditsViewController
 
+@synthesize logoImageView;
 @synthesize creditsTextView;
 @synthesize versionLabel;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [self setEdgesForExtendedLayout:UIRectEdgeNone];
     
     [[self navigationItem] setTitle:@"Credits"];
     [versionLabel setText:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
+    
+    [logoImageView setImage:[logoImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -46,6 +51,7 @@
 
 - (void)dealloc 
 {
+    [logoImageView release];
     [super dealloc];
 }
 
