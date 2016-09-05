@@ -16,7 +16,6 @@
 		3704AB9713EA60D900FA2D2E /* VRouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 3704AB9613EA60D900FA2D2E /* VRouteToolbarIcon_43.png */; };
 		3704AB9913EA60E200FA2D2E /* VRouteToolbarIcon_43@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3704AB9813EA60E200FA2D2E /* VRouteToolbarIcon_43@2x.png */; };
 		3712A71016E6FACE00DEBABC /* UnitransSchedule_20130331.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3712A70D16E6FACE00DEBABC /* UnitransSchedule_20130331.sqlite */; };
-		3720999D1744917900BB06D0 /* Test.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3720999C1744917900BB06D0 /* Test.sqlite */; };
 		3731BB02113737E100FFF600 /* ORouteIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 3731BB01113737E100FFF600 /* ORouteIcon_43.png */; };
 		3731BB0F11373AE600FFF600 /* ORouteToolbarIcon_43.png in Resources */ = {isa = PBXBuildFile; fileRef = 3731BB0E11373AE600FFF600 /* ORouteToolbarIcon_43.png */; };
 		373319981172579F004A0303 /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 373319961172579F004A0303 /* CreditsViewController.m */; };
@@ -217,7 +216,6 @@
 		3704AB9613EA60D900FA2D2E /* VRouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VRouteToolbarIcon_43.png; sourceTree = "<group>"; };
 		3704AB9813EA60E200FA2D2E /* VRouteToolbarIcon_43@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VRouteToolbarIcon_43@2x.png"; sourceTree = "<group>"; };
 		3712A70D16E6FACE00DEBABC /* UnitransSchedule_20130331.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnitransSchedule_20130331.sqlite; sourceTree = "<group>"; };
-		3720999C1744917900BB06D0 /* Test.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Test.sqlite; sourceTree = "<group>"; };
 		3731BB01113737E100FFF600 /* ORouteIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ORouteIcon_43.png; sourceTree = "<group>"; };
 		3731BB0E11373AE600FFF600 /* ORouteToolbarIcon_43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ORouteToolbarIcon_43.png; sourceTree = "<group>"; };
 		373319951172579F004A0303 /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
@@ -644,7 +642,6 @@
 			isa = PBXGroup;
 			children = (
 				3712A70D16E6FACE00DEBABC /* UnitransSchedule_20130331.sqlite */,
-				3720999C1744917900BB06D0 /* Test.sqlite */,
 			);
 			name = Schedules;
 			sourceTree = "<group>";
@@ -1084,7 +1081,6 @@
 				3704AB9913EA60E200FA2D2E /* VRouteToolbarIcon_43@2x.png in Resources */,
 				C9F2E204161E9471005032BA /* Default-568h@2x.png in Resources */,
 				3712A71016E6FACE00DEBABC /* UnitransSchedule_20130331.sqlite in Resources */,
-				3720999D1744917900BB06D0 /* Test.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
