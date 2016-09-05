@@ -23,6 +23,7 @@
     
     CGFloat segmentWidth;
     NSTimeInterval viewTransitionDuration;
+    NSMutableSet *transitionContexts;
 }
 
 @property (nonatomic, retain) UIView *contentView;

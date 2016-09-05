@@ -34,6 +34,7 @@
     if (self) {
         segmentWidth = 90.0;
         viewTransitionDuration = 1.0;
+        transitionContexts = [NSMutableSet new];
     }
     
     return self;
@@ -49,6 +50,7 @@
     [segmentedButtonItem release];
     [flexibleSpaceItem release];
     [fixedSpaceItem release];
+    [transitionContexts release];
     
     [segmentItems release];
     
@@ -192,8 +194,9 @@
     // Disable interaction with the navbar so the user can't hit the back button while in transition
     [[[self navigationController] navigationBar] setUserInteractionEnabled:NO];
     
-    NSDictionary *context = [[NSDictionary dictionaryWithObjectsAndKeys:fromViewCtl, @"FromViewController",
-                                                                        toViewCtl,   @"ToViewController", nil] retain]; 
+    NSDictionary *context = [NSDictionary dictionaryWithObjectsAndKeys:fromViewCtl, @"FromViewController",
+                                                                       toViewCtl,   @"ToViewController", nil];
+    [transitionContexts addObject:context];
     
     // Determine animation
     UIViewAnimationTransition transition = [toViewCtl segmentTransition];
@@ -235,7 +238,7 @@
     
     [self finishAnimateViewTransitionFromViewController:fromViewCtl toViewController:toViewCtl];
     
-    [contextDictionary release];
+    [transitionContexts removeObject:contextDictionary];
 }
 
 #pragma mark -
