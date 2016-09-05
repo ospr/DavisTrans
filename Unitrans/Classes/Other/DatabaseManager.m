@@ -139,7 +139,7 @@ static DatabaseManager *sharedDatabaseManager = nil;
     [spring setResourceKind:@"sqlite"];
     
     // Return the sorted array of services
-    return [NSArray arrayWithObjects:spring, /*springFinals, summer1,*/ nil];
+    return [NSArray arrayWithObjects:spring, nil];
 }
 
 - (void)useService:(Service *)newService
