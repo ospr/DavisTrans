@@ -1,6 +1,6 @@
 //
 //  BusAnimationAnnotationView.h
-//  Unitrans
+//  DavisTrans
 //
 //  Created by Kip on 12/2/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.

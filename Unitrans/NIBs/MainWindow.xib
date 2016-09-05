@@ -33,7 +33,7 @@
             <viewControllers>
                 <viewController id="184" customClass="AgencyViewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Unitrans" id="186"/>
+                    <navigationItem key="navigationItem" title="DavisTrans" id="186"/>
                 </viewController>
             </viewControllers>
         </navigationController>

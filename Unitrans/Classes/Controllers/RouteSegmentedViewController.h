@@ -1,6 +1,6 @@
 //
 //  RouteSegmentedViewController.h
-//  Unitrans
+//  DavisTrans
 //
 //  Created by Kip on 12/26/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.

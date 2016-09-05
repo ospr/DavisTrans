@@ -1,6 +1,6 @@
 //
 //  DatabaseManager.h
-//  Unitrans
+//  DavisTrans
 //
 //  Created by Kip Nicol on 10/28/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.

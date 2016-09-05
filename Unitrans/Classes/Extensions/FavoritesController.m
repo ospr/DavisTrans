@@ -1,6 +1,6 @@
 //
 //  FavoritesController.m
-//  Unitrans
+//  DavisTrans
 //
 //  Created by Kip on 4/11/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
@@ -135,7 +135,7 @@ static FavoritesController *sharedFavorites = nil;
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
-	NSString *folderPath = [NSString stringWithFormat:@"%@/Unitrans/", documentsDirectory];
+	NSString *folderPath = [NSString stringWithFormat:@"%@/DavisTrans/", documentsDirectory];
 	
 	// Check if save path exists
 	NSFileManager *fileManager = [NSFileManager defaultManager];
