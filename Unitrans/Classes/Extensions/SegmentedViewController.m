@@ -251,6 +251,7 @@
     
     // Resize main view to fix content view
     [newMainView setFrame:CGRectMake(0, 0, [contentView frame].size.width, [contentView frame].size.height)];
+    newMainView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     // Either set the subview if there isn't one already, or remove the subview and add the subview
     if ([[contentView subviews] count] == 0)

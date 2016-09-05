@@ -127,14 +127,19 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [self updateMapWithRoutePattern:defaultRoutePattern];    
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidLayoutSubviews
 {
-    [super viewWillAppear:animated];
+    [super viewDidLayoutSubviews];
     
     // Tell map to zoom to show entire route
     if (!mapViewIsLoaded)
         [self zoomFitAnimated:NO includeUserLocation:NO];
-        
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
     // Reset errorShown when view appears again, so the user is warned about the error
     errorShown = NO;
 }

@@ -62,6 +62,10 @@ NSUInteger MaxConcurrentOperationCount = 3;
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
+
+    // Set translucency to zero so that views don't go under the toolbar and navbar
+    [[[self navigationController] navigationBar] setTranslucent:NO];
+    [[[self navigationController] toolbar] setTranslucent:NO];
     
     // Create table view and add it as a subview
     UITableView *newTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [self view].bounds.size.width, [self view].bounds.size.height)
