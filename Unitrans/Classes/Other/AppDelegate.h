@@ -11,7 +11,7 @@
 
 void criticalLoadingErrorAlert(void);
 
-@interface DavisTransAppDelegate : NSObject <UIApplicationDelegate> {
+@interface AppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	UINavigationController *navigationController;
 	

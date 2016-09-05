@@ -20,7 +20,7 @@ void criticalLoadingErrorAlert(void)
     [alert release];
 }
 
-@implementation DavisTransAppDelegate
+@implementation AppDelegate
 
 @synthesize window;
 @synthesize navigationController;
