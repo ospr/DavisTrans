@@ -23,10 +23,6 @@ NSString *kTipsyPhone = @"530-752-6666";
 NSString *kTipsyPhoneText = @"(530) 752-6666";
 NSString *kTipsyWebsite = @"http://daviswiki.org/Tipsy_Taxi";
 
-NSString *kUniRidePhone = @"530-754-4373";
-NSString *kUniRidePhoneText = @"(530) 754-4373";
-NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
-
 @implementation AboutViewController
 
 @synthesize agency;
@@ -95,26 +91,12 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
                                   [NSURL URLWithString:kTipsyWebsite], kResourceURLKey,
                                   nil];
     
-    /*
-    NSDictionary *uniRidePhone = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  @"phone", kMainTextKey,
-                                  kUniRidePhoneText, kDetailTextKey,
-                                  [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", kUniRidePhone]], kResourceURLKey,
-                                  nil];
-    
-    NSDictionary *uniRideWebsite = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    @"website", kMainTextKey,
-                                    kUniRideWebsite, kDetailTextKey,
-                                    [NSURL URLWithString:kUniRideWebsite], kResourceURLKey,
-                                    nil]; */
-    
     NSDictionary *about = [NSDictionary dictionaryWithObjectsAndKeys:
                            @"Credits", kMainTextKey,
                            nil];
     
     NSArray *unitrans = [NSArray arrayWithObjects:unitransPhone, unitransWebsite, unitransEmail, nil];
     NSArray *tipsy = [NSArray arrayWithObjects:tipsyPhone, tipsyWebsite, nil];
-    //NSArray *uniride = [NSArray arrayWithObjects:uniRidePhone, uniRideWebsite, nil];
     NSArray *moreInfo = [NSArray arrayWithObjects:about, nil];
     
     aboutItems = [[NSArray alloc] initWithObjects:unitrans, tipsy, moreInfo, nil];
@@ -151,8 +133,6 @@ NSString *kUniRideWebsite = @"http://unitrans.ucdavis.edu/services/";
         return @"Unitrans";
     if (section == 1)
         return @"Tipsy Taxi";
-    //if (section == 2)
-    //    return @"UniRide";
     if (section == 2)
         return @"More Info";
     
