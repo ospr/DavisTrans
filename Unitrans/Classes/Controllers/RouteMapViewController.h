@@ -16,7 +16,7 @@
 @class Stop;
 @class RoutePattern;
 
-@interface RouteMapViewController : ExtendedViewController <MKMapViewDelegate, BusInformationOperationDelegate, UIActionSheetDelegate> {
+@interface RouteMapViewController : ExtendedViewController <MKMapViewDelegate, BusInformationOperationDelegate, UIActionSheetDelegate, CLLocationManagerDelegate> {
     Route *route;
     Stop *stop;
     RoutePattern *routePattern;

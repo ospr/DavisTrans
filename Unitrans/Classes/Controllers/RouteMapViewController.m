@@ -40,6 +40,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     
     if (self) {
         locationManager = [CLLocationManager new];
+        [locationManager setDelegate:self];
         operationQueue = [[NSOperationQueue alloc] init];
         
         busUpdateInterval = kBusUpdateShortInterval;
@@ -104,6 +105,9 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     [zoomFitButton setAccessibilityLabel:@"Zoom to fit"];
     [self setLeftSegmentedBarButtonItem:zoomFitButton];
     [zoomFitButton release];
+    
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+        [locationManager requestWhenInUseAuthorization];
 }
 
 - (void)viewDidUnload 
@@ -119,8 +123,9 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 
 - (void)loadMapView
 {
-    // Show user location
-    [mapView setShowsUserLocation:YES];
+    // Show user location now if not >= iOS 8
+    if (![locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+         [mapView setShowsUserLocation:YES];
     
     // Update map with default route pattern
     RoutePattern *defaultRoutePattern = [[route orderedRoutePatterns] objectAtIndex:0];
@@ -319,6 +324,24 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
 }
 
 #pragma mark -
+#pragma mark LocationManager Delegate Methods
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined:
+        case kCLAuthorizationStatusRestricted:
+        case kCLAuthorizationStatusDenied:
+            break;
+            
+        case kCLAuthorizationStatusAuthorizedAlways:
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            [mapView setShowsUserLocation:YES];
+            break;
+    }
+}
+
+#pragma mark -
 #pragma mark Map Region Methods
 
 - (MKCoordinateRegion)regionForLocations:(NSArray *)locations
@@ -366,7 +389,6 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     
     // If we are determining region using user location add it
     if (withUserLocation) {
-        [locationManager requestWhenInUseAuthorization];
         CLLocation *userLocation  = [[mapView userLocation] location];
         
         if (userLocation)
