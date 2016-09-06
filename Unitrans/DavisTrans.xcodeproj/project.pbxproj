@@ -1150,7 +1150,7 @@
 				GCC_PREFIX_HEADER = DavisTrans_Prefix.pch;
 				INFOPLIST_FILE = "DavisTrans-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kipnicol.DavisTrans;
+				PRODUCT_BUNDLE_IDENTIFIER = com.davistrans.DavisTrans;
 				PRODUCT_NAME = DavisTrans;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -1169,7 +1169,7 @@
 				GCC_PREFIX_HEADER = DavisTrans_Prefix.pch;
 				INFOPLIST_FILE = "DavisTrans-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kipnicol.DavisTrans;
+				PRODUCT_BUNDLE_IDENTIFIER = com.davistrans.DavisTrans;
 				PRODUCT_NAME = DavisTrans;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
