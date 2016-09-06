@@ -1,5 +1,5 @@
 <h3 align="center">
-  <img src="DavisTrans/Assests/Screenshots/AppIcon.png" alt="DavisTrans App Icon" />
+  <img src="DavisTrans/Assets/Screenshots/AppIcon.png" alt="DavisTrans App Icon" />
 </h3>
 
 DavisTrans
@@ -11,4 +11,4 @@ The app was in service from 2010 to 2013 and is (unfortunately) no longer mainta
 
 **iOS 4-6 Screenshots:**
 
-![DavisTrans/Assests/Screenshots/Screenshots.png](DavisTrans/Assests/Screenshots/Screenshots.png)
+![DavisTrans/Assets/Screenshots/Screenshots.png](DavisTrans/Assets/Screenshots/Screenshots.png)
