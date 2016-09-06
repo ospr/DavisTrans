@@ -39,7 +39,7 @@
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>UILaunchStoryboardName</key>
-	<string>MainWindow</string>
+	<string>LaunchScreen</string>
 	<key>UIPrerenderedIcon</key>
 	<false/>
 	<key>UISupportedInterfaceOrientations</key>

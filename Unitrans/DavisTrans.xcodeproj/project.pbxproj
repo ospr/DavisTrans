@@ -152,6 +152,7 @@
 		37D926A51127DCC5000349A7 /* 92.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D926901127DCC5000349A7 /* 92.png */; };
 		37D926A61127DCC5000349A7 /* 96.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D926911127DCC5000349A7 /* 96.png */; };
 		37D926A71127DCC5000349A7 /* RedCircle.opacity in Resources */ = {isa = PBXBuildFile; fileRef = 37D926921127DCC5000349A7 /* RedCircle.opacity */; };
+		37EFA0F61D7F209A004E77E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37EFA0F51D7F209A004E77E0 /* LaunchScreen.storyboard */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
 		7C25C28010A8CD7300AAD086 /* UIColor_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */; };
 		7CC4CFC01096784F00F2BB67 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CC4CFBF1096784F00F2BB67 /* CoreData.framework */; };
@@ -368,6 +369,7 @@
 		37D926901127DCC5000349A7 /* 92.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 92.png; sourceTree = "<group>"; };
 		37D926911127DCC5000349A7 /* 96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 96.png; sourceTree = "<group>"; };
 		37D926921127DCC5000349A7 /* RedCircle.opacity */ = {isa = PBXFileReference; lastKnownFileType = file; path = RedCircle.opacity; sourceTree = "<group>"; };
+		37EFA0F51D7F209A004E77E0 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7C25C27E10A8CD7300AAD086 /* UIColor_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColor_Extensions.h; sourceTree = "<group>"; };
 		7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColor_Extensions.m; sourceTree = "<group>"; };
@@ -808,6 +810,7 @@
 			children = (
 				C993E18B10A206E800B0F44D /* MainWindow.xib */,
 				373319971172579F004A0303 /* CreditsViewController.xib */,
+				37EFA0F51D7F209A004E77E0 /* LaunchScreen.storyboard */,
 			);
 			path = NIBs;
 			sourceTree = "<group>";
@@ -965,6 +968,7 @@
 				376FD61711017C43004CC2AF /* GRouteToolbarIcon_43.png in Resources */,
 				376FD61811017C43004CC2AF /* HRouteToolbarIcon_43.png in Resources */,
 				376FD61911017C43004CC2AF /* JRouteToolbarIcon_43.png in Resources */,
+				37EFA0F61D7F209A004E77E0 /* LaunchScreen.storyboard in Resources */,
 				376FD61A11017C43004CC2AF /* KRouteToolbarIcon_43.png in Resources */,
 				376FD61B11017C43004CC2AF /* LRouteToolbarIcon_43.png in Resources */,
 				376FD61C11017C43004CC2AF /* MRouteToolbarIcon_43.png in Resources */,
