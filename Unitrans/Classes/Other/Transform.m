@@ -3,7 +3,7 @@
 //  DavisTrans
 //
 //  Created by Ken Zheng on 12/14/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Copyright 2009 Kip Nicol & Ken Zheng
 //
 
 #import "Transform.h"

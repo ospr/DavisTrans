@@ -3,7 +3,7 @@
 //  DavisTrans
 //
 //  Created by Kip on 2/9/10.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//  Copyright 2010 Kip Nicol & Ken Zheng
 //
 
 #import <UIKit/UIKit.h>

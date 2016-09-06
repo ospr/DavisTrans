@@ -3,7 +3,7 @@
 //  DavisTrans
 //
 //  Created by Kip on 12/24/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Copyright 2009 Kip Nicol & Ken Zheng
 //
 
 #import "SegmentedViewController.h"

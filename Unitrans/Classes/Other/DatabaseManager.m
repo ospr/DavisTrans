@@ -3,7 +3,7 @@
 //  DavisTrans
 //
 //  Created by Kip Nicol on 10/28/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Copyright 2009 Kip Nicol & Ken Zheng
 //
 
 #import "DatabaseManager.h"
