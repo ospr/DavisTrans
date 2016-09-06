@@ -1,0 +1,27 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "d66ba40b-609a-48b0-b94a-bfaac553b4ac",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "d66ba40b-609a-48b0-b94a-bfaac553b4ac" : {
+      "DVTSourceControlWorkingCopyRepositoryBranchesLocationKey" : "branches",
+      "DVTSourceControlWorkingCopyRepositoryTagsLocationKey" : "tags",
+      "DVTSourceControlWorkingCopyRepositoryPrimaryBranchLocationKey" : "trunk"
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "d66ba40b-609a-48b0-b94a-bfaac553b4ac" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "1CEEE008-F803-474D-9E71-E1A687BE80EC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "d66ba40b-609a-48b0-b94a-bfaac553b4ac" : "Unitrans\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "DavisTrans",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "trunk\/Unitrans\/DavisTrans.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/svn.xp-dev.com\/svn\/Unitrans",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "d66ba40b-609a-48b0-b94a-bfaac553b4ac"
+    }
+  ]
+}
