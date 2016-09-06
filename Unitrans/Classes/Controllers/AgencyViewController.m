@@ -167,7 +167,7 @@ NSUInteger MaxConcurrentOperationCount = 3;
     
     // If schedule not up to date, alert user!
     if (showOutOfDateNotification) {
-        NSString *reason = @"Your Unitrans schedule data is out of date.";
+        NSString *reason = @"Your Unitrans schedule data is out of date. The app's schedule data is no longer maintained and is here only for historical purposes.";
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Old Schedule Data" message:reason
                                                        delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
