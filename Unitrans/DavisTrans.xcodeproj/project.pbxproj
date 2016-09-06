@@ -152,6 +152,7 @@
 		37D926A51127DCC5000349A7 /* 92.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D926901127DCC5000349A7 /* 92.png */; };
 		37D926A61127DCC5000349A7 /* 96.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D926911127DCC5000349A7 /* 96.png */; };
 		37D926A71127DCC5000349A7 /* RedCircle.opacity in Resources */ = {isa = PBXBuildFile; fileRef = 37D926921127DCC5000349A7 /* RedCircle.opacity */; };
+		37DC40191D7F25E3009C5046 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37DC40181D7F25E3009C5046 /* Images.xcassets */; };
 		37EFA0F61D7F209A004E77E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37EFA0F51D7F209A004E77E0 /* LaunchScreen.storyboard */; };
 		7C25C00610A7DC6F00AAD086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */; };
 		7C25C28010A8CD7300AAD086 /* UIColor_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C25C27F10A8CD7300AAD086 /* UIColor_Extensions.m */; };
@@ -369,6 +370,7 @@
 		37D926901127DCC5000349A7 /* 92.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 92.png; sourceTree = "<group>"; };
 		37D926911127DCC5000349A7 /* 96.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 96.png; sourceTree = "<group>"; };
 		37D926921127DCC5000349A7 /* RedCircle.opacity */ = {isa = PBXFileReference; lastKnownFileType = file; path = RedCircle.opacity; sourceTree = "<group>"; };
+		37DC40181D7F25E3009C5046 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		37EFA0F51D7F209A004E77E0 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C25C00510A7DC6F00AAD086 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7C25C27E10A8CD7300AAD086 /* UIColor_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColor_Extensions.h; sourceTree = "<group>"; };
@@ -649,6 +651,7 @@
 		37A8019F149D35B40041C8B9 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				37DC40181D7F25E3009C5046 /* Images.xcassets */,
 				7CE69EBB10C248250002DE93 /* Default.png */,
 				37873DF71336AD8E00796E45 /* Default@2x.png */,
 				C9F2E203161E9471005032BA /* Default-568h@2x.png */,
@@ -1071,6 +1074,7 @@
 				378227E9133AFCB500E9DDAB /* 72@2x.png in Resources */,
 				378227EA133AFCB500E9DDAB /* 76@2x.png in Resources */,
 				378227EB133AFCB500E9DDAB /* 80@2x.png in Resources */,
+				37DC40191D7F25E3009C5046 /* Images.xcassets in Resources */,
 				378227EC133AFCB500E9DDAB /* 84@2x.png in Resources */,
 				378227ED133AFCB500E9DDAB /* 88@2x.png in Resources */,
 				378227EE133AFCB500E9DDAB /* 92@2x.png in Resources */,
@@ -1143,6 +1147,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -1164,6 +1170,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
