@@ -509,7 +509,7 @@
 			children = (
 				37A8019E149D35970041C8B9 /* Schedules */,
 				7CC4D0AD1097930600F2BB67 /* NIBs */,
-				37A8019F149D35B40041C8B9 /* Graphics */,
+				37A8019F149D35B40041C8B9 /* Assests */,
 				7CC4CFE21096795200F2BB67 /* TransitModel.xcdatamodel */,
 				8D1107310486CEB800E47090 /* DavisTrans-Info.plist */,
 				C974345010A9F4D50072C7B6 /* Todo */,
@@ -646,7 +646,7 @@
 			name = Schedules;
 			sourceTree = "<group>";
 		};
-		37A8019F149D35B40041C8B9 /* Graphics */ = {
+		37A8019F149D35B40041C8B9 /* Assests */ = {
 			isa = PBXGroup;
 			children = (
 				7CE69EBB10C248250002DE93 /* Default.png */,
@@ -673,8 +673,9 @@
 				376FD5FC11017C43004CC2AF /* RouteToolbarIcons */,
 				7CE69E5D10C243890002DE93 /* RouteIcons */,
 			);
-			name = Graphics;
-			sourceTree = "<group>";
+			name = Assests;
+			path = Assets;
+			sourceTree = SOURCE_ROOT;
 		};
 		37D9267C1127DCC5000349A7 /* RedCircle */ = {
 			isa = PBXGroup;
