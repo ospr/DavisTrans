@@ -186,7 +186,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     // If we are displaying the map for a specific stop then add a special stop pin for it
     if (stop && [stop isEqual:annotation]) 
     {
-        Stop *stopAnnotation = annotation;
+        Stop *stopAnnotation = (Stop *)annotation;
         MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"DefaultStop"];
         
         if (!pinAnnotationView) {
@@ -203,7 +203,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     }
     else if ([annotation isKindOfClass:[Stop class]]) 
     {        
-        Stop *stopAnnotation = annotation;
+        Stop *stopAnnotation = (Stop *)annotation;
         
         // If Stop is in current route pattern list of stops add a regular pin
         if ([[[routePattern trip] stops] containsObject:stopAnnotation])
@@ -289,7 +289,7 @@ NSTimeInterval kBusUpdateLongInterval = 20.0;
     if ([[view annotation] isKindOfClass:[Stop class]])
     {
         // Get stop user selected to view
-        Stop *selectedStop = [view annotation];
+        Stop *selectedStop = (Stop *)[view annotation];
         
         // Create new StopViewController
         StopSegmentedViewController *stopSegmentedViewController = [[StopSegmentedViewController alloc] init];

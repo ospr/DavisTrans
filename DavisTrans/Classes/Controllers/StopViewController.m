@@ -70,7 +70,8 @@
 	[allDepartingStopTimes release];
 	[currentStopTimes release];
     [selectedDate release];
-
+    [temporaryDate release];
+    
     [expiredStopTimeTimer release];
     [nextDayTimer release];
     

@@ -39,6 +39,7 @@
 - (void)dealloc {
     [route release];
     [stops release];
+    [filteredStops release];
     
     [searchBar release];
     [searchDisplayController release];

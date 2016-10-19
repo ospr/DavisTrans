@@ -19,6 +19,15 @@
 @synthesize predictable;
 @synthesize coordinate;
 
+- (void)dealloc
+{
+    [vehicleID release];
+    [dirTag release];
+    [routeTag release];
+    
+    [super dealloc];
+}
+
 - (id) init
 {
 	if((self = [super init]))

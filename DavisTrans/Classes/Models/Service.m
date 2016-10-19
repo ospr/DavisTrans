@@ -16,6 +16,16 @@
 @synthesize resourceName;
 @synthesize resourceKind;
 
+- (void)dealloc
+{
+    [shortName release];
+    [longName release];
+    [resourceName release];
+    [resourceKind release];
+    
+    [super dealloc];
+}
+
 - (BOOL)validServiceOnDate:(NSDate *)date
 {
     NSDateComponents *endDateComponents = [[NSDateComponents alloc] init];

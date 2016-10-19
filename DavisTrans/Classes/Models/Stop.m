@@ -27,6 +27,13 @@
     @dynamic coordinate;
 #endif
 
+- (void)dealloc
+{
+    [sequence release];
+    
+    [super dealloc];
+}
+
 - (NSArray *)allStopTimesWithRoute:(Route *)route onDate:(NSDate *)date
 {
     NSMutableArray *routeStopTimes = [NSMutableArray array];

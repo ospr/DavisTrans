@@ -56,6 +56,8 @@
 - (void)dealloc
 {
 	[busArrowImageView release];
+    [imageView release];
+    
 	[super dealloc];
 }
 

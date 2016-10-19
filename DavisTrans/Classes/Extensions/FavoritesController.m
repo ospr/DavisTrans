@@ -16,6 +16,13 @@ static FavoritesController *sharedFavorites = nil;
 
 @synthesize favorites;
 
+- (void)dealloc
+{
+    [favorites release];
+    
+    [super dealloc];
+}
+
 + (FavoritesController *)sharedFavorites
 {
     if (sharedFavorites == nil) {

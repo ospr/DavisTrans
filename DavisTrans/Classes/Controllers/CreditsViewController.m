@@ -52,6 +52,9 @@
 - (void)dealloc 
 {
     [logoImageView release];
+    [creditsTextView release];
+    [versionLabel release];
+    
     [super dealloc];
 }
 
